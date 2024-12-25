@@ -4,6 +4,10 @@
     --dark: #181d38;
 }
 
+.background{
+    background-color: #afb1afe3;
+}
+
 .fw-medium {
     font-weight: 600 !important;
 }
