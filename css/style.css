@@ -1,5 +1,5 @@
 :root {
-    --primary: #10db09;
+    --primary: #24c41e;
     --light: #F0FBFC;
     --dark: #181d38;
 }
@@ -45,7 +45,10 @@
 
 .btn.btn-primary,
 .btn.btn-secondary {
-    color: #FFFFFF;
+    color: #ffffff;
+    background-color: var(--primary);
+    border: none; 
+    box-shadow: none; 
 }
 
 .btn-square {
@@ -118,6 +121,10 @@
 .navbar-light .navbar-nav .nav-link {
     color: var(--dark);
     font-weight: 500;
+}
+
+.navbar-color {
+    color: var(--primary);
 }
 
 .navbar-light.sticky-top {
