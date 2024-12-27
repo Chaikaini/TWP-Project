@@ -31,7 +31,7 @@
     <link href="css/style.css" rel="stylesheet">
 
     <style>
-         .grid-container {
+        .grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
@@ -39,7 +39,6 @@
         .grid-containerc {
             display: flex;
             justify-content: center;
-            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
         }
         .grid-item {
@@ -48,72 +47,35 @@
             text-align: center;
             border: 1px solid #caccce;
             transition: background-color 0.3s ease;
-           
+        }
+        .grid-item img {
+            width: 100%;
+            height: 200px; 
+            object-fit: cover;
+            margin-bottom: 10px; 
+        }
+        .grid-item h6 {
+            margin-top: 10px; 
         }
         .grid-itemc {
-        background-color: #f8f9fa;
-        padding: 10px;
-        text-align: center;
-         border: 1px solid #caccce;
-        transition: background-color 0.3s ease;
-        aspect-ratio: 3 / 4; 
-        width: 100%;
-        max-width: 250px; 
-        height: auto; 
-        overflow: hidden; 
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #caccce;
+            transition: background-color 0.3s ease;
+            aspect-ratio: 3 / 4;
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            overflow: hidden;
         }
-        .grid-item:hover {
-            background-color: #7bcfad;
-        }
-        .grid-itemc:hover {
+        .grid-item:hover, .grid-itemc:hover {
             background-color: #7bcfad;
         }
         .grid-itemc img {
-        width: 100%; 
-        height: auto;
-        object-fit: cover; 
-   
-        }
-        .grid-item img {
-        width: 100%; 
-        height: 200px;
-        object-fit: cover;
-        margin-bottom: 10px; 
-   
-        }
-        .grid-item h6 {
-            margin-top: 10px;
-        }
-
-        .carousel-container {
-            position: relative;
             width: 100%;
-            max-width: 800px;
-            margin: auto;
-            overflow: hidden;
-        }
-        .carousel-slide {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-        .carousel-slide img {
-            width: 100%;
-            border: 2px solid #ddd;
-        }
-        .carousel-buttons {
-            position: absolute;
-            top: 50%;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            transform: translateY(-50%);
-        }
-        .carousel-buttons button {
-            background-color: rgba(0, 0, 0, 0.5);
-            border: none;
-            color: white;
-            padding: 10px;
-            cursor: pointer;
+            height: auto;
+            object-fit: cover;
         }
     </style>
 </head>
@@ -138,12 +100,10 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href="" class="nav-item nav-link">Home</a>
-                <a href="" class="nav-item nav-link">Subject</a>
-                <a href="" class="nav-item nav-link">Payment</a>
                 <a href="" class="nav-item nav-link">About us</a>
                 <a href="" class="nav-item nav-link">Contact us</a>
             </div>
-            <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Log in<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
     </nav>
     <!-- Navbar End -->
@@ -151,22 +111,30 @@
     <!-- Header Start -->
     <div class="container-xxl py-5">
         <div class="container">
-            <div class="carousel-container">
-                <div class="carousel-slide">
-                    <img  src="img/announcemant 1.jpg" alt="Announcement 1">
-                    <img  src="img/announcemant 2.jpg" alt="Announcement 2">
-                    
+            <div id="announcementCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="img/announcemant 1.jpg" class="d-block w-100" alt="Announcement 1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/announcemant 2.jpg" class="d-block w-100" alt="Announcement 2">
+                    </div>
+                   
                 </div>
-                <div class="carousel-buttons">
-                    <button id="prevBtn">&#10094;</button>
-                    <button id="nextBtn">&#10095;</button>
-                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#announcementCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#announcementCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
-            <!--img class="img-fluid bg-light p-1" src="img/announcemant 1.jpg" alt="announcement"-->
+            
             <div class="container-xxl py-5">
                 <div class="container">
                     <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                        <h3 class="section-title bg-white text-center text-primary px-3">Welcome to The Seeds</h3>
+                        <h3 class="section-title bg-white text-center text-primary px-3">Why Choose Us?</h3>
                         <p><b>We provide a good learning environment</b></p>
                         <div class="grid-container">
                             <div class="grid-item">
