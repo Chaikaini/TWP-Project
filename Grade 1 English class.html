@@ -47,33 +47,32 @@
         }
 
         .time-slot-container {
-    display: flex; 
-    gap: 10px; 
-    margin-top: 10px;
-}
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
 
-.time-slot {
-    display: inline-block;
-    width: 150px;
-    height: 50px;
-    line-height: 50px;
-    text-align: center;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    cursor: pointer;
-}
+        .time-slot {
+            display: inline-block;
+            width: 150px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            cursor: pointer;
+        }
 
-.green {
-    background-color: #73cf67;
-    color: white;
-}
+        .green {
+            background-color: #73cf67;
+            color: white;
+        }
 
-.gray {
-    background-color: #d3d3d3;
-    color: #888;
-    pointer-events: none;
-}
-
+        .gray {
+            background-color: #d3d3d3;
+            color: #888;
+            pointer-events: none;
+        }
 
         .popup {
             display: none;
@@ -127,7 +126,7 @@
 
         /* Ensure the class details section adjusts to the image size */
         .subject-image {
-            width: 180px; /* Set a fixed width for the image */
+            width: 180px;
             height: auto;
             flex-shrink: 0;
             display: flex;
@@ -206,11 +205,9 @@
 
                 <!-- Time Slot Selection -->
                 <div class="time-slot-container">
-                    <!-- One green time slot and one gray time slot -->
                     <div class="time-slot green" id="slot1" data-time="Monday 2:30pm-4:00pm" data-students="15/30">2:30pm-4:00pm (Monday)</div>
                     <div class="time-slot gray">2:30pm-4:00pm (Tuesday) - Unavailable</div>
                 </div>
-                
             </div>
         </div>
     </div>
@@ -238,15 +235,23 @@
 
     <!-- JavaScript -->
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            if (params.has('Subject')) {
+                document.getElementById('Subject').textContent = params.get('Subject');
+            }
+            if (params.has('Teacher')) {
+                document.getElementById('Teacher').textContent = params.get('Teacher');
+            }
+            if (params.has('Price')) {
+                document.getElementById('Price').textContent = params.get('Price');
+            }
+        });
 
-        const params = new URLSearchParams(window.location.search);
-        document.getElementById('Subject').textContent = params.get('Subject');
-        document.getElementById('Teacher').textContent = params.get('Teacher');
-        document.getElementById('Price').textContent = params.get('Price');
         // Function to show popup with class details
         function showPopup(time, students) {
             document.getElementById('popupTime').innerText = time;
-            document.getElementById('popupStudents').innerText = "Students: " + students;
+            document.getElementById('popupStudents').innerText = "Students enrolled: " + students;
             document.getElementById('popup').style.display = 'flex';
         }
 
@@ -257,22 +262,24 @@
 
         // Add to cart button functionality
         document.getElementById('addToCart').addEventListener('click', function() {
-            alert('Added to Cart!');
+            alert("Added to cart!");
             document.getElementById('popup').style.display = 'none';
         });
 
-        // Event listener for the green time slot
-        document.getElementById('slot1').addEventListener('click', function() {
-            showPopup(this.getAttribute('data-time'), this.getAttribute('data-students'));
+        // Attach event listener to time slots
+        const timeSlots = document.querySelectorAll('.time-slot.green');
+        timeSlots.forEach(function(slot) {
+            slot.addEventListener('click', function() {
+                const time = slot.dataset.time;
+                const students = slot.dataset.students;
+                showPopup(time, students);
+            });
         });
     </script>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>
-
-
-

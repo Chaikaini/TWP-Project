@@ -203,14 +203,14 @@
     <script>
            const subjectsData = {
         grade1: [
-            { name: "English", image: "img/english.jpg", teacher: "Mr. John", price: "85" },
-            { name: "Malay", image: "img/malay.jpg", teacher: "Ms. Aida", price: "85" },
-            { name: "Math", image: "img/math.jpg", teacher: "Mr. David", price: "85" },
+            { name: "English", image: "img/english.jpg", teacher: "Mr. John", price: "85" ,page: "Grade 1 English class.html?Subject=English&Teacher=Mr.%20John&Price=85" },
+            { name: "Malay", image: "img/malay.jpg", teacher: "Ms. Aida", price: "85",page: "Grade 1 Malay class.html?Subject=Malay&Teacher=Mr.%20Aida&Price=85"  },
+            { name: "Math", image: "img/math.jpg", teacher: "Mr. David", price: "85",page: "Grade 1 Math class.html?Subject=Math&Teacher=Mr.%20David&Price=85"  },
         ],
         grade2: [
-            { name: "English", image: "img/english.jpg", teacher: "Mr. John", price: "85" },
-            { name: "Malay", image: "img/malay.jpg", teacher: "Ms. Aida", price: "85" },
-            { name: "Math", image: "img/math.jpg", teacher: "Mr. David", price: "85" },
+            { name: "English", image: "img/english.jpg", teacher: "Mr. John", price: "85" ,page: "Grade 2 English class.html" },
+            { name: "Malay", image: "img/malay.jpg", teacher: "Ms. Aida", price: "85" ,page: "Grade 2 Malay class.html" },
+            { name: "Math", image: "img/math.jpg", teacher: "Mr. David", price: "85" ,page: "Grade 2 Math class.html" },
         ]
     };
 
@@ -222,7 +222,7 @@
             const card = document.createElement("div");
             card.className = "subject-card";
             card.innerHTML = `
-                <a href="class.html?Subject=${encodeURIComponent(subject.name)}&Teacher=${encodeURIComponent(subject.teacher)}&Price=${encodeURIComponent(subject.price)}">
+                <a href="${subject.page}">
                     <img src="${subject.image}" alt="${subject.name}">
                     <h5>${subject.name}</h5>
                 </a>
