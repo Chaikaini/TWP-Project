@@ -49,7 +49,6 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            
         }
         .containerp {
             max-width: 900px;
@@ -58,11 +57,9 @@
             border: 1px solid #ccc;
             border-radius: 20px;
             margin-top: 50px;
-            
         }
         .course-info, .payment-info {
             margin-bottom: 20px;
-            
         }
         .course-info h2, .payment-info h2 {
             margin-bottom: 10px;
@@ -73,11 +70,9 @@
             align-items: center;
         }
         .course-item img {
-            width: px;
+            width: 180px;
             height: 200px;
             margin-right: 20px;
-          
-            
         }
         .total-amount {
             font-weight: bold;
@@ -91,18 +86,21 @@
             display: flex;
             justify-content: flex-end; 
         }
-        input[type=submit] {
-            background-color: rgb(78, 200, 76);
-            width: 150px;
-            border: 1px solid rgb(93, 92, 89);
-            padding: 10px 20px;
-            color: rgb(0, 0, 0);
-            cursor: pointer; 
-            float: right;
+        .payment {
+        display: flex;
+        justify-content: flex-end; 
         }
-        input[type=submit]:hover {
-            background-color: rgb(71, 145, 69);
-            color: rgb(12, 12, 12); 
+        .payment button {
+            background-color:#15ca39;
+            color: white;
+            padding: 10px 50px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        
+        }
+        .payment button:hover {
+            background-color: #14a631;
         }
     </style>
 </head>
@@ -145,52 +143,47 @@
     </div>
     <!-- Icon Bar End -->
 
-   <!-- Header Start -->
-   
-<!-- Header End -->
-
-<div class="containerp">
-    <div class="course-info">
-        <h2 style="text-align: center;">Payment Details</h2> 
-        
-        <div class="course-item">
-            <img src="img/math.jpg" alt="Math">
-            <div>
-                <p>Math</p>
-                <p>Price: <span>RM85</span></p>
+    <!-- Payment Start -->
+    <div class="containerp">
+        <div class="course-info">
+            <h2 style="text-align: center;">Payment Details</h2> 
+            <div class="course-item">
+                <img src="img/math.jpg" alt="Math">
+                <div>
+                    <p>Math</p>
+                    <p>Price: <span>RM85</span></p>
+                </div>
+            </div>
+            <hr>
+            <div class="course-item">
+                <img src="img/english.jpg" alt="English">
+                <div>
+                    <p>English</p>
+                    <p>Price: <span>RM85</span></p>
+                </div>
+            </div>
+            <hr>
+            <div class="total-amount">
+               <h5>Total Amount: RM170</h5>
             </div>
         </div>
         <hr>
-        <div class="course-item">
-            <img src="img/english.jpg" alt="English">
-            <div>
-                <p>English</p>
-                <p>Price: <span>RM85</span></p>
+        <div class="payment-info">
+            <h4>Choose Your Payment Method</h4>
+            <div class="payment-method">
+                <input type="radio" id="bank" name="payment" value="bank">
+                <label for="bank">Bank Transfer <i class="fas fa-university"></i> </label><br>
+                <input type="radio" id="credit-card" name="payment" value="credit-card">
+                <label for="credit-card"> Credit Card <i class="fas fa-credit-card"></i></label><br>
+                <input type="radio" id="debit-card" name="payment" value="debit-card">
+                <label for="debit-card"> Debit Card <i class="fas fa-credit-card"></i></label>
             </div>
         </div>
-        <hr>
-        <div class="total-amount">
-           <h5> Total Amount: RM170</h5>
+        <div class="payment">
+            <button type="submit">Payment</button>
         </div>
     </div>
-    <hr>
-    <div class="payment-info">
-        <h4>Choose Your Payment Method</h4>
-        <div class="payment-method">
-            <input type="radio" id="bank" name="payment" value="bank">
-            <label for="bank">Bank Transfer</label><br>
-            <input type="radio" id="credit-card" name="payment" value="credit-card">
-            <label for="credit-card">Credit Card</label><br>
-            <input type="radio" id="debit-card" name="payment" value="debit-card">
-            <label for="debit-card">Debit Card</label>
-        </div>
-    </div>
-    <div class="button-container">
-    <br><br><input type="submit" name="submitbtn" value="Payment" />
-</div>
-
-    
-
+    <!-- Payment End -->
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
