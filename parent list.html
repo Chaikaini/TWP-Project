@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - View Parent List</title>
+
+    <!-- Montserrat Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        /* General Body Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Montserrat", sans-serif;
+            background-color: #263043;
+            color: #b0bfb5;
+        }
+
+        /* Material Icons Styling */
+        .material-icons-outlined {
+            vertical-align: middle;
+            line-height: 1px;
+            font-size: 35px;
+        }
+
+        /* Grid Container Setup */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            grid-template-rows: 70px 1fr;
+            grid-template-areas: 
+                "sidebar header"
+                "sidebar main";
+            height: 100vh;
+        }
+
+        /* Header Styling */
+        .header {
+            grid-area: header;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            box-shadow: 0 6px 7px -3px rgba(0, 0, 0, 0.35);
+        }
+
+        .menu-icon {
+            cursor: pointer;
+        }
+
+        .header-left, .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Sidebar Styling */
+        #sidebar {
+            grid-area: sidebar;
+            background-color: #263043;
+            overflow: auto;
+            padding-top: 20px;
+        }
+
+        .sidebar-list {
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .sidebar-list-item {
+            padding: 20px;
+            font-size: 18px;
+            color: #b0bfb5;
+            cursor: pointer;
+        }
+
+        .sidebar-list-item:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main Content Styling */
+        .main-container {
+            grid-area: main;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Search Box Styling */
+        .search-container {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .search-container input {
+            padding: 10px;
+            font-size: 16px;
+            width: 200px;
+            margin-right: 10px;
+        }
+
+        .search-container button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #2962ff;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .search-container button:hover {
+            background-color: #1d5bbb;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            color: #b0bfb5;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #263043;
+        }
+
+        tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="menu-icon" onclick="openSidebar()">
+                <span class="material-symbols-outlined">menu</span>
+            </div>
+            <div class="header-left">
+                <span class="material-symbols-outlined">search</span>
+            </div>
+            <div class="header-right">
+                <span class="material-symbols-outlined">notifications</span>
+                <span class="material-symbols-outlined">email</span>
+                <span class="material-symbols-outlined">account_circle</span>
+            </div>
+        </header>
+        <!-- End Header -->
+
+        <!-- Sidebar -->
+        <aside id="sidebar">
+            <ul class="sidebar-list">
+                <li class="sidebar-list-item">Dashboard</li>
+                <li class="sidebar-list-item">View Student List</li>
+                <li class="sidebar-list-item">View Parent List</li>
+                <li class="sidebar-list-item">View Order</li>
+                <li class="sidebar-list-item">Add Subject</li>
+                <li class="sidebar-list-item">Add Class</li>
+                <li class="sidebar-list-item">Add Staff</li>
+            </ul>
+        </aside>
+        <!-- End Sidebar -->
+
+        <!-- Main -->
+        <main class="main-container">
+            <div class="main-title">
+                <h2>View Parent List</h2>
+            </div>
+            <!-- Search Box -->
+            <div class="search-container">
+                <input type="text" placeholder="Search parents..." id="parentSearch">
+                <button>Search</button>
+            </div>
+
+            <!-- Parent Table -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>IC</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>123456789</td>
+                        <td>john.doe@gmail.com</td>
+                        <td>+60123456789</td>
+                        <td>123, Jalan ABC, Kuala Lumpur</td>
+                    </tr>
+                    <tr>
+                        <td>Jane Smith</td>
+                        <td>987654321</td>
+                        <td>jane.smith@gmail.com</td>
+                        <td>+60129876543</td>
+                        <td>456, Jalan XYZ, Petaling Jaya</td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </main>
+        <!-- End Main -->
+    </div>
+
+    <!-- Custom JS -->
+    <script>
+        var sidebarOpen = false;
+        var sidebar = document.getElementById("sidebar");
+
+        function openSidebar() {
+            if (!sidebarOpen) {
+                sidebar.style.width = "260px";
+                sidebarOpen = true;
+            } else {
+                sidebar.style.width = "0";
+                sidebarOpen = false;
+            }
+        }
+    </script>
+</body>
+</html>
