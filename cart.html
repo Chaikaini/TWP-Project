@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Shopping Cart </title>
+    <title>Shopping Cart</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="The Seeds Learning Centre, Shopping Cart " name="keywords">
-    <meta content="The Seeds Learning Centre | Shopping Cart " name="description">
+    <meta content="The Seeds Learning Centre, Shopping Cart" name="keywords">
+    <meta content="The Seeds Learning Centre | Shopping Cart" name="description">
 
     <!-- Favicon -->
     <link href="img/the seeds.jpg" rel="icon" type="image/png">
@@ -45,12 +45,14 @@
         .icon-bar a:hover {
             color: #73cf67;
         }
+
         .cart-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 10px 0;
             border-bottom: 1px solid #ddd;
+            position: relative;
         }
 
         .cart-item img {
@@ -115,47 +117,93 @@
             padding: 5px 10px;
             cursor: pointer;
         }
+
+        .checkbox-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+
+        .checkbox-container .checkmark {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .checkbox-container input:checked + .checkmark {
+            background-color: #007bff;
+            border-color: #007bff;
+            position: relative;
+        }
+
+        .checkbox-container input:checked + .checkmark::after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 2px;
+            width: 4px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
     </style>
 </head>
 
 <body>
 
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
         <a href="#" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
             <h2 class="navbar-color"><i class="fa fa-book me-3"></i>The Seeds</h2>
         </a>
-    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-        <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="#" class="nav-item nav-link">Home</a>
-            <a href="#" class="nav-item nav-link">Subject</a>
-            <a href="#" class="nav-item nav-link">Payment</a>
-            <a href="#" class="nav-item nav-link">About us</a>
-            <a href="#" class="nav-item nav-link">Contact us</a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="#" class="nav-item nav-link">Home</a>
+                <a href="#" class="nav-item nav-link">Subject</a>
+                <a href="#" class="nav-item nav-link">Payment</a>
+                <a href="#" class="nav-item nav-link">About us</a>
+                <a href="#" class="nav-item nav-link">Contact us</a>
+            </div>
+            <a href="#" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Log out<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
-        <a href="#" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Log out<i class="fa fa-arrow-right ms-3"></i></a>
-    </div>
-</nav>
-<!-- Navbar End -->
+    </nav>
+    <!-- Navbar End -->
+   <!-- Icon Bar -->
+        <div class="icon-bar">
+        <a href="#"><i class="fas fa-bell"></i></a>
+        <a href="#"><i class="fas fa-user"></i></a>
+        </div>
 
-<!-- Icon Bar -->
-<div class="icon-bar">
-    <a href="#"><i class="fas fa-bell"></i></a>
-    <a href="#"><i class="fas fa-shopping-cart"></i></a>
-    <a href="#"><i class="fas fa-user"></i></a>
-</div>
-
-<!-- Breadcrumb Section -->
-<div class="breadcrumb-container">
-    <h1>Shopping Cart</h1>
-    <ul class="breadcrumb">
+    <!-- Breadcrumb Section -->
+        <div class="breadcrumb-container">
+        <h1>Shopping Cart</h1>
+        <ul class="breadcrumb">
         <li><a href="Home.html">Home</a></li>
         <li>&gt;</li>
         <li>Shopping Cart</li>
-    </ul>
-</div>
+        </ul>
+        </div>
 
     <!-- Cart Items Section -->
     <div class="container my-5">
@@ -167,12 +215,11 @@
         <!-- Total Price Section -->
         <div class="total-price">
             <p>Total: RM <span id="total-price">0</span></p>
-            <button class="btn-checklist">Proceed to CheckList</button>
+            <button class="btn-checkout">Proceed to CheckList</button>
         </div>
     </div>
 
     <script>
-        // Sample cart items data
         const cartItems = [
             {
                 subject: 'English Class',
@@ -181,7 +228,7 @@
                 time: 'Monday 2:30pm-4:00pm',
                 image: 'img/english.jpg',
                 grade: 'Grade 1',
-                student:'Yuna',
+                student: 'Yuna',
             },
             {
                 subject: 'Math Class',
@@ -190,68 +237,63 @@
                 time: 'Wednesday 2:30am-4:00pm',
                 image: 'img/math.jpg',
                 grade: 'Grade 1',
-                student:'Yuna',
-
-            }
+                student: 'Yuna',
+            },
         ];
 
-        // Function to update the cart page with the items
+        let selectedItems = [];
+
         function updateCart() {
             const cartContainer = document.querySelector('.cart-items');
-            let totalPrice = 0;
-
-            // Clear current cart items
             cartContainer.innerHTML = '';
-
-            // Loop through cart items and add them to the page
             cartItems.forEach((item, index) => {
                 const cartItemDiv = document.createElement('div');
                 cartItemDiv.classList.add('cart-item');
                 cartItemDiv.innerHTML = `
-                    <div class="cart-item-image">
-                        <img src="${item.image}" alt="Course Image">
+                   <div class="checkbox-container">
+                        <input type="checkbox" class="select-item" onchange="toggleSelection(${index})">
+                        <span class="checkmark"></span>
                     </div>
+                    <img src="${item.image}" alt="Course Image">
                     <div class="cart-item-details">
                         <h5>${item.subject}</h5>
                         <p><strong>Teacher:</strong> ${item.teacher}</p>
                         <p><strong>Grade:</strong> ${item.grade}</p>
                         <p><strong>Price:</strong> RM ${item.price}</p>
                         <p><strong>Time:</strong> ${item.time}</p>
-                        <p><strong>Student:</strong>${item.student}</p>
+                        <p><strong>Student:</strong> ${item.student}</p>
                     </div>
-                    <div class="cart-item-actions">
+                      <div class="cart-item-actions">
                         <i class="fas fa-pencil-alt" onclick="editItem(${index})"></i>
                         <i class="fas fa-trash" onclick="removeFromCart(${index})"></i>
                     </div>
                 `;
                 cartContainer.appendChild(cartItemDiv);
-                totalPrice += item.price;
             });
+        }
 
-            // Update total price
+        function toggleSelection(index) {
+            const checkbox = document.querySelectorAll('.select-item')[index];
+            const selectedItem = cartItems[index];
+            if (checkbox.checked) {
+                selectedItems.push(selectedItem);
+            } else {
+                selectedItems = selectedItems.filter(item => item !== selectedItem);
+            }
+            updateTotalPrice();
+        }
+
+        function updateTotalPrice() {
+            const totalPrice = selectedItems.reduce((sum, item) => sum + item.price, 0);
             document.getElementById('total-price').textContent = totalPrice;
         }
 
-        // Function to remove an item from the cart
-        function removeFromCart(index) {
-            cartItems.splice(index, 1);
-            updateCart();
-        }
-
-        // Function to edit an item in the cart
-        function editItem(index) {
-            alert(`Edit functionality for item: ${cartItems[index].name}`);
-            // Add your edit logic here
-        }
-
-        // Initialize the cart display
         updateCart();
-        </script>
+    </script>
 
-        <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-
+     <!-- JavaScript Libraries -->
+     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
