@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Class</title>
+    <title>Grade 1 English Class</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="The Seeds Learning Centre, class " name="keywords">
     <meta content="The Seeds Learning Centre | Class " name="description">
@@ -200,8 +200,8 @@
             </div>
             <div class="class-details">
                 <h2>Class Information</h2>
-                <p><strong>Subject:</strong> <span id="subject"></span></p>
-                <p><strong>Teacher:</strong> <span id="teacher"></span></p>
+                <p><strong>Subject:</strong> <span id="Subject"></span></p>
+                <p><strong>Teacher:</strong> <span id="Teacher"></span></p>
                 <p><strong>Price: RM</strong> <span id="Price"></span></p>
 
                 <!-- Time Slot Selection -->
@@ -238,6 +238,11 @@
 
     <!-- JavaScript -->
     <script>
+
+        const params = new URLSearchParams(window.location.search);
+        document.getElementById('Subject').textContent = params.get('Subject');
+        document.getElementById('Teacher').textContent = params.get('Teacher');
+        document.getElementById('Price').textContent = params.get('Price');
         // Function to show popup with class details
         function showPopup(time, students) {
             document.getElementById('popupTime').innerText = time;
