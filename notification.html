@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Notifications</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="The Seeds Learning Centre | Notifications" name="keywords">
+    <meta content="The Seeds Learning Centre | Notifications" name="description">
+
+    <!-- Favicon -->
+    <link href="img/the seeds.jpg" rel="icon" type="image/png">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        /* Notification page specific styles */
+        .notification-page {
+            padding: 20px;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .search-container input {
+            padding: 10px;
+            font-size: 16px;
+            width: 250px;
+        }
+
+        .search-container button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #2962ff;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .search-container button:hover {
+            background-color: #1d5bbb;
+        }
+
+        .notification-item {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            padding: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .notification-item:hover {
+            background-color: #e0f7e4;
+        }
+
+        .notification-item .title {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .notification-item .content {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .notification-item .date {
+            text-align: right;
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        .breadcrumb-container {
+            padding: 20px;
+            background-color: #f1f1f1;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb-container h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .breadcrumb {
+            list-style: none;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        .breadcrumb li {
+            display: inline;
+            margin-right: 5px;
+        }
+
+        .breadcrumb li a {
+            text-decoration: none;
+            color: #2962ff;
+        }
+
+        .breadcrumb li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Navbar icon bar styles */
+        .icon-bar {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px 0;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #caccce;
+        }
+
+        .icon-bar a {
+            margin: 0 15px;
+            color: #000000;
+            font-size: 24px;
+            transition: color 0.3s ease;
+        }
+
+        .icon-bar a:hover {
+            color: #73cf67;
+        }
+
+        /* Remove the bell icon */
+        .icon-bar a.fa-bell {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+        <a href="#" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <h2 class="navbar-color"><i class="fa fa-book me-3"></i>The Seeds</h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="#" class="nav-item nav-link">Home</a>
+                <a href="#" class="nav-item nav-link">Subject</a>
+                <a href="#" class="nav-item nav-link">Payment</a>
+                <a href="#" class="nav-item nav-link">About us</a>
+                <a href="#" class="nav-item nav-link">Contact us</a>
+            </div>
+            <a href="#" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Log out<i class="fa fa-arrow-right ms-3"></i></a>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+    <!-- Icon Bar (bell icon removed) -->
+    <div class="icon-bar">
+        <a href="#"><i class="fas fa-shopping-cart"></i></a>
+        <a href="#"><i class="fas fa-user"></i></a>
+    </div>
+
+    <!-- Breadcrumb Section -->
+    <div class="breadcrumb-container">
+        <h1>Notifications</h1>
+        <ul class="breadcrumb">
+            <li><a href="Home.html">Home</a></li>
+            <li>&gt;</li>
+            <li>Notifications</li>
+        </ul>
+    </div>
+
+    <!-- Notification Page -->
+    <div class="notification-page">
+        <div class="search-container">
+            <input type="text" placeholder="Search notifications..." id="notificationSearch">
+            <button>Search</button>
+        </div>
+
+        <!-- Single Notification: Welcome New User -->
+        <div class="notification-item">
+            <div class="title">Welcome, New User!</div>
+            <div class="content">We are happy to have you at The Seeds Learning Centre. Let's get started with your first class!</div>
+            <div class="date">2024-12-29</div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // JavaScript for searching notifications
+        const searchButton = document.querySelector("button");
+        const searchInput = document.getElementById("notificationSearch");
+
+        searchButton.addEventListener("click", function() {
+            const searchText = searchInput.value.toLowerCase();
+            const notificationItems = document.querySelectorAll(".notification-item");
+
+            notificationItems.forEach(function(item) {
+                const title = item.querySelector(".title").textContent.toLowerCase();
+                const content = item.querySelector(".content").textContent.toLowerCase();
+
+                if (title.includes(searchText) || content.includes(searchText)) {
+                    item.style.display = "block"; // Show the notification
+                } else {
+                    item.style.display = "none"; // Hide the notification
+                }
+            });
+        });
+    </script>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
