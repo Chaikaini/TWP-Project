@@ -143,75 +143,7 @@
     </div>
     <!-- Icon Bar End -->
 
-    <!-- Content Start -->
-    <div class="containerp">
-        <h3>选择年级和科目</h3>
-        <div class="grade">
-            <h4 onclick="toggleSubjects('grade1')">一年级</h4>
-            <ul class="subject" id="grade1">
-                <li onclick="showClassDetails('英文', 'Class A', 30, 'Mr. Lee', '9:00 - 10:00 AM')">英文</li>
-                <li onclick="showClassDetails('国文', 'Class B', 25, 'Ms. Tan', '10:30 - 11:30 AM')">国文</li>
-                <li onclick="showClassDetails('数学', 'Class C', 20, 'Mr. Wong', '1:00 - 2:00 PM')">数学</li>
-            </ul>
-        </div>
-        <div class="grade">
-            <h4 onclick="toggleSubjects('grade2')">二年级</h4>
-            <ul class="subject" id="grade2">
-                <li onclick="showClassDetails('英文', 'Class D', 28, 'Ms. Lim', '9:00 - 10:00 AM')">英文</li>
-                <li onclick="showClassDetails('国文', 'Class E', 22, 'Mr. Tan', '10:30 - 11:30 AM')">国文</li>
-                <li onclick="showClassDetails('数学', 'Class F', 18, 'Ms. Lee', '1:00 - 2:00 PM')">数学</li>
-            </ul>
-        </div>
-    </div>
-    <!-- Content End -->
-
-    <!-- Modal -->
-    <div class="modal fade" id="classDetailsModal" tabindex="-1" aria-labelledby="classDetailsModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="classDetailsModalLabel">班级详情</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p><strong>科目:</strong> <span id="subject"></span></p>
-                    <p><strong>班级:</strong> <span id="class"></span></p>
-                    <p><strong>人数:</strong> <span id="students"></span></p>
-                    <p><strong>老师:</strong> <span id="teacher"></span></p>
-                    <p><strong>时间:</strong> <span id="time"></span></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- JavaScript -->
-    <script>
-        function toggleSubjects(gradeId) {
-            const subjects = document.getElementById(gradeId);
-            subjects.style.display = subjects.style.display === 'block' ? 'none' : 'block';
-        }
-
-        function showClassDetails(subject, className, students, teacher, time) {
-            document.getElementById('subject').textContent = subject;
-            document.getElementById('class').textContent = className;
-            document.getElementById('students').textContent = students;
-            document.getElementById('teacher').textContent = teacher;
-            document.getElementById('time').textContent = time;
-            new bootstrap.Modal(document.getElementById('classDetailsModal')).show();
-        }
-    </script>
-
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow.min.js"></script>
-    <script src="lib/easing.min.js"></script>
-    <script src="lib/waypoints.min.js"></script>
-    <script src="lib/owl.carousel.min.js"></script>
-
+   
 
 
 
