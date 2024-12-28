@@ -1,12 +1,12 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>Cart Page</title>
+    <title>Shopping Cart </title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="The Seeds Learning Centre, Cart Page" name="keywords">
-    <meta content="The Seeds Learning Centre | Cart Page" name="description">
+    <meta content="The Seeds Learning Centre, Shopping Cart " name="keywords">
+    <meta content="The Seeds Learning Centre | Shopping Cart " name="description">
 
     <!-- Favicon -->
     <link href="img/the seeds.jpg" rel="icon" type="image/png">
@@ -45,7 +45,6 @@
         .icon-bar a:hover {
             color: #73cf67;
         }
-
         .cart-item {
             display: flex;
             align-items: center;
@@ -74,6 +73,26 @@
             margin: 5px 0;
         }
 
+        .cart-item-actions {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-end;
+            gap: 10px;
+            margin-left: 20px;
+        }
+
+        .cart-item-actions i {
+            font-size: 20px;
+            color: #007bff;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .cart-item-actions i:hover {
+            color: #0056b3;
+        }
+
         .total-price {
             margin-top: 20px;
             font-size: 20px;
@@ -88,80 +107,91 @@
             cursor: pointer;
             width: 100%;
         }
+
+        .btn-add {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
 <body>
-    <!-- Navbar Start -->
+
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
         <a href="#" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
             <h2 class="navbar-color"><i class="fa fa-book me-3"></i>The Seeds</h2>
         </a>
-        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="#" class="nav-item nav-link">Home</a>
-                <a href="#" class="nav-item nav-link">Subject</a>
-                <a href="#" class="nav-item nav-link">Payment</a>
-                <a href="#" class="nav-item nav-link">About us</a>
-                <a href="#" class="nav-item nav-link">Contact us</a>
-            </div>
-            <a href="#" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Log out<i class="fa fa-arrow-right ms-3"></i></a>
+    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+            <a href="#" class="nav-item nav-link">Home</a>
+            <a href="#" class="nav-item nav-link">Subject</a>
+            <a href="#" class="nav-item nav-link">Payment</a>
+            <a href="#" class="nav-item nav-link">About us</a>
+            <a href="#" class="nav-item nav-link">Contact us</a>
         </div>
-    </nav>
-    <!-- Navbar End -->
-
-    <!-- Icon Bar -->
-    <div class="icon-bar">
-        <a href="#"><i class="fas fa-bell"></i></a>
-        <a href="#"><i class="fas fa-user"></i></a>
+        <a href="#" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Log out<i class="fa fa-arrow-right ms-3"></i></a>
     </div>
+</nav>
+<!-- Navbar End -->
 
-    <!-- Breadcrumb Section -->
-    <div class="breadcrumb-container">
-        <h1>Cart Page</h1>
-        <ul class="breadcrumb">
-            <li><a href="Home.html">Home</a></li>
-            <li>&gt;</li>
-            <li><a href="subject.html">Subject</a></li>
-            <li>&gt;</li>
-            <li>Cart Page</li>
-        </ul>
-    </div>
+<!-- Icon Bar -->
+<div class="icon-bar">
+    <a href="#"><i class="fas fa-bell"></i></a>
+    <a href="#"><i class="fas fa-shopping-cart"></i></a>
+    <a href="#"><i class="fas fa-user"></i></a>
+</div>
+
+<!-- Breadcrumb Section -->
+<div class="breadcrumb-container">
+    <h1>Shopping Cart</h1>
+    <ul class="breadcrumb">
+        <li><a href="Home.html">Home</a></li>
+        <li>&gt;</li>
+        <li>Shopping Cart</li>
+    </ul>
+</div>
 
     <!-- Cart Items Section -->
     <div class="container my-5">
+        <h3>Select class</h3>
         <div class="cart-items">
             <!-- Cart Item Template -->
-            <!-- Dynamically add items here -->
         </div>
 
         <!-- Total Price Section -->
         <div class="total-price">
             <p>Total: RM <span id="total-price">0</span></p>
-            <button class="btn-checkout">Proceed to Checkout</button>
+            <button class="btn-checklist">Proceed to CheckList</button>
         </div>
     </div>
 
-    <!-- JavaScript -->
     <script>
         // Sample cart items data
         const cartItems = [
             {
-                name: 'English Class',
+                subject: 'English Class',
                 teacher: 'Mr. John',
                 price: 85,
                 time: 'Monday 2:30pm-4:00pm',
-                image: 'img/english.jpg'
+                image: 'img/english.jpg',
+                grade: 'Grade 1',
+                student:'Yuna',
             },
             {
-                name: 'Math Class',
+                subject: 'Math Class',
                 teacher: 'Mr. David',
                 price: 85,
                 time: 'Wednesday 2:30am-4:00pm',
-                image: 'img/math.jpg'
+                image: 'img/math.jpg',
+                grade: 'Grade 1',
+                student:'Yuna',
+
             }
         ];
 
@@ -182,12 +212,17 @@
                         <img src="${item.image}" alt="Course Image">
                     </div>
                     <div class="cart-item-details">
-                        <h5>${item.name}</h5>
+                        <h5>${item.subject}</h5>
                         <p><strong>Teacher:</strong> ${item.teacher}</p>
+                        <p><strong>Grade:</strong> ${item.grade}</p>
                         <p><strong>Price:</strong> RM ${item.price}</p>
                         <p><strong>Time:</strong> ${item.time}</p>
+                        <p><strong>Student:</strong>${item.student}</p>
                     </div>
-                    <button class="btn btn-danger btn-sm" onclick="removeFromCart(${index})">Remove</button>
+                    <div class="cart-item-actions">
+                        <i class="fas fa-pencil-alt" onclick="editItem(${index})"></i>
+                        <i class="fas fa-trash" onclick="removeFromCart(${index})"></i>
+                    </div>
                 `;
                 cartContainer.appendChild(cartItemDiv);
                 totalPrice += item.price;
@@ -199,20 +234,24 @@
 
         // Function to remove an item from the cart
         function removeFromCart(index) {
-            // Remove the item from the cartItems array
             cartItems.splice(index, 1);
-            // Update the cart page
             updateCart();
         }
 
-        // Initialize the cart page
-        updateCart();
-    </script>
+        // Function to edit an item in the cart
+        function editItem(index) {
+            alert(`Edit functionality for item: ${cartItems[index].name}`);
+            // Add your edit logic here
+        }
 
-    <!-- JavaScript Libraries -->
+        // Initialize the cart display
+        updateCart();
+        </script>
+
+        <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>
-
