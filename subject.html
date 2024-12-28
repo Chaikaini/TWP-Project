@@ -29,6 +29,7 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
     <style>
         .icon-bar {
             display: flex;
@@ -37,45 +38,118 @@
             background-color: #f8f9fa;
             border-bottom: 1px solid #caccce;
         }
+
         .icon-bar a {
             margin: 0 15px;
             color: #000000;
             font-size: 24px;
             transition: color 0.3s ease;
         }
+
         .icon-bar a:hover {
             color: #73cf67;
         }
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            
-        }
-        .containerp {
-            max-width: 900px;
-            margin: auto;
+
+        .breadcrumb-container {
             padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 20px;
-            margin-top: 50px;
-            
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #ccc;
         }
 
+        .breadcrumb-container h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .breadcrumb-container .breadcrumb {
+            margin: 0;
+            padding: 0;
+            background: none;
+            font-size: 14px;
+            list-style: none;
+            display: flex;
+            gap: 5px;
+        }
+
+        .breadcrumb-container .breadcrumb li {
+            color: #555;
+        }
+
+        .breadcrumb-container .breadcrumb li a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .breadcrumb-container .breadcrumb li a:hover {
+            text-decoration: underline;
+        }
+
+        .container-main {
+            display: flex;
+            padding: 20px;
+        }
+
+        .grade-list {
+            width: 30%;
+            border-right: 1px solid #ccc;
+            padding-right: 15px;
+        }
+
+        .grade-list .grade {
+            padding: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        .grade-list .grade:hover {
+            background-color: #e0f7e4;
+        }
+
+        .subject-grid {
+            width: 70%;
+            padding-left: 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .subject-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+            padding: 15px;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .subject-card:hover {
+            transform: scale(1.05);
+            background-color: #e0f7e4;
+        }
+
+        .subject-card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
+        .subject-card h5 {
+            font-size: 16px;
+            margin: 0;
+            color: #333;
+        }
     </style>
 </head>
 
 <body>
-    <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
-    <!-- Spinner End -->
-
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-        <a href="" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+        <a href="#" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
             <h2 class="navbar-color"><i class="fa fa-book me-3"></i>The Seeds</h2>
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -83,80 +157,84 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="" class="nav-item nav-link">Home</a>
-                <a href="" class="nav-item nav-link">Subject</a>
-                <a href="" class="nav-item nav-link">Payment</a>
-                <a href="" class="nav-item nav-link">About us</a>
-                <a href="" class="nav-item nav-link">Contact us</a>
+                <a href="#" class="nav-item nav-link">Home</a>
+                <a href="#" class="nav-item nav-link active">Subject</a>
+                <a href="#" class="nav-item nav-link">Payment</a>
+                <a href="#" class="nav-item nav-link">About us</a>
+                <a href="#" class="nav-item nav-link">Contact us</a>
             </div>
-            <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Log out<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="#" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Log out<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
     </nav>
     <!-- Navbar End -->
 
-    <!-- Icon Bar Start -->
+    <!-- Icon Bar -->
     <div class="icon-bar">
         <a href="#"><i class="fas fa-bell"></i></a>
         <a href="#"><i class="fas fa-shopping-cart"></i></a>
         <a href="#"><i class="fas fa-user"></i></a>
     </div>
-    <!-- Icon Bar End -->
 
-   <!-- Header Start -->
-   
-<!-- Header End -->
+    <!-- Breadcrumb Section -->
+    <div class="breadcrumb-container">
+        <h1>Subject</h1>
+        <ul class="breadcrumb">
+            <li><a href="Home.html">Home</a></li>
+            <li>&gt;</li>
+            <li>Subject</li>
+        </ul>
+    </div>
 
-    <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
+    <!-- Main Content -->
+    <div class="container-main">
+        <!-- Grade List -->
+        <div class="grade-list">
+            <div class="grade" onclick="showSubjects('grade1')">Grade 1</div>
+            <div class="grade" onclick="showSubjects('grade2')">Grade 2</div>
+        </div>
+
+        <!-- Subject Grid -->
+        <div class="subject-grid" id="subjectGrid">
+            <!-- Subjects will dynamically appear here -->
         </div>
     </div>
-    <!-- Spinner End -->
 
-    <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-        <a href="" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <h2 class="navbar-color"><i class="fa fa-book me-3"></i>The Seeds</h2>
-        </a>
-        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="" class="nav-item nav-link">Home</a>
-                <a href="" class="nav-item nav-link">Subject</a>
-                <a href="" class="nav-item nav-link">Payment</a>
-                <a href="" class="nav-item nav-link">About us</a>
-                <a href="" class="nav-item nav-link">Contact us</a>
-            </div>
-            <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Log out<i class="fa fa-arrow-right ms-3"></i></a>
-        </div>
-    </nav>
-    <!-- Navbar End -->
+    <!-- JavaScript -->
+    <script>
+           const subjectsData = {
+        grade1: [
+            { name: "English", image: "img/english.jpg", teacher: "Mr. John", price: "50" },
+            { name: "Malay", image: "img/malay.jpg", teacher: "Ms. Aida", price: "40" },
+            { name: "Math", image: "img/math.jpg", teacher: "Mr. David", price: "60" },
+        ],
+        grade2: [
+            { name: "English", image: "img/english.jpg", teacher: "Mr. John", price: "55" },
+            { name: "Malay", image: "img/malay.jpg", teacher: "Ms. Aida", price: "45" },
+            { name: "Math", image: "img/math.jpg", teacher: "Mr. David", price: "65" },
+        ]
+    };
 
-    <!-- Icon Bar Start -->
-    <div class="icon-bar">
-        <a href="#"><i class="fas fa-bell"></i></a>
-        <a href="#"><i class="fas fa-shopping-cart"></i></a>
-        <a href="#"><i class="fas fa-user"></i></a>
-    </div>
-    <!-- Icon Bar End -->
+    function showSubjects(grade) {
+        const subjectGrid = document.getElementById("subjectGrid");
+        subjectGrid.innerHTML = "";
 
-   
-
-
+        subjectsData[grade].forEach(subject => {
+            const card = document.createElement("div");
+            card.className = "subject-card";
+            card.innerHTML = `
+                <a href="class.html?Subject=${encodeURIComponent(subject.name)}&Teacher=${encodeURIComponent(subject.teacher)}&Price=${encodeURIComponent(subject.price)}">
+                    <img src="${subject.image}" alt="${subject.name}">
+                    <h5>${subject.name}</h5>
+                </a>
+            `;
+            subjectGrid.appendChild(card);
+        });
+    }
+    </script>
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow.min.js"></script>
-    <script src="lib/easing.min.js"></script>
-    <script src="lib/waypoints.min.js"></script>
-    <script src="lib/owl.carousel.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-
 </body>
+
 </html>
