@@ -185,7 +185,12 @@
             <div class="row justify-content-center">
                 <div class="col-lg-10 text-center">
                     <h1 class="display-3 text-white animated slideInDown">My Profile</h1>
-                    
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Profile</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -205,11 +210,11 @@
             
                 <form>
                     <div class="form-group">
-                        <label for="name">Your Name</label>
+                        <label for="name"> Name</label>
                         <input type="text" id="name" >
                     </div>
                     <div class="form-group">
-                        <label for="email">Your Email</label>
+                        <label for="email">Email</label>
                         <input type="email" id="email">
                     </div>
                     <div class="form-group">
@@ -258,40 +263,42 @@
                 </div>
                 <div class="form-group">
                     <label for="gender">Gender</label>
-                    <select id="gender" name="relationship">
+                    <select id="gender" name="gender">
                         <option value="" disabled selected>Gender</option>
-                        <option value="parent">Male</option>
-                        <option value="guardian">Female</option>   
+                        <option value="boy">Boy</option>
+                        <option value="girl">Girl</option>   
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="email">Your Email</label>
-                    <input type="email" id="email">
+                    <label for="kid num">My kid number</label>
+                    <input type="text" id="kid number">
                 </div>
                 <div class="form-group">
-                    <label for="phone-num">Phone Number</label>
-                    <input type="text" id="phone-num" >
+                    <label for="birthday">Birthday</label>
+                    <input type="date" id="Birthday" >
                 </div>
                 <div class="form-group">
-                    <label for="relationship">Relationship</label>
-                    <select id="relationship" name="relationship">
-                        <option value="" disabled selected>Select Relationship With Children</option>
-                        <option value="parent">Parent</option>
-                        <option value="guardian">Guardian</option>
-                        <option value="other">Other</option>
+                    <label for="school">School</label>
+                    <input type="text" id="school">
+                </div>
+                <div class="form-group">
+                    <label for="grade">Grade</label>
+                    <select id="grade" name="grade">
+                        <option value="" disabled selected>Grade</option>
+                        <option value="grade">Grade 1</option>
+                        <option value="grade">Grade 2</option>   
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="address">Address</label>
-                    <textarea id="address" style="height: 100px"></textarea>
-                </div>
-                
+                        <button type="submit">Save Changes</button>
+                    </div>
+
             </form>
             
         </div>
         <div class="profile-content" id="history-content">
             <h3>History</h3>
-            <p>Here you can view your payment and course history.</p>
+            <p>Here you can view your payment for tuition fee history.</p>
             <!-- Add form or content for History -->
         </div>
     </div>
