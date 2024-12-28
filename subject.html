@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 
 <head>
@@ -54,6 +54,19 @@
             padding: 20px;
             background-color: #f8f9fa;
             border-bottom: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .breadcrumb-container .search-box{
+            display: flex;
+            align-items: center;
+        }
+
+        .breadcrumb-container .search-box input{
+            width: 200px;
+            margin-right: 10px;
         }
 
         .breadcrumb-container h1 {
@@ -176,13 +189,19 @@
     </div>
 
     <!-- Breadcrumb Section -->
-    <div class="breadcrumb-container">
+    <div class="breadcrumb-container d-flex justify-content-between align-items-center">
+        <div>
         <h1>Subject</h1>
         <ul class="breadcrumb">
             <li><a href="Home.html">Home</a></li>
             <li>&gt;</li>
             <li>Subject</li>
         </ul>
+    </div>
+        <div class="search-box">
+        <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="width: 200px;">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+        </div>
     </div>
 
     <!-- Main Content -->
@@ -208,33 +227,33 @@
             { name: "Math", image: "img/math.jpg", teacher: "Mr. David", price: "85",page: "Grade 1 Math class.html?Subject=Math&Teacher=Mr.%20David&Price=85"  },
         ],
         grade2: [
-            { name: "English", image: "img/english.jpg", teacher: "Mr. John", price: "85" ,page: "Grade 2 English class.html" },
-            { name: "Malay", image: "img/malay.jpg", teacher: "Ms. Aida", price: "85" ,page: "Grade 2 Malay class.html" },
-            { name: "Math", image: "img/math.jpg", teacher: "Mr. David", price: "85" ,page: "Grade 2 Math class.html" },
+            { name: "English", image: "img/english.jpg", teacher: "Mr. John", price: "85" ,page: "Grade 2 English class.html?Subject=English&Teacher=Mr.%20John&Price=85" },
+            { name: "Malay", image: "img/malay.jpg", teacher: "Ms. Aida", price: "85" ,page: "Grade 2 Malay class.html?Subject=Malay&Teacher=Mr.%20John&Price=85" },
+            { name: "Math", image: "img/math.jpg", teacher: "Mr. David", price: "85" ,page: "Grade 2 Math class.html?Subject=Math&Teacher=Mr.%20John&Price=85" },
         ]
     };
 
     function showSubjects(grade) {
-        const subjectGrid = document.getElementById("subjectGrid");
-        subjectGrid.innerHTML = "";
+    const subjectGrid = document.getElementById("subjectGrid");
+    subjectGrid.innerHTML = "";
 
-        subjectsData[grade].forEach(subject => {
-            const card = document.createElement("div");
-            card.className = "subject-card";
-            card.innerHTML = `
-                <a href="${subject.page}">
-                    <img src="${subject.image}" alt="${subject.name}">
-                    <h5>${subject.name}</h5>
-                </a>
-            `;
-            subjectGrid.appendChild(card);
-        });
-    }
+    subjectsData[grade].forEach(subject => {
+        const card = document.createElement("div");
+        card.className = "subject-card";
+        card.innerHTML = `
+            <a href="${subject.page}">
+                <img src="${subject.image}" alt="${subject.name}">
+                <h5>${subject.name}</h5>
+            </a>
+        `; // Properly closed the string here
+        subjectGrid.appendChild(card);
+    });
+}
+    
     </script>
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
