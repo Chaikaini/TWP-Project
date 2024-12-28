@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <!--Montserrat Font-->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!--Material Icons-->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+    <!--Chart.js-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!---Custom Css-->
+    <link rel="stylesheet" href="css2/styles.css">
+</head>
+<body>
+    <div class="grid-container">
+        <!--Header-->
+        <header class="header">
+            <div class="menu-icon" onclick="toggleSidebar()">
+                <span class="material-symbols-outlined">menu</span>
+            </div>
+            <div class="header-left">
+                <span class="material-symbols-outlined">search</span>
+            </div>
+            <div class="header-right">
+                <span class="material-symbols-outlined">notifications</span>
+                <span class="material-symbols-outlined">email</span>
+                <span class="material-symbols-outlined">account_circle</span>
+            </div>
+        </header>
+
+        <!--Sidebar-->
+        <aside id="sidebar" class="sidebar">
+            <ul class="sidebar-list">
+                <li class="sidebar-list-item">
+                    <span class="material-symbols-outlined">dashboard</span> Dashboard
+                </li>
+                <li class="sidebar-list-item">
+                    <span class="material-symbols-outlined">group</span> View Student List
+                </li>
+                <li class="sidebar-list-item">
+                    <span class="material-symbols-outlined">group_add</span> View Parent List
+                </li>
+                <li class="sidebar-list-item">
+                    <span class="material-symbols-outlined">shopping_cart</span> View Order
+                </li>
+                <li class="sidebar-list-item">
+                    <span class="material-symbols-outlined">playlist_add</span> Add Subject
+                </li>
+                <li class="sidebar-list-item">
+                    <span class="material-symbols-outlined">class</span> Add Class
+                </li>
+                <li class="sidebar-list-item">
+                    <span class="material-symbols-outlined">person_add</span> Add Staff
+                </li>
+            </ul>
+        </aside>
+
+        <!--Main-->
+        <main class="main-container">
+            <div class="main-title">
+                <h2>DASHBOARD</h2>
+            </div>
+            <div class="main-cards">
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>STUDENTS</h3>
+                        <span class="material-symbols-outlined">group</span>
+                    </div>
+                    <h1>300</h1>
+                </div>
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>PARENTS</h3>
+                        <span class="material-symbols-outlined">group_add</span>
+                    </div>
+                    <h1>194</h1>
+                </div>
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>SUBJECTS</h3>
+                        <span class="material-symbols-outlined">playlist_add</span>
+                    </div>
+                    <h1>3</h1>
+                </div>
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>STAFF</h3>
+                        <span class="material-symbols-outlined">person_add</span>
+                    </div>
+                    <h1>10</h1>
+                </div>
+            </div>
+
+            <!-- Empty lines between cards and charts -->
+            <div style="margin-top: 40px;"></div>
+
+            <!-- Chart 1: Subjects Bar Chart -->
+            <div class="chart-container">
+                <canvas id="subjectsChart" width="400" height="200"></canvas>
+            </div>
+
+            <!-- Chart 2: New vs Old Users Pie Chart -->
+            <div class="chart-container" style="margin-top: 40px;">
+                <canvas id="usersChart" width="400" height="200"></canvas>
+            </div>
+        </main>
+    </div>
+
+    <!--Custom Js-->
+    <script src="js2/scripts.js"></script>
+
+    <script>
+        // Chart 1: Subjects Bar Chart
+        const ctxSubjects = document.getElementById('subjectsChart').getContext('2d');
+        const subjectsChart = new Chart(ctxSubjects, {
+            type: 'bar',
+            data: {
+                labels: ['English', 'Malay', 'Math'],
+                datasets: [{
+                    label: 'Subjects Count',
+                    data: [30, 23, 31],
+                    backgroundColor: ['#2962ff', '#ff6d00', '#2e7d32'],
+                    borderColor: ['#1e3a8a', '#d75b00', '#1b5e20'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Chart 2: New vs Old Users Pie Chart
+        const ctxUsers = document.getElementById('usersChart').getContext('2d');
+        const usersChart = new Chart(ctxUsers, {
+            type: 'pie',
+            data: {
+                labels: ['New Users', 'Old Users'],
+                datasets: [{
+                    label: 'User Types',
+                    data: [30, 56],
+                    backgroundColor: ['#ffb74d', '#42a5f5'],
+                    borderColor: ['#ff9800', '#2196f3'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    </script>
+</body>
+</html>
