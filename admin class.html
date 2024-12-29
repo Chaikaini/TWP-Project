@@ -173,75 +173,89 @@
       </div>
     </nav>
 
-    <!-- Subject List -->
-    <h1 class="mb-4">Subject List</h1>
+    <!-- Class List -->
+    <h1 class="mb-4">Class List</h1>
     <div class="card">
       <div class="card-header">
-        <h5>Subject List</h5>
-        <button class="btn btn-primary float-end" id="addSubjectBtn">Add Subject</button>
+        <h5>Class List</h5>
+        <button class="btn btn-primary float-end" id="addClassBtn">Add Class</button>
       </div>
       <div class="card-body">
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>Subject</th>
+              <th>Class ID</th>
               <th>Subject ID</th>
-              <th>Grade</th>
-              <th>Price</th>
+              <th>Day</th>
+              <th>Time</th>
+              <th>Teacher</th>
+              <th>Num.Student</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Math</td>
+              <td>Eng5710</td>
+              <td>11245</td>
+              <td>Monday</td>
+              <td>2:30pm - 4:30pm</td>
+              <td>Mr.John</td>
+              <td>0/30</td>
+              <td>
+                <button class="btn btn-danger btn-sm">Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Mly7610</td>
+              <td>11351</td>
+              <td>Tuesday</td>
+              <td>2:30pm - 4:30pm</td>
+              <td>Ms.Lily</td>
+              <td>0/30</td>
+              <td>
+                <button class="btn btn-danger btn-sm">Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Mat8710</td>
               <td>11132</td>
-              <td>Grade 1 </td>
-              <td>RM 85</td>
-              <td>
-                <button class="btn btn-danger btn-sm">Delete</button>
-              </td>
-            </tr>
-            <tr>
-                <td>English</td>
-                <td>11245</td>
-                <td>Grade 1 </td>
-                <td>RM 85</td>
-              <td>
-                <button class="btn btn-danger btn-sm">Delete</button>
-              </td>
-            </tr>
-            <tr>
-                <td>Malay</td>
-                <td>11351</td>
-                <td>Grade 1 </td>
-                <td>RM 85</td>
+              <td>Wednesday</td>
+              <td>2:30pm - 4:30pm</td>
+              <td>Mr.David</td>
+              <td>0/30</td>
               <td>
                 <button class="btn btn-danger btn-sm">Delete</button>
               </td>
             </tr>
             <tr>
                 <tr>
-                    <td>Math 2</td>
-                    <td>22134</td>
-                    <td>Grade 2 </td>
-                    <td>RM 85</td>
-                    <td>
-                        <button class="btn btn-danger btn-sm">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>English 2</td>
+                    <td>Eng5720</td>
                     <td>22534</td>
-                    <td>Grade 2 </td>
-                    <td>RM 85</td>
+                    <td>Monday</td>
+                    <td>5:00pm - 7:00pm</td>
+                    <td>Mr.John</td>
+                    <td>0/30</td>
                     <td>
                         <button class="btn btn-danger btn-sm">Delete</button>
                     </td>
                 </tr>
                 <tr>
-                    <td>Malay 2</td>
+                    <td>Mly7620</td>
                     <td>22345</td>
-                    <td>Grade 2 </td>
-                    <td>RM 85</td>
+                    <td>Tuesday</td>
+                    <td>5:00pm - 7:00pm</td>
+                    <td>Ms.Lily</td>
+                    <td>0/30</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Mat8720</td>
+                    <td>22134</td>
+                    <td>Wednesday</td>
+                    <td>5:00pm - 7:00pm</td>
+                    <td>Mr.David</td>
+                    <td>0/30</td>
                     <td>
                         <button class="btn btn-danger btn-sm">Delete</button>
                     </td>
@@ -255,40 +269,44 @@
     </div>
   </div>
   <!-- The Modal -->
-<div id="addSubjectModal" class="modal">
+<div id="addClassModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <form id="addSubjectForm">
-            <label for="subject">Subject:</label>
-            <input type="text" id="subject" name="subject">
-            <label for="subjectID">Subject ID:</label>
-            <input type="text" id="subjectID" name="subjectID">
-            <label for="grade">Grade:</label>
-            <input type="text" id="grade" name="grade">
-            <label for="price">Price:</label>
-            <input type="text" id="price" name="price">
-            <input type="submit" value="Add Subject">
+        <form id="addClassForm">
+            <label for="classid">Class ID:</label>
+            <input type="text" id="classid" name="classid">
+            <label for="subjectid">Subject ID:</label>
+            <input type="text" id="subjectid" name="subjectid">
+            <label for="day">Day:</label>
+            <input type="text" id="day" name="day">
+            <label for="time">Time:</label>
+            <input type="text" id="time" name="time">
+            <label for="teacher">Teacher:</label>
+            <input type="text" id="teacher" name="">
+            <label for="enrollment">Num.Student:</label>
+            <input type="text" id="enrollment" name="enrollment">
+            <input type="submit" value="Add Class">
         </form>
     </div>
 </div>
 
 <script>
     // get button
-    var modal = document.getElementById("addSubjectModal");
-    var addSubjectBtn = document.getElementById("addSubjectBtn");
+    var modal = document.getElementById("addClassModal");
+    var addClassBtn = document.getElementById("addClassBtn");
     var span = document.getElementsByClassName("close")[0];
 
     // open form
-    addSubjectBtn.onclick = function() {
+    addClassBtn.onclick = function() {
         modal.style.display = "block";
     }
 
-    //close form
+    // cloce form
     span.onclick = function() {
         modal.style.display = "none";
     }
 
-    
+    // 
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
@@ -296,10 +314,10 @@
     }
 
     // form sumit
-    document.getElementById("addSubjectForm").onsubmit = function(event) {
+    document.getElementById("addClassForm").onsubmit = function(event) {
         event.preventDefault();
         
-        alert("Subject added!");
+        alert("Class added!");
         modal.style.display = "none";
     }
 </script>
