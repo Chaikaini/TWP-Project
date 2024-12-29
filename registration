@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Registration</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="The Seeds Learning Centre,registration" name="keywords">
+    <meta content="The Seeds Learning Centre | Registration" name="description">
+
+    <!-- Favicon -->
+    <link href="img/the-seeds.jpg" rel="icon" type="image/png">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Heebo', sans-serif;
+            display: flex;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        .left-half {
+            width: 60%;
+            overflow: hidden;
+        }
+
+        .left-half img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .right-half {
+            width: 40%;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .registration-form {
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .registration-form h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .registration-form p {
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .registration-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .registration-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #17a2b8;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .registration-form button:hover {
+            background-color: #138496;
+        }
+
+        .registration-form p a {
+            color: #17a2b8;
+            text-decoration: none;
+        }
+
+        .registration-form p a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-half">
+            <img src="img/image-1.jpg" alt="Background Image">
+        </div>
+        <div class="right-half">
+            <div class="registration-form">
+                <h2>Create Your Account</h2>
+                <p>Fill in the details below to create your account.</p>
+                <form>
+                    <input type="text" placeholder="Username" required>
+                    <input type="email" placeholder="Email" required>
+                    <input type="text" placeholder="Address" required>
+                    <input type="tel" placeholder="Phone Number" required>
+                    <input type="text" placeholder="Relationship" required>
+                    <input type="password" placeholder="Password" required>
+                    <input type="password" placeholder="Confirm Password" required>
+                    <button type="submit">Register</button>
+                    <p>Already have an account? <a href="#">Login here</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
