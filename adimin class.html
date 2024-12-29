@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Class List</title>
+
+    <!-- Montserrat Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        /* General Body Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Montserrat", sans-serif;
+            background-color: #263043;
+            color: #b0bfb5;
+        }
+
+        /* Material Icons Styling */
+        .material-icons-outlined {
+            vertical-align: middle;
+            line-height: 1px;
+            font-size: 35px;
+        }
+
+        /* Grid Container Setup */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            grid-template-rows: 70px 1fr;
+            grid-template-areas: 
+                "sidebar header"
+                "sidebar main";
+            height: 100vh;
+        }
+
+        /* Header Styling */
+        .header {
+            grid-area: header;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            box-shadow: 0 6px 7px -3px rgba(0, 0, 0, 0.35);
+        }
+
+        .menu-icon {
+            cursor: pointer;
+        }
+
+        .header-left, .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Sidebar Styling */
+        #sidebar {
+            grid-area: sidebar;
+            background-color: #263043;
+            overflow: auto;
+            padding-top: 20px;
+        }
+
+        .sidebar-list {
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .sidebar-list-item {
+            padding: 20px;
+            font-size: 18px;
+            color: #b0bfb5;
+            cursor: pointer;
+        }
+
+        .sidebar-list-item:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main Content Styling */
+        .main-container {
+            grid-area: main;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Search Box Styling */
+        .search-container {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .search-container input {
+            padding: 10px;
+            font-size: 16px;
+            width: 200px;
+            margin-right: 10px;
+        }
+
+        .search-container button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #2962ff;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .search-container button:hover {
+            background-color: #1d5bbb;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            color: #b0bfb5;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #263043;
+        }
+
+        tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(61, 59, 59, 0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #494747;
+            width: 30%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(102, 101, 101, 0.3);
+            animation: fadeIn 0.5s;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: rgb(66, 65, 65);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .modal-content form {
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-content label {
+            margin-top: 10px;
+        }
+        .modal-content input[type="text"] {
+            padding: 10px;
+            margin-top: 5px;
+            border: px solid #ccc;
+            border-radius: 5px;
+        }
+        .modal-content input[type="submit"] {
+            margin-top: 20px;
+            padding: 20px;
+            background-color:  #0039cb;
+            border: none;
+            color: rgb(252, 248, 248);
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .modal-content input[type="submit"]:hover {
+            background-color: #16358a;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="menu-icon" onclick="openSidebar()">
+                <span class="material-symbols-outlined">menu</span>
+            </div>
+            
+            <div class="header-right">
+                <span class="material-symbols-outlined">notifications</span>
+                <span class="material-symbols-outlined">email</span>
+                <span class="material-symbols-outlined">account_circle</span>
+            </div>
+        </header>
+        <!-- End Header -->
+
+        <!-- Sidebar -->
+        <aside id="sidebar">
+            <ul class="sidebar-list">
+                <li class="sidebar-list-item">Dashboard</li>
+                <li class="sidebar-list-item">View Student List</li>
+                <li class="sidebar-list-item">View Parent List</li>
+                <li class="sidebar-list-item">View Order</li>
+                <li class="sidebar-list-item">Subject List</li>
+                <li class="sidebar-list-item">Class List</li>
+                <li class="sidebar-list-item">Staff List</li>
+            </ul>
+        </aside>
+        <!-- End Sidebar -->
+
+        <!-- Main -->
+        <main class="main-container">
+            <div class="main-title">
+                <h2>Class List</h2>
+            </div>
+            <!-- Search Box -->
+            <div class="search-container">
+                <input type="text" placeholder="Search class..." id="classsearch">
+                <button>Search</button>
+            <!-- Add Class Button -->  
+            </div>
+            <div class="search-container">
+            <button id="addClassBtn">Add Class</button>
+                
+            </div>
+
+            <!-- Parent Table -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Class ID</th>
+                        <th>Subject ID</th>
+                        <th>Day</th>
+                        <th>Time</th>
+                        <th>Teacher</th>
+                        <th>Num.Student</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Eng5710</td>
+                        <td>11245</td>
+                        <td>Monday</td>
+                        <td>2:30pm - 4:30pm</td>
+                        <td>Mr.John</td>
+                        <th>0/30</th>
+                    </tr>
+                    <tr>
+                        <td>Mly7610</td>
+                        <td>11351</td>
+                        <td>Tuesday</td>
+                        <td>2:30pm - 4:30pm</td>
+                        <td>Ms.Lily</td>
+                        <th>0/30</th>
+                    </tr>
+                    <tr>
+                        <td>Mat8710</td>
+                        <td>11132</td>
+                        <td>Wednesday</td>
+                        <td>2:30pm - 4:30pm</td>
+                        <td>Mr.David</td>
+                        <th>0/30</th>
+                        
+                    </tr>
+                    <tr>
+                        <td>Eng5720</td>
+                        <td>22534</td>
+                        <td>Monday</td>
+                        <td>5:00pm - 7:00pm</td>
+                        <td>Mr.John</td>
+                        <th>0/30</th>
+                    </tr>
+                    <tr>
+                        <td>Mly7620</td>
+                        <td>22345</td>
+                        <td>Tuesday</td>
+                        <td>5:00pm - 5:00pm</td>
+                        <td>Ms.Lily</td>
+                        <th>0/30</th>
+                    </tr>
+                    <tr>
+                        <td>Mat8720</td>
+                        <td>22134</td>
+                        <td>Wednesday</td>
+                        <td>5:00pm - 7:00pm</td>
+                        <td>Mr.David</td>
+                        <th>0/30</th>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </main>
+        <!-- End Main -->
+    </div>
+    
+
+
+<!-- The Modal -->
+    <div id="addClassModal" class="modal">
+       <div class="modal-content">
+        <span class="close">&times;</span>
+        <form id="addClassForm">
+            <label for="classCode">Class ID:</label><br>
+            <input type="text" id="classCode" name="classCode"><br>
+            <label for="classID">Subject ID:</label><br>
+            <input type="text" id="classID" name="classID"><br>
+            <label for="day">Day:</label><br>
+            <input type="text" id="day" name="day"><br>
+            <label for="time">Time:</label><br>
+            <input type="text" id="time" name="time"><br>
+            <label for="instructor">Teacher:</label><br>
+            <input type="text" id="instructor" name="instructor"><br>
+            <label for="enrollment">Num.Student:</label><br>
+            <input type="text" id="enrollment" name="enrollment"><br><br>
+            <input type="submit" value="Add Class">
+        </form>
+       </div>
+    </div>
+
+    <script>
+        // get button
+        var modal = document.getElementById("addClassModal");
+        var btn = document.getElementById("addClassBtn");
+        var span = document.getElementsByClassName("close")[0];
+    
+        // open pop up
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+    
+        // click <span> (x) close pop up
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+    
+        // close
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    
+        // sumit
+        document.getElementById("addClassForm").onsubmit = function(event) {
+            event.preventDefault();
+            // 
+            alert("Class added!");
+            modal.style.display = "none";
+        }
+      
+       
+           var sidebarOpen = false;
+           var sidebar = document.getElementById("sidebar");
+   
+           function openSidebar() {
+               if (!sidebarOpen) {
+                   sidebar.style.width = "260px";
+                   sidebarOpen = true;
+               } else {
+                   sidebar.style.width = "0";
+                   sidebarOpen = false;
+               }
+           }
+       </script>
+   </body>
+   </html>
