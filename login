@@ -16,28 +16,161 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Heebo', sans-serif;
+            display: flex;
+            height: 100vh;
+        }
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/animate.min.css" rel="stylesheet">
-    <link href="lib/owl.carousel.min.css" rel="stylesheet">
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+        .left-half {
+            width: 60%;
+            overflow: hidden;
+        }
 
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+        .left-half img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .right-half {
+            width: 40%;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-form {
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-form h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .login-form p {
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .google-login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #17a2b8 !important; 
+            background-color: transparent !important; 
+            border-radius: 8px;
+            color: #17a2b8 !important; 
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+
+        .google-login img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .google-login:hover {
+            background-color: #bbeaf0 !important;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #17a2b8;
+            border: none;
+            border-radius: 5px;
+            color: #000000;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .login-form button:hover {
+            background-color: #138496;
+        }
+
+        .login-form .options {
+            text-align: right;
+            margin-bottom: 15px;
+        }
+
+        .login-form .options a {
+            font-size: 14px;
+            color: #17a2b8;
+            text-decoration: none;
+        }
+
+        .login-form .options a:hover {
+            text-decoration: underline;
+        }
+
+        .login-form p a {
+            color: #17a2b8;
+            text-decoration: none;
+        }
+
+        .login-form p a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
 <body>
-
-    <div class="left-half">
-        <img src="img/image-1.jpg" alt="Left Half Image">
+    <div class="container">
+        <div class="left-half">
+            <img src="img/image-1.jpg" alt="Background Image">
+        </div>
+        <div class="right-half">
+            <div class="login-form">
+                <h2>Welcome Back!</h2>
+                <p>Continue with Google or your details below.</p>
+                <!-- Google Login Button -->
+                <button class="google-login">
+                    <img src="img/google-icon.jpg">
+                    Login with Google
+                </button>
+                <p>or</p>
+                <form>
+                    <input type="text" placeholder="Username" required>
+                    <input type="password" placeholder="Password" required>
+                    <div class="options">
+                        <a href="#">Forgot password?</a>
+                    </div>
+                    <button type="submit">Login</button>
+                    <p>Don’t have an account? <a href="#">Sign up for free</a></p>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="right-half"></div>
-      
 </body>
 
 </html>
