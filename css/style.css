@@ -459,3 +459,17 @@
     color: #73cf67;
 }
 
+.left-half img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.left-half {
+    width: 50%;
+    height: 100%;
+}
+.right-half {
+    width: 50%;
+    height: 100%;
+    background-color: #f4f4f4;
+}
