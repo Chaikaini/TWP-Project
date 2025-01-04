@@ -184,66 +184,73 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>Subject</th>
               <th>Subject ID</th>
-              <th>Grade</th>
+              <th>Subject</th>
+              <th>Year</th>
               <th>Price</th>
+              <th>Actions</th> 
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Math</td>
               <td>11132</td>
-              <td>Grade 1 </td>
+              <td>Math</td>
+              <td>Year 1 </td>
               <td>RM 85</td>
               <td>
-                <button class="btn btn-danger btn-sm">Delete</button>
+                <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;"></i>
+                <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
               </td>
             </tr>
             <tr>
-                <td>English</td>
                 <td>11245</td>
-                <td>Grade 1 </td>
+                <td>English</td>
+                <td>Year 1 </td>
                 <td>RM 85</td>
-              <td>
-                <button class="btn btn-danger btn-sm">Delete</button>
-              </td>
+                <td>
+                  <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;"></i>
+                  <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
+                </td>
             </tr>
             <tr>
-                <td>Malay</td>
                 <td>11351</td>
-                <td>Grade 1 </td>
+                <td>Malay</td>
+                <td>Year 1 </td>
                 <td>RM 85</td>
-              <td>
-                <button class="btn btn-danger btn-sm">Delete</button>
-              </td>
+                <td>
+                  <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;"></i>
+                  <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
+                </td>
             </tr>
             <tr>
                 <tr>
-                    <td>Math 2</td>
                     <td>22134</td>
-                    <td>Grade 2 </td>
+                    <td>Math 2</td>
+                    <td>Year 2 </td>
                     <td>RM 85</td>
                     <td>
-                        <button class="btn btn-danger btn-sm">Delete</button>
+                      <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;"></i>
+                      <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
                     </td>
                 </tr>
                 <tr>
-                    <td>English 2</td>
                     <td>22534</td>
-                    <td>Grade 2 </td>
+                    <td>English 2</td>
+                    <td>Year 2 </td>
                     <td>RM 85</td>
                     <td>
-                        <button class="btn btn-danger btn-sm">Delete</button>
+                      <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;"></i>
+                      <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
                     </td>
                 </tr>
                 <tr>
-                    <td>Malay 2</td>
                     <td>22345</td>
-                    <td>Grade 2 </td>
+                    <td>Malay 2</td>
+                    <td>Year 2 </td>
                     <td>RM 85</td>
                     <td>
-                        <button class="btn btn-danger btn-sm">Delete</button>
+                      <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;"></i>
+                      <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
                     </td>
                 </tr>
                 
@@ -257,14 +264,14 @@
   <!-- The Modal -->
 <div id="addSubjectModal" class="modal">
     <div class="modal-content">
-        <span class="close">&times;</span>
+        <span class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; cursor: pointer;">&times;</span>
         <form id="addSubjectForm">
-            <label for="subject">Subject:</label>
-            <input type="text" id="subject" name="subject">
             <label for="subjectID">Subject ID:</label>
             <input type="text" id="subjectID" name="subjectID">
-            <label for="grade">Grade:</label>
-            <input type="text" id="grade" name="grade">
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject">
+            <label for="year">Year:</label>
+            <input type="text" id="year" name="year">
             <label for="price">Price:</label>
             <input type="text" id="price" name="price">
             <input type="submit" value="Add Subject">

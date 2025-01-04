@@ -184,18 +184,18 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>Class ID</th>
               <th>Subject ID</th>
+              <th>Class ID</th>
               <th>Day</th>
               <th>Time</th>
               <th>Teacher</th>
-              <th>Num.Student</th>
+              <th>Capacity</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Eng5710</td>
               <td>11245</td>
+              <td>Eng5710</td>
               <td>Monday</td>
               <td>2:30pm - 4:30pm</td>
               <td>Mr.John</td>
@@ -205,8 +205,8 @@
               </td>
             </tr>
             <tr>
-              <td>Mly7610</td>
               <td>11351</td>
+              <td>Mly7610</td>
               <td>Tuesday</td>
               <td>2:30pm - 4:30pm</td>
               <td>Ms.Lily</td>
@@ -216,8 +216,8 @@
               </td>
             </tr>
             <tr>
-              <td>Mat8710</td>
               <td>11132</td>
+              <td>Mat8710</td>
               <td>Wednesday</td>
               <td>2:30pm - 4:30pm</td>
               <td>Mr.David</td>
@@ -228,8 +228,8 @@
             </tr>
             <tr>
                 <tr>
-                    <td>Eng5720</td>
                     <td>22534</td>
+                    <td>Eng5720</td>
                     <td>Monday</td>
                     <td>5:00pm - 7:00pm</td>
                     <td>Mr.John</td>
@@ -239,8 +239,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Mly7620</td>
                     <td>22345</td>
+                    <td>Mly7620</td>
                     <td>Tuesday</td>
                     <td>5:00pm - 7:00pm</td>
                     <td>Ms.Lily</td>
@@ -250,8 +250,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Mat8720</td>
                     <td>22134</td>
+                    <td>Mat8720</td>
                     <td>Wednesday</td>
                     <td>5:00pm - 7:00pm</td>
                     <td>Mr.David</td>
@@ -271,19 +271,19 @@
   <!-- The Modal -->
 <div id="addClassModal" class="modal">
     <div class="modal-content">
-        <span class="close">&times;</span>
+        <span class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; cursor: pointer;">&times;</span>
         <form id="addClassForm">
-            <label for="classid">Class ID:</label>
-            <input type="text" id="classid" name="classid">
             <label for="subjectid">Subject ID:</label>
             <input type="text" id="subjectid" name="subjectid">
+            <label for="classid">Class ID:</label>
+            <input type="text" id="classid" name="classid">
             <label for="day">Day:</label>
             <input type="text" id="day" name="day">
             <label for="time">Time:</label>
             <input type="text" id="time" name="time">
             <label for="teacher">Teacher:</label>
             <input type="text" id="teacher" name="">
-            <label for="enrollment">Num.Student:</label>
+            <label for="enrollment">Capasity:</label>
             <input type="text" id="enrollment" name="enrollment">
             <input type="submit" value="Add Class">
         </form>

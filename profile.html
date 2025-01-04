@@ -202,7 +202,7 @@
         <div class="profile-options"style="height: 300px">
             <a href="#" id="my-info-tab" class="active">My Information</a>
             <a href="#" id="children-info-tab">Children Information</a>
-            <a href="#" id="history-tab">History</a>
+            <a href="#" id="history-tab">Payment History</a>
         </div>
     
     
@@ -215,11 +215,29 @@
                         <input type="text" id="name" >
                     </div>
                     <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender">
+                            <option value="" disabled selected>Select your gender</option>
+                            <option value="parent">Male</option>
+                            <option value="guardian">Female</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ic-num">IC Number</label>
+                        <input type="text" id="ic-num" >
+                    </div>
+                    
+                    <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" id="email">
                     </div>
                     <div class="form-group">
-                        <label for="phone-num">Phone Number</label>
+                        <label for="phone-num">Phone Number 1</label>
+                        <input type="text" id="phone-num" >
+                    </div>
+                    <div class="form-group">
+                        <label for="phone-num">Phone Number 2</label>
                         <input type="text" id="phone-num" >
                     </div>
                     <div class="form-group">
@@ -228,7 +246,6 @@
                             <option value="" disabled selected>Select Relationship With Children</option>
                             <option value="parent">Parent</option>
                             <option value="guardian">Guardian</option>
-                            <option value="other">Other</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -257,6 +274,7 @@
           
         <div class="profile-content" id="children-info-content">
             <h3>Children Information</h3>
+
             <form>
                 <div class="form-group">
                     <label for="name"> Name</label>
@@ -283,11 +301,11 @@
                     <input type="text" id="school">
                 </div>
                 <div class="form-group">
-                    <label for="grade">Grade</label>
+                    <label for="grade">Year</label>
                     <select id="grade" name="grade">
-                        <option value="" disabled selected>Grade</option>
-                        <option value="grade">Grade 1</option>
-                        <option value="grade">Grade 2</option>   
+                        <option value="" disabled selected>Year</option>
+                        <option value="grade">Year 1</option>
+                        <option value="grade">Year 2</option>   
                     </select>
                 </div>
                 <div class="form-group">
