@@ -233,6 +233,8 @@
         ]
     };
 
+    showSubjects('year1');
+
     function showSubjects(year) {
     const subjectGrid = document.getElementById("subjectGrid");
     subjectGrid.innerHTML = "";
@@ -245,7 +247,7 @@
                 <img src="${subject.image}" alt="${subject.name}">
                 <h5>${subject.name}</h5>
             </a>
-        `; // Properly closed the string here
+       ` ; // Properly closed the string here
         subjectGrid.appendChild(card);
     });
 }
