@@ -181,7 +181,6 @@
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href="#" class="nav-item nav-link">Home</a>
                 <a href="#" class="nav-item nav-link">Subject</a>
-                <a href="#" class="nav-item nav-link">Payment</a>
                 <a href="#" class="nav-item nav-link">About us</a>
                 <a href="#" class="nav-item nav-link">Contact us</a>
                 <a href="" class="nav-item nav-link">Comment</a>
@@ -216,7 +215,7 @@
         <!-- Total Price Section -->
         <div class="total-price">
             <p>Total: RM <span id="total-price">0</span></p>
-            <button class="btn-checkout">Proceed to CheckList</button>
+            <button class="btn-checkout">Proceed to CheckOut</button>
         </div>
     </div>
 
@@ -228,7 +227,7 @@
                 price: 85,
                 time: 'Monday 2:30pm-4:00pm',
                 image: 'img/english.jpg',
-                grade: 'Grade 1',
+                year: 'Year 1',
                 student: 'Yuna',
             },
             {
@@ -237,7 +236,7 @@
                 price: 85,
                 time: 'Wednesday 2:30am-4:00pm',
                 image: 'img/math.jpg',
-                grade: 'Grade 1',
+                year: 'Year 1',
                 student: 'Yuna',
             },
         ];
@@ -259,7 +258,7 @@
                     <div class="cart-item-details">
                         <h5>${item.subject}</h5>
                         <p><strong>Teacher:</strong> ${item.teacher}</p>
-                        <p><strong>Grade:</strong> ${item.grade}</p>
+                        <p><strong>Year:</strong> ${item.year}</p>
                         <p><strong>Price:</strong> RM ${item.price}</p>
                         <p><strong>Time:</strong> ${item.time}</p>
                         <p><strong>Student:</strong> ${item.student}</p>
