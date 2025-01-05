@@ -127,6 +127,7 @@
         .form-group h3 {
             margin-top: 30px;
         }
+        
         .form-group button {
             background-color:#15ca39;
             color: white;
@@ -137,6 +138,62 @@
         }
         .form-group button:hover {
             background-color: #14a631;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 30%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .btn {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
         }
     </style>
 </head>
@@ -275,45 +332,29 @@
         <div class="profile-content" id="children-info-content">
             <h3>Children Information</h3>
 
-            <form>
-                <div class="form-group">
-                    <label for="name"> Name</label>
-                    <input type="text" id="name" >
-                </div>
-                <div class="form-group">
-                    <label for="gender">Gender</label>
-                    <select id="gender" name="gender">
-                        <option value="" disabled selected>Gender</option>
-                        <option value="boy">Boy</option>
-                        <option value="girl">Girl</option>   
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="kid num">My kid number</label>
-                    <input type="text" id="kid number">
-                </div>
-                <div class="form-group">
-                    <label for="birthday">Birthday</label>
-                    <input type="date" id="Birthday" >
-                </div>
-                <div class="form-group">
-                    <label for="school">School</label>
-                    <input type="text" id="school">
-                </div>
-                <div class="form-group">
-                    <label for="grade">Year</label>
-                    <select id="grade" name="grade">
-                        <option value="" disabled selected>Year</option>
-                        <option value="grade">Year 1</option>
-                        <option value="grade">Year 2</option>   
-                    </select>
-                </div>
-                <div class="form-group">
-                        <button type="submit">Save Changes</button>
-                    </div>
-
-            </form>
-            
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Child Name</th>
+                            <th>Gender</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Yuna</td>
+                            <td>Girl/td>
+                            <td>
+                                <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openModal('11245', 'Eng5710')"></i>
+                                <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>    
+        
+            <button class="btn btn-primary" id="addChildBtn">Add Child</button>
         </div>
         <div class="profile-content" id="history-content">
             <h3>History</h3>
@@ -322,6 +363,54 @@
         </div>
     </div>
     </div>
+
+   <!-- Add Child Modal -->
+<div id="addChildModal" class="modal">
+    <div class="modal-content">
+        <span class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; cursor: pointer;" onclick="closeModal()">&times;</span>
+        <form id="addChildForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name">
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender">
+                    <option value="" disabled selected>Gender</option>
+                    <option value="boy">Boy</option>
+                    <option value="girl">Girl</option>   
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="kidNumber">My kid number</label>
+                <input type="text" id="kidNumber" name="kidNumber">
+            </div>
+            <div class="form-group">
+                <label for="birthday">Birthday</label>
+                <input type="date" id="birthday" name="birthday">
+            </div>
+            <div class="form-group">
+                <label for="school">School</label>
+                <input type="text" id="school" name="school">
+            </div>
+            <div class="form-group">
+                <label for="grade">Year</label>
+                <select id="grade" name="grade">
+                    <option value="" disabled selected>Year</option>
+                    <option value="grade1">Year 1</option>
+                    <option value="grade2">Year 2</option>   
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+   
+
+   
+    
 
     <!-- JavaScript to handle tab switching -->
     <script>
@@ -340,14 +429,55 @@
             contents.forEach(function(content) {
                 content.classList.remove('active');
             });
-            document.getElementById(contentId).classList.add('active');
+
+        document.getElementById(contentId).classList.add('active');
 
             var tabs = document.querySelectorAll('.profile-options a');
             tabs.forEach(function(tab) {
                 tab.classList.remove('active');
             });
             element.classList.add('active');
+
+
         }
+
+        document.getElementById('addChildBtn').onclick = function() {
+            document.getElementById('addChildModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('addChildModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            var modal = document.getElementById('addChildModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        document.getElementById('addChildForm').onsubmit = function(event) {
+            event.preventDefault();
+            alert("Child information saved!");
+            closeModal();
+        }
+
+        function openModal(subjectId, classId) {
+
+        document.getElementById('name').value = 'John Doe'; // 示例值
+        document.getElementById('gender').value = 'boy'; // 示例值
+        document.getElementById('kidNumber').value = subjectId;
+        document.getElementById('birthday').value = '2010-01-01'; // 示例值
+        document.getElementById('school').value = 'ABC School'; // 示例值
+        document.getElementById('grade').value = 'grade1'; // 示例值
+
+    //show 
+        document.getElementById('addChildModal').style.display = 'block';
+        }
+    //hide
+       function closeModal() {
+       document.getElementById('addChildModal').style.display = 'none';
+       }
     </script>
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
