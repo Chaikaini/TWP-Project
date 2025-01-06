@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Check List</title>
+    <title>Check Out</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="The Seeds Learning Centre,check list" name="keywords">
     <meta content="The Seeds Learning Centre | Check list" name="description">
@@ -51,7 +51,7 @@
             margin: 20px;
         }
         .containerp {
-            max-width: 900px;
+            max-width: 650px;
             margin: auto;
             padding: 20px;
             border: 1px solid #ccc;
@@ -83,9 +83,10 @@
             transition: none !important;
         }
         .total-amount {
-            font-weight: bold;
+            font-weight:0;
             margin-top: 10px;
-            text-align: right;
+            text-align: left;
+            
         }
         .payment-method {
             margin-top: 20px;
@@ -110,6 +111,31 @@
         .payment button:hover {
             background-color: #14a631;
         }
+
+        .payment-method label {
+      display: flex;
+      align-items: right;
+      margin-bottom: 10px; 
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .payment-method input[type="radio"] {
+    margin-right: 10px; 
+    vertical-align: middle; 
+    }
+
+    .payment-method img {
+    margin-right: 10px;
+    width: 24px;
+    height: 24px;
+   }
+   
+   .payment-option input[type="radio"] {
+    margin-left: auto; 
+    cursor: pointer;
+   }
+
     </style>
 </head>
 
@@ -155,13 +181,13 @@
     <!-- Payment Start -->
     <div class="containerp">
         <div class="course-info">
-            <h2>Payment Details</h2> 
-            <div class="course-item">
+            <h2>Checkout</h2> 
+            <div class="course-item"style="margin-top: 20px;">
                 <img src="img/english.jpg" alt="English">
                 <div>
                     <p><b>English Class</b></p>
                     <p><b>Teacher:</b> Mr.John</p>
-                    <p><b>Grade:</b> Grade 1</p>
+                    <p><b>Year:</b> Year 1</p>
                     <p><b>Price:</b> RM85</p>
                     <p><b>Time:</b> Monday 2:30pm-4:00pm</p>
                     <p><b>Student:</b>Yuna</p>
@@ -173,32 +199,53 @@
                 <div>
                     <p><b>Math Class</b></p>
                     <p><b>Teacher:</b> Mr.David</p>
-                    <p><b>Grade:</b> Grade 1</p>
+                    <p><b>Year:</b> Year 1</p>
                     <p><b>Price:</b> RM85</p>
                     <p><b>Time:</b> Wednesday 2:30pm-4:00pm</p>
                     <p><b>Student:</b>Yuna</p>
                 </div>
             </div>
             <hr>
-            <div class="total-amount">
-               <h5>Total Amount: RM170</h5>
+            <div class="total-amount" style="margin-top: 20px;">
+                <h4>Payment Details</h4>
+                <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                    <p>Subject Fee:</p>
+                    <p>RM170</p>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <p>Materials Fee:</p>
+                    <p>RM50</p>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <p><b>Total Amount:</b></p>
+                    <p><b>RM230</b></p>
+                </div>
             </div>
-        </div>
         <hr>
+
         <div class="payment-info">
             <h4>Choose Your Payment Method</h4>
-            <div class="payment-method">
-                <input type="radio" id="bank" name="payment" value="bank">
-                <label for="bank">Bank Transfer <i class="fas fa-university"></i> </label><br>
-                <input type="radio" id="credit-card" name="payment" value="credit-card">
-                <label for="credit-card"> Credit Card <i class="fas fa-credit-card"></i></label><br>
-                <input type="radio" id="debit-card" name="payment" value="debit-card">
-                <label for="debit-card"> Debit Card <i class="fas fa-credit-card"></i></label>
+            <div class="payment-method"style="margin-top: 30px;">
+                <label for="credit" class="payment-option">
+                    <img src="img/credit.png" alt="Credit Card" class="payment-icon"> Credit Card
+                    <input type="radio" id="credit" name="payment" value="credit">
+                </label><br>
+        
+                <label for="jompay" class="payment-option">
+                    <img src="img/jompay.png" alt="JomPAY" class="payment-icon"> JomPAY
+                    <input type="radio" id="jompay" name="payment" value="jompay">
+                </label><br>
+        
+                <label for="tng" class="payment-option">
+                    <img src="img/tng.png" alt="Touch 'n Go" class="payment-icon"> Touch 'n Go eWallet
+                    <input type="radio" id="tng" name="payment" value="tng">
+                </label>
             </div>
         </div>
-        <div class="payment">
-            <button type="submit">Payment</button>
+        <div class="payment"style="margin-top: 50px;">
+            <button type="submit"style="width: 100%;">Payment</button>
         </div>
+    </div>
     </div>
     <!-- Payment End -->
 
