@@ -213,6 +213,29 @@
         border-radius: 50%;
         display: inline-block;
     }
+    .avatar-section {
+       text-align: center;
+       margin-bottom: 20px;
+   }
+
+    .avatar-container {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 2px solid #ccc;
+        display: inline-block;
+    }
+
+    .avatar-container img {
+       width: 100%;
+       height: 100%;
+       object-fit: cover;
+    }
+
+#avatar-upload {
+    display: none;
+}
     </style>
 </head>
 
@@ -237,7 +260,6 @@
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href="" class="nav-item nav-link">Home</a>
                 <a href="" class="nav-item nav-link">Subject</a>
-                <a href="" class="nav-item nav-link">Payment</a>
                 <a href="" class="nav-item nav-link">About us</a>
                 <a href="" class="nav-item nav-link">Contact us</a>
                 <a href="" class="nav-item nav-link">Comment</a>
@@ -282,6 +304,16 @@
     
         <div class="profile-content active" id="my-info-content">
             <h3>My Information</h3>
+
+            <div class="avatar-section"style="margin-top: 30px;">
+                <label for="avatar-upload">
+                    <div class="avatar-container">
+                        <img src="img/user.jpg" alt="User Avatar" id="user-avatar">
+                    </div>
+                </label>
+                <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+            </div>
+
             <form>
                 <div class="form-group">
                     <label for="name"> Name</label>
@@ -416,6 +448,16 @@
     <div class="modal-content">
         <span class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; cursor: pointer;" onclick="closeModal()">&times;</span>
         <h3>Add Child Information</h3>
+
+        <div class="avatar-section"style="margin-top: 30px;">
+            <label for="avatar-upload">
+                <div class="avatar-container">
+                    <img src="img/user.jpg" alt="User Avatar" id="user-avatar">
+                </div>
+            </label>
+            <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+        </div>
+
         <form id="addChildForm">
             <div class="form-group">
                 <label for="name">Name</label>
@@ -461,6 +503,16 @@
     <div class="modal-content">
         <span class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; cursor: pointer;" onclick="closeModal()">&times;</span>
         <h3>Edit Child Information</h3>
+
+        <div class="avatar-section"style="margin-top: 30px;">
+            <label for="avatar-upload">
+                <div class="avatar-container">
+                    <img src="img/user.jpg" alt="User Avatar" id="user-avatar">
+                </div>
+            </label>
+            <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+        </div>
+
         <form id="childForm">
             <div class="form-group">
                 <label for="childName">Child Name</label>
@@ -613,6 +665,14 @@ window.addEventListener('click', function(event) {
   if (event.target == document.getElementById('childFormModal')) {
     document.getElementById('childFormModal').style.display = "none";
   }
+});
+
+document.getElementById("avatar-upload").addEventListener("change", function(event) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        document.getElementById("user-avatar").src = e.target.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
 });
         
     </script>
