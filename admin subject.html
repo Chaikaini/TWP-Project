@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Dashboard</title>
+  
+    <!-- Favicon -->
+    <link href="img/the seeds.jpg" rel="icon" type="image/png">
+    
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <style>
@@ -120,6 +124,53 @@
         .modal-content input[type="submit"]:hover {
             background-color: #0039cb;
         }
+
+        .modal-header {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .modal-footer {
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            margin-top: 20px;
+            text-align: right;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            width: 100%;
+            height: 100px;
+            resize: vertical;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            color: #fff;
+        }
+
+        
+
    
   </style>
 </head>
@@ -184,66 +235,73 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>Subject</th>
               <th>Subject ID</th>
-              <th>Grade</th>
+              <th>Subject</th>
+              <th>Year</th>
               <th>Price</th>
+              <th>Actions</th> 
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Math</td>
               <td>11132</td>
-              <td>Grade 1 </td>
+              <td>Math</td>
+              <td>Year 1 </td>
               <td>RM 85</td>
               <td>
-                <button class="btn btn-danger btn-sm">Delete</button>
+                <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openEditModal('11132', 'Math', 'Year 1', 'RM 85')"></i>
+                <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
               </td>
             </tr>
             <tr>
-                <td>English</td>
                 <td>11245</td>
-                <td>Grade 1 </td>
+                <td>English</td>
+                <td>Year 1 </td>
                 <td>RM 85</td>
-              <td>
-                <button class="btn btn-danger btn-sm">Delete</button>
-              </td>
+                <td>
+                  <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openEditModal('11245', 'English', 'Year 1', 'RM 85')"></i>
+                  <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
+                </td>
             </tr>
             <tr>
-                <td>Malay</td>
                 <td>11351</td>
-                <td>Grade 1 </td>
+                <td>Malay</td>
+                <td>Year 1 </td>
                 <td>RM 85</td>
-              <td>
-                <button class="btn btn-danger btn-sm">Delete</button>
-              </td>
+                <td>
+                  <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openModal()"></i>
+                  <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
+                </td>
             </tr>
             <tr>
                 <tr>
-                    <td>Math 2</td>
                     <td>22134</td>
-                    <td>Grade 2 </td>
+                    <td>Math 2</td>
+                    <td>Year 2 </td>
                     <td>RM 85</td>
                     <td>
-                        <button class="btn btn-danger btn-sm">Delete</button>
+                      <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openModal()"></i>
+                      <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
                     </td>
                 </tr>
                 <tr>
-                    <td>English 2</td>
                     <td>22534</td>
-                    <td>Grade 2 </td>
+                    <td>English 2</td>
+                    <td>Year 2 </td>
                     <td>RM 85</td>
                     <td>
-                        <button class="btn btn-danger btn-sm">Delete</button>
+                      <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openModal()"></i>
+                      <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
                     </td>
                 </tr>
                 <tr>
-                    <td>Malay 2</td>
                     <td>22345</td>
-                    <td>Grade 2 </td>
+                    <td>Malay 2</td>
+                    <td>Year 2 </td>
                     <td>RM 85</td>
                     <td>
-                        <button class="btn btn-danger btn-sm">Delete</button>
+                      <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openModal()"></i>
+                      <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
                     </td>
                 </tr>
                 
@@ -254,23 +312,62 @@
       </div>
     </div>
   </div>
+  
   <!-- The Modal -->
 <div id="addSubjectModal" class="modal">
     <div class="modal-content">
-        <span class="close">&times;</span>
+        <span class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; cursor: pointer;">&times;</span>
         <form id="addSubjectForm">
-            <label for="subject">Subject:</label>
-            <input type="text" id="subject" name="subject">
             <label for="subjectID">Subject ID:</label>
             <input type="text" id="subjectID" name="subjectID">
-            <label for="grade">Grade:</label>
-            <input type="text" id="grade" name="grade">
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject">
+            <label for="year">Year:</label>
+            <input type="text" id="year" name="year">
             <label for="price">Price:</label>
             <input type="text" id="price" name="price">
+            <div class="form-group">
+              <label for="description">Subject description:</label>
+              <textarea id="description" name="description"></textarea>
+            </div>
             <input type="submit" value="Add Subject">
+            
         </form>
     </div>
 </div>
+
+  <!-- Edit Modal -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close"  style="position: absolute; top: 10px; right: 10px; font-size: 24px; cursor: pointer;" onclick="closeModal()">&times;</span>
+        <form id="editSubjectForm">
+            <div class="form-group">
+                <label for="editSubjectID">Subject ID:</label>
+                <input type="text" id="editSubjectID" name="subjectID">
+            </div>
+            <div class="form-group">
+                <label for="editSubject">Subject:</label>
+                <input type="text" id="editSubject" name="subject">
+            </div>
+            <div class="form-group">
+                <label for="editYear">Year:</label>
+                <input type="text" id="editYear" name="year">
+            </div>
+            <div class="form-group">
+                <label for="editPrice">Price:</label>
+                <input type="text" id="editPrice" name="price">
+            </div>
+            <div class="form-group">
+                <label for="editDescription">Subject description:</label>
+                <textarea id="editDescription" name="description"></textarea>
+            </div>
+            <input type="submit" value="Save changes" class="btn btn-primary">
+        </form>
+    </div>
+</div>
+
+
+
 
 <script>
     // get button
@@ -302,6 +399,31 @@
         alert("Subject added!");
         modal.style.display = "none";
     }
+
+    function openEditModal(subjectID, subject, year, price) {
+            document.getElementById('editSubjectID').value = subjectID;
+            document.getElementById('editSubject').value = subject;
+            document.getElementById('editYear').value = year;
+            document.getElementById('editPrice').value = price;
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            var modal = document.getElementById('editModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        document.getElementById('editSubjectForm').onsubmit = function(event) {
+            event.preventDefault();
+            alert("Changes saved!");
+            closeModal();
+        }
 </script>
 
 

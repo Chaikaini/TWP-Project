@@ -127,6 +127,7 @@
         .form-group h3 {
             margin-top: 30px;
         }
+        
         .form-group button {
             background-color:#15ca39;
             color: white;
@@ -138,6 +139,80 @@
         .form-group button:hover {
             background-color: #14a631;
         }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 30%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .btn {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            
+        }
+        
+        .button-container {
+        text-align: right;
+        margin-top: 10px;
+    }
+
+        .form-select {
+        width: 150px; 
+    }
+
+    .status-circle {
+        height: 15px;
+        width: 15px;
+        background-color: rgb(27, 217, 87);
+        border-radius: 50%;
+        display: inline-block;
+    }
     </style>
 </head>
 
@@ -199,111 +274,232 @@
     <!-- Header End -->
 
     <div class="profile-container">
-        <div class="profile-options"style="height: 300px">
+        <div class="profile-options" style="height: 300px">
             <a href="#" id="my-info-tab" class="active">My Information</a>
             <a href="#" id="children-info-tab">Children Information</a>
-            <a href="#" id="history-tab">History</a>
+            <a href="#" id="history-tab">Payment History</a>
         </div>
-    
     
         <div class="profile-content active" id="my-info-content">
             <h3>My Information</h3>
-            
-                <form>
-                    <div class="form-group">
-                        <label for="name"> Name</label>
-                        <input type="text" id="name" >
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email">
-                    </div>
-                    <div class="form-group">
-                        <label for="phone-num">Phone Number</label>
-                        <input type="text" id="phone-num" >
-                    </div>
-                    <div class="form-group">
-                        <label for="relationship">Relationship</label>
-                        <select id="relationship" name="relationship">
-                            <option value="" disabled selected>Select Relationship With Children</option>
-                            <option value="parent">Parent</option>
-                            <option value="guardian">Guardian</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="address">Address</label>
-                        <textarea id="address" style="height: 100px"></textarea>
-                    </div>
-                    <h3>Reset Password</h3>
-                    <div class="form-group">
-                        <label for="current-password">Current Password</label>
-                        <input type="text" id="current-password">
-                    </div>
-                    <div class="form-group">
-                        <label for="new-password">New Password</label>
-                        <input type="text" id="new-password" >
-                    </div>
-                    <div class="form-group">
-                        <label for="confirm-password">Confirm Password</label>
-                        <input type="text" id="confirm-password" >
-                    </div>
-                    <div class="form-group">
-                        <button type="submit">Save Changes</button>
-                    </div>
-                </form>
-
-        </div>
-          
-        <div class="profile-content" id="children-info-content">
-            <h3>Children Information</h3>
             <form>
                 <div class="form-group">
                     <label for="name"> Name</label>
-                    <input type="text" id="name" >
+                    <input type="text" id="name">
                 </div>
                 <div class="form-group">
                     <label for="gender">Gender</label>
                     <select id="gender" name="gender">
-                        <option value="" disabled selected>Gender</option>
-                        <option value="boy">Boy</option>
-                        <option value="girl">Girl</option>   
+                        <option value="" disabled selected>Select your gender</option>
+                        <option value="parent">Male</option>
+                        <option value="guardian">Female</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="kid num">My kid number</label>
-                    <input type="text" id="kid number">
+                    <label for="ic-num">IC Number</label>
+                    <input type="text" id="ic-num">
                 </div>
                 <div class="form-group">
-                    <label for="birthday">Birthday</label>
-                    <input type="date" id="Birthday" >
+                    <label for="email">Email</label>
+                    <input type="email" id="email">
                 </div>
                 <div class="form-group">
-                    <label for="school">School</label>
-                    <input type="text" id="school">
+                    <label for="phone-num">Phone Number 1</label>
+                    <input type="text" id="phone-num">
                 </div>
                 <div class="form-group">
-                    <label for="grade">Grade</label>
-                    <select id="grade" name="grade">
-                        <option value="" disabled selected>Grade</option>
-                        <option value="grade">Grade 1</option>
-                        <option value="grade">Grade 2</option>   
+                    <label for="phone-num">Phone Number 2</label>
+                    <input type="text" id="phone-num">
+                </div>
+                <div class="form-group">
+                    <label for="relationship">Relationship</label>
+                    <select id="relationship" name="relationship">
+                        <option value="" disabled selected>Select Relationship With Children</option>
+                        <option value="parent">Parent</option>
+                        <option value="guardian">Guardian</option>
                     </select>
                 </div>
                 <div class="form-group">
-                        <button type="submit">Save Changes</button>
-                    </div>
-
+                    <label for="address">Address</label>
+                    <textarea id="address" style="height: 100px"></textarea>
+                </div>
+                <h3>Reset Password</h3>
+                <div class="form-group">
+                    <label for="current-password">Current Password</label>
+                    <input type="text" id="current-password">
+                </div>
+                <div class="form-group">
+                    <label for="new-password">New Password</label>
+                    <input type="text" id="new-password">
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="text" id="confirm-password">
+                </div>
+                <div class="form-group">
+                    <button type="submit">Save Changes</button>
+                </div>
             </form>
-            
         </div>
+    
+        <div class="profile-content" id="children-info-content">
+            <h3>Children Information</h3>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Gender</th>
+                            <th>My kid number</th>
+                            <th>Birthday</th>
+                            <th>School</th>
+                            <th>Year</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Yuna</td>
+                            <td>Girl</td>
+                            <td>170909-01-7788</td>
+                            <td>2017-09-09</td>
+                            <td>SJKC Kulai 2</td>
+                            <td>Year 1</td>
+                            <td>
+                                <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openModal()"></i>
+                                <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>John Doe</td>
+                            <td>Boy</td>
+                            <td>170115-01-2634</td>
+                            <td>2017-01-15</td>
+                            <td>SJKC Kulai 2</td>
+                            <td>Year 1</td>
+                            <td>
+                                <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openModal()"></i>
+                                <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="button-container">
+                <button class="btn btn-primary" id="addChildBtn">Add Child</button>
+            </div>
+            <div class="select-child mt-3">
+                <label for="childSelect" class="form-label">Select to display child learning status:</label>
+                <select id="childSelect" class="form-select" onchange="displayLearningStatus()">
+                    <option value="">--Select--</option>
+                    <option value="Yuna">Yuna</option>
+                    <option value="John Doe">John Doe</option>
+                </select>
+            </div>
+            <div id="learningStatus" class="card mt-3" style="display:none;">
+                <div class="card-body">
+                    <h4 class="card-title">Learning Status</h4>
+                    <p id="statusContent" class="card-text"></p>
+                </div>
+            </div>
+        </div>
+    
         <div class="profile-content" id="history-content">
-            <h3>History</h3>
+            <h3>Payment History</h3>
             <p>Here you can view your payment for tuition fee history.</p>
             <!-- Add form or content for History -->
         </div>
     </div>
+
+   <!-- Add Child Modal -->
+<div id="addChildModal" class="modal">
+    <div class="modal-content">
+        <span class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; cursor: pointer;" onclick="closeModal()">&times;</span>
+        <h3>Add Child Information</h3>
+        <form id="addChildForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name">
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender">
+                    <option value="" disabled selected>Gender</option>
+                    <option value="boy">Boy</option>
+                    <option value="girl">Girl</option>   
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="kidNumber">My kid number</label>
+                <input type="text" id="kidNumber" name="kidNumber">
+            </div>
+            <div class="form-group">
+                <label for="birthday">Birthday</label>
+                <input type="date" id="birthday" name="birthday">
+            </div>
+            <div class="form-group">
+                <label for="school">School</label>
+                <input type="text" id="school" name="school">
+            </div>
+            <div class="form-group">
+                <label for="grade">Year</label>
+                <select id="grade" name="grade">
+                    <option value="" disabled selected>Year</option>
+                    <option value="grade1">Year 1</option>
+                    <option value="grade2">Year 2</option>   
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary"style="width: 100%;">Save Changes</button>
+            </div>
+        </form>
     </div>
+</div>
+   
+   <!-- Child Modal -->
+<div id="childFormModal" class="modal">
+    <div class="modal-content">
+        <span class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; cursor: pointer;" onclick="closeModal()">&times;</span>
+        <h3>Edit Child Information</h3>
+        <form id="childForm">
+            <div class="form-group">
+                <label for="childName">Child Name</label>
+                <input type="text" id="childName">
+            </div>
+            <div class="form-group">
+                <label for="childGender">Gender</label>
+                <select id="childGender">
+                    <option>Boy</option>
+                    <option>Girl</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="childBirthday">Birthday</label>
+                <input type="date" id="childBirthday">
+            </div>
+            <div class="form-group">
+                <label for="childSchool">School</label>
+                <input type="text" id="childSchool">
+            </div>
+            <div class="form-group">
+                <label for="childYear">Year</label>
+                <select id="childYear">
+                    <option>Year 1</option>
+                    <option>Year 2</option>
+                </select>
+            </div>
+        </form>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Save Changes</button>
+        </div>
+    </div>
+</div>
+  
+       
+
+
+   
+    
 
     <!-- JavaScript to handle tab switching -->
     <script>
@@ -322,14 +518,103 @@
             contents.forEach(function(content) {
                 content.classList.remove('active');
             });
-            document.getElementById(contentId).classList.add('active');
+
+        document.getElementById(contentId).classList.add('active');
 
             var tabs = document.querySelectorAll('.profile-options a');
             tabs.forEach(function(tab) {
                 tab.classList.remove('active');
             });
             element.classList.add('active');
+
+
         }
+
+        document.getElementById('addChildBtn').onclick = function() {
+            document.getElementById('addChildModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('addChildModal').style.display = 'none';
+            document.getElementById('childFormModal').style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            var modal = document.getElementById('addChildModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        document.getElementById('addChildForm').onsubmit = function(event) {
+            event.preventDefault();
+            alert("Child information saved!");
+            closeModal();
+        }
+
+
+        function displayLearningStatus() {
+        var select = document.getElementById("childSelect");
+        var statusContent = document.getElementById("statusContent");
+        var learningStatus = document.getElementById("learningStatus");
+
+        var courses = {
+            "Yuna": [
+                { subject: "English", year: "Year 1", day: "Monday",time: "2:30pm-4:30pm",status: "active" },
+                { subject: "Math", year: "Year 1", day: "Wednesday", time: "2:30pm-4:30pm",status: "active"}
+            ],
+            "John Doe": [
+                { subject: "English", year: "Year 1", day: "Monday",time: "2:30pm-4:30pm" },
+                { subject: "Malay", year: "Year 1", day: "Thursday", time: "2:30pm-4:30pm"  }
+            ]
+        };
+
+        var selectedChild = select.value;
+        if (selectedChild && courses[selectedChild]) {
+            var table = "<table class='table table-striped'><thead><tr><th>Subject</th><th>Year</th><th>Day</th><th>Time</th><th>Status</th></tr></thead><tbody>";
+            courses[selectedChild].forEach(function(course) {
+                table += "<tr><td>" + course.subject + "</td><td>" + course.year + "</td><td>" + course.day + "</td><td>" + course.time + "</td><td><span class='status-circle'></span></td></tr>";
+            });
+            table += "</tbody></table>";
+            statusContent.innerHTML = table;
+        } else {
+            statusContent.innerHTML = "";
+        }
+
+        learningStatus.style.display = selectedChild ? "block" : "none";
+    }
+
+    function openModal(childName, childGender, childBirthday, childSchool, childYear) {
+    document.getElementById('childName').value = childName;
+    document.getElementById('childGender').value = childGender;
+    document.getElementById('childBirthday').value = childBirthday;
+    document.getElementById('childSchool').value = childSchool;
+    document.getElementById('childYear').value = childYear;
+    document.getElementById('childFormModal').style.display = "block";
+   }
+
+   document.querySelectorAll('.edit-btn').forEach(button => {
+  button.addEventListener('click', function() {
+    const row = this.closest('tr');
+    const childName = row.querySelector('td:nth-child(1)').textContent;
+    const childGender = row.querySelector('td:nth-child(2)').textContent;
+    const childBirthday = row.querySelector('td:nth-child(4)').textContent;
+    const childSchool = row.querySelector('td:nth-child(5)').textContent;
+    const childYear = row.querySelector('td:nth-child(6)').textContent;
+    openModal(childName, childGender, childBirthday, childSchool, childYear);
+  });
+});
+
+document.querySelector('.close').addEventListener('click', function() {
+  document.getElementById('childFormModal').style.display = "none";
+});
+
+window.addEventListener('click', function(event) {
+  if (event.target == document.getElementById('childFormModal')) {
+    document.getElementById('childFormModal').style.display = "none";
+  }
+});
+        
     </script>
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">

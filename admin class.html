@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Dashboard</title>
+  
+    <!-- Favicon -->
+    <link href="img/the seeds.jpg" rel="icon" type="image/png">
+    
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <style>
@@ -120,6 +124,46 @@
         .modal-content input[type="submit"]:hover {
             background-color: #0039cb;
         }
+
+        .modal-header {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .modal-footer {
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            margin-top: 20px;
+            text-align: right;
+        }
+        .list-group {
+            list-style: none;
+            padding: 0;
+        }
+        .list-group-item {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        .list-group-item:hover {
+            background-color: #f1f1f1;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            color: #fff;
+        }
    
   </style>
 </head>
@@ -184,80 +228,94 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>Class ID</th>
               <th>Subject ID</th>
+              <th>Class ID</th>
+              <th>Year</th>
               <th>Day</th>
               <th>Time</th>
               <th>Teacher</th>
-              <th>Num.Student</th>
+              <th>Capacity</th>
+              <th>Actions</th> 
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Eng5710</td>
               <td>11245</td>
+              <td>Eng5710</td>
+              <td>Year 1 </td>
               <td>Monday</td>
               <td>2:30pm - 4:30pm</td>
               <td>Mr.John</td>
-              <td>0/30</td>
+              <td>2/30</td>
               <td>
-                <button class="btn btn-danger btn-sm">Delete</button>
+                <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openModal()"></i>
+                <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
               </td>
             </tr>
             <tr>
-              <td>Mly7610</td>
               <td>11351</td>
+              <td>Mly7610</td>
+              <td>Year 1 </td>
               <td>Tuesday</td>
               <td>2:30pm - 4:30pm</td>
               <td>Ms.Lily</td>
               <td>0/30</td>
               <td>
-                <button class="btn btn-danger btn-sm">Delete</button>
+                <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openModal()"></i>
+                <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
               </td>
             </tr>
             <tr>
-              <td>Mat8710</td>
               <td>11132</td>
+              <td>Mat8710</td>
+              <td>Year 1 </td>
               <td>Wednesday</td>
               <td>2:30pm - 4:30pm</td>
               <td>Mr.David</td>
               <td>0/30</td>
               <td>
-                <button class="btn btn-danger btn-sm">Delete</button>
+                <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openModal()"></i>
+                <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
               </td>
             </tr>
             <tr>
                 <tr>
-                    <td>Eng5720</td>
                     <td>22534</td>
+                    <td>Eng5720</td>
+                    <td>Year 2 </td>
                     <td>Monday</td>
                     <td>5:00pm - 7:00pm</td>
                     <td>Mr.John</td>
                     <td>0/30</td>
                     <td>
-                        <button class="btn btn-danger btn-sm">Delete</button>
+                      <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openModal()"></i>
+                      <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
                     </td>
                 </tr>
                 <tr>
-                    <td>Mly7620</td>
                     <td>22345</td>
+                    <td>Mly7620</td>
+                    <td>Year 2 </td>
                     <td>Tuesday</td>
                     <td>5:00pm - 7:00pm</td>
                     <td>Ms.Lily</td>
                     <td>0/30</td>
                     <td>
-                        <button class="btn btn-danger btn-sm">Delete</button>
+                      <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openModal()"></i>
+                      <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
                     </td>
                 </tr>
                 <tr>
-                    <td>Mat8720</td>
                     <td>22134</td>
+                    <td>Mat8720</td>
+                    <td>Year 2 </td>
                     <td>Wednesday</td>
                     <td>5:00pm - 7:00pm</td>
                     <td>Mr.David</td>
                     <td>0/30</td>
                     <td>
-                        <button class="btn btn-danger btn-sm">Delete</button>
+                      <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openModal()"></i>
+                      <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
                     </td>
                 </tr>
                 
@@ -271,24 +329,73 @@
   <!-- The Modal -->
 <div id="addClassModal" class="modal">
     <div class="modal-content">
-        <span class="close">&times;</span>
+        <span class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; cursor: pointer;">&times;</span>
         <form id="addClassForm">
-            <label for="classid">Class ID:</label>
-            <input type="text" id="classid" name="classid">
             <label for="subjectid">Subject ID:</label>
             <input type="text" id="subjectid" name="subjectid">
+            <label for="classid">Class ID:</label>
+            <input type="text" id="classid" name="classid">
+            <label for="classid">Year:</label>
+            <input type="text" id="year" name="year">
             <label for="day">Day:</label>
             <input type="text" id="day" name="day">
             <label for="time">Time:</label>
             <input type="text" id="time" name="time">
             <label for="teacher">Teacher:</label>
             <input type="text" id="teacher" name="">
-            <label for="enrollment">Num.Student:</label>
+            <label for="enrollment">Capasity:</label>
             <input type="text" id="enrollment" name="enrollment">
             <input type="submit" value="Add Class">
         </form>
     </div>
 </div>
+
+  <!-- Edit Modal -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; cursor: pointer;"onclick="closeModal()">&times;</span>
+        <div class="modal-header">
+            <h5>Students List - Eng5710</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Number</th>
+                        <th>Student name</th>
+                        <th>Gender</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Yuna</td>
+                        <td>Girl</td>
+                        <td>
+                            <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>John Doe</td>
+                      <td>Boy</td>
+                      <td>
+                          <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
+                      </td>
+                  </tr>
+                  
+                    
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+            <button type="button" class="btn btn-primary" onclick="closeModal()">Save changes</button>
+        </div>
+    </div>
+</div>
+   
 
 <script>
     // get button
@@ -320,6 +427,14 @@
         alert("Class added!");
         modal.style.display = "none";
     }
+
+    function openModal() {
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+    function closeModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
 </script>
 
 
