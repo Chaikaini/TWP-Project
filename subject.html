@@ -103,13 +103,13 @@
             padding: 20px;
         }
 
-        .grade-list {
+        .year-list {
             width: 30%;
             border-right: 1px solid #ccc;
             padding-right: 15px;
         }
 
-        .grade-list .grade {
+        .year-list .year {
             padding: 10px;
             margin: 10px 0;
             cursor: pointer;
@@ -119,7 +119,7 @@
             text-align: center;
         }
 
-        .grade-list .grade:hover {
+        .year-list .year:hover {
             background-color: #e0f7e4;
         }
 
@@ -172,7 +172,6 @@
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href="#" class="nav-item nav-link">Home</a>
                 <a href="#" class="nav-item nav-link active">Subject</a>
-                <a href="#" class="nav-item nav-link">Payment</a>
                 <a href="#" class="nav-item nav-link">About us</a>
                 <a href="#" class="nav-item nav-link">Contact us</a>
                 <a href="" class="nav-item nav-link">Comment</a>
@@ -208,9 +207,9 @@
     <!-- Main Content -->
     <div class="container-main">
         <!-- Grade List -->
-        <div class="grade-list">
-            <div class="grade" onclick="showSubjects('grade1')">Grade 1</div>
-            <div class="grade" onclick="showSubjects('grade2')">Grade 2</div>
+        <div class="year-list">
+            <div class="year" onclick="showSubjects('year1')">Year 1</div>
+            <div class="year" onclick="showSubjects('year2')">Year 2</div>
         </div>
 
         <!-- Subject Grid -->
@@ -222,23 +221,25 @@
     <!-- JavaScript -->
     <script>
            const subjectsData = {
-        grade1: [
-            { name: "English", image: "img/english.jpg", teacher: "Mr. John", price: "85" ,page: "Grade 1 English class.html?Subject=English&Teacher=Mr.%20John&Price=85" },
-            { name: "Malay", image: "img/malay.jpg", teacher: "Ms. Aida", price: "85",page: "Grade 1 Malay class.html?Subject=Malay&Teacher=Mr.%20Aida&Price=85"  },
-            { name: "Math", image: "img/math.jpg", teacher: "Mr. David", price: "85",page: "Grade 1 Math class.html?Subject=Math&Teacher=Mr.%20David&Price=85"  },
+        year1: [
+            { name: "English Year 1", image: "img/english.jpg", teacher: "Mr. John", price: "85" ,page: "Year 1 English class.html?Subject=English&Teacher=Mr.%20John&Price=85" },
+            { name: "Malay Year 1", image: "img/malay.jpg", teacher: "Ms. Aida", price: "85",page: "Year 1 Malay class.html?Subject=Malay&Teacher=Mr.%20Aida&Price=85"  },
+            { name: "Math Year 1", image: "img/math.jpg", teacher: "Mr. David", price: "85",page: "Year 1 Math class.html?Subject=Math&Teacher=Mr.%20David&Price=85"  },
         ],
-        grade2: [
-            { name: "English", image: "img/english.jpg", teacher: "Mr. John", price: "85" ,page: "Grade 2 English class.html?Subject=English&Teacher=Mr.%20John&Price=85" },
-            { name: "Malay", image: "img/malay.jpg", teacher: "Ms. Aida", price: "85" ,page: "Grade 2 Malay class.html?Subject=Malay&Teacher=Mr.%20John&Price=85" },
-            { name: "Math", image: "img/math.jpg", teacher: "Mr. David", price: "85" ,page: "Grade 2 Math class.html?Subject=Math&Teacher=Mr.%20John&Price=85" },
+        year2: [
+            { name: "English Year 2", image: "img/english.jpg", teacher: "Mr. John", price: "85" ,page: "Year 2 English class.html?Subject=English&Teacher=Mr.%20John&Price=85" },
+            { name: "Malay Year 2", image: "img/malay.jpg", teacher: "Ms. Aida", price: "85" ,page: "Year 2 Malay class.html?Subject=Malay&Teacher=Mr.%20John&Price=85" },
+            { name: "Math Year 2", image: "img/math.jpg", teacher: "Mr. David", price: "85" ,page: "Year 2 Math class.html?Subject=Math&Teacher=Mr.%20John&Price=85" },
         ]
     };
 
-    function showSubjects(grade) {
+    showSubjects('year1');
+
+    function showSubjects(year) {
     const subjectGrid = document.getElementById("subjectGrid");
     subjectGrid.innerHTML = "";
 
-    subjectsData[grade].forEach(subject => {
+    subjectsData[year].forEach(subject => {
         const card = document.createElement("div");
         card.className = "subject-card";
         card.innerHTML = `
@@ -246,7 +247,7 @@
                 <img src="${subject.image}" alt="${subject.name}">
                 <h5>${subject.name}</h5>
             </a>
-        `; // Properly closed the string here
+       ` ; // Properly closed the string here
         subjectGrid.appendChild(card);
     });
 }
