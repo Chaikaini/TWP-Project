@@ -92,7 +92,8 @@
             background-color: white;
             padding: 20px;
             border-radius: 8px;
-            width: 300px;
+            width: 500px;
+            height: 400px;
             position: relative;
             z-index: 10000; /* Ensure content is visible inside popup */
         }
@@ -444,16 +445,17 @@
             document.getElementById('popup').style.display = 'flex';
         });
 
-        // Close popup functionality
-        document.getElementById('closePopup').addEventListener('click', function() {
-            document.getElementById('popup').style.display = 'none';
-        });
+// Close popup functionality 
+document.getElementById('closePopup').addEventListener('click', function() {
+    document.getElementById('popup').style.display = 'none';
+});
 
-        // Add to cart button functionality
-        document.getElementById('addToCart').addEventListener('click', function() {
-            alert('Item added to cart!');
-            document.getElementById('popup').style.display = 'none';
-        });
+// Add to cart button functionality
+document.getElementById('addToCart').addEventListener('click', function() {
+    alert('Item added to cart!');
+    document.getElementById('popup').style.display = 'none';
+});
+
 
         function setRating(rating) {
     const stars = document.querySelectorAll('.stars-container .star');
