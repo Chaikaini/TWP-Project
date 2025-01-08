@@ -47,33 +47,32 @@
         }
 
         .time-slot-container {
-    display: flex; 
-    gap: 10px; 
-    margin-top: 10px;
-}
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
 
-.time-slot {
-    display: inline-block;
-    width: 150px;
-    height: 50px;
-    line-height: 50px;
-    text-align: center;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    cursor: pointer;
-}
+        .time-slot {
+            display: inline-block;
+            width: 150px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            cursor: pointer;
+        }
 
-.green {
-    background-color: #73cf67;
-    color: white;
-}
+        .green {
+            background-color: #73cf67;
+            color: white;
+        }
 
-.gray {
-    background-color: #d3d3d3;
-    color: #888;
-    pointer-events: none;
-}
-
+        .gray {
+            background-color: #d3d3d3;
+            color: #888;
+            pointer-events: none;
+        }
 
         .popup {
             display: none;
@@ -115,7 +114,6 @@
             margin-top: 10px;
         }
 
-        /* Close button style */
         .close-btn {
             position: absolute;
             top: 10px;
@@ -125,9 +123,8 @@
             cursor: pointer;
         }
 
-        /* Ensure the class details section adjusts to the image size */
         .subject-image {
-            width: 300px; /* Set a fixed width for the image */
+            width: 300px;
             height: auto;
             flex-shrink: 0;
             display: flex;
@@ -141,7 +138,6 @@
             border-radius: 8px;
         }
 
-        /* Ensure the class details section adjusts to the image size */
         .class-details-container {
             display: flex;
             gap: 20px;
@@ -206,8 +202,7 @@
 
                 <!-- Time Slot Selection -->
                 <div class="time-slot-container">
-                    <!-- One green time slot and one gray time slot -->
-                    <div class="time-slot green" id="slot1" data-time="Monday 2:30pm-4:00pm" data-students="10/30">2:30pm-4:00pm (Monday)</div>
+                    <div class="time-slot green" id="slot1" data-time="Monday 2:30pm-4:00pm" data-children="10/30">2:30pm-4:00pm (Monday)</div>
                     <div class="time-slot gray">2:30pm-4:00pm (Tuesday) - Unavailable</div>
                 </div>
                 
@@ -221,16 +216,23 @@
             <span class="close-btn" id="closePopup">&times;</span>
             <h4>Class Time Details</h4>
             <p id="popupTime"></p>
-            <p id="popupStudents"></p>
+            <p id="popupchildren"></p>
             <div>
-                <label>Students: 
-                    <select id="studentSelect">
-                        <option value="1">Year1 Yuna</option>
+                <label>Children: 
+                    <select id="childrenSelect">
+                        <option value="1">Year1 Yuna</option> 
                         <option value="2"></option>
                         <option value="3"></option>
                         <option value="4"></option>
                     </select>
                 </label>
+            </div>
+            <div>
+                <label for="monthSelect">Select Month:</label>
+                <select id="monthSelect">
+                    <option value="1-6">January to June</option>
+                    <option value="7-12">July to December</option>
+                </select>
             </div>
             <button id="addToCart">Add to Cart</button>
         </div>
@@ -243,10 +245,11 @@
         document.getElementById('Subject').textContent = params.get('Subject');
         document.getElementById('Teacher').textContent = params.get('Teacher');
         document.getElementById('Price').textContent = params.get('Price');
+
         // Function to show popup with class details
-        function showPopup(time, students) {
+        function showPopup(time, capacity) {
             document.getElementById('popupTime').innerText = time;
-            document.getElementById('popupStudents').innerText = "Students: " + students;
+            document.getElementById('popupchildren').innerText = "Capacity: " + capacity;
             document.getElementById('popup').style.display = 'flex';
         }
 
@@ -257,16 +260,43 @@
 
         // Add to cart button functionality
         document.getElementById('addToCart').addEventListener('click', function() {
-            alert('Added to Cart!');
+            const month = document.getElementById('monthSelect').value;
+            const price = 85;
+            let total = 0;
+
+            // Multiply price by 6 for the months selected
+            if (month === '1-6') {
+                total = price * 6; // For January to June
+            } else if (month === '7-12') {
+                total = price * 6; // For July to December
+            }
+
+            alert('Added to Cart! Total Price: RM ' + total);
             document.getElementById('popup').style.display = 'none';
         });
 
         // Event listener for the green time slot
         document.getElementById('slot1').addEventListener('click', function() {
-            showPopup(this.getAttribute('data-time'), this.getAttribute('data-students'));
+            showPopup(this.getAttribute('data-time'), this.getAttribute('data-children'));
         });
+
+        document.addEventListener("DOMContentLoaded", function() {
+   
+         const currentMonth = new Date().getMonth() + 1;  
+
+         const monthSelect = document.getElementById('monthSelect');
+
+    
+         if (currentMonth <= 6) {  
+          monthSelect.querySelector('option[value="7-12"]').disabled = true;
+          monthSelect.querySelector('option[value="1-6"]').disabled = false;
+         } else {  
+          monthSelect.querySelector('option[value="1-6"]').disabled = true;
+          monthSelect.querySelector('option[value="7-12"]').disabled = false;
+         }
+        });
+
     </script>
-     
                   <!-- Footer Start -->
                   <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
                     <div class="container py-5">
