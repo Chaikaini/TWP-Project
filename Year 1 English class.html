@@ -206,6 +206,75 @@
             font-size: 18px;
         }
 
+        /* Review Section Styling */
+        .review-section {
+            margin-top: 50px;
+        }
+
+        .review-item {
+            display: flex;
+            margin-bottom: 20px;
+            border: 1px solid #ccc; /* Border around the review box */
+            padding: 15px;
+            border-radius: 8px; /* Rounded corners for the review box */
+            background-color: #f9f9f9; /* Light background */
+            position: relative;
+        }
+
+        .review-text {
+            max-width: 80%;
+        }
+
+        .stars-container {
+            display: flex;
+            gap: 5px;
+            font-size: 20px;
+        }
+
+        .star {
+            width: 20px;
+            height: 20px;
+            background: gray;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            display: inline-block;
+        }
+
+        /* Add color to filled stars */
+        .star.filled {
+            background: gold;
+        }
+
+        .review-text p {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        /* Course Overview Styling */
+        .course-overview {
+            margin-top: 50px;
+            font-size: 18px;
+        }
+
+        .course-overview h2 {
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .course-overview ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        .course-overview li {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .course-overview p {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
 
     </style>
 </head>
@@ -312,6 +381,53 @@
             <button id="addToCart">Add to Cart</button>
         </div>
     </div>
+
+    <!-- Course Overview Section -->
+    <section class="course-overview">
+        <h2>Course Overview</h2>
+        <p>In this course, we will help you quickly master key strategies for the English DSE exam. We focus on high-efficiency techniques, practical advice, and step-by-step guidance. You'll learn how to:</p>
+        <ul>
+            <li>Understand the exam format and each section's focus.</li>
+            <li>Develop critical reading and writing skills with targeted practice.</li>
+            <li>Learn essential grammar rules and vocabulary needed for the DSE exam.</li>
+            <li>Focus on key past paper topics and strategies for answering questions effectively.</li>
+            <li>Improve exam-time management and tips for getting the best results in limited time.</li>
+        </ul>
+        <p>Our goal is to transform English from a weak subject into your strongest asset, helping you achieve the highest marks possible and ensuring you secure your university entry!</p>
+    </section>
+
+    <!-- Parent Reviews Section -->
+    <section class="review-section">
+        <h2>Parent Reviews</h2>
+        <div class="review-item">
+            <div class="review-text">
+                <p><strong>Jane Doe</strong></p>
+                <div class="stars-container">
+                    <!-- Add the "filled" class to the stars that should appear gold -->
+                    <span class="star filled"></span>
+                    <span class="star filled"></span>
+                    <span class="star filled"></span>
+                    <span class="star filled"></span>
+                    <span class="star"></span>
+                </div>
+                <p>My child loves the interactive activities and songs! It’s a great way to keep them engaged while learning new English words.</p>
+            </div>
+        </div>
+        <div class="review-item">
+            <div class="review-text">
+                <p><strong>John Smith</strong></p>
+                <div class="stars-container">
+                    <!-- Add the "filled" class to the stars that should appear gold -->
+                    <span class="star filled"></span>
+                    <span class="star filled"></span>
+                    <span class="star filled"></span>
+                    <span class="star filled"></span>
+                    <span class="star filled"></span>
+                </div>
+                <p>Excellent course! My son has made amazing progress in just a few weeks. The teacher is very patient and encouraging.</p>
+            </div>
+        </div>
+    </section>
 
     <!-- JavaScript -->
     <script>
