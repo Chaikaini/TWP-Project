@@ -55,20 +55,24 @@
             margin-top: 50px;
         }
 
+
         .cart-item {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: flex-start;
             padding: 10px 0;
             border-bottom: 1px solid #ddd;
             position: relative;
+            margin-bottom: 20px;
+            margin-top: 40px;
         }
 
         .cart-item img {
-            width: 100px;
-            height: 100px;
+            width: 200px;
+            height: 200px;
             object-fit: cover;
             border-radius: 8px;
+            margin-right: 20px;
         }
 
         .cart-item-details {
@@ -128,23 +132,19 @@
         }
 
         .checkbox-container {
-            position: absolute;
-            top: 10px;
-            left: 10px;
+
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 20px;
-            height: 20px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            margin-right: 20px;
+            order:-1;
         }
 
         .checkbox-container input[type="checkbox"] {
             cursor: pointer;
             width: 20px;
             height: 20px;
+            position: absolute;
         }
 
         .checkbox-container .checkmark {
@@ -201,6 +201,7 @@
    <!-- Icon Bar -->
         <div class="icon-bar">
         <a href="#"><i class="fas fa-bell"></i></a>
+        <a href="#"><i class="fas fa-shopping-cart"></i></a>
         <a href="#"><i class="fas fa-user"></i></a>
         </div>
 

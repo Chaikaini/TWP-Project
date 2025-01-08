@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Student List</title>
+  <title>Children List</title>
   
     <!-- Favicon -->
     <link href="img/the seeds.jpg" rel="icon" type="image/png">
@@ -154,7 +154,7 @@
 
     <!-- Student List Table -->
     <div class="main-title">
-      <h2>View Student List</h2>
+      <h2>View Children List</h2>
     </div>
     
     <!-- Search Box -->
@@ -171,7 +171,7 @@
             <th>IC</th>
             <th>Gender</th>
             <th>School</th>
-            <th>Grade</th>
+            <th>Year</th>
             <th>Birthday</th>
             <th>Actions</th> 
           </tr>
@@ -180,9 +180,9 @@
           <tr>
             <td>John Doe</td>
             <td>170115-01-2634</td>
-            <td>Male</td>
-            <td>SJKC Kulai 2 School</td>
-            <td>Grade 1</td>
+            <td>Boy</td>
+            <td>SJKC Kulai 2</td>
+            <td>Year 1</td>
             <td>2017-01-15</td>
             <td>
               <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;"></i>
@@ -190,12 +190,12 @@
             </td>
           </tr>
           <tr>
-            <td>Jane Smith</td>
-            <td>160225-01-6408</td>
-            <td>Female</td>
-            <td>SJKC Kulai 1 School</td>
-            <td>Grade 2</td>
-            <td>2016-02-25</td>
+            <td>Yuna</td>
+            <td>170909-01-7788</td>
+            <td>Girl</td>
+            <td>SJKC Kulai 2</td>
+            <td>Year 1</td>
+            <td>2017-09-09</td>
             <td>
               <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;"></i>
               <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
@@ -210,7 +210,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="editModalLabel">Edit Student Information</h5>
+            <h5 class="modal-title" id="editModalLabel">Edit Children Information</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -232,8 +232,8 @@
                 <input type="text" class="form-control" id="editSchool" />
               </div>
               <div class="mb-3">
-                <label for="editGrade" class="form-label">Grade</label>
-                <input type="text" class="form-control" id="editGrade" />
+                <label for="editYear" class="form-label">Year</label>
+                <input type="text" class="form-control" id="editYear" />
               </div>
               <div class="mb-3">
                 <label for="editBirthday" class="form-label">Birthday</label>
@@ -263,7 +263,7 @@
             document.getElementById("editIC").value = editRow.children[1].textContent;
             document.getElementById("editGender").value = editRow.children[2].textContent;
             document.getElementById("editSchool").value = editRow.children[3].textContent;
-            document.getElementById("editGrade").value = editRow.children[4].textContent;
+            document.getElementById("editYear").value = editRow.children[4].textContent;
             document.getElementById("editBirthday").value = editRow.children[5].textContent;
     
             const editModal = new bootstrap.Modal(document.getElementById("editModal"));
@@ -283,7 +283,7 @@
             editRow.children[1].textContent = document.getElementById("editIC").value;
             editRow.children[2].textContent = document.getElementById("editGender").value;
             editRow.children[3].textContent = document.getElementById("editSchool").value;
-            editRow.children[4].textContent = document.getElementById("editGrade").value;
+            editRow.children[4].textContent = document.getElementById("editYear").value;
             editRow.children[5].textContent = document.getElementById("editBirthday").value;
     
             const editModal = bootstrap.Modal.getInstance(document.getElementById("editModal"));
