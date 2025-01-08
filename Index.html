@@ -32,9 +32,12 @@
 
     <style>
 
-        .announcement-img{
-            height: 500px;
-        }
+.custom-image {
+    display: block;
+    width: 100%;        /* 宽度保持100% */
+    height: auto;       /* 高度自动，保持比例 */
+    max-height: 500px;  /* 设置最大高度 */
+}
 
         .grid-container {
             display: grid;
@@ -146,10 +149,10 @@
             <div id="announcementCarousel" class="carousel slide" data-bs-ride="carousel" >
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="img/announcemant 1.jpg" class="d-block w-100 announcement-img" alt="Announcement 1">
+                        <img src="img/announcemant 1.jpg" class="custom-image" alt="Announcement 1">
                     </div>
                     <div class="carousel-item">
-                        <img src="img/announcemant 2.jpg" class="d-block w-100 announcement-img" alt="Announcement 2">
+                        <img src="img/announcemant 2.jpg" class="custom-image" alt="Announcement 1">
                     </div>
                    
                 </div>
