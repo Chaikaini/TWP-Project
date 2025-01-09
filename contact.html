@@ -29,6 +29,23 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        .map{
+            height: 300px;
+            border:0;
+        }
+
+        .logo{
+            width: 50px; 
+            height: 50px;
+        }
+
+        .textarea{
+            height: 150px；
+        }
+
+    </style>
 </head>
 
 <body>
@@ -84,10 +101,9 @@
 <div class="container-fluid p-0">
     <!-- Full-Screen Map -->
     <iframe 
-        class="position-relative w-100"
+        class="map position-relative w-100"
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2549.857659110996!2d103.596182!3d1.6501033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da7974ad97a0d1%3A0x59e8bcb06dcece99!2sThe%20Seeds%20Learning%20Centre!5e0!3m2!1sen!2smy!4v1700000000000"
         frameborder="0"
-        style="height: 300px; border:0;"
         allowfullscreen=""
         aria-hidden="false"
         tabindex="0">
@@ -99,7 +115,7 @@
         <div class="row g-4">
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="d-flex align-items-center mb-3">
-                    <div class="d-flex align-items-center justify-content-center flex-shrink-0 bg-primary" style="width: 50px; height: 50px;">
+                    <div class="logo d-flex align-items-center justify-content-center flex-shrink-0 bg-primary" >
                         <i class="fa fa-map-marker-alt text-white"></i>
                     </div>
                     <div class="ms-3">
@@ -108,21 +124,21 @@
                     </div>
                 </div>
                 <div class="d-flex align-items-center mb-3">
-                    <div class="d-flex align-items-center justify-content-center flex-shrink-0 bg-primary" style="width: 50px; height: 50px;">
+                    <div class="logo d-flex align-items-center justify-content-center flex-shrink-0 bg-primary" >
                         <i class="fa fa-phone-alt text-white"></i>
                     </div>
                     <div class="ms-3">
                         <h5 class="text-primary">Mobile</h5>
-                        <p class="mb-0">+012 345 67890</p>
+                        <p class="mb-0">+012 758 4380</p>
                     </div>
                 </div>
                 <div class="d-flex align-items-center">
-                    <div class="d-flex align-items-center justify-content-center flex-shrink-0 bg-primary" style="width: 50px; height: 50px;">
+                    <div class="logo d-flex align-items-center justify-content-center flex-shrink-0 bg-primary">
                         <i class="fa fa-envelope-open text-white"></i>
                     </div>
                     <div class="ms-3">
                         <h5 class="text-primary">Email</h5>
-                        <p class="mb-0">info@example.com</p>
+                        <p class="mb-0">TheSeeds@gmail.com</p>
                     </div>
                 </div>
             </div>
@@ -152,7 +168,7 @@
                         </div>
                         <div class="col-12">
                             <div class="form-floating">
-                                <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 150px"></textarea>
+                                <textarea class="form-control textarea" placeholder="Leave a message here" id="message"></textarea>
                                 <label for="message">Message</label>
                             </div>
                         </div>

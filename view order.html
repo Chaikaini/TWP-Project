@@ -27,7 +27,7 @@
     #sidebar a {
       color: white;
       text-decoration: none;
-      padding: 15px 15px; /* Adjusted padding for better spacing */
+      padding: 15px 15px; 
       display: block;
     }
     #sidebar a:hover {
@@ -63,6 +63,10 @@
     }
     .table-container .fa-edit, .table-container .fa-trash-alt {
       color: #007BFF;
+    }
+
+    .pointer-cursor{
+      cursor:pointer;
     }
   </style>
 </head>
@@ -129,16 +133,18 @@
               <th>ID</th>
               <th>Name</th>
               <th>Price</th>
+              <th>Order ID</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>1</td>
-              <td>Parent Name</td>
+              <td>Darren</td>
               <td>RM190</td>
+              <td>ORD1001</td>
               <td>
-                <i class="fas fa-trash-alt text-danger delete-btn" style="cursor:pointer;"></i>
+                <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn" ></i>
               </td>
             </tr>
             <!-- Add more rows as needed -->
