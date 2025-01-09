@@ -65,8 +65,8 @@
 </head>
 
 <body>
-       <!-- Navbar Start -->
-       <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
         <a href="" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
             <h2 class="navbar-color"><i class="fa fa-book me-3"></i>The Seeds</h2>
         </a>
@@ -112,8 +112,6 @@
     </div>
     <!-- Header End -->
 
-    
-
     <!-- Comment Section Start -->
     <div class="container py-5">
         <h2 class="text-center mb-4">Leave a Comment</h2>
@@ -121,10 +119,17 @@
             <div class="col-lg-8 mx-auto">
                 <!-- Comment Form -->
                 <div class="mb-4">
+                    <label for="year" class="form-label">Select Year</label>
+                    <select id="year" class="form-select">
+                        <option value="Year 1">Year 1</option>
+                        <option value="Year 2">Year 2</option>
+                    </select>
+                </div>
+                <div class="mb-4">
                     <label for="subject" class="form-label">Select Subject</label>
                     <select id="subject" class="form-select">
                         <option value="Math">Math</option>
-                        <option value="Science">Science</option>
+                        <option value="Malay">Malay</option>
                         <option value="English">English</option>
                     </select>
                 </div>
@@ -158,6 +163,7 @@
     <!-- JavaScript -->
     <script>
         document.getElementById('submitComment').addEventListener('click', function () {
+            const year = document.getElementById('year').value;
             const subject = document.getElementById('subject').value;
             const rating = document.querySelector('input[name="rating"]:checked');
             const comment = document.getElementById('comment').value;
@@ -177,6 +183,7 @@
             commentBox.className = 'comment-box';
 
             commentBox.innerHTML = `
+                <p class="comment-subject">Year: ${year}</p>
                 <p class="comment-subject">Subject: ${subject}</p>
                 <p>Rating: ${'&#9733;'.repeat(rating.value)}</p>
                 <p>Comment: ${comment}</p>
@@ -185,6 +192,7 @@
             commentsContainer.appendChild(commentBox);
 
             // Clear form inputs
+            document.getElementById('year').value = 'Year 1';
             document.getElementById('subject').value = '';
             document.getElementById('comment').value = '';
             document.querySelector('input[name="rating"]:checked').checked = false;
