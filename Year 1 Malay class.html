@@ -229,9 +229,10 @@
 
 .container {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     gap: 30px;
     padding: 20px;
+    width: 100%;
 }
 
 .subject-overview {
@@ -287,6 +288,15 @@
 
 .review-text {
     max-width: 100%;
+}
+
+.subject-overview, .review-section {
+    width: 100%; 
+    box-sizing: border-box;
+    padding: 15px;
+    background-color: #f9f9f9; 
+    border-radius: 5px; 
+    word-wrap: break-word; 
 }
 
 .stars-container {
