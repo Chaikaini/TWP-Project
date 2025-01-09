@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Year 1 English Class</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="The Seeds Learning Centre, Year 1 class " name="keywords">
+    <meta content="The Seeds Learning Centre | Year 1 Class " name="description">
+
+    <!-- Favicon -->
+    <link href="img/the seeds.jpg" rel="icon" type="image/png">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        .icon-bar {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px 0;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #caccce;
+        }
+
+        .icon-bar a {
+            margin: 0 15px;
+            color: #000000;
+            font-size: 24px;
+            transition: color 0.3s ease;
+        }
+
+        .icon-bar a:hover {
+            color: #73cf67;
+        }
+
+        .time-slot-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .time-slot {
+            display: inline-block;
+            width: 250px;
+            height: 80px;
+            line-height: 80px;
+            text-align: center;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .green {
+            background-color: #73cf67;
+            color: white;
+        }
+
+        .gray {
+            background-color: #d3d3d3;
+            color: #888;
+            pointer-events: none;
+        }
+
+        .popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999; /* Ensure the popup is on top of other content */
+    }
+    
+    .popup-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 500px;
+        height: auto; /* Allow dynamic height */
+        position: relative;
+        z-index: 10000; /* Ensure content is visible inside popup */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        text-align: left; /* Align content to the left */
+        font-size: 18px; /* Adjust font size to fit better */
+        overflow: auto;
+    }
+    
+    .popup-content h4 {
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    
+    .popup-info {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .popup-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline; /* Align content to baseline for better alignment */
+        font-size: 20px;
+    }
+    
+    .popup-label {
+        font-weight: bold;
+        width: 120px;
+        text-align: left; /* Left-align labels */
+    }
+    
+    .popup-value {
+        font-size: 20px;
+        text-align: left; /* Ensure values are aligned left */
+        flex: 1; /* Make sure the value stretches if necessary */
+    }
+    
+
+
+        .popup-content button {
+            display: block;
+            width: 100%;
+            background-color: #73cf67;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 50px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            color: #888;
+            cursor: pointer;
+        }
+
+        .subject-image {
+            width: 350px;
+            height: auto;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .subject-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .class-details-container {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .class-details-container h2 {
+            font-size: 64px; /* Increased font size for h2 */
+            font-weight: bold;
+        }
+
+        .time-slot-container {
+            margin-top: 20px;
+        }
+
+        .rating-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.stars-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 30px;
+}
+
+.stars-container .star {
+    width: 25px;
+    height: 25px;
+    background: gray;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    display: inline-block;
+}
+
+.stars-container .yellow {
+    background: gold;
+}
+
+.stars-container .half {
+    background: linear-gradient(to right, gold 50%, gray 50%);
+}
+
+.rating-text {
+    font-size: 18px;
+    color: #333;
+}
+
+.rating-number {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 20px;
+}
+
+.subject-overview {
+    width: 60%;
+    font-size: 18px;
+}
+
+.subject-overview h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.subject-overview ul {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.subject-overview li {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.subject-overview p {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.review-section {
+    width: 35%;
+    margin-top: 0;
+}
+
+.review-section h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.review-filter {
+    margin-bottom: 20px;
+}
+
+.review-item {
+    display: flex;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    position: relative;
+}
+
+.review-text {
+    max-width: 100%;
+}
+
+.stars-container {
+    display: flex;
+    gap: 5px;
+    font-size: 20px;
+}
+
+.star {
+    width: 20px;
+    height: 20px;
+    background: gray;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    display: inline-block;
+}
+
+.star.filled {
+    background: gold;
+}
+
+.review-text p {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.review-filter select {
+    font-size: 16px;
+    padding: 5px;
+    width: 150px;
+}
+
+
+
+ </style>
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+        <a href="#" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <h2 class="navbar-color"><i class="fa fa-book me-3"></i>The Seeds</h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="#" class="nav-item nav-link">Home</a>
+                <a href="#" class="nav-item nav-link">Subject</a>
+                <a href="#" class="nav-item nav-link">About us</a>
+                <a href="#" class="nav-item nav-link">Contact us</a>
+                <a href="" class="nav-item nav-link">Comment</a>
+            </div>
+            <a href="#" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Log out<i class="fa fa-arrow-right ms-3"></i></a>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+    <!-- Icon Bar -->
+    <div class="icon-bar">
+        <a href="#"><i class="fas fa-bell"></i></a>
+        <a href="#"><i class="fas fa-shopping-cart"></i></a>
+        <a href="#"><i class="fas fa-user"></i></a>
+    </div>
+
+    <!-- Breadcrumb Section -->
+    <div class="breadcrumb-container">
+        <h2 class="english-year1-title">Malay Year 1</h2>
+        <ul class="breadcrumb">
+            <li><a href="Home.html">Home</a></li>
+            <li>&gt;</li>
+            <li><a href="subject.html">Subject</a></li>
+            <li>&gt;</li>
+            <li>Malay Year 1</li>
+        </ul>
+    </div>
+
+    <!-- Class Details Section -->
+    <div class="container my-5">
+        <div class="class-details-container">
+            <div class="subject-image">
+                <img src="img/malay.jpg" alt="Subject Image" id="subjectImage">
+            </div>
+            <div class="class-details">
+                <h2>Malay Year 1</h2>
+
+                <div class="rating-container">
+                    <div class="stars-container">
+                        <span class="star"></span>
+                        <span class="star"></span>
+                        <span class="star"></span>
+                        <span class="star"></span>
+                        <span class="star"></span>
+                    </div>
+                    <div class="rating-text">
+                        <span class="rating-number">4.5</span> | <span class="reviews-count">200 reviews</span>
+                    </div>
+                </div>
+                
+                
+
+                <div class="class-info">
+                    <p><strong>Teacher:</strong> Mr. Aida</p>
+                    <p><strong>Price: RM</strong> 510 (85 * 6 Month)</p>
+                </div>
+
+                <!-- Time Slot Selection -->
+                <div class="time-slot-container">
+                    <div class="time-slot green" id="partA">
+                        <strong>Part A</strong> (January - June)
+                    </div> <!-- Available part -->
+                    <div class="time-slot gray" id="partB">
+                        <strong>Part B</strong> (July - December) (No open)
+                    </div> <!-- Unavailable part -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <span class="close-btn" id="closePopup">&times;</span>
+            <h4>Class Time Details</h4>
+            
+            <!-- Information section with flex layout -->
+            <div class="popup-info">
+                <div class="popup-row">
+                    <span class="popup-label">Month:</span>
+                    <span class="popup-value" id="popupMonth"></span>
+                </div>
+                <div class="popup-row">
+                    <span class="popup-label">Time:</span>
+                    <span class="popup-value" id="popupTime"></span>
+                </div>
+                <div class="popup-row">
+                    <span class="popup-label">Capacity:</span>
+                    <span class="popup-value" id="popupchildren"></span>
+                </div>
+                <div class="popup-row">
+                    <span class="popup-label">Children:</span>
+                    <span class="popup-value">
+                        <select id="childrenSelect">
+                            <option value="1">Yuna</option> 
+                            <option value="2"></option>
+                            <option value="3"></option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+    
+            <button id="addToCart">Add to Cart</button>
+        </div>
+    </div>
+    
+
+
+
+    <div class="container">
+        <!-- Subject Overview Section -->
+        <section class="subject-overview">
+            <h2>Subject Overview</h2>
+            <p>In this course, we will help you quickly master key strategies for the Year 1 Bahasa Melayu exam. We focus on effective techniques, practical advice, and step-by-step guidance. You will learn how to: </p>
+            <ul>
+                <li>Understand the exam format and each section's focus.</li>
+                <li>Develop critical reading and writing skills with targeted practice.</li>
+                <li>Learn essential grammar rules and vocabulary needed for the DSE exam.</li>
+                <li>Focus on key past paper topics and strategies for answering questions effectively.</li>
+                <li>Improve exam-time management and tips for getting the best results in limited time.</li>
+            </ul>
+            <p>Our goal is to transform English from a weak subject into your strongest asset, helping you achieve the highest marks possible and ensuring you secure your university entry!</p>
+        </section>
+    
+        <section class="review-section">
+            <h2>Parent Reviews</h2>
+            <div class="review-filter">
+                <label for="yearFilter">Filter by Year: </label>
+                <select id="yearFilter">
+                    <option value="All">All</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                </select>
+            </div>
+            
+            <div class="review-item" data-year="2024">
+                <div class="review-text">
+                    <p><strong>Jane Doe</strong></p>
+                    <div class="stars-container">
+                        <span class="star filled"></span>
+                        <span class="star filled"></span>
+                        <span class="star filled"></span>
+                        <span class="star filled"></span>
+                        <span class="star"></span>
+                    </div>
+                    <p>My child loves the interactive activities and songs! It’s a great way to keep them engaged while learning new English words.</p>
+                </div>
+            </div>
+            
+            <div class="review-item" data-year="2023">
+                <div class="review-text">
+                    <p><strong>John Smith</strong></p>
+                    <div class="stars-container">
+                        <span class="star filled"></span>
+                        <span class="star filled"></span>
+                        <span class="star filled"></span>
+                        <span class="star filled"></span>
+                        <span class="star filled"></span>
+                    </div>
+                    <p>Excellent course! My son has made amazing progress in just a few weeks. The teacher is very patient and encouraging.</p>
+                </div>
+            </div>
+        </section>
+        
+    </div>
+    
+
+    <!-- JavaScript -->
+    <script>
+
+     document.getElementById('partA').addEventListener('click', function() {
+    // Update the popup content for Part A
+    document.getElementById('popupMonth').innerText = 'January - June'; // Month
+    document.getElementById('popupTime').innerText = 'Wednesday 2.30pm-4pm'; // Time
+    document.getElementById('popupchildren').innerText = "20/30"; // Capacity
+    document.getElementById('popup').style.display = 'flex'; // Show the popup
+    });
+
+    document.getElementById('partB').addEventListener('click', function() {
+    // Update the popup content for Part B
+    document.getElementById('popupMonth').innerText = 'July - December'; // Month
+    document.getElementById('popupTime').innerText = 'Wednesday 2.30pm-4pm'; // Time
+    document.getElementById('popupchildren').innerText = "0/30 (Unavailable)"; // Capacity
+    document.getElementById('popup').style.display = 'flex'; // Show the popup
+    });
+
+    // Close popup functionality 
+    document.getElementById('closePopup').addEventListener('click', function() {
+    document.getElementById('popup').style.display = 'none'; // Hide popup on close
+    });
+
+// Add to cart button functionality
+    document.getElementById('addToCart').addEventListener('click', function() {
+    alert('Item added to cart!'); // Alert when the item is added to the cart
+    document.getElementById('popup').style.display = 'none'; // Hide the popup
+    });
+
+
+
+
+        function setRating(rating) {
+    const stars = document.querySelectorAll('.stars-container .star');
+    const fullStars = Math.floor(rating);
+    const halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
+    const emptyStars = stars.length - fullStars - halfStar;
+
+    for (let i = 0; i < fullStars; i++) {
+        stars[i].classList.add('yellow');
+    }
+
+    if (halfStar) {
+        stars[fullStars].classList.add('half');
+    }
+
+    for (let i = fullStars + halfStar; i < stars.length; i++) {
+        stars[i].classList.remove('yellow', 'half');
+    }
+}
+
+setRating(4.5);
+
+document.getElementById("yearFilter").addEventListener("change", function() {
+    var selectedYear = this.value;
+    var reviews = document.querySelectorAll(".review-item");
+    reviews.forEach(function(review) {
+        var reviewYear = review.getAttribute("data-year");
+        if (selectedYear === "All" || selectedYear === reviewYear) {
+            review.style.display = "flex";
+        } else {
+            review.style.display = "none";
+        }
+    });
+});
+
+    </script>
+                  <!-- Footer Start -->
+                  <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+                    <div class="container py-5">
+                        <div class="row g-5">
+                            <div class="col-lg-3 col-md-6">
+                                <h4 class="text-white mb-3">Quick Link</h4>
+                                <a class="btn btn-link" href="">About Us</a>
+                                <a class="btn btn-link" href="">Contact Us</a>
+                                <a class="btn btn-link" href="">Privacy Policy</a>
+                                <a class="btn btn-link" href="">Terms & Condition</a>
+                                <a class="btn btn-link" href="">FAQs & Help</a>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <h4 class="text-white mb-3">Contact</h4>
+                                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
+                                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
+                                <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                                <div class="d-flex pt-2">
+                                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <h4 class="text-white mb-3">Gallery</h4>
+                                <div class="row g-2 pt-2">
+                                    <div class="col-4">
+                                        <img class="img-fluid bg-light p-1" src="img/course-1.jpg" alt="">
+                                    </div>
+                                    <div class="col-4">
+                                        <img class="img-fluid bg-light p-1" src="img/course-2.jpg" alt="">
+                                    </div>
+                                    <div class="col-4">
+                                        <img class="img-fluid bg-light p-1" src="img/course-3.jpg" alt="">
+                                    </div>
+                                    <div class="col-4">
+                                        <img class="img-fluid bg-light p-1" src="img/course-2.jpg" alt="">
+                                    </div>
+                                    <div class="col-4">
+                                        <img class="img-fluid bg-light p-1" src="img/course-3.jpg" alt="">
+                                    </div>
+                                    <div class="col-4">
+                                        <img class="img-fluid bg-light p-1" src="img/course-1.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <h4 class="text-white mb-3">Newsletter</h4>
+                                <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                                <div class="position-relative mx-auto" style="max-width: 400px;">
+                                    <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+                                    <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="copyright">
+                            <div class="row">
+                                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                                    &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved.
+            
+                                    <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                                    Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
+                                </div>
+                                <div class="col-md-6 text-center text-md-end">
+                                    <div class="footer-menu">
+                                        <a href="">Home</a>
+                                        <a href="">Cookies</a>
+                                        <a href="">Help</a>
+                                        <a href="">FQAs</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Footer End -->
+            
+            
+                <!-- Back to Top -->
+                <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    
+        
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
