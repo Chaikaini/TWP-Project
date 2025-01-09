@@ -71,6 +71,7 @@
             border: 1px solid #ccc;
             border-radius: 10px;
             padding: 10px;
+            height: 300px;
         }
         .profile-options a {
             text-decoration: none;
@@ -163,8 +164,11 @@
         .close {
             color: #aaa;
             float: right;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
+            position: absolute; 
+            top: 10px; 
+            right: 10px;
         }
         .close:hover,
         .close:focus {
@@ -195,6 +199,7 @@
             background-color: #007bff;
             color: #fff;
             
+            
         }
         
         .button-container {
@@ -216,6 +221,7 @@
     .avatar-section {
        text-align: center;
        margin-bottom: 20px;
+       margin-top: 30px;
    }
 
     .avatar-container {
@@ -233,9 +239,39 @@
        object-fit: cover;
     }
 
-#avatar-upload {
+    #avatar-upload {
     display: none;
+     }
+
+     .required {
+    color: red;
+    }
+
+    textarea {
+    width: 100%;
+    height: 100px;
+    padding: 8px;
+    box-sizing: border-box;
+    }
+
+    .pointer-cursor {
+    cursor:pointer !important;
+           
+    }
+
+    button.btn.btn-primaryy {
+    width: 100%;
+    padding: 10px;
+    background-color:#15ca39;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
+
+button.btn.btn-primaryy:hover {
+    background-color:#14a631;
+}
+
     </style>
 </head>
 
@@ -296,7 +332,7 @@
     <!-- Header End -->
 
     <div class="profile-container">
-        <div class="profile-options" style="height: 300px">
+        <div class="profile-options">
             <a href="#" id="my-info-tab" class="active">My Information</a>
             <a href="#" id="children-info-tab">Children Information</a>
             <a href="#" id="history-tab">Payment History</a>
@@ -305,7 +341,7 @@
         <div class="profile-content active" id="my-info-content">
             <h3>My Information</h3>
 
-            <div class="avatar-section"style="margin-top: 30px;">
+            <div class="avatar-section">
                 <label for="avatar-upload">
                     <div class="avatar-container">
                         <img src="img/user.jpg" alt="User Avatar" id="user-avatar">
@@ -332,7 +368,7 @@
                     <input type="text" id="ic-num">
                 </div>
                 <div class="form-group">
-                    <label for="email">Email <span style="color: red;">*</span> <small style="color: red;"></small></label>
+                    <label for="email">Email <span class="required">*</span> <small class="required"></small></label>
                     <input type="email" id="email" readonly>
                 </div>
                 <div class="form-group">
@@ -353,7 +389,7 @@
                 </div>
                 <div class="form-group">
                     <label for="address">Address</label>
-                    <textarea id="address" style="height: 100px"></textarea>
+                    <textarea id="address"></textarea>
                 </div>
                 <h3>Reset Password</h3>
                 <div class="form-group">
@@ -398,8 +434,8 @@
                             <td>SJKC Kulai 2</td>
                             <td>Year 1</td>
                             <td>
-                                <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openModal()"></i>
-                                <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
+                                <i class="pointer-cursor fas fa-edit text-warning edit-btn" onclick="openModal()"></i>
+                                <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn ms-2"></i>
                             </td>
                         </tr>
                         <tr>
@@ -410,8 +446,8 @@
                             <td>SJKC Kulai 2</td>
                             <td>Year 1</td>
                             <td>
-                                <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openModal()"></i>
-                                <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
+                                <i class="pointer-cursor fas fa-edit text-warning edit-btn" onclick="openModal()"></i>
+                                <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn ms-2"></i>
                             </td>
                         </tr>
                     </tbody>
@@ -428,7 +464,7 @@
                     <option value="John Doe">John Doe</option>
                 </select>
             </div>
-            <div id="learningStatus" class="card mt-3" style="display:none;">
+            <div id="learningStatus" class="card mt-3">
                 <div class="card-body">
                     <h4 class="card-title">Learning Status</h4>
                     <p id="statusContent" class="card-text"></p>
@@ -445,17 +481,17 @@
 
    <!-- Add Child Modal -->
 <div id="addChildModal" class="modal">
-    <div class="modal-content">
-        <span class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; cursor: pointer;" onclick="closeModal()">&times;</span>
+    <div class="modal-content pointer-cursor">
+        <span class="close" onclick="closeModal()">&times;</span>
         <h3>Add Child Information</h3>
 
-        <div class="avatar-section"style="margin-top: 30px;">
+        <div class="avatar-section">
             <label for="avatar-upload">
                 <div class="avatar-container">
                     <img src="img/user.jpg" alt="User Avatar" id="user-avatar">
                 </div>
             </label>
-            <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+            <input type="file" id="avatar-upload" accept="image/*">
         </div>
 
         <form id="addChildForm">
@@ -492,7 +528,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary"style="width: 100%;">Save Changes</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
             </div>
         </form>
     </div>
@@ -500,17 +536,17 @@
    
    <!-- Child Modal -->
 <div id="childFormModal" class="modal">
-    <div class="modal-content">
-        <span class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; cursor: pointer;" onclick="closeModal()">&times;</span>
+    <div class="modal-content pointer-cursor">
+        <span class="close" onclick="closeModal()">&times;</span>
         <h3>Edit Child Information</h3>
 
-        <div class="avatar-section"style="margin-top: 30px;">
+        <div class="avatar-section">
             <label for="avatar-upload">
                 <div class="avatar-container">
                     <img src="img/user.jpg" alt="User Avatar" id="user-avatar">
                 </div>
             </label>
-            <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+            <input type="file" id="avatar-upload" accept="image/*">
         </div>
 
         <form id="childForm">
@@ -542,7 +578,7 @@
             </div>
         </form>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary" style="width: 100%;">Save Changes</button>
+            <button type="submit" class="btn btn-primaryy">Save Changes</button>
         </div>
     </div>
 </div>
