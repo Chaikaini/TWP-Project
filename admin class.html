@@ -27,7 +27,7 @@
     #sidebar a {
       color: white;
       text-decoration: none;
-      padding: 15px 15px; /* Adjusted padding for better spacing */
+      padding: 15px 15px; 
       display: block;
     }
     #sidebar a:hover {
@@ -189,6 +189,20 @@
       <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-shopping-cart"></i> <span>Order List</span></a></li>
       <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-book"></i> <span>Subject List</span></a></li>
       <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-school"></i> <span>Class List</span></a></li>
+      <li class="nav-item">
+        <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#reportMenu" aria-expanded="false">
+          <i class="fas fa-chart-line"></i> <span>Report</span>
+          <i class="fas fa-chevron-down ms-2" id="reportIcon"></i> <!-- Add this icon for expand/collapse -->
+        </a>
+        <div class="collapse" id="reportMenu">
+          <ul class="nav flex-column ms-3">
+            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-invoice"></i> <span>Payment report</span></a></li>
+            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-alt"></i> <span>Subject Enrollment report
+            </span></a></li>
+            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-alt"></i> <span>New Student report</span></a></li>
+          </ul>
+        </div>
+      </li>      
     </ul>
   </nav>
 
@@ -405,6 +419,18 @@
    
 
 <script>
+
+  document.querySelector('[data-bs-toggle="collapse"]').addEventListener('click', function() {
+   const icon = document.getElementById('reportIcon');
+   if (icon.classList.contains('fa-chevron-down')) {
+    icon.classList.remove('fa-chevron-down');
+    icon.classList.add('fa-chevron-up');
+   } else {
+    icon.classList.remove('fa-chevron-up');
+    icon.classList.add('fa-chevron-down');
+   }
+  });
+
   var modals = document.querySelectorAll(".modal");
   var addClassBtn = document.getElementById("addClassBtn");
   var closeButtons = document.querySelectorAll(".close");
