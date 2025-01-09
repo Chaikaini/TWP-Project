@@ -104,6 +104,20 @@
       <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-shopping-cart"></i> <span>Order List</span></a></li>
       <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-book"></i> <span>Subject List</span></a></li>
       <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-school"></i> <span>Class List</span></a></li>
+      <!-- Report Section -->
+      <li class="nav-item">
+        <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#reportMenu" aria-expanded="false" id="reportToggle">
+          <i class="fas fa-chart-line"></i> <span>Report</span>
+          <i class="fas fa-chevron-down ms-2" id="reportIcon"></i> <!-- 展开/折叠图标 -->
+        </a>
+        <div class="collapse" id="reportMenu">
+          <ul class="nav flex-column ms-3">
+            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-invoice"></i> <span>Payment Report</span></a></li>
+            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-alt"></i> <span>Report 1</span></a></li>
+            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-alt"></i> <span>Report 2</span></a></li>
+          </ul>
+        </div>
+      </li>
     </ul>
   </nav>
 
@@ -189,6 +203,18 @@
   <script>
     document.getElementById('toggleSidebar').addEventListener('click', () => {
       document.getElementById('sidebar').classList.toggle('collapsed');
+    });
+
+    // Toggle icon based on collapse state
+    document.getElementById('reportToggle').addEventListener('click', function() {
+      const icon = document.getElementById('reportIcon');
+      if (icon.classList.contains('fa-chevron-down')) {
+        icon.classList.remove('fa-chevron-down');
+        icon.classList.add('fa-chevron-up');
+      } else {
+        icon.classList.remove('fa-chevron-up');
+        icon.classList.add('fa-chevron-down');
+      }
     });
 
     // Search functionality
