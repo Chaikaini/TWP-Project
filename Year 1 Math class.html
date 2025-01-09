@@ -531,14 +531,11 @@
     document.getElementById('popup').style.display = 'none'; // Hide the popup
     });
 
-
-
-
-        function setRating(rating) {
-    const stars = document.querySelectorAll('.stars-container .star');
-    const fullStars = Math.floor(rating);
-    const halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
-    const emptyStars = stars.length - fullStars - halfStar;
+    function setRating(rating) {
+      const stars = document.querySelectorAll('.stars-container .star');
+      const fullStars = Math.floor(rating);
+      const halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
+      const emptyStars = stars.length - fullStars - halfStar;
 
     for (let i = 0; i < fullStars; i++) {
         stars[i].classList.add('yellow');
@@ -660,7 +657,3 @@ document.getElementById("yearFilter").addEventListener("change", function() {
 </body>
 
 </html>
-
-
-
-
