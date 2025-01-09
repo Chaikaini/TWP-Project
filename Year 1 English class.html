@@ -93,19 +93,55 @@
             padding: 20px;
             border-radius: 8px;
             width: 500px;
-            height: 400px;
+            height: auto;
             position: relative;
             z-index: 10000; /* Ensure content is visible inside popup */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            font-size: 20px;
+            overflow: auto;
         }
 
         .popup-content h4 {
             margin-bottom: 15px;
+            text-align: center;
+          
         }
 
-        .popup-content label {
-            display: block;
-            margin-bottom: 10px;
+        .popup-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; 
         }
+
+        .popup-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-size: 20px; 
+        }
+
+        .popup-label {
+            font-weight: bold;
+            width: 120px; 
+            text-align: left;
+        }
+
+        .popup-value {
+            font-size: 20px; 
+            text-align: left;
+            flex: 1;
+        }
+
+        .popup-value select{
+            font-size: 20px;
+            padding: 5px;
+            width: auto;
+            min-width: 150px;
+        }
+
 
         .popup-content button {
             display: block;
@@ -115,7 +151,7 @@
             border: none;
             padding: 10px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 40px;
         }
 
         .close-btn {
@@ -356,32 +392,50 @@
                         <strong>Part A</strong> (January - June)
                     </div> <!-- Available part -->
                     <div class="time-slot gray" id="partB">
-                        <strong>Part B</strong> (July - December)
+                        <strong>Part B</strong> (July - December) (No open)
                     </div> <!-- Unavailable part -->
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Popup Modal -->
     <div class="popup" id="popup">
         <div class="popup-content">
             <span class="close-btn" id="closePopup">&times;</span>
             <h4>Class Time Details</h4>
-            <p id="popupTime"></p> <!-- Popup will show time details -->
-            <p id="popupchildren"></p>
-            <div>
-                <label>Children: 
-                    <select id="childrenSelect">
-                        <option value="1">Yuna</option> 
-                        <option value="2"></option>
-                        <option value="3"></option>
-                    </select>
-                </label>
+            
+            <!-- Information section with flex layout -->
+            <div class="popup-info">
+                <div class="popup-row">
+                    <span class="popup-label">Month:</span>
+                    <span class="popup-value" id="popupMonth"></span>
+                </div>
+                <div class="popup-row">
+                    <span class="popup-label">Time:</span>
+                    <span class="popup-value" id="popupTime"></span>
+                </div>
+                <div class="popup-row">
+                    <span class="popup-label">Capacity:</span>
+                    <span class="popup-value" id="popupchildren"></span>
+                </div>
+                <div class="popup-row">
+                    <span class="popup-label">Children:</span>
+                    <span class="popup-value">
+                        <select id="childrenSelect">
+                            <option value="1">Yuna</option> 
+                            <option value="2"></option>
+                            <option value="3"></option>
+                        </select>
+                    </span>
+                </div>
             </div>
+    
             <button id="addToCart">Add to Cart</button>
         </div>
     </div>
+    
+
+
 
     <!-- Course Overview Section -->
     <section class="course-overview">
@@ -432,29 +486,34 @@
 
     <!-- JavaScript -->
     <script>
-        // Ensure popup is properly triggered
-        document.getElementById('partA').addEventListener('click', function() {
-            document.getElementById('popupTime').innerText = 'Class Time: January - June';
-            document.getElementById('popupchildren').innerText = "Capacity: 10/30"; // Example capacity
-            document.getElementById('popup').style.display = 'flex';
-        });
+// Ensure popup is properly triggered 
+document.getElementById('partA').addEventListener('click', function() {
+    // Update the popup content for Part A
+    document.getElementById('popupMonth').innerText = 'January - June'; // Month
+    document.getElementById('popupTime').innerText = 'Monday 2.30pm-4pm'; // Time
+    document.getElementById('popupchildren').innerText = "10/30"; // Capacity
+    document.getElementById('popup').style.display = 'flex'; // Show the popup
+});
 
-        document.getElementById('partB').addEventListener('click', function() {
-            document.getElementById('popupTime').innerText = 'Class Time: July - December';
-            document.getElementById('popupchildren').innerText = "Capacity: 0/30 (Unavailable)";
-            document.getElementById('popup').style.display = 'flex';
-        });
+document.getElementById('partB').addEventListener('click', function() {
+    // Update the popup content for Part B
+    document.getElementById('popupMonth').innerText = 'July - December'; // Month
+    document.getElementById('popupTime').innerText = 'Monday 2.30pm-4pm'; // Time
+    document.getElementById('popupchildren').innerText = "0/30 (Unavailable)"; // Capacity
+    document.getElementById('popup').style.display = 'flex'; // Show the popup
+});
 
 // Close popup functionality 
 document.getElementById('closePopup').addEventListener('click', function() {
-    document.getElementById('popup').style.display = 'none';
+    document.getElementById('popup').style.display = 'none'; // Hide popup on close
 });
 
 // Add to cart button functionality
 document.getElementById('addToCart').addEventListener('click', function() {
-    alert('Item added to cart!');
-    document.getElementById('popup').style.display = 'none';
+    alert('Item added to cart!'); // Alert when the item is added to the cart
+    document.getElementById('popup').style.display = 'none'; // Hide the popup
 });
+
 
 
         function setRating(rating) {
