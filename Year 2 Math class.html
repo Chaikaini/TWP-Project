@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Year 1 English Class</title>
+    <title>Year 1 Math Class</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="The Seeds Learning Centre, Year 1 class " name="keywords">
     <meta content="The Seeds Learning Centre | Year 1 Class " name="description">
@@ -329,7 +329,6 @@
 }
 
 
-
  </style>
 </head>
 
@@ -364,13 +363,13 @@
 
     <!-- Breadcrumb Section -->
     <div class="breadcrumb-container">
-        <h2 >Malay Year 1</h2>
+        <h2>Math Year 1</h2>
         <ul class="breadcrumb">
             <li><a href="Home.html">Home</a></li>
             <li>&gt;</li>
             <li><a href="subject.html">Subject</a></li>
             <li>&gt;</li>
-            <li>Malay Year 1</li>
+            <li>Math Year 1</li>
         </ul>
     </div>
 
@@ -378,10 +377,10 @@
     <div class="container my-5">
         <div class="class-details-container">
             <div class="subject-image">
-                <img src="img/malay.jpg" alt="Subject Image" id="subjectImage">
+                <img src="img/math.jpg" alt="Subject Image" id="subjectImage">
             </div>
             <div class="class-details">
-                <h2>Malay Year 1</h2>
+                <h2>Math Year 1</h2>
 
                 <div class="rating-container">
                     <div class="stars-container">
@@ -392,14 +391,14 @@
                         <span class="star"></span>
                     </div>
                     <div class="rating-text">
-                        <span class="rating-number">4.5</span> | <span class="reviews-count">200 reviews</span>
+                        <span class="rating-number">4.3</span> | <span class="reviews-count">150 reviews</span>
                     </div>
                 </div>
                 
                 
 
                 <div class="class-info">
-                    <p><strong>Teacher:</strong> Mr. Aida</p>
+                    <p><strong>Teacher:</strong> Mr.  David</p>
                     <p><strong>Price: RM</strong> 510 (85 * 6 Month)</p>
                 </div>
 
@@ -458,17 +457,16 @@
         <!-- Subject Overview Section -->
         <section class="subject-overview">
             <h2>Subject Overview</h2>
-            <p>In this course, we will help you quickly master key strategies for the Year 1 Bahasa Melayu exam. We focus on effective techniques, practical advice, and step-by-step guidance. You will learn how to: </p>
+            <p>In this subject, we will help you quickly master key concepts and strategies for Year 2 Math. We focus on fun, engaging techniques, practical advice, and step-by-step guidance. You'll learn how to:</p>
             <ul>
-                <li>Understand the exam format and the focus of each section.</li>
-                <li>Develop essential reading and writing skills through targeted practice.</li>
-                <li>Learn the basic grammar rules and vocabulary needed for Year 1 Bahasa Melayu.</li>
-                <li>Focus on key past paper topics and strategies for answering questions effectively.</li>
-                <li>Improve time management skills for exams and tips for achieving the best results under time constraints.</li>
+                <li>Understand more advanced math concepts like addition, subtraction, multiplication, and division.</li>
+                <li>Develop skills in problem-solving, patterns, and number relationships through hands-on activities.</li>
+                <li>Learn essential math vocabulary and strategies for tackling word problems.</li>
+                <li>Focus on key topics like geometry, measurement, and time to strengthen your math skills.</li>
+                <li>Enhance your math thinking and reasoning to build a solid foundation for future learning.</li>
             </ul>
-            <p>Our goal is to transform Bahasa Melayu from a challenging subject into your strongest asset, helping you achieve the highest marks possible and ensuring you secure your university entry!</p>
-            
-        </section>
+            <p>Our goal is to make math an exciting and accessible subject, helping you build confidence and succeed in your learning journey!</p>
+        </section>   
     
         <section class="review-section">
             <h2>Parent Reviews</h2>
@@ -489,9 +487,10 @@
                         <span class="star filled"></span>
                         <span class="star filled"></span>
                         <span class="star filled"></span>
-                        <span class="star"></span>
+                        <span class="star filled"></span>
                     </div>
-                    <p>My child loves the interactive activities and songs in the Year 1 Bahasa Melayu course! It’s a great way to keep them engaged while learning new Bahasa Melayu words. Although the lessons are fun, I think there could be more challenging content to ensure continued progress as they advance in the language.</p>
+                    <p>My child enjoys the interactive activities and songs in the math course! It’s a fun and engaging way to introduce new concepts. The lessons are well-suited for Year 2 and effectively keep my child interested. We're happy with the course and look forward to more challenges as they progress!</p>
+
                 </div>
             </div>
             
@@ -503,9 +502,10 @@
                         <span class="star filled"></span>
                         <span class="star filled"></span>
                         <span class="star filled"></span>
-                        <span class="star "></span>
+                        <span class="star filled"></span>
                     </div>
-                    <p>Excellent course! My child has made amazing progress in just a few weeks. The teacher is very patient and encouraging, making him feel confident while learning Bahasa Melayu. The course content is suitable for Year 1 students, and my child is really enjoying it. However, I believe a bit more focus on grammar would be helpful for a more comprehensive understanding.</p>
+                    <p>Excellent course! My child has made great progress in just a few weeks. The teacher is patient and encouraging, helping my child build confidence in math. The content is engaging and perfectly suited for Year 2, reinforcing key concepts. We are very satisfied and highly recommend it!</p>
+
                 </div>
             </div>
         </section>
@@ -520,7 +520,7 @@
     // Update the popup content for Part A
     document.getElementById('popupMonth').innerText = 'January - June'; // Month
     document.getElementById('popupTime').innerText = 'Wednesday 2.30pm-4pm'; // Time
-    document.getElementById('popupchildren').innerText = "20/30"; // Capacity
+    document.getElementById('popupchildren').innerText = "15/30"; // Capacity
     document.getElementById('popup').style.display = 'flex'; // Show the popup
     });
 
@@ -543,14 +543,11 @@
     document.getElementById('popup').style.display = 'none'; // Hide the popup
     });
 
-
-
-
-        function setRating(rating) {
-    const stars = document.querySelectorAll('.stars-container .star');
-    const fullStars = Math.floor(rating);
-    const halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
-    const emptyStars = stars.length - fullStars - halfStar;
+    function setRating(rating) {
+      const stars = document.querySelectorAll('.stars-container .star');
+      const fullStars = Math.floor(rating);
+      const halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
+      const emptyStars = stars.length - fullStars - halfStar;
 
     for (let i = 0; i < fullStars; i++) {
         stars[i].classList.add('yellow');
@@ -565,7 +562,7 @@
     }
 }
 
-setRating(4.5);
+setRating(4.8);
 
 document.getElementById("yearFilter").addEventListener("change", function() {
     var selectedYear = this.value;

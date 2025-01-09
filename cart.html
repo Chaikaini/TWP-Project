@@ -141,25 +141,28 @@
         }
 
         .checkbox-container input[type="checkbox"] {
-            cursor: pointer;
+            position: absolute;
             width: 20px;
             height: 20px;
-            position: absolute;
+            z-index: 1;
+            opacity: 0;
+            cursor: pointer;
         }
 
         .checkbox-container .checkmark {
-            display: inline-block;
+            position: absolute;
             width: 20px;
             height: 20px;
             border: 2px solid #ccc;
             border-radius: 4px;
             cursor: pointer;
+            
         }
 
         .checkbox-container input:checked + .checkmark {
             background-color: #007bff;
             border-color: #007bff;
-            position: relative;
+            
         }
 
         .checkbox-container input:checked + .checkmark::after {
@@ -173,6 +176,116 @@
             border-width: 0 2px 2px 0;
             transform: rotate(45deg);
         }
+
+        /* Shopping Cart Styles */
+.cart-container {
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+.cart-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-item {
+    display: flex;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.cart-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.cart-item-details {
+    flex: 1;
+}
+
+.cart-item-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.cart-item-actions i {
+    cursor: pointer;
+}
+
+.cart-total {
+    margin-top: 30px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.checkout-btn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.checkout-btn:hover {
+    background-color: #45a049;
+}
+
+/* Popup styles */
+.popup-info {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    display: none; /* Initially hidden */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+.popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #888;
+}
+
+.popup-close:hover {
+    color: #f00;
+}
+
+.popup-row {
+    margin-bottom: 15px;
+}
+
+.popup-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.popup-value {
+    color: #555;
+}
+
+#childrenSelect {
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
     </style>
 </head>
 
@@ -229,77 +342,155 @@
         </div>
     </div>
 
+        <!-- Shopping Cart Section -->
+        <div class="cart-container">
+            <div class="cart-items">
+                <!-- Cart items will be injected here dynamically -->
+            </div>
+        </div>
+    
+        <!-- Popup for editing -->
+        <div class="popup-info">
+            <div class="popup-close">&times;</div>
+            <div class="popup-row">
+                <span class="popup-label">Month:</span>
+                <span class="popup-value" id="popupMonth"></span>
+            </div>
+            <div class="popup-row">
+                <span class="popup-label">Time:</span>
+                <span class="popup-value" id="popupTime"></span>
+            </div>
+            <div class="popup-row">
+                <span class="popup-label">Capacity:</span>
+                <span class="popup-value" id="popupCapacity"></span>
+            </div>
+            <div class="popup-row">
+                <span class="popup-label">Children:</span>
+                <span class="popup-value">
+                    <select id="childrenSelect">
+                        <option value="1">Yuna</option> 
+                        <option value="2"></option>
+                        <option value="3"></option>
+                    </select>
+                </span>
+            </div>
+        </div>
+
     <script>
+        // Sample cart items data
+       
         const cartItems = [
-            {
-                subject: 'English Class',
-                teacher: 'Mr. John',
-                price: 85,
-                time: 'Monday 2:30pm-4:00pm',
-                image: 'img/english.jpg',
-                year: 'Year 1',
-                student: 'Yuna',
-            },
-            {
-                subject: 'Math Class',
-                teacher: 'Mr. David',
-                price: 85,
-                time: 'Wednesday 2:30am-4:00pm',
-                image: 'img/math.jpg',
-                year: 'Year 1',
-                student: 'Yuna',
-            },
-        ];
+    {
+        image: 'img/math.jpg',
+        subject: 'Math',
+        teacher: 'Mr. John',
+        year: 'Year 1', 
+        price: 85,
+        time: 'Thursday, 2.30pm-4pm',
+        capacity: '15/30',
+        student: 'Yuna',
+        startMonth: 0 // January
+    },
+    {
+        image: 'img/malay.jpg',
+        subject: 'Malay',
+        teacher: 'Mrs. Aida',
+        year: 'Year 1', 
+        price: 85,
+        time: 'Wednesdays, 2.30pm-4pm',
+        capacity: '20/30',
+        student: 'Yuna',
+        startMonth: 0
+    }
+];
 
-        let selectedItems = [];
 
-        function updateCart() {
-            const cartContainer = document.querySelector('.cart-items');
-            cartContainer.innerHTML = '';
-            cartItems.forEach((item, index) => {
-                const cartItemDiv = document.createElement('div');
-                cartItemDiv.classList.add('cart-item');
-                cartItemDiv.innerHTML = `
-                   <div class="checkbox-container">
-                        <input type="checkbox" class="select-item" onchange="toggleSelection(${index})">
-                        <span class="checkmark"></span>
-                    </div>
-                    <img src="${item.image}" alt="Course Image">
-                    <div class="cart-item-details">
-                        <h5>${item.subject}</h5>
-                        <p><strong>Teacher:</strong> ${item.teacher}</p>
-                        <p><strong>Year:</strong> ${item.year}</p>
-                        <p><strong>Price:</strong> RM ${item.price}</p>
-                        <p><strong>Time:</strong> ${item.time}</p>
-                        <p><strong>Student:</strong> ${item.student}</p>
-                    </div>
-                      <div class="cart-item-actions">
-                        <i class="fas fa-pencil-alt" onclick="editItem(${index})"></i>
-                        <i class="fas fa-trash" onclick="removeFromCart(${index})"></i>
-                    </div>
-                `;
-                cartContainer.appendChild(cartItemDiv);
-            });
-        }
+function updateCart() {
+    const cartContainer = document.querySelector('.cart-items');
+    cartContainer.innerHTML = '';
 
-        function toggleSelection(index) {
-            const checkbox = document.querySelectorAll('.select-item')[index];
-            const selectedItem = cartItems[index];
-            if (checkbox.checked) {
-                selectedItems.push(selectedItem);
-            } else {
-                selectedItems = selectedItems.filter(item => item !== selectedItem);
-            }
-            updateTotalPrice();
-        }
+    cartItems.forEach((item, index) => {
+        const cartItemDiv = document.createElement('div');
+        cartItemDiv.classList.add('cart-item');
+        cartItemDiv.innerHTML = `
+            <div class="checkbox-container">
+                <input type="checkbox" class="select-item" data-index="${index}" onchange="toggleSelection(${index})">
+                <span class="checkmark"></span>
+            </div>
+            <img src="${item.image}" alt="Course Image">
+            <div class="cart-item-details">
+                <h5>${item.subject}</h5>
+                <p><strong>Teacher:</strong> ${item.teacher}</p>
+                <p><strong>Year:</strong> ${item.year === 'year1' ? 'Year 1' : 'Year 2'}</p>
+                <p><strong>Price:</strong> RM <span id="price-${index}">${calculatePrice(item)}</span></p>
+                <p><strong>Time:</strong> ${item.time}</p>
+                <p><strong>Student:</strong> ${item.student}</p>
+            </div>
+            <div class="cart-item-actions">
+                <i class="fas fa-pencil-alt" onclick="editItem(${index})"></i>
+                <i class="fas fa-trash" onclick="removeFromCart(${index})"></i>
+            </div>
+        `;
+        cartContainer.appendChild(cartItemDiv);
+    });
+}
 
-        function updateTotalPrice() {
-            const totalPrice = selectedItems.reduce((sum, item) => sum + item.price, 0);
-            document.getElementById('total-price').textContent = totalPrice;
-        }
 
-        updateCart();
-    </script>
+function calculatePrice(course) {
+    const currentMonth = new Date().getMonth();
+    const monthsPassed = (currentMonth - course.startMonth + 12) % 12; 
+    const remainingMonths = Math.max(6 - monthsPassed, 0); 
+    return remainingMonths * course.price;
+}
+
+
+function updateTotalPrice() {
+    const selectedItems = document.querySelectorAll('.select-item:checked');
+    let total = 0;
+
+    selectedItems.forEach(item => {
+        const index = item.dataset.index;
+        total += calculatePrice(cartItems[index]);
+    });
+
+    document.getElementById("total-price").textContent = total;
+}
+
+
+function toggleSelection(index) {
+    updateTotalPrice();
+}
+
+
+function editItem(index) {
+    const selectedCourse = cartItems[index];
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    document.getElementById("popupMonth").textContent = monthNames[selectedCourse.startMonth];
+    document.getElementById("popupTime").textContent = selectedCourse.time;
+    document.getElementById("popupCapacity").textContent = selectedCourse.capacity;
+    document.querySelector(".popup-info").style.display = "block";
+}
+
+
+function removeFromCart(index) {
+    cartItems.splice(index, 1); 
+    updateCart(); 
+    updateTotalPrice(); 
+}
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    updateCart();
+});
+
+
+document.querySelector(".popup-close").addEventListener("click", () => {
+    document.querySelector(".popup-info").style.display = "none";
+});
+
+
+</script>
+
 
         <!-- Footer Start -->
         <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">

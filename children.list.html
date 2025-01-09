@@ -117,6 +117,22 @@
       <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-shopping-cart"></i> <span>Order List</span></a></li>
       <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-book"></i> <span>Subject List</span></a></li>
       <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-school"></i> <span>Class List</span></a></li>
+
+            <!-- Report Section -->
+            <li class="nav-item">
+              <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#reportMenu" aria-expanded="false" id="reportToggle">
+                <i class="fas fa-chart-line"></i> <span>Report</span>
+                <i class="fas fa-chevron-down ms-2" id="reportIcon"></i> <!-- 展开/折叠图标 -->
+              </a>
+              <div class="collapse" id="reportMenu">
+                <ul class="nav flex-column ms-3">
+                  <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-invoice"></i> <span>Payment report</span></a></li>
+                  <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-alt"></i> <span>Subject Enrollment report
+                  </span></a></li>
+                  <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-alt"></i> <span>New Student report</span></a></li>
+                </ul>
+              </div>
+            </li>
     </ul>
   </nav>
 
@@ -157,18 +173,13 @@
       <h2>View Children List</h2>
     </div>
     
-    <!-- Search Box -->
-    <div class="search-container">
-      <input type="text" placeholder="Search students..." id="studentSearch">
-      <button>Search</button>
-    </div>
 
     <div class="table-container">
       <table class="table table-bordered table-striped">
         <thead>
           <tr>
             <th>Name</th>
-            <th>IC</th>
+            <th>My kid number</th>
             <th>Gender</th>
             <th>School</th>
             <th>Year</th>
@@ -220,8 +231,8 @@
                 <input type="text" class="form-control" id="editName" />
               </div>
               <div class="mb-3">
-                <label for="editIC" class="form-label">IC</label>
-                <input type="text" class="form-control" id="editIC" />
+                <label for="editMy kid number" class="form-label">My kid number</label>
+                <input type="text" class="form-control" id="editMy kid number" />
               </div>
               <div class="mb-3">
                 <label for="editGender" class="form-label">Gender</label>
@@ -260,7 +271,7 @@
           if (e.target.classList.contains("edit-btn")) {
             editRow = e.target.closest("tr");
             document.getElementById("editName").value = editRow.children[0].textContent;
-            document.getElementById("editIC").value = editRow.children[1].textContent;
+            document.getElementById("editMy kid number").value = editRow.children[1].textContent;
             document.getElementById("editGender").value = editRow.children[2].textContent;
             document.getElementById("editSchool").value = editRow.children[3].textContent;
             document.getElementById("editYear").value = editRow.children[4].textContent;
@@ -280,7 +291,7 @@
         document.getElementById("saveChanges").addEventListener("click", () => {
           if (editRow) {
             editRow.children[0].textContent = document.getElementById("editName").value;
-            editRow.children[1].textContent = document.getElementById("editIC").value;
+            editRow.children[1].textContent = document.getElementById("editMy kid number").value;
             editRow.children[2].textContent = document.getElementById("editGender").value;
             editRow.children[3].textContent = document.getElementById("editSchool").value;
             editRow.children[4].textContent = document.getElementById("editYear").value;
