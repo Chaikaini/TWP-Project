@@ -90,8 +90,11 @@
         .close {
             color: #aaa;
             float: right;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
+            position: absolute; 
+            top: 10px; 
+            right: 10px;
         }
         .close:hover,
         .close:focus {
@@ -167,6 +170,10 @@
         .btn-secondary {
             background-color: #6c757d;
             color: #fff;
+        }
+        .pointer-cursor {
+          cursor:pointer !important;
+           
         }
 
         
@@ -249,8 +256,8 @@
               <td>Year 1 </td>
               <td>RM 85</td>
               <td>
-                <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openEditModal('11132', 'Math', 'Year 1', 'RM 85')"></i>
-                <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
+                <i class="pointer-cursor fas fa-edit text-warning edit-btn" onclick="openEditModal('11132', 'Math', 'Year 1', 'RM 85')"></i>
+                <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn ms-2"></i>
               </td>
             </tr>
             <tr>
@@ -259,8 +266,8 @@
                 <td>Year 1 </td>
                 <td>RM 85</td>
                 <td>
-                  <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openEditModal('11245', 'English', 'Year 1', 'RM 85')"></i>
-                  <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
+                  <i class="pointer-cursor fas fa-edit text-warning edit-btn" onclick="openEditModal('11245', 'English', 'Year 1', 'RM 85')"></i>
+                  <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn ms-2" ></i>
                 </td>
             </tr>
             <tr>
@@ -269,8 +276,8 @@
                 <td>Year 1 </td>
                 <td>RM 85</td>
                 <td>
-                  <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openModal()"></i>
-                  <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
+                  <i class="pointer-cursor fas fa-edit text-warning edit-btn" onclick="openModal()"></i>
+                  <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn ms-2"></i>
                 </td>
             </tr>
             <tr>
@@ -280,8 +287,8 @@
                     <td>Year 2 </td>
                     <td>RM 85</td>
                     <td>
-                      <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openModal()"></i>
-                      <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
+                      <i class="pointer-cursor fas fa-edit text-warning edit-btn" onclick="openModal()"></i>
+                      <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn ms-2"></i>
                     </td>
                 </tr>
                 <tr>
@@ -290,8 +297,8 @@
                     <td>Year 2 </td>
                     <td>RM 85</td>
                     <td>
-                      <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openModal()"></i>
-                      <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
+                      <i class="pointer-cursor fas fa-edit text-warning edit-btn"onclick="openModal()"></i>
+                      <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn ms-2"></i>
                     </td>
                 </tr>
                 <tr>
@@ -300,8 +307,8 @@
                     <td>Year 2 </td>
                     <td>RM 85</td>
                     <td>
-                      <i class="fas fa-edit text-warning edit-btn" style="cursor:pointer;" onclick="openModal()"></i>
-                      <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
+                      <i class="pointer-cursor fas fa-edit text-warning edit-btn" onclick="openModal()"></i>
+                      <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn ms-2"></i>
                     </td>
                 </tr>
                 
@@ -315,8 +322,8 @@
   
   <!-- The Modal -->
 <div id="addSubjectModal" class="modal">
-    <div class="modal-content">
-        <span class="close" style="position: absolute; top: 10px; right: 10px; font-size: 24px; cursor: pointer;">&times;</span>
+    <div class="modal-content pointer-cursor">
+        <span class="close ">&times;</span>
         <form id="addSubjectForm">
             <label for="subjectID">Subject ID:</label>
             <input type="text" id="subjectID" name="subjectID">
@@ -338,8 +345,8 @@
 
   <!-- Edit Modal -->
   <div id="editModal" class="modal">
-    <div class="modal-content">
-        <span class="close"  style="position: absolute; top: 10px; right: 10px; font-size: 24px; cursor: pointer;" onclick="closeModal()">&times;</span>
+    <div class="modal-content pointer-cursor">
+        <span class="close" onclick="closeModal()">&times;</span>
         <form id="editSubjectForm">
             <div class="form-group">
                 <label for="editSubjectID">Subject ID:</label>
