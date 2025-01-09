@@ -163,7 +163,7 @@
         <thead>
           <tr>
             <th>Name</th>
-            <th>IC</th>
+            <th>My kid number</th>
             <th>Gender</th>
             <th>School</th>
             <th>Year</th>
@@ -215,8 +215,8 @@
                 <input type="text" class="form-control" id="editName" />
               </div>
               <div class="mb-3">
-                <label for="editIC" class="form-label">IC</label>
-                <input type="text" class="form-control" id="editIC" />
+                <label for="editMy kid number" class="form-label">My kid number</label>
+                <input type="text" class="form-control" id="editMy kid number" />
               </div>
               <div class="mb-3">
                 <label for="editGender" class="form-label">Gender</label>
@@ -255,7 +255,7 @@
           if (e.target.classList.contains("edit-btn")) {
             editRow = e.target.closest("tr");
             document.getElementById("editName").value = editRow.children[0].textContent;
-            document.getElementById("editIC").value = editRow.children[1].textContent;
+            document.getElementById("editMy kid number").value = editRow.children[1].textContent;
             document.getElementById("editGender").value = editRow.children[2].textContent;
             document.getElementById("editSchool").value = editRow.children[3].textContent;
             document.getElementById("editYear").value = editRow.children[4].textContent;
@@ -275,7 +275,7 @@
         document.getElementById("saveChanges").addEventListener("click", () => {
           if (editRow) {
             editRow.children[0].textContent = document.getElementById("editName").value;
-            editRow.children[1].textContent = document.getElementById("editIC").value;
+            editRow.children[1].textContent = document.getElementById("editMy kid number").value;
             editRow.children[2].textContent = document.getElementById("editGender").value;
             editRow.children[3].textContent = document.getElementById("editSchool").value;
             editRow.children[4].textContent = document.getElementById("editYear").value;
