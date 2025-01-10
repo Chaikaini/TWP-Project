@@ -381,23 +381,23 @@
        
         const cartItems = [
     {
-        image: 'img/math.jpg',
-        subject: 'Math',
+        image: 'img/english.jpg',
+        subject: 'English class',
         teacher: 'Mr. John',
         year: 'Year 1', 
         price: 85,
-        time: 'Thursday, 2.30pm-4pm',
+        time: 'Monday, 2.30pm-4pm',
         capacity: '15/30',
         student: 'Yuna',
         startMonth: 0 // January
     },
     {
-        image: 'img/malay.jpg',
-        subject: 'Malay',
-        teacher: 'Mrs. Aida',
+        image: 'img/math.jpg',
+        subject: 'Math  class',
+        teacher: 'Mrs. David',
         year: 'Year 1', 
         price: 85,
-        time: 'Wednesdays, 2.30pm-4pm',
+        time: 'Wednesday, 2.30pm-4pm',
         capacity: '20/30',
         student: 'Yuna',
         startMonth: 0
@@ -421,8 +421,8 @@ function updateCart() {
             <div class="cart-item-details">
                 <h5>${item.subject}</h5>
                 <p><strong>Teacher:</strong> ${item.teacher}</p>
-                <p><strong>Year:</strong> ${item.year === 'year1' ? 'Year 1' : 'Year 2'}</p>
-                <p><strong>Price:</strong> RM <span id="price-${index}">${calculatePrice(item)}</span></p>
+                <p><strong>Year:</strong> ${item.year  }</p>
+                <p><strong>Price:</strong> RM <span id="price-${index}">${calculatePrice(item)}</span>     ( 85 *6 month) </p>
                 <p><strong>Time:</strong> ${item.time}</p>
                 <p><strong>Student:</strong> ${item.student}</p>
             </div>
