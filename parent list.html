@@ -117,6 +117,20 @@
       <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-shopping-cart"></i> <span>Order List</span></a></li>
       <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-book"></i> <span>Subject List</span></a></li>
       <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-school"></i> <span>Class List</span></a></li>
+
+      <li class="nav-item">
+        <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#reportMenu" aria-expanded="false" id="reportToggle">
+          <i class="fas fa-chart-line"></i> <span>Report</span>
+          <i class="fas fa-chevron-down ms-2" id="reportIcon"></i>
+        </a>
+        <div class="collapse" id="reportMenu">
+          <ul class="nav flex-column ms-3">
+            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-invoice"></i> <span>Payment report</span></a></li>
+            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-alt"></i> <span>Subject Enrollment report</span></a></li>
+            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-alt"></i> <span>New Children report</span></a></li>
+          </ul>
+        </div>
+      </li>
     </ul>
   </nav>
 
@@ -127,9 +141,28 @@
       <div class="container-fluid">
         <button class="btn btn-outline-secondary me-2" id="toggleSidebar"><i class="fas fa-bars"></i></button>
         <form class="d-flex ms-auto">
-          <input class="form-control me-2" type="search" placeholder="Search" />
-          <button class="btn btn-outline-success" type="submit">Search</button>
+          <input class="form-control me-2" type="search" placeholder="Search by name or ID" id="search-date" />
+          <button class="btn btn-outline-success" type="button" id="search-btn">Search</button>
         </form>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="notifications" role="button" data-bs-toggle="dropdown">
+              <i class="fas fa-bell"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notifications">
+              <li><a class="dropdown-item" href="#">No new notifications</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown">
+              <img src="https://via.placeholder.com/30" class="rounded-circle" alt="User" />
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="#">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
       </div>
     </nav>
 
