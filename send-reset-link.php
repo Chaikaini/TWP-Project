@@ -1,6 +1,8 @@
 <?php
 
-date_default_timezone_set('Asia/Malaysia'); 
+date_default_timezone_set('Asia/Kuala_Lumpur');
+echo "Current PHP time: " . date("Y-m-d H:i:s") . "<br>";
+
 
 $conn = new mysqli("localhost", "root", "", "user_information"); // 修正数据库名
 if ($conn->connect_error) {
