@@ -24,12 +24,16 @@ $row = $result->fetch_assoc();
 $email = $row["email"];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (!isset($_POST["password"]) || empty($_POST["password"])) {
+    $input = file_get_contents("php://input"); // 读取原始数据
+    parse_str($input, $post_data); // 解析 x-www-form-urlencoded 数据
+    $password = $post_data["password"] ?? null;
+
+    if (!$password) {
         echo json_encode(["status" => "error", "message" => "Password is required."]);
         exit;
     }
 
-    $new_password = password_hash($_POST["password"], PASSWORD_BCRYPT);
+    $new_password = password_hash($password, PASSWORD_BCRYPT);
     $conn->query("UPDATE users SET password='$new_password' WHERE email='$email'");
     $conn->query("DELETE FROM password_resets WHERE email='$email'");
 
