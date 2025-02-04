@@ -1,5 +1,6 @@
 <?php
-session_start(); 
+session_start();
+header('Content-Type: application/json'); // 返回 JSON 响应
 
 $servername = "localhost";
 $username = "root";
@@ -8,15 +9,14 @@ $dbname = "user_information";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die(json_encode(["error" => "Database connection failed"]));
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
-    $password = $_POST['password']; 
+    $password = $_POST['password'];
 
     $email = $conn->real_escape_string($email);
-
     $sql = "SELECT * FROM users WHERE email = '$email'";
     $result = $conn->query($sql);
 
@@ -29,14 +29,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['username'] = $row['username'];
             $_SESSION['email'] = $row['email'];
 
-            header("Location: member.html");
+            echo json_encode([
+                "success" => true,
+                "username" => $row['username'],
+                "email" => $row['email']
+            ]);
             exit();
         } else {
-            header("Location: login.html?error=Incorrect password");
+            echo json_encode(["error" => "Incorrect password"]);
             exit();
         }
     } else {
-        header("Location: login.html?error=User not found");
+        echo json_encode(["error" => "User not found"]);
         exit();
     }
 }

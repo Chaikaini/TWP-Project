@@ -160,15 +160,42 @@
                     Login with Google
                 </button>
                 <p>or</p>
-                <form action="login.php" method="POST">
+                <form id="loginForm">
                     <input type="text" name="email" placeholder="Email" required>
                     <input type="password" name="password" placeholder="Password" required>
                     <div class="options">
                         <a href="forgot.html">Forgot password?</a>
                     </div>
                     <button type="submit">Login</button>
+                    <p id="errorMessage" style="color: red; display: none;"></p> <!-- 错误信息显示 -->
                     <p>Don’t have an account? <a href="registration.html">Sign up for free</a></p>
-                </form>                
+                </form>
+                
+                <script>
+                document.getElementById("loginForm").addEventListener("submit", function(event) {
+                    event.preventDefault(); // 阻止默认提交
+                
+                    let formData = new FormData(this);
+                
+                    fetch("login.php", {
+                        method: "POST",
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            localStorage.setItem("username", data.username);
+                            localStorage.setItem("email", data.email);
+                            window.location.href = "member.html"; // 登录成功跳转
+                        } else {
+                            let errorMessage = document.getElementById("errorMessage");
+                            errorMessage.textContent = data.error; // 显示错误信息
+                            errorMessage.style.display = "block";
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
+                });
+                </script>                              
             </div>
         </div>
     </div>
