@@ -120,22 +120,42 @@
             <div class="registration-form">
                 <h2>Create Your Account</h2>
                 <p>Fill in the details below to create your account.</p>
-                <form>
-                    <form action="register.php" method="POST">
-                        <input type="text" name="username" placeholder="Username" required>
-                        <input type="email" name="email" placeholder="Email" required>
-                        <input type="text" name="address" placeholder="Address" required>
-                        <input type="tel" name="phone_number" placeholder="Phone Number" required>
-                        <select name="gender" required>
-                            <option value="" disabled selected hidden>Gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
-                        <input type="password" name="password" placeholder="Password" required>
-                        <input type="password" name="confirm_password" placeholder="Confirm Password" required>
-                        <button type="submit">Register</button>
+                <form id="registerForm">
+                    <input type="text" name="username" placeholder="Username" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="text" name="address" placeholder="Address" required>
+                    <input type="tel" name="phone_number" placeholder="Phone Number" required>
+                    <select name="gender" required>
+                        <option value="" disabled selected hidden>Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                    <button type="submit">Register</button>
                     <p>Already have an account? <a href="login.html">Login here</a></p>
-                </form>                
+                </form>
+                
+                <script>
+                document.getElementById("registerForm").addEventListener("submit", function(event) {
+                    event.preventDefault(); // 阻止页面刷新
+                
+                    let formData = new FormData(this); // 获取表单数据
+                
+                    fetch("register.php", {
+                        method: "POST",
+                        body: formData
+                    })
+                    .then(response => response.text()) // 读取 PHP 返回的文本
+                    .then(data => {
+                        alert(data); // 弹出 PHP 返回的信息
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                    });
+                });
+                </script>
+                
             </div>
         </div>
     </div>
