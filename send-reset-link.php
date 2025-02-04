@@ -10,21 +10,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $conn->query("SELECT * FROM users WHERE email='$email'");
 
     if ($result->num_rows > 0) {
-        $token = bin2hex(random_bytes(32));
+        $token = bin2hex(random_bytes(32)); 
         $expires_at = date("Y-m-d H:i:s", strtotime("+10 minutes"));
 
         $conn->query("DELETE FROM password_resets WHERE email='$email'");
+        
         $conn->query("INSERT INTO password_resets (email, token, expires_at) VALUES ('$email', '$token', '$expires_at')");
 
         $reset_link = "http://localhost/reset-password.php?token=$token";
 
-        // 发送成功
-        header("Location: forgot-password.html?success=Reset link sent! Check your email.");
-        exit;
+        echo "<p>Click the link to reset your password: <a href='$reset_link'>Reset Password</a></p>";
     } else {
-        // 邮箱未找到
-        header("Location: forgot-password.html?error=Email not found!");
-        exit;
+        echo "<p>Email not found!</p>";
     }
 }
 ?>
+
+<form method="POST">
+    <input type="email" name="email" required placeholder="Enter your email">
+    <button type="submit">Send Reset Link</button>
+</form>
