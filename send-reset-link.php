@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         $conn->query("INSERT INTO password_resets (email, token, expires_at) VALUES ('$email', '$token', '$expires_at')");
 
-        $reset_link = "http://localhost/reset-password.php?token=$token";
+        $reset_link = "http://localhost/TWP-Project/reset-password.php?token=$token";
 
         echo "<p>Click the link to reset your password: <a href='$reset_link'>Reset Password</a></p>";
     } else {
