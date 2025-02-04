@@ -21,11 +21,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "INSERT INTO users (username, email, address, phone_number, gender, password) 
             VALUES ('$username', '$email', '$address', '$phone_number', '$gender', '$password')";
 
-    if ($conn->query($sql) === TRUE) {
-        echo "Registration successful!";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
+if ($conn->query($sql) === TRUE) {
+    echo "<script>alert('Registration successful!'); window.location.href='registration.html';</script>";
+} else {
+    echo "<script>alert('Error: " . $conn->error . "'); window.history.back();</script>";
+}
+
+
 }
 
 $conn->close();
