@@ -69,7 +69,7 @@
         }
 
         /* 弹窗样式 */
-        .popup, .reset-popup {
+        .popup {
             display: none;
             position: fixed;
             top: 50%;
@@ -83,7 +83,7 @@
             text-align: center;
         }
 
-        .popup button, .reset-popup button {
+        .popup button {
             margin-top: 10px;
         }
 
@@ -118,7 +118,7 @@
     </div>
 
     <div class="overlay" id="resetOverlay"></div>
-    <div class="reset-popup" id="resetPopup">
+    <div class="popup" id="resetPopup">
         <h2>Reset Password</h2>
         <form id="resetPasswordForm">
             <input type="password" id="newPassword" name="password" placeholder="Enter new password" required>
@@ -127,15 +127,16 @@
     </div>
 
     <script>
-        // 处理 "Send Reset Link" 按钮
         document.getElementById("forgotPasswordForm").addEventListener("submit", function(event) {
             event.preventDefault();
             let email = document.getElementById("email").value;
 
+            let formData = new FormData();
+            formData.append("email", email);
+
             fetch("send-reset-link.php", {
                 method: "POST",
-                body: new URLSearchParams({ email }),
-                headers: { "Content-Type": "application/x-www-form-urlencoded" }
+                body: formData
             })
             .then(response => response.text())
             .then(data => {
@@ -151,7 +152,6 @@
             document.getElementById("popup").style.display = "none";
         }
 
-        // 处理 "Reset Password" 弹窗
         let params = new URLSearchParams(window.location.search);
         if (params.has("token")) {
             document.getElementById("resetOverlay").style.display = "block";
@@ -163,20 +163,12 @@
 
                 fetch(`reset-password.php?token=${params.get("token")}`, {
                     method: "POST",
-                    body: new URLSearchParams({ password }),
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" }
+                    body: new URLSearchParams({ password })
                 })
-                .then(response => response.json())
+                .then(response => response.text())
                 .then(data => {
-                    document.getElementById("popupMessage").innerHTML = data.message;
-                    document.getElementById("overlay").style.display = "block";
-                    document.getElementById("popup").style.display = "block";
-
-                    if (data.status === "success") {
-                        setTimeout(() => {
-                            window.location.href = "login.html";
-                        }, 2000);
-                    }
+                    alert(data);
+                    window.location.href = "login.html";
                 })
                 .catch(error => console.error("Error:", error));
             });
