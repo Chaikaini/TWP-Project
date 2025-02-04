@@ -111,11 +111,19 @@
         </div>
     </div>
 
-    <!-- 弹窗 -->
     <div class="overlay" id="overlay"></div>
     <div class="popup" id="popup">
         <p id="popupMessage"></p>
         <button onclick="closePopup()">OK</button>
+    </div>
+
+    <div class="overlay" id="resetOverlay"></div>
+    <div class="popup" id="resetPopup">
+        <h2>Reset Password</h2>
+        <form id="resetPasswordForm">
+            <input type="password" id="newPassword" name="password" placeholder="Enter new password" required>
+            <button type="submit">Reset Password</button>
+        </form>
     </div>
 
     <script>
@@ -136,14 +144,34 @@
                 document.getElementById("overlay").style.display = "block";
                 document.getElementById("popup").style.display = "block";
             })
-            .catch(error => {
-                console.error("Error:", error);
-            });
+            .catch(error => console.error("Error:", error));
         });
 
         function closePopup() {
             document.getElementById("overlay").style.display = "none";
             document.getElementById("popup").style.display = "none";
+        }
+
+        let params = new URLSearchParams(window.location.search);
+        if (params.has("token")) {
+            document.getElementById("resetOverlay").style.display = "block";
+            document.getElementById("resetPopup").style.display = "block";
+
+            document.getElementById("resetPasswordForm").addEventListener("submit", function(event) {
+                event.preventDefault();
+                let password = document.getElementById("newPassword").value;
+
+                fetch(`reset-password.php?token=${params.get("token")}`, {
+                    method: "POST",
+                    body: new URLSearchParams({ password })
+                })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data);
+                    window.location.href = "login.html";
+                })
+                .catch(error => console.error("Error:", error));
+            });
         }
     </script>
 </body>
