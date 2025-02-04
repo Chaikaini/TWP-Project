@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>Forgot Password</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="The Seeds Learning Centre,forgot password" name="keywords">
-    <meta content="The Seeds Learning Centre | Forgot Password" name="description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="The Seeds Learning Centre,forgot password">
+    <meta name="description" content="The Seeds Learning Centre | Forgot Password">
 
     <link href="img/the-seeds.jpg" rel="icon" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,6 +67,16 @@
         .forgot-password-form button:hover {
             background-color: #138496;
         }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+
+        .success {
+            color: green;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -74,8 +84,17 @@
         <div class="forgot-password-form">
             <h2>Forgot Password</h2>
             <p>Enter your email to receive a password reset link.</p>
-            <form action="send-otp.php" method="POST">
-                <input type="email" name="email" placeholder="Enter your email" required>
+            
+            <?php if (isset($_GET['error'])): ?>
+                <p class="error"><?php echo htmlspecialchars($_GET['error']); ?></p>
+            <?php endif; ?>
+
+            <?php if (isset($_GET['success'])): ?>
+                <p class="success"><?php echo htmlspecialchars($_GET['success']); ?></p>
+            <?php endif; ?>
+
+            <form action="send-reset-link.php" method="POST" novalidate>
+                <input type="email" name="email" placeholder="Enter your email" required autocomplete="email">
                 <button type="submit">Send Reset Link</button>
             </form>            
             <p>Remember your password? <a href="login.html">Login here</a></p>
