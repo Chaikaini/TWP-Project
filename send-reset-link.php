@@ -1,12 +1,10 @@
 <?php
 
 date_default_timezone_set('Asia/Kuala_Lumpur');
-echo "Current PHP time: " . date("Y-m-d H:i:s") . "<br>";
 
-
-$conn = new mysqli("localhost", "root", "", "user_information"); // 修正数据库名
+$conn = new mysqli("localhost", "root", "", "user_information");
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die("Database connection failed.");
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -19,19 +17,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $expires_at = date("Y-m-d H:i:s", strtotime("+10 minutes"));
 
         $conn->query("DELETE FROM password_resets WHERE email='$email'");
-        
         $conn->query("INSERT INTO password_resets (email, token, expires_at) VALUES ('$email', '$token', '$expires_at')");
 
         $reset_link = "http://localhost/TWP-Project/reset-password.php?token=$token";
 
-        echo "<p>Click the link to reset your password: <a href='$reset_link'>Reset Password</a></p>";
+        echo "A reset link has been sent to your email: <br><a href='$reset_link'>Reset Password</a>";
     } else {
-        echo "<p>Email not found!</p>";
+        echo "Email not found!";
     }
 }
 ?>
-
-<form method="POST">
-    <input type="email" name="email" required placeholder="Enter your email">
-    <button type="submit">Send Reset Link</button>
-</form>
