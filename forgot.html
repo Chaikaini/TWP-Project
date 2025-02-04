@@ -8,9 +8,8 @@
     <meta content="The Seeds Learning Centre,forgot password" name="keywords">
     <meta content="The Seeds Learning Centre | Forgot Password" name="description">
 
-   
     <!-- Favicon -->
-    <link href="img/the seeds.jpg" rel="icon" type="image/png">
+    <link href="img/the_seeds.jpg" rel="icon" type="image/png">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,10 +35,6 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
-        }
-
-        .forgot-password-form {
-            width: 100%;
         }
 
         .forgot-password-form h2 {
@@ -85,6 +80,10 @@
         .forgot-password-form p a:hover {
             text-decoration: underline;
         }
+
+        #otp-section {
+            display: none;
+        }
     </style>
 </head>
 
@@ -93,13 +92,77 @@
         <div class="forgot-password-form">
             <h2>Forgot Password</h2>
             <p>Enter your email to receive an OTP for password reset.</p>
-            <form action="/send-otp" method="POST">
-                <input type="email" placeholder="Email" required>
+            
+            <!-- 发送 OTP -->
+            <form id="otpRequestForm">
+                <input type="email" id="email" placeholder="Email" required>
                 <button type="submit">Send OTP</button>
-                <p>Remember your password? <a href="#">Login here</a></p>
+                <p id="otpMessage" style="color: red; display: none;"></p>
             </form>
+
+            <!-- 验证 OTP -->
+            <div id="otp-section">
+                <p>Enter the OTP sent to your email.</p>
+                <form id="otpVerifyForm">
+                    <input type="text" id="otp" placeholder="Enter OTP" required>
+                    <button type="submit">Verify OTP</button>
+                    <p id="otpError" style="color: red; display: none;"></p>
+                </form>
+            </div>
+
+            <p>Remember your password? <a href="login.html">Login here</a></p>
         </div>
     </div>
-</body>
 
+    <script>
+        document.getElementById("otpRequestForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let email = document.getElementById("email").value;
+            let otpMessage = document.getElementById("otpMessage");
+
+            fetch("send-otp.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: "email=" + encodeURIComponent(email)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    otpMessage.style.color = "green";
+                    otpMessage.textContent = "OTP sent successfully!";
+                    document.getElementById("otp-section").style.display = "block";
+                } else {
+                    otpMessage.style.color = "red";
+                    otpMessage.textContent = data.error;
+                }
+                otpMessage.style.display = "block";
+            })
+            .catch(error => console.error("Error:", error));
+        });
+
+        document.getElementById("otpVerifyForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let otp = document.getElementById("otp").value;
+            let email = document.getElementById("email").value;
+            let otpError = document.getElementById("otpError");
+
+            fetch("verify-otp.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: "email=" + encodeURIComponent(email) + "&otp=" + encodeURIComponent(otp)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = "reset-password.html"; // 成功跳转到重置密码页面
+                } else {
+                    otpError.textContent = data.error;
+                    otpError.style.display = "block";
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    </script>
+
+</body>
 </html>
