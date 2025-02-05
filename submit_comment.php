@@ -11,14 +11,18 @@ if ($conn->connect_error) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $year = $_POST['year'];
-    $subject = $_POST['subject'];
-    $rating = $_POST['rating'];
-    $comment = $_POST['comment'];
+    $year = $_POST['year'] ?? null;
+    $subject = $_POST['subject'] ?? null;
+    $rating = $_POST['rating'] ?? null;
+    $comment = $_POST['comment'] ?? null;
+
+    if (!$year || !$subject || !$rating || !$comment) {
+        echo "All fields are required!";
+        exit;
+    }
 
     $stmt = $conn->prepare("INSERT INTO comments (year, subject, rating, comment) VALUES (?, ?, ?, ?)");
-$stmt->bind_param("ssis", $year, $subject, $rating, $comment);
-
+    $stmt->bind_param("ssis", $year, $subject, $rating, $comment);
 
     if ($stmt->execute()) {
         echo "Comment submitted successfully!";
@@ -27,6 +31,4 @@ $stmt->bind_param("ssis", $year, $subject, $rating, $comment);
     }
     $stmt->close();
 }
-
-$conn->close();
 ?>
