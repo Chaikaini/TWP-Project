@@ -151,57 +151,56 @@
         </div>
 
         <!-- Comments List -->
-        <div class="mt-5">
-            <h3>All Comments</h3>
-            <div id="comments">
-                <!-- Dynamic comments will appear here -->
-            </div>
-        </div>
+<div class="mt-5">
+    <h3>All Comments</h3>
+    <div id="comments">
+        <!-- Dynamic comments will appear here -->
     </div>
-    <!-- Comment Section End -->
+</div>
 
-    <!-- JavaScript -->
-    <script>
-        document.getElementById('submitComment').addEventListener('click', function () {
-    const year = document.getElementById('year').value;
-    const subject = document.getElementById('subject').value;
-    const rating = document.querySelector('input[name="rating"]:checked');
-    const comment = document.getElementById('comment').value;
+<script>
+    function loadComments() {
+        fetch('get_comment.php') // URL to fetch all comments
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch comments.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const commentsContainer = document.getElementById('comments');
+                commentsContainer.innerHTML = ''; // Clear previous content
 
-    if (!rating) {
-        alert('Please select a rating!');
-        return;
+                if (data.length === 0) {
+                    commentsContainer.innerHTML = '<p>No comments yet. Be the first to comment!</p>';
+                    return;
+                }
+
+                // Render all comments dynamically
+                data.forEach(comment => {
+                    const commentBox = document.createElement('div');
+                    commentBox.classList.add('comment-box');
+
+                    commentBox.innerHTML = `
+                        <p class="comment-subject">Year: ${comment.year}, Subject: ${comment.subject}</p>
+                        <p><strong>Rating:</strong> ${'★'.repeat(comment.rating)}${'☆'.repeat(5 - comment.rating)}</p>
+                        <p>Comment: ${comment.comment}</p>
+                        <small><em>${new Date(comment.created_at).toLocaleString()}</em></small>
+                    `;
+
+                    commentsContainer.appendChild(commentBox);
+                });
+            })
+            .catch(error => {
+                console.error('Error loading comments:', error);
+                document.getElementById('comments').innerHTML = '<p>Failed to load comments. Please try again later.</p>';
+            });
     }
 
-    if (!comment.trim()) {
-        alert('Please enter a comment!');
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append('year', year);
-    formData.append('subject', subject);
-    formData.append('rating', rating.value);
-    formData.append('comment', comment);
-
-    fetch('submit_comment.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.text())
-    .then(data => {
-        alert(data); 
-        document.getElementById('year').value = 'Year 1';
-        document.getElementById('subject').value = '';
-        document.getElementById('comment').value = '';
-        document.querySelector('input[name="rating"]:checked').checked = false;
-
-        loadComments();
-    })
-    .catch(error => console.error('Error submitting comment:', error));
-});
-
-    </script>
+    document.addEventListener('DOMContentLoaded', function () {
+        loadComments(); // Load comments when the page loads
+    });
+</script>
 </body>
 
 </html>
