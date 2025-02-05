@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 05, 2025 at 07:57 AM
+-- Generation Time: Feb 05, 2025 at 08:51 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -39,12 +39,12 @@ CREATE TABLE `admin_subject` (
 --
 
 INSERT INTO `admin_subject` (`subject_id`, `subject_name`, `year`, `price`) VALUES
-(1, 'Math', 'Year 1', 510.00),
-(2, 'English', 'Year 1', 510.00),
-(3, 'Malay', 'Year 1', 510.00),
-(4, 'Math 2', 'Year 2', 510.00),
-(5, 'English 2', 'Year 2', 510.00),
-(6, 'Malay 2', 'Year 2', 510.00);
+(11132, 'Math', 'Year 1', 510.00),
+(11245, 'English', 'Year 1', 510.00),
+(11351, 'Malay', 'Year 1', 510.00),
+(22134, 'Math 2', 'Year 2', 510.00),
+(22345, 'Malay 2', 'Year 2', 510.00),
+(22534, 'English 2', 'Year 2', 510.00);
 
 --
 -- Indexes for dumped tables
@@ -64,7 +64,7 @@ ALTER TABLE `admin_subject`
 -- AUTO_INCREMENT for table `admin_subject`
 --
 ALTER TABLE `admin_subject`
-  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22539;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
