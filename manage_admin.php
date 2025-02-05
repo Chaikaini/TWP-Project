@@ -16,7 +16,6 @@ if ($conn->connect_error) {
     die(json_encode(['success' => false, 'message' => 'Database connection failed']));
 }
 
-// 获取管理员列表
 if (isset($_GET['action']) && $_GET['action'] === 'getAdmins') {
     $result = $conn->query("SELECT id, name, gender, age, email FROM users WHERE role = 'admin' OR role = 'super_admin'");
 
@@ -29,7 +28,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'getAdmins') {
     exit;
 }
 
-// 添加管理员 (仅限 super_admin)
 if (isset($_POST['action']) && $_POST['action'] === 'addAdmin') {
     if ($_SESSION['role'] !== 'super_admin') {
         echo json_encode(['success' => false, 'message' => 'Unauthorized']);
@@ -53,7 +51,6 @@ if (isset($_POST['action']) && $_POST['action'] === 'addAdmin') {
     exit;
 }
 
-// 删除管理员 (仅限 super_admin)
 if (isset($_GET['action']) && $_GET['action'] === 'deleteAdmin' && isset($_GET['id'])) {
     if ($_SESSION['role'] !== 'super_admin') {
         echo json_encode(['success' => false, 'message' => 'Unauthorized']);
