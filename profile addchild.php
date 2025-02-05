@@ -1,16 +1,20 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "profile";
 
-$conn = new mysqli($servername, $username, $password, $database);
+$servername = "localhost"; 
+$username = "root";        
+$password = "";            
+$dbname = "profile";       
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
     $name = $_POST['name'];
     $gender = $_POST['gender'];
     $kidNumber = $_POST['kidNumber'];
@@ -18,14 +22,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $school = $_POST['school'];
     $grade = $_POST['grade'];
 
-    $sql = "INSERT INTO ChildrenInfo (name, gender, kid_number, birthday, school, year) 
-            VALUES ('$name', '$gender', $kidNumber, '$birthday', '$school', '$grade')";
+    
+    $sql = "INSERT INTO childreninfo (name, gender, kidNumber, birthday, school, grade) VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssssss", $name, $gender, $kidNumber, $birthday, $school, $grade);
 
-    if ($conn->query($sql) === TRUE) {
-        echo "<script type='text/javascript'>alert('$name saved');</script>";
+    
+    if ($stmt->execute()) {
+        echo "<script>alert('Child information added successfully!'); window.location.href='profile.php';</script>";
     } else {
-        echo "Error: " . addslashes($conn->error);
+        echo "Error: " . $stmt->error;
     }
+
+    
+    $stmt->close();
 }
 
 $conn->close();
