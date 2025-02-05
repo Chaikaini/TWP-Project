@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 05, 2025 at 06:56 AM
+-- Generation Time: Feb 05, 2025 at 08:48 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,51 +18,53 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `tuition_centre`
+-- Database: `admin_panel`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comments`
+-- Table structure for table `users`
 --
 
-CREATE TABLE `comments` (
+CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `year` varchar(10) DEFAULT NULL,
-  `subject` varchar(50) DEFAULT NULL,
-  `rating` int(11) DEFAULT NULL,
-  `comment` text DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `gender` enum('Male','Female') NOT NULL,
+  `age` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `role` enum('super_admin','admin') NOT NULL,
+  `password` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `comments`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `comments` (`id`, `year`, `subject`, `rating`, `comment`, `created_at`) VALUES
-(1, 'Year 1', 'Malay', 5, 'Very Good！', '2025-02-05 05:18:06'),
-(2, 'Year 2', 'Math', 5, 'That is okay.', '2025-02-05 05:24:31');
+INSERT INTO `users` (`id`, `name`, `gender`, `age`, `email`, `role`, `password`, `created_at`) VALUES
+(3, 'Super Admin', 'Male', 35, 'superadmin@example.com', 'super_admin', '$2y$10$yZsFb2rGZZqVnK5cX/r1/OodmcjEiTMiMi.w6pgHGfaK8p7qG1ddO', '2025-02-05 07:37:22');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `comments`
+-- Indexes for table `users`
 --
-ALTER TABLE `comments`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `comments`
+-- AUTO_INCREMENT for table `users`
 --
-ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
