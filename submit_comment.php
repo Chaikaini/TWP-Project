@@ -25,10 +25,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("ssis", $year, $subject, $rating, $comment);
 
     if ($stmt->execute()) {
-        echo "Comment submitted successfully!";
+        echo json_encode(["success" => true, "message" => "Comment submitted successfully!"]);
     } else {
-        echo "Error: " . $stmt->error;
-    }
+        echo json_encode(["success" => false, "message" => "Error: " . $stmt->error]);
+    }    
     $stmt->close();
 }
 ?>

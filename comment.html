@@ -201,6 +201,31 @@
     .catch(error => console.error('Error submitting comment:', error));
 });
 
+function loadComments() {
+    fetch('get_comment.php')
+        .then(response => response.json())
+        .then(data => {
+            const commentsContainer = document.getElementById('comments');
+            commentsContainer.innerHTML = ''; 
+
+            data.forEach(comment => {
+                const commentElement = document.createElement('div');
+                commentElement.classList.add('comment-box');
+                commentElement.innerHTML = `
+                    <p class="comment-subject">${comment.subject} (${comment.year})</p>
+                    <p>Rating: ${'⭐'.repeat(comment.rating)}</p>
+                    <p>${comment.comment}</p>
+                    <small>${comment.created_at}</small>
+                `;
+                commentsContainer.appendChild(commentElement);
+            });
+        })
+        .catch(error => console.error('Error loading comments:', error));
+}
+
+window.onload = loadComments;
+
+
     </script>
 </body>
 
