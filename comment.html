@@ -202,7 +202,7 @@
 });
 
 function loadComments() {
-    fetch('get_comment.php')
+    fetch('get_comments.php')
         .then(response => response.json())
         .then(data => {
             const commentsContainer = document.getElementById('comments');
