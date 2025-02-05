@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>Comment</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="The Seeds Learning Centre, contact us" name="keywords">
+    <meta content="The Seeds Learning Centre,contact us" name="keywords">
     <meta content="The Seeds Learning Centre | Contact us" name="description">
 
     <!-- Favicon -->
@@ -86,12 +86,242 @@
     </nav>
     <!-- Navbar End -->
 
+    <!-- Icon Bar Start -->
+    <div class="icon-bar">
+        <a href="#"><i class="fas fa-bell"></i></a>
+        <a href="#"><i class="fas fa-shopping-cart"></i></a>
+        <a href="#"><i class="fas fa-user"></i></a>
+    </div><!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <meta charset="utf-8">
+        <title>Comment</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="The Seeds Learning Centre, contact us" name="keywords">
+        <meta content="The Seeds Learning Centre | Contact us" name="description">
+    
+        <!-- Favicon -->
+        <link href="img/the seeds.jpg" rel="icon" type="image/png">
+    
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+    
+        <!-- Icon Font Stylesheet -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+        <!-- Libraries Stylesheet -->
+        <link href="lib/animate.min.css" rel="stylesheet">
+        <link href="lib/owl.carousel.min.css" rel="stylesheet">
+    
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+        <!-- Template Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+        <style>
+            .star-rating {
+                display: flex;
+                flex-direction: row-reverse;
+                justify-content: center;
+            }
+    
+            .star-rating input {
+                display: none;
+            }
+    
+            .star-rating label {
+                font-size: 2rem;
+                color: #ddd;
+                cursor: pointer;
+            }
+    
+            .star-rating input:checked ~ label,
+            .star-rating label:hover,
+            .star-rating label:hover ~ label {
+                color: #ffc107;
+            }
+    
+            .comment-box {
+                border-bottom: 1px solid #ddd;
+                padding: 10px 0;
+            }
+    
+            .comment-subject {
+                font-weight: bold;
+                color: #007bff;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <!-- Navbar Start -->
+        <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+            <a href="" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+                <h2 class="navbar-color"><i class="fa fa-book me-3"></i>The Seeds</h2>
+            </a>
+            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto p-4 p-lg-0">
+                    <a href="" class="nav-item nav-link">Home</a>
+                    <a href="" class="nav-item nav-link">Subject</a>
+                    <a href="" class="nav-item nav-link">About us</a>
+                    <a href="" class="nav-item nav-link">Contact us</a>
+                    <a href="" class="nav-item nav-link">Comment</a>
+                </div>
+                <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Log out<i class="fa fa-arrow-right ms-3"></i></a>
+            </div>
+        </nav>
+        <!-- Navbar End -->
+    
+        <!-- Header Start -->
+        <div class="container-fluid bg-primary py-5 mb-5 page-header">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10 text-center">
+                        <h1 class="display-3 text-white animated slideInDown">Comment</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+    
+        <!-- Comment Section Start -->
+        <div class="container py-5">
+            <h2 class="text-center mb-4">Leave a Comment</h2>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="mb-4">
+                        <label for="year" class="form-label">Select Year</label>
+                        <select id="year" class="form-select">
+                            <option value="Year 1">Year 1</option>
+                            <option value="Year 2">Year 2</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="subject" class="form-label">Select Subject</label>
+                        <select id="subject" class="form-select">
+                            <option value="Math">Math</option>
+                            <option value="Malay">Malay</option>
+                            <option value="English">English</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Your Rating</label>
+                        <div class="star-rating">
+                            <input type="radio" id="star5" name="rating" value="5"><label for="star5">&#9733;</label>
+                            <input type="radio" id="star4" name="rating" value="4"><label for="star4">&#9733;</label>
+                            <input type="radio" id="star3" name="rating" value="3"><label for="star3">&#9733;</label>
+                            <input type="radio" id="star2" name="rating" value="2"><label for="star2">&#9733;</label>
+                            <input type="radio" id="star1" name="rating" value="1"><label for="star1">&#9733;</label>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <textarea id="comment" class="form-control" rows="4" placeholder="Write your comment..."></textarea>
+                    </div>
+                    <button id="submitComment" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+    
+            <div class="mt-5">
+                <h3>All Comments</h3>
+                <div id="comments">
+                    <!-- Dynamic comments will appear here -->
+                </div>
+            </div>
+        </div>
+        <!-- Comment Section End -->
+    
+        <!-- JavaScript -->
+        <script>
+            document.getElementById('submitComment').addEventListener('click', function () {
+                const year = document.getElementById('year').value;
+                const subject = document.getElementById('subject').value;
+                const rating = document.querySelector('input[name="rating"]:checked');
+                const comment = document.getElementById('comment').value;
+    
+                if (!rating) {
+                    alert('Please select a rating!');
+                    return;
+                }
+    
+                if (!comment.trim()) {
+                    alert('Please enter a comment!');
+                    return;
+                }
+    
+                const formData = new FormData();
+                formData.append('year', year);
+                formData.append('subject', subject);
+                formData.append('rating', rating.value);
+                formData.append('comment', comment);
+    
+                fetch('submit_comment.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        alert(data);
+                        loadComments(); // Reload comments after submitting
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+    
+            function loadComments() {
+                fetch('get_comment.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        const commentsContainer = document.getElementById('comments');
+                        commentsContainer.innerHTML = '';
+    
+                        if (data.length === 0) {
+                            commentsContainer.innerHTML = '<p>No comments yet. Be the first to comment!</p>';
+                            return;
+                        }
+    
+                        data.forEach(comment => {
+                            const commentBox = document.createElement('div');
+                            commentBox.classList.add('comment-box');
+    
+                            commentBox.innerHTML = `
+                                <p class="comment-subject">${comment.subject} (${comment.year})</p>
+                                <p><strong>Rating:</strong> ${'★'.repeat(comment.rating)}${'☆'.repeat(5 - comment.rating)}</p>
+                                <p>${comment.comment}</p>
+                                <small><em>${new Date(comment.created_at).toLocaleString()}</em></small>
+                            `;
+    
+                            commentsContainer.appendChild(commentBox);
+                        });
+                    })
+                    .catch(error => console.error('Error loading comments:', error));
+            }
+    
+            document.addEventListener('DOMContentLoaded', loadComments);
+        </script>
+    </body>
+    
+    </html>
+    
+    <!-- Icon Bar End -->
+
     <!-- Header Start -->
     <div class="container-fluid bg-primary py-5 mb-5 page-header">
         <div class="container py-5">
             <div class="row justify-content-center">
                 <div class="col-lg-10 text-center">
                     <h1 class="display-3 text-white animated slideInDown">Comment</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Comment</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -103,6 +333,7 @@
         <h2 class="text-center mb-4">Leave a Comment</h2>
         <div class="row">
             <div class="col-lg-8 mx-auto">
+                <!-- Comment Form -->
                 <div class="mb-4">
                     <label for="year" class="form-label">Select Year</label>
                     <select id="year" class="form-select">
@@ -135,6 +366,7 @@
             </div>
         </div>
 
+        <!-- Comments List -->
         <div class="mt-5">
             <h3>All Comments</h3>
             <div id="comments">
@@ -151,12 +383,12 @@
             const subject = document.getElementById('subject').value;
             const rating = document.querySelector('input[name="rating"]:checked');
             const comment = document.getElementById('comment').value;
-
+        
             if (!rating) {
                 alert('Please select a rating!');
                 return;
             }
-
+        
             if (!comment.trim()) {
                 alert('Please enter a comment!');
                 return;
@@ -167,50 +399,53 @@
             formData.append('subject', subject);
             formData.append('rating', rating.value);
             formData.append('comment', comment);
-
+        
             fetch('submit_comment.php', {
                 method: 'POST',
                 body: formData
             })
-                .then(response => response.text())
-                .then(data => {
-                    alert(data);
-                    loadComments(); // Reload comments after submitting
-                })
-                .catch(error => console.error('Error:', error));
+            .then(response => response.text())
+            .then(data => {
+                alert(data);  
+                location.reload();  
+            })
+            .catch(error => console.error('Error:', error));
         });
 
-        function loadComments() {
-            fetch('get_comment.php')
-                .then(response => response.json())
-                .then(data => {
-                    const commentsContainer = document.getElementById('comments');
-                    commentsContainer.innerHTML = '';
+function loadComments() {
+    fetch('get_comment.php')
+        .then(response => response.json())
+        .then(data => {
+            const commentsContainer = document.getElementById('comments');
+            commentsContainer.innerHTML = ''; 
 
-                    if (data.length === 0) {
-                        commentsContainer.innerHTML = '<p>No comments yet. Be the first to comment!</p>';
-                        return;
-                    }
+            if (data.length === 0) {
+                commentsContainer.innerHTML = '<p>No comments yet. Be the first to comment!</p>';
+                return;
+            }
 
-                    data.forEach(comment => {
-                        const commentBox = document.createElement('div');
-                        commentBox.classList.add('comment-box');
+            data.forEach(comment => {
+                const commentBox = document.createElement('div');
+                commentBox.classList.add('comment-box');
 
-                        commentBox.innerHTML = `
-                            <p class="comment-subject">${comment.subject} (${comment.year})</p>
-                            <p><strong>Rating:</strong> ${'★'.repeat(comment.rating)}${'☆'.repeat(5 - comment.rating)}</p>
-                            <p>${comment.comment}</p>
-                            <small><em>${new Date(comment.created_at).toLocaleString()}</em></small>
-                        `;
+                commentBox.innerHTML = `
+                    <p class="comment-subject">${comment.subject} (${comment.year})</p>
+                    <p><strong>Rating:</strong> ${'★'.repeat(comment.rating)}${'☆'.repeat(5 - comment.rating)}</p>
+                    <p>${comment.comment}</p>
+                    <small><em>${new Date(comment.created_at).toLocaleString()}</em></small>
+                `;
 
-                        commentsContainer.appendChild(commentBox);
-                    });
-                })
-                .catch(error => console.error('Error loading comments:', error));
-        }
+                commentsContainer.appendChild(commentBox);
+            });
+        })
+        .catch(error => console.error('Error loading comments:', error));
+}
 
-        document.addEventListener('DOMContentLoaded', loadComments);
-    </script>
+document.addEventListener('DOMContentLoaded', function () {
+    loadComments();
+});
+
+        </script>        
 </body>
 
 </html>
