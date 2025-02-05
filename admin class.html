@@ -453,9 +453,8 @@
     });
   }
 
-  document.getElementById("addClassForm").onsubmit = function(event) {
-    event.preventDefault();
-    alert("Class added!");
+  document.getElementById("addClassForm").onsubmit = function() {
+    
     document.getElementById("addClassModal").style.display = "none";
   }
 
