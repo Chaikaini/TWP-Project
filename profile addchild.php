@@ -2,9 +2,9 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "profile";
+$database = "profile";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $database);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $grade = $_POST['grade'];
 
     $sql = "INSERT INTO ChildrenInfo (name, gender, kid_number, birthday, school, year) 
-            VALUES ('$name', '$gender', '$kidNumber', '$birthday', '$school', '$grade')";
+            VALUES ('$name', '$gender', $kidNumber, '$birthday', '$school', '$grade')";
 
     if ($conn->query($sql) === TRUE) {
         echo "<script type='text/javascript'>alert('$name saved');</script>";
