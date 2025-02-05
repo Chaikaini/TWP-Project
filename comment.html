@@ -20,14 +20,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/animate.min.css" rel="stylesheet">
-    <link href="lib/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
+    <!-- Bootstrap Stylesheet -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     <style>
         .star-rating {
@@ -65,59 +59,11 @@
 </head>
 
 <body>
-    <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-        <a href="" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <h2 class="navbar-color"><i class="fa fa-book me-3"></i>The Seeds</h2>
-        </a>
-        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="" class="nav-item nav-link">Home</a>
-                <a href="" class="nav-item nav-link">Subject</a>
-                <a href="" class="nav-item nav-link">About us</a>
-                <a href="" class="nav-item nav-link">Contact us</a>
-                <a href="" class="nav-item nav-link">Comment</a>
-            </div>
-            <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Log out<i class="fa fa-arrow-right ms-3"></i></a>
-        </div>
-    </nav>
-    <!-- Navbar End -->
-
-    <!-- Icon Bar Start -->
-    <div class="icon-bar">
-        <a href="#"><i class="fas fa-bell"></i></a>
-        <a href="#"><i class="fas fa-shopping-cart"></i></a>
-        <a href="#"><i class="fas fa-user"></i></a>
-    </div>
-    <!-- Icon Bar End -->
-
-    <!-- Header Start -->
-    <div class="container-fluid bg-primary py-5 mb-5 page-header">
-        <div class="container py-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-10 text-center">
-                    <h1 class="display-3 text-white animated slideInDown">Comment</h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb justify-content-center">
-                            <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
-                            <li class="breadcrumb-item text-white active" aria-current="page">Comment</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Header End -->
-
-    <!-- Comment Section Start -->
+    <!-- Comment Section -->
     <div class="container py-5">
         <h2 class="text-center mb-4">Leave a Comment</h2>
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                <!-- Comment Form -->
                 <div class="mb-4">
                     <label for="year" class="form-label">Select Year</label>
                     <select id="year" class="form-select">
@@ -150,17 +96,13 @@
             </div>
         </div>
 
-        <!-- Comments List -->
+        <!-- Display Comments -->
         <div class="mt-5">
             <h3>All Comments</h3>
-            <div id="comments">
-                <!-- Dynamic comments will appear here -->
-            </div>
+            <div id="comments"></div>
         </div>
     </div>
-    <!-- Comment Section End -->
 
-    <!-- JavaScript -->
     <script>
         document.getElementById('submitComment').addEventListener('click', function () {
             const year = document.getElementById('year').value;
@@ -172,31 +114,49 @@
                 alert('Please select a rating!');
                 return;
             }
-
             if (!comment.trim()) {
                 alert('Please enter a comment!');
                 return;
             }
 
-            const commentsContainer = document.getElementById('comments');
-            const commentBox = document.createElement('div');
-            commentBox.className = 'comment-box';
+            const formData = new FormData();
+            formData.append('year', year);
+            formData.append('subject', subject);
+            formData.append('rating', rating.value);
+            formData.append('comment', comment);
 
-            commentBox.innerHTML = `
-                <p class="comment-subject">Year: ${year}</p>
-                <p class="comment-subject">Subject: ${subject}</p>
-                <p>Rating: ${'&#9733;'.repeat(rating.value)}</p>
-                <p>Comment: ${comment}</p>
-            `;
-
-            commentsContainer.appendChild(commentBox);
-
-            // Clear form inputs
-            document.getElementById('year').value = 'Year 1';
-            document.getElementById('subject').value = '';
-            document.getElementById('comment').value = '';
-            document.querySelector('input[name="rating"]:checked').checked = false;
+            fetch('submit_comment.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                location.reload();
+            })
+            .catch(error => console.error('Error:', error));
         });
+
+        window.onload = function () {
+            fetch('get_comments.php')
+            .then(response => response.json())
+            .then(data => {
+                const commentsContainer = document.getElementById('comments');
+                commentsContainer.innerHTML = "";
+                data.forEach(comment => {
+                    const commentBox = document.createElement('div');
+                    commentBox.className = 'comment-box';
+                    commentBox.innerHTML = `
+                        <p class="comment-subject">Year: ${comment.year}</p>
+                        <p class="comment-subject">Subject: ${comment.subject}</p>
+                        <p>Rating: ${'&#9733;'.repeat(comment.rating)}</p>
+                        <p>Comment: ${comment.comment}</p>
+                    `;
+                    commentsContainer.appendChild(commentBox);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+        };
     </script>
 </body>
 
