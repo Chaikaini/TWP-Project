@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$database = "user_information";
+$database = "tuition_centre";
 
 $conn = new mysqli($servername, $username, $password, $database);
 
@@ -10,15 +10,20 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT year, subject, rating, comment FROM comments ORDER BY created_at DESC";
+$sql = "SELECT year, subject, rating, comment, created_at FROM comments ORDER BY created_at DESC";
 $result = $conn->query($sql);
 
 $comments = [];
-while ($row = $result->fetch_assoc()) {
-    $comments[] = $row;
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $comments[] = $row;
+    }
 }
 
-echo json_encode($comments);
+header('Content-Type: application/json');
+
+echo json_encode($comments, JSON_PRETTY_PRINT);
 
 $conn->close();
 ?>

@@ -17,7 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $comment = $_POST['comment'];
 
     $stmt = $conn->prepare("INSERT INTO comments (year, subject, rating, comment) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssis", $year, $subject, $rating, $comment);
+$stmt->bind_param("ssis", $year, $subject, $rating, $comment);
+
 
     if ($stmt->execute()) {
         echo "Comment submitted successfully!";
