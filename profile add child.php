@@ -1,65 +1,32 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Child</title>
-    <link href="design.css" type="text/css" rel="stylesheet" />
-</head>
-<body>
-
-<div id="wrapper">
-
-    
-
-        <h1>Add Child</h1>
-
-        <form name="addChildForm" method="post" action="">
-
-            <p><label>Name:</label><input type="text" name="child_name" size="80"></p>
-         
-            <p><label>Gender:</label>
-                <select name="child_gender">
-                    <option value="Boy">Boy</option>
-                    <option value="Girl">Girl</option>
-                </select>
-            </p>
-            
-            <p><label>My Kid Number:</label><input type="text" name="kid_number" size="20"></p>
-
-            <p><label>Birthday:</label><input type="date" name="child_birthday"></p>
-            
-            <p><label>School:</label><input type="text" name="child_school" size="100"></p>
-
-            <p><label>Year:</label><input type="text" name="child_year" size="20"></p>
-            
-            <p><input type="submit" name="saveChildBtn" value="SAVE CHILD"></p>
-
-        </form>
-    
-    </div>
-    
-</div>
-
-</body>
-</html>
-
 <?php
-include("connectmyprofile.php");
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "profile";
 
-if (isset($_POST["name"])) 
-{
-    $name = $_POST["name"];
-    $gender = $_POST["gender"];
-    $kidNumber = $_POST["kidNumber"];
-    $birthday = $_POST["birthday"];
-    $school = $_POST["school"];
-    $grade = $_POST["grade"];
-    
-    $query = "INSERT INTO ChildrenInfo (name, gender, kid_number, birthday, school, year) VALUES ('$name', '$gender', '$kidNumber', '$birthday', '$school', '$grade')";
-    
-    if (mysqli_query($connect, $query)) {
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = $_POST['name'];
+    $gender = $_POST['gender'];
+    $kidNumber = $_POST['kidNumber'];
+    $birthday = $_POST['birthday'];
+    $school = $_POST['school'];
+    $grade = $_POST['grade'];
+
+    $sql = "INSERT INTO ChildrenInfo (name, gender, kid_number, birthday, school, year) 
+            VALUES ('$name', '$gender', '$kidNumber', '$birthday', '$school', '$grade')";
+
+    if ($conn->query($sql) === TRUE) {
         echo "<script type='text/javascript'>alert('$name saved');</script>";
     } else {
-        echo "<script type='text/javascript'>alert('Error: " . mysqli_error($connect) . "');</script>";
+        echo "Error: " . addslashes($conn->error);
     }
 }
+
+$conn->close();
 ?>
