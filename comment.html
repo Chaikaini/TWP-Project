@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>Comment</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="The Seeds Learning Centre,contact us" name="keywords">
+    <meta content="The Seeds Learning Centre, contact us" name="keywords">
     <meta content="The Seeds Learning Centre | Contact us" name="description">
 
     <!-- Favicon -->
@@ -20,8 +20,14 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Bootstrap Stylesheet -->
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate.min.css" rel="stylesheet">
+    <link href="lib/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     <style>
         .star-rating {
@@ -59,7 +65,40 @@
 </head>
 
 <body>
-    <!-- Comment Section -->
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+        <a href="" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <h2 class="navbar-color"><i class="fa fa-book me-3"></i>The Seeds</h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="" class="nav-item nav-link">Home</a>
+                <a href="" class="nav-item nav-link">Subject</a>
+                <a href="" class="nav-item nav-link">About us</a>
+                <a href="" class="nav-item nav-link">Contact us</a>
+                <a href="" class="nav-item nav-link">Comment</a>
+            </div>
+            <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Log out<i class="fa fa-arrow-right ms-3"></i></a>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">Comment</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+    <!-- Comment Section Start -->
     <div class="container py-5">
         <h2 class="text-center mb-4">Leave a Comment</h2>
         <div class="row">
@@ -96,13 +135,16 @@
             </div>
         </div>
 
-        <!-- Display Comments -->
         <div class="mt-5">
             <h3>All Comments</h3>
-            <div id="comments"></div>
+            <div id="comments">
+                <!-- Dynamic comments will appear here -->
+            </div>
         </div>
     </div>
+    <!-- Comment Section End -->
 
+    <!-- JavaScript -->
     <script>
         document.getElementById('submitComment').addEventListener('click', function () {
             const year = document.getElementById('year').value;
@@ -114,6 +156,7 @@
                 alert('Please select a rating!');
                 return;
             }
+
             if (!comment.trim()) {
                 alert('Please enter a comment!');
                 return;
@@ -129,34 +172,44 @@
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.text())
-            .then(data => {
-                alert(data);
-                location.reload();
-            })
-            .catch(error => console.error('Error:', error));
+                .then(response => response.text())
+                .then(data => {
+                    alert(data);
+                    loadComments(); // Reload comments after submitting
+                })
+                .catch(error => console.error('Error:', error));
         });
 
-        window.onload = function () {
-            fetch('get_comments.php')
-            .then(response => response.json())
-            .then(data => {
-                const commentsContainer = document.getElementById('comments');
-                commentsContainer.innerHTML = "";
-                data.forEach(comment => {
-                    const commentBox = document.createElement('div');
-                    commentBox.className = 'comment-box';
-                    commentBox.innerHTML = `
-                        <p class="comment-subject">Year: ${comment.year}</p>
-                        <p class="comment-subject">Subject: ${comment.subject}</p>
-                        <p>Rating: ${'&#9733;'.repeat(comment.rating)}</p>
-                        <p>Comment: ${comment.comment}</p>
-                    `;
-                    commentsContainer.appendChild(commentBox);
-                });
-            })
-            .catch(error => console.error('Error:', error));
-        };
+        function loadComments() {
+            fetch('get_comment.php')
+                .then(response => response.json())
+                .then(data => {
+                    const commentsContainer = document.getElementById('comments');
+                    commentsContainer.innerHTML = '';
+
+                    if (data.length === 0) {
+                        commentsContainer.innerHTML = '<p>No comments yet. Be the first to comment!</p>';
+                        return;
+                    }
+
+                    data.forEach(comment => {
+                        const commentBox = document.createElement('div');
+                        commentBox.classList.add('comment-box');
+
+                        commentBox.innerHTML = `
+                            <p class="comment-subject">${comment.subject} (${comment.year})</p>
+                            <p><strong>Rating:</strong> ${'★'.repeat(comment.rating)}${'☆'.repeat(5 - comment.rating)}</p>
+                            <p>${comment.comment}</p>
+                            <small><em>${new Date(comment.created_at).toLocaleString()}</em></small>
+                        `;
+
+                        commentsContainer.appendChild(commentBox);
+                    });
+                })
+                .catch(error => console.error('Error loading comments:', error));
+        }
+
+        document.addEventListener('DOMContentLoaded', loadComments);
     </script>
 </body>
 
