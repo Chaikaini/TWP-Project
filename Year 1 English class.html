@@ -489,64 +489,32 @@
     <!-- JavaScript -->
     <script>
 
-document.getElementById('partA').addEventListener('click', function() {
-    // Update the popup content for Part A (Year 1 English)
+     document.getElementById('partA').addEventListener('click', function() {
+    // Update the popup content for Part A
     document.getElementById('popupMonth').innerText = 'January - June'; // Month
     document.getElementById('popupTime').innerText = 'Monday 2.30pm-4.30pm'; // Time
     document.getElementById('popupchildren').innerText = "20/30"; // Capacity
     document.getElementById('popup').style.display = 'flex'; // Show the popup
-});
+    });
 
-document.getElementById('partB').addEventListener('click', function() {
-    // Update the popup content for Part B (Year 1 English)
+    document.getElementById('partB').addEventListener('click', function() {
+    // Update the popup content for Part B
     document.getElementById('popupMonth').innerText = 'July - December'; // Month
     document.getElementById('popupTime').innerText = 'Monday 2.30pm-4.30pm'; // Time
     document.getElementById('popupchildren').innerText = "0/30 (Unavailable)"; // Capacity
     document.getElementById('popup').style.display = 'flex'; // Show the popup
-});
+    });
 
-// Close popup functionality
-document.getElementById('closePopup').addEventListener('click', function() {
+    // Close popup functionality 
+    document.getElementById('closePopup').addEventListener('click', function() {
     document.getElementById('popup').style.display = 'none'; // Hide popup on close
-});
+    });
 
 // Add to cart button functionality
-document.getElementById('addToCart').addEventListener('click', function() {
-    // Get selected part (A or B)
-    const selectedPart = document.querySelector('input[name="part"]:checked').value;
-    const selectedStudent = document.getElementById('childrenSelect').value; // Get selected student
-
-    // Define course information based on selected part
-    let courseInfo = {};
-    if (selectedPart === 'A') {
-        courseInfo = {
-            subject: "Year 1 English",
-            part: "January - June",
-            time: "Monday 2.30pm-4.30pm",
-            teacher: "Ms. Sarah",
-            student: selectedStudent,
-            capacity: "20/30",
-            price: 100
-        };
-    } else if (selectedPart === 'B') {
-        courseInfo = {
-            subject: "Year 1 English",
-            part: "July - December",
-            time: "Monday 2.30pm-4.30pm",
-            teacher: "Ms. Sarah",
-            student: selectedStudent,
-            capacity: "0/30 (Unavailable)",
-            price: 100
-        };
-    }
-
-    // Store course information in localStorage and navigate to the cart
-    localStorage.setItem("cartItem", JSON.stringify(courseInfo));
+    document.getElementById('addToCart').addEventListener('click', function() {
     alert('Item added to cart!'); // Alert when the item is added to the cart
     document.getElementById('popup').style.display = 'none'; // Hide the popup
-    window.location.href = "cart.html"; // Redirect to cart page
-});
-
+    });
 
 
 
