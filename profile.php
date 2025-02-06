@@ -321,7 +321,7 @@ button.btn.btn-primaryy:hover {
                     <h1 class="display-3 text-white animated slideInDown">My Profile</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center">
-                            <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="member.html">Home</a></li>
                             <li class="breadcrumb-item text-white active" aria-current="page">Profile</li>
                         </ol>
                     </nav>
@@ -696,25 +696,25 @@ document.getElementById("avatar-upload").addEventListener("change", function(eve
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-   
-   document.querySelectorAll(".delete-btn").forEach(button => {
-       button.addEventListener("click", function() {
-           let classId = this.getAttribute("data-kidNumber"); 
-           if (confirm("Are you sure you want to delete this child?")) {
-               fetch("admin_deletechild.php", {
-                   method: "POST",
-                   headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                   body: "kidNumber=" + kidNumber
-               })
-               .then(response => response.text())
-               .then(data => {
-                   alert(data); 
-                   location.reload(); // 重新加载页面
-               })
-               .catch(error => console.error("Error:", error));
-           }
-       });
-   });
+    // 获取所有删除按钮
+    document.querySelectorAll(".delete-btn").forEach(button => {
+        button.addEventListener("click", function() {
+            let classId = this.getAttribute("data-kidNumber"); // 获取 class_id
+            if (confirm("Are you sure you want to delete this child?")) {
+                fetch("profile_deletechild.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: "kidNumber=" + kidNumber
+                })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data); // 显示删除结果
+                    location.reload(); // 重新加载页面
+                })
+                .catch(error => console.error("Error:", error));
+            }
+        });
+    });
 });
 
     </script>
