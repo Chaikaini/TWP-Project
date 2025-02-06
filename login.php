@@ -1,6 +1,6 @@
 <?php
 session_start();
-header('Content-Type: application/json'); // 返回 JSON 响应
+header('Content-Type: application/json'); 
 
 $servername = "localhost";
 $username = "root";
