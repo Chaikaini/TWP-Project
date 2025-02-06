@@ -480,8 +480,68 @@
                     <option value="2023">2023</option>
                 </select>
             </div>
-            
-           
+            <?php
+        // db_connect.php 用于数据库连接
+        include('db_connect.php');
+
+        // 获取过滤条件
+        $yearFilter = isset($_GET['year']) ? $_GET['year'] : 'All';
+
+        // 查询评论数据
+        if ($yearFilter == 'All') {
+            $sql = "SELECT * FROM comments ORDER BY created_at DESC";
+        } else {
+            $sql = "SELECT * FROM comments WHERE year = '$yearFilter' ORDER BY created_at DESC";
+        }
+
+        $result = $conn->query($sql);
+
+        // 将评论数据存储到数组中
+        $comments = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $comments[] = $row;
+            }
+        }
+
+        // 关闭数据库连接
+        $conn->close();
+
+        // 展示评论
+        if (!empty($comments)) {
+            foreach ($comments as $row) {
+                $rating = $row['rating'];
+                $fullStars = floor($rating);
+                $halfStar = ($rating - $fullStars) >= 0.5 ? 1 : 0;
+                $emptyStars = 5 - $fullStars - $halfStar;
+
+                echo '<div class="review-item" data-year="' . htmlspecialchars($row['year']) . '">';
+                echo '<div class="review-text">';
+                echo '<p><strong>' . htmlspecialchars($row['subject']) . ' - ' . htmlspecialchars($row['created_at']) . '</strong></p>';
+                echo '<div class="stars-container">';
+                
+                // 输出评分星星
+                for ($i = 0; $i < $fullStars; $i++) {
+                    echo '<span class="star filled"></span>';
+                }
+
+                if ($halfStar) {
+                    echo '<span class="star half"></span>';
+                }
+
+                for ($i = 0; $i < $emptyStars; $i++) {
+                    echo '<span class="star"></span>';
+                }
+
+                echo '</div>';
+                echo '<p>' . htmlspecialchars($row['comment']) . '</p>';
+                echo '</div>';
+                echo '</div>';
+            }
+        } else {
+            echo "No reviews found.";
+        }
+        ?>
         </section>
         
     </div>
