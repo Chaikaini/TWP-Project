@@ -10,17 +10,6 @@ if (!$result) {
 }
 ?>
 
-<?php
-include('tuition_centre.php'); // 连接数据库
-
-$sql = "SELECT * FROM subjects";
-$result = $conn->query($sql);
-
-// 检查查询是否成功
-if (!$result) {
-    die("查询失败: " . $conn->error);
-}
-?>
 
 <!DOCTYPE html>
 <html lang="zh">
