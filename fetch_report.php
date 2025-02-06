@@ -10,12 +10,13 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-if (isset($_GET['date']) && !empty($_GET['date'])) {
-    $start_date = $_GET['date'];
-    $end_date = $_GET['date']; 
+if (isset($_GET['start_date']) && isset($_GET['end_date']) && !empty($_GET['start_date']) && !empty($_GET['end_date'])) {
+    $start_date = $_GET['start_date'];
+    $end_date = $_GET['end_date'];
 } else {
+   
     $start_date = date("Y-m-01");
-    $end_date = date("Y-m-d"); 
+    $end_date = date("Y-m-d");
 }
 
 $sql = "SELECT id, student_name, order_id, order_date, total_amount 
