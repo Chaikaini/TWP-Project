@@ -410,27 +410,26 @@ button.btn.btn-primaryy:hover {
             </form>
         </div>
     
-    <div class="profile-content" id="children-info-content">
+        <div class="profile-content" id="children-info-content">
     <h3>Childrens Information</h3>
-    <table class="table table-striped">
     <div class="card-body">
         <table class="table table-striped">
             <thead>
                 <tr>
-                <th>Name</th>
-                <th>Gender</th>
-                <th>My kid number</th>
-                <th>Birthday</th>
-                <th>School</th>
-                <th>Year</th>
-                <th>Actions</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>My kid number</th>
+                    <th>Birthday</th>
+                    <th>School</th>
+                    <th>Year</th>
+                    <th>Actions</th>
                 </tr>
-            </thead>   
-        <tbody>
-            <?php include 'profile_childlist.php'; ?>
-        </tbody>
-    </table>
-    </table>
+            </thead>
+            <tbody>
+                <?php include 'profile_childlist.php'; ?>
+            </tbody>
+        </table>
+    </div>
 
     <div class="button-container">
         <button class="btn btn-primary" id="addChildBtn">Add Child</button>
@@ -451,17 +450,15 @@ button.btn.btn-primaryy:hover {
             <p id="statusContent" class="card-text"></p>
         </div>
     </div>
-    </div> 
+</div>
 
-    
-        <div class="profile-content" id="history-content">
-            <h3>Payment History</h3>
-            <p>Here you can view your payment for tuition fee history.</p>
-            <!-- Add form or content for History -->
-        </div>
-    </div>
+<div class="profile-content" id="history-content">
+    <h3>Payment History</h3>
+    <p>Here you can view your payment for tuition fee history.</p>
+    <!-- Add form or content for History -->
+</div>
 
-   <!-- Add Child Modal -->
+<!-- Add Child Modal -->
 <div id="addChildModal" class="modal">
     <div class="modal-content pointer-cursor">
         <span class="close" onclick="closeModal()">&times;</span>
@@ -486,7 +483,7 @@ button.btn.btn-primaryy:hover {
                 <select id="gender" name="gender">
                     <option value="" disabled selected>Gender</option>
                     <option value="boy">Boy</option>
-                    <option value="girl">Girl</option>   
+                    <option value="girl">Girl</option>
                 </select>
             </div>
             <div class="form-group">
@@ -506,7 +503,7 @@ button.btn.btn-primaryy:hover {
                 <select id="year" name="year">
                     <option value="" disabled selected>Year</option>
                     <option value="year1">Year 1</option>
-                    <option value="year2">Year 2</option>   
+                    <option value="year2">Year 2</option>
                 </select>
             </div>
             <div class="form-group">
@@ -515,11 +512,11 @@ button.btn.btn-primaryy:hover {
         </form>
     </div>
 </div>
-   
-   <!-- Child Modal -->
+
+<!-- Child Modal -->
 <div id="childFormModal" class="modal">
     <div class="modal-content pointer-cursor">
-        <span class="close" onclick="closeModal()">&times;</span>
+       close" onclick="closeModal()">&times;</span>
         <h3>Edit Child Information</h3>
 
         <div class="avatar-section">
@@ -560,10 +557,11 @@ button.btn.btn-primaryy:hover {
             </div>
         </form>
         <div class="form-group">
-            <button type="submit" class="btn btn-primaryy">Save Changes</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
         </div>
     </div>
 </div>
+
   
        
 
@@ -572,72 +570,66 @@ button.btn.btn-primaryy:hover {
     
 
     <!-- JavaScript to handle tab switching -->
-    <script>
-        document.getElementById('my-info-tab').addEventListener('click', function() {
-            showContent('my-info-content', this);
-        });
-        document.getElementById('children-info-tab').addEventListener('click', function() {
-            showContent('children-info-content', this);
-        });
-        document.getElementById('history-tab').addEventListener('click', function() {
-            showContent('history-content', this);
-        });
+<script>
+    document.getElementById('my-info-tab').addEventListener('click', function() {
+        showContent('my-info-content', this);
+    });
+    document.getElementById('children-info-tab').addEventListener('click', function() {
+        showContent('children-info-content', this);
+    });
+    document.getElementById('history-tab').addEventListener('click', function() {
+        showContent('history-content', this);
+    });
 
-        function showContent(contentId, element) {
-            var contents = document.querySelectorAll('.profile-content');
-            contents.forEach(function(content) {
-                content.classList.remove('active');
-            });
+    function showContent(contentId, element) {
+        var contents = document.querySelectorAll('.profile-content');
+        contents.forEach(function(content) {
+            content.classList.remove('active');
+        });
 
         document.getElementById(contentId).classList.add('active');
 
-            var tabs = document.querySelectorAll('.profile-options a');
-            tabs.forEach(function(tab) {
-                tab.classList.remove('active');
-            });
-            element.classList.add('active');
+        var tabs = document.querySelectorAll('.profile-options a');
+        tabs.forEach(function(tab) {
+            tab.classList.remove('active');
+        });
+        element.classList.add('active');
+    }
 
+    document.getElementById('addChildBtn').onclick = function() {
+        document.getElementById('addChildModal').style.display = 'block';
+    }
 
+    function closeModal() {
+        document.getElementById('addChildModal').style.display = 'none';
+        document.getElementById('childFormModal').style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        var modal = document.getElementById('addChildModal');
+        if (event.target == modal) {
+            modal.style.display = 'none';
         }
+    }
 
-        document.getElementById('addChildBtn').onclick = function() {
-            document.getElementById('addChildModal').style.display = 'block';
-        }
-        
-
-        function closeModal() {
-            document.getElementById('addChildModal').style.display = 'none';
-            document.getElementById('childFormModal').style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            var modal = document.getElementById('addChildModal');
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        }
-
-
-        document.getElementById('addChildForm').onsubmit = function() {
-        
+    document.getElementById('addChildForm').onsubmit = function(event) {
+        event.preventDefault();
         document.getElementById("addChildModal").style.display = "none";
-        
-        };
+    };
 
-
-        function displayLearningStatus() {
+    function displayLearningStatus() {
         var select = document.getElementById("childSelect");
         var statusContent = document.getElementById("statusContent");
         var learningStatus = document.getElementById("learningStatus");
 
         var courses = {
             "Yuna": [
-                { subject: "English",year: "Year 1", day: "Monday",time: "2:30pm-4:30pm",status: "active" },
-                { subject: "Math", year: "Year 1", day: "Wednesday", time: "2:30pm-4:30pm",status: "active"}
+                { subject: "English", year: "Year 1", day: "Monday", time: "2:30pm-4:30pm", status: "active" },
+                { subject: "Math", year: "Year 1", day: "Wednesday", time: "2:30pm-4:30pm", status: "active" }
             ],
             "John Doe": [
-                { subject: "English", year: "Year 1", day: "Monday",time: "2:30pm-4:30pm" },
-                { subject: "Malay", year: "Year 1", day: "Thursday", time: "2:30pm-4:30pm"  }
+                { subject: "English", year: "Year 1", day: "Monday", time: "2:30pm-4:30pm" },
+                { subject: "Malay", year: "Year 1", day: "Thursday", time: "2:30pm-4:30pm" }
             ]
         };
 
@@ -657,67 +649,65 @@ button.btn.btn-primaryy:hover {
     }
 
     function openModal(childName, childGender, childBirthday, childSchool, childYear) {
-    document.getElementById('childName').value = childName;
-    document.getElementById('childGender').value = childGender;
-    document.getElementById('childBirthday').value = childBirthday;
-    document.getElementById('childSchool').value = childSchool;
-    document.getElementById('childYear').value = childYear;
-    document.getElementById('childFormModal').style.display = "block";
-   }
+        document.getElementById('childName').value = childName;
+        document.getElementById('childGender').value = childGender;
+        document.getElementById('childBirthday').value = childBirthday;
+        document.getElementById('childSchool').value = childSchool;
+        document.getElementById('childYear').value = childYear;
+        document.getElementById('childFormModal').style.display = "block";
+    }
 
-   document.querySelectorAll('.edit-btn').forEach(button => {
-  button.addEventListener('click', function() {
-    const row = this.closest('tr');
-    const childName = row.querySelector('td:nth-child(1)').textContent;
-    const childGender = row.querySelector('td:nth-child(2)').textContent;
-    const childBirthday = row.querySelector('td:nth-child(4)').textContent;
-    const childSchool = row.querySelector('td:nth-child(5)').textContent;
-    const childYear = row.querySelector('td:nth-child(6)').textContent;
-    openModal(childName, childGender, childBirthday, childSchool, childYear);
-  });
-});
-
-document.querySelector('.close').addEventListener('click', function() {
-  document.getElementById('childFormModal').style.display = "none";
-});
-
-window.addEventListener('click', function(event) {
-  if (event.target == document.getElementById('childFormModal')) {
-    document.getElementById('childFormModal').style.display = "none";
-  }
-});
-
-document.getElementById("avatar-upload").addEventListener("change", function(event) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        document.getElementById("user-avatar").src = e.target.result;
-    };
-    reader.readAsDataURL(event.target.files[0]);
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    
-    document.querySelectorAll(".delete-btn").forEach(button => {
-        button.addEventListener("click", function() {
-            let classId = this.getAttribute("data-kidNumber"); 
-            if (confirm("Are you sure you want to delete this child?")) {
-                fetch("profile_deletechild.php", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: "kidNumber=" + kidNumber
-                })
-                .then(response => response.text())
-                .then(data => {
-                    alert(data); 
-                    location.reload(); 
-                })
-                .catch(error => console.error("Error:", error));
-            }
+    document.querySelectorAll('.edit-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const row = this.closest('tr');
+            const childName = row.querySelector('td:nth-child(1)').textContent;
+            const childGender = row.querySelector('td:nth-child(2)').textContent;
+            const childBirthday = row.querySelector('td:nth-child(4)').textContent;
+            const childSchool = row.querySelector('td:nth-child(5)').textContent;
+            const childYear = row.querySelector('td:nth-child(6)').textContent;
+            openModal(childName, childGender, childBirthday, childSchool, childYear);
         });
     });
-});
 
-    </script>
+    document.querySelector('.close').addEventListener('click', function() {
+        document.getElementById('childFormModal').style.display = "none";
+    });
+
+    window.addEventListener('click', function(event) {
+        if (event.target == document.getElementById('childFormModal')) {
+            document.getElementById('childFormModal').style.display = "none";
+        }
+    });
+
+    document.getElementById("avatar-upload").addEventListener("change", function(event) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById("user-avatar").src = e.target.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll(".delete-btn").forEach(button => {
+            button.addEventListener("click", function() {
+                let kidNumber = this.getAttribute("data-kidNumber");
+                if (confirm("Are you sure you want to delete this child?")) {
+                    fetch("profile_deletechild.php", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                        body: "kidNumber=" + kidNumber
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        alert(data);
+                        location.reload();
+                    })
+                    .catch(error => console.error("Error:", error));
+                }
+            });
+        });
+    });
+</script>
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
