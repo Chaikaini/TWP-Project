@@ -67,27 +67,34 @@ if (!$result) {
             <div class="year" onclick="showSubjects('year1')">Year 1</div>
             <div class="year" onclick="showSubjects('year2')">Year 2</div>
         </div>
+        <?php
+include('sub.php'); // 连接数据库
 
-        <div class="subject-grid" id="subjectGrid">
-            <!-- 在此处动态加载课程 -->
-            <?php
-            // 这里可以根据需要，筛选不同的年份或科目类型
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "<div class='subject'>";
-                    echo "<img src='" . $row['image'] . "' alt='" . $row['name'] . "'>";
-                    echo "<h2>" . $row['name'] . "</h2>";
-                    echo "<p>教师: " . $row['teacher'] . "</p>";
-                    echo "<p>价格: $" . $row['price'] . "</p>";
-                    echo "<p>评分: " . $row['rating'] . "</p>";
-                    echo "<a href='" . $row['page'] . "'>查看详情</a>"; // 跳转到 HTML 页面
-                    echo "</div>";
-                }
-            } else {
-                echo "<p>暂无课程</p>";
+$sql = "SELECT * FROM subjects";
+$result = $conn->query($sql);
+
+// 检查查询是否成功
+if (!$result) {
+    die("查询失败: " . $conn->error);
+}
+?>
+
+        <?php
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo "<div class='subject'>";
+                echo "<img src='" . $row['image'] . "' alt='" . $row['name'] . "'>";
+                echo "<h2>" . $row['name'] . "</h2>";
+                echo "<p>教师: " . $row['teacher'] . "</p>";
+                echo "<p>价格: $" . $row['price'] . "</p>";
+                echo "<p>评分: " . $row['rating'] . "</p>";
+                echo "<a href='" . $row['page'] . "'>查看详情</a>"; // 跳转到 HTML 页面
+                echo "</div>";
             }
-            ?>
-        </div>
+        } else {
+            echo "<p>暂无课程</p>";
+        }
+        ?>
     </div>
 
     <!-- JavaScript部分 -->
