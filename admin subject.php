@@ -265,70 +265,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>11132</td>
-              <td>Math</td>
-              <td>Year 1 </td>
-              <td>RM 510</td>
-              <td>
-                <i class="pointer-cursor fas fa-edit text-warning edit-btn" onclick="openEditModal('11132', 'Math', 'Year 1', 'RM 85')"></i>
-                <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn ms-2"></i>
-              </td>
-            </tr>
-            <tr>
-                <td>11245</td>
-                <td>English</td>
-                <td>Year 1 </td>
-                <td>RM 510</td>
-                <td>
-                  <i class="pointer-cursor fas fa-edit text-warning edit-btn" onclick="openEditModal('11245', 'English', 'Year 1', 'RM 85')"></i>
-                  <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn ms-2" ></i>
-                </td>
-            </tr>
-            <tr>
-                <td>11351</td>
-                <td>Malay</td>
-                <td>Year 1 </td>
-                <td>RM 510</td>
-                <td>
-                  <i class="pointer-cursor fas fa-edit text-warning edit-btn" onclick="openModal()"></i>
-                  <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn ms-2"></i>
-                </td>
-            </tr>
-            <tr>
-                <tr>
-                    <td>22134</td>
-                    <td>Math 2</td>
-                    <td>Year 2 </td>
-                    <td>RM 510</td>
-                    <td>
-                      <i class="pointer-cursor fas fa-edit text-warning edit-btn" onclick="openModal()"></i>
-                      <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn ms-2"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <td>22534</td>
-                    <td>English 2</td>
-                    <td>Year 2 </td>
-                    <td>RM 510</td>
-                    <td>
-                      <i class="pointer-cursor fas fa-edit text-warning edit-btn"onclick="openModal()"></i>
-                      <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn ms-2"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <td>22345</td>
-                    <td>Malay 2</td>
-                    <td>Year 2 </td>
-                    <td>RM 510</td>
-                    <td>
-                      <i class="pointer-cursor fas fa-edit text-warning edit-btn" onclick="openModal()"></i>
-                      <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn ms-2"></i>
-                    </td>
-                </tr>
-                
-            
-           </tr>
+            <?php include 'admin_classlist.php'; ?>
           </tbody>
         </table>
       </div>

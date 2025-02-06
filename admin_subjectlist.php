@@ -1,0 +1,54 @@
+<?php
+include  'dbadmin_connection.php';
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "admin";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT * FROM admin_class";
+$result = $conn->query($sql);
+?>
+
+
+ <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Subject ID</th>
+                    <th>Subject</th>
+                    <th>Year</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $row["subject_Id"] . "</td>";
+                        echo "<td>" . $row["subject"] . "</td>";
+                        echo "<td>" . $row["year"] . "</td>";
+                        echo "<td>" . $row["price"] . "</td>";
+                       echo "<td>
+                              <i class='pointer-cursor fas fa-edit text-warning edit-btn' onclick='openEditModal(" . $row["class_id"] . ")'></i>
+                              <i class='pointer-cursor fas fa-trash-alt text-danger delete-btn' data-classid='" . $row['class_id'] . "'></i>
+                              </td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='8'>No classes found</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<?php $conn->close(); ?>
