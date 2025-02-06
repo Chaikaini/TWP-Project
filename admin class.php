@@ -246,7 +246,7 @@
         <button class="btn btn-primary float-end" id="addClassBtn">Add Class</button>
     </div>
 
-      
+  
   <tbody>
       <?php include 'admin_classlist.php'; ?>
   </tbody>

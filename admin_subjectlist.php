@@ -11,7 +11,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM admin_class";
+$sql = "SELECT * FROM admin_subject";
 $result = $conn->query($sql);
 ?>
 
@@ -32,13 +32,13 @@ $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
-                        echo "<td>" . $row["subject_Id"] . "</td>";
+                        echo "<td>" . $row["subject_ID"] . "</td>";
                         echo "<td>" . $row["subject"] . "</td>";
                         echo "<td>" . $row["year"] . "</td>";
                         echo "<td>" . $row["price"] . "</td>";
                        echo "<td>
-                              <i class='pointer-cursor fas fa-edit text-warning edit-btn' onclick='openEditModal(" . $row["class_id"] . ")'></i>
-                              <i class='pointer-cursor fas fa-trash-alt text-danger delete-btn' data-classid='" . $row['class_id'] . "'></i>
+                              <i class='pointer-cursor fas fa-edit text-warning edit-btn' onclick='openEditModal(" . $row["subject_ID"] . ")'></i>
+                              <i class='pointer-cursor fas fa-trash-alt text-danger delete-btn' data-classid='" . $row['subject_ID'] . "'></i>
                               </td>";
                         echo "</tr>";
                     }
