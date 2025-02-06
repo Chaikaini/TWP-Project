@@ -253,10 +253,8 @@
                         card.innerHTML = `
                             <img src="${subject.image}" alt="${subject.name}">
                             <h5>${subject.name}</h5>
-                            <p>教师: ${subject.teacher}</p>
-                            <p>价格: ¥${subject.price}</p>
-                            <p>评分: ${subject.rating}/5</p>
-                            <a href="${subject.page}">查看详情</a>
+                            <p>${subject.rating}/5</p>
+                            <a href="${subject.page}">info</a>
                         `;
                         subjectGrid.appendChild(card);
                     });
