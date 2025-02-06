@@ -8,6 +8,21 @@ $result = $conn->query($sql);
 if (!$result) {
     die("查询失败: " . $conn->error);
 }
+
+$sql = "SELECT * FROM subjects WHERE year = 1";
+$result = mysqli_query($conn, $sql);
+$year1Subjects = [];
+
+while($row = mysqli_fetch_assoc($result)) {
+    $year1Subjects[] = [
+        'name' => $row['name'],
+        'image' => $row['image'],
+        'teacher' => $row['teacher'],
+        'price' => $row['price'],
+        'rating' => $row['rating'],
+        'page' => $row['page']
+    ];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -242,7 +257,6 @@ if (!$result) {
 
         <div class="subject-grid" id="subjectGrid"></div>
     </div>
-
 
 
      
