@@ -225,50 +225,12 @@
 
     <div class="container-main">
         <div class="year-list">
-            <div class="year" onclick="showSubjects('Year 1')">Year 1</div>
-            <div class="year" onclick="showSubjects('Year 2')">Year 2</div>
+            <div class="year" onclick="showSubjects('year1')">Year 1</div>
+            <div class="year" onclick="showSubjects('year2')">Year 2</div>
         </div>
 
         <div class="subject-grid" id="subjectGrid"></div>
     </div>
-    
-    <script>
-        // 获取年级参数（默认为 Year 1）
-        const urlParams = new URLSearchParams(window.location.search);
-        const year = urlParams.get('year') || 'Year 1';
-
-        // 请求获取科目数据
-        function showSubjects(year) {
-            fetch(`subject.php?year=${year}`)
-                .then(response => response.json())
-                .then(data => {
-                    // 获取显示科目的容器
-                    const subjectGrid = document.getElementById('subjectGrid');
-                    subjectGrid.innerHTML = ''; // 清空现有内容
-
-                    // 渲染科目信息
-                    data.forEach(subject => {
-                        const card = document.createElement('div');
-                        card.className = 'subject-card';
-                        card.innerHTML = `
-                            <img src="${subject.image}" alt="${subject.name}">
-                            <h5>${subject.name}</h5>
-                            <p>教师: ${subject.teacher}</p>
-                            <p>价格: ¥${subject.price}</p>
-                            <p>评分: ${subject.rating}/5</p>
-                            <a href="${subject.page}">查看详情</a>
-                        `;
-                        subjectGrid.appendChild(card);
-                    });
-                })
-                .catch(error => {
-                    console.error('获取数据失败:', error);
-                });
-        }
-
-        // 初次加载页面时默认显示 Year 1 的科目
-        showSubjects(year);
-    </script>
 
     <script>
         const subjectsData = {
