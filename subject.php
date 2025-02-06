@@ -236,48 +236,90 @@ if (!$result) {
     </div>
 
     <div class="container-main">
-    <div class="year-list">
-        <div class="year" onclick="showSubjects('year1')">Year 1</div>
-        <div class="year" onclick="showSubjects('year2')">Year 2</div>
+        <div class="year-list">
+            <div class="year" onclick="showSubjects('year1')">Year 1</div>
+            <div class="year" onclick="showSubjects('year2')">Year 2</div>
+        </div>
+
+        <div class="subject-grid" id="subjectGrid"></div>
     </div>
 
-    <div class="subject-grid">
-        <?php
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $name = $row["name"];
-                $image = $row["image_path"];
-                $teacher = $row["teacher"];
-                $price = $row["price"];
-                $rating = $row["rating"];
-                $page = $row["page_link"];
+    <script>
+        const subjectsData = {
+            year1: [
+                { name: "Year 1 English ", image: "img/english.jpg", teacher: "Mr. John", price: "85", rating: 4.6, page: "Year 1 English class.html" },
+                { name: "Year 1 Malay", image: "img/malay.jpg", teacher: "Ms. Lily", price: "85", rating: 4.5, page: "Year 1 Malay class.html" },
+                { name: "Year 1 Math ", image: "img/math.jpg", teacher: "Mr. David", price: "85", rating: 4.3, page: "Year 1 Math class.html" },
+            ],
+            year2: [
+                { name: "Year 2 English ", image: "img/english.jpg", teacher: "Mr. John", price: "85", rating: 4.5, page: "Year 2 English class.html" },
+                { name: "Year 2 Malay ", image: "img/malay.jpg", teacher: "Ms. Lily", price: "85", rating: 4.2, page: "Year 2 Malay class.html" },
+                { name: "Year 2 Math ", image: "img/math.jpg", teacher: "Mr. David", price: "85", rating: 4.8, page: "Year 2 Math class.html" },
+            ]
+        };
 
-                echo '<div class="subject-card">';
-                echo '<a href="' . $page . '">';
-                echo '<img src="' . $image . '" alt="' . $name . '">';
-                echo '<h5>' . $name . '</h5>';
-                echo '</a>';
-                echo '<div class="stars-container">';
-                for ($i = 1; $i <= 5; $i++) {
-                    if ($i <= floor($rating)) {
-                        echo '<span class="star yellow"></span>';
-                    } elseif ($i - 0.5 == $rating) {
-                        echo '<span class="star half"></span>';
-                    } else {
-                        echo '<span class="star"></span>';
-                    }
-                }
-                echo '</div>';
-                echo '<div class="rating-text">' . number_format($rating, 1) . ' / 5</div>';
-                echo '</div>';
-            }
-        } else {
-            echo "<p>No subjects available.</p>";
+        function showSubjects(year) {
+            const subjectGrid = document.getElementById("subjectGrid");
+            subjectGrid.innerHTML = "";
+
+            subjectsData[year].forEach(subject => {
+                const card = document.createElement("div");
+                card.className = "subject-card";
+                card.innerHTML = `
+                    <a href="${subject.page}">
+                        <img src="${subject.image}" alt="${subject.name}">
+                        <h5>${subject.name}</h5>
+                    </a>
+                    <div class="stars-container">
+                        <span class="star"></span>
+                        <span class="star"></span>
+                        <span class="star"></span>
+                        <span class="star"></span>
+                        <span class="star"></span>
+                    </div>
+                    <div class="rating-text">${subject.rating} / 5</div>
+                `;
+                
+                subjectGrid.appendChild(card);
+
+                setRating(card, subject.rating);
+            });
         }
-        ?>
-    </div>
-</div>
 
+        function setRating(card, rating) {
+        const stars = card.querySelectorAll('.stars-container .star');
+        const fullStars = Math.floor(rating);
+        const halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
+
+        for (let i = 0; i < fullStars; i++) {
+            stars[i].classList.add('yellow');
+        }
+
+       
+        if (halfStar && rating === 4.5 ) {
+            stars[fullStars].classList.add('half');
+        }
+
+        if (halfStar && rating === 4.6) {
+            stars[fullStars].classList.add('half');
+        }
+
+        if (halfStar && rating === 4.7) {
+            stars[fullStars].classList.add('half');
+        }
+        
+        if (halfStar && rating === 4.8) {
+            stars[fullStars].classList.add('half-4-8');
+        }
+
+        
+        for (let i = fullStars + halfStar; i < stars.length; i++) {
+            stars[i].classList.remove('yellow', 'half', 'half-4-8');
+        }
+
+        card.querySelector('.rating-text').textContent = `${rating.toFixed(1)} / 5`;
+    }
+    showSubjects('year1');
 </script>
 
      
