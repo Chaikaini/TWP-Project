@@ -662,7 +662,7 @@ document.getElementById("yearFilter").addEventListener("change", function() {
                             reviewText.classList.add('review-text');
     
                             const name = document.createElement('p');
-                            name.innerHTML = `<strong>${comment.subject} - ${comment.created_at}</strong>`;
+                            name.innerHTML = `<strong>${comment.subject} - ${comment.year_created}</strong>`;
                             reviewText.appendChild(name);
     
                             // 生成评分星星

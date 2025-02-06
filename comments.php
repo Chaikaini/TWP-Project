@@ -15,7 +15,20 @@ $result = $conn->query($sql);
 $comments = [];
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $comments[] = $row;
+        // 提取年份
+        $createdAt = new DateTime($row['created_at']);
+        $year = $createdAt->format('Y');  // 提取年份
+        
+        // 将评论数据添加到数组
+        $comments[] = [
+            'id' => $row['id'],
+            'year' => $row['year'],
+            'subject' => $row['subject'],
+            'rating' => $row['rating'],
+            'comment' => $row['comment'],
+            'created_at' => $row['created_at'], // 保留完整时间
+            'year_created' => $year // 添加提取的年份
+        ];
     }
 }
 
