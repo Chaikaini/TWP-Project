@@ -34,18 +34,18 @@
             background-color: #f8f9fa;
             border-bottom: 1px solid #caccce;
         }
-
+    
         .icon-bar a {
             margin: 0 15px;
             color: #000000;
             font-size: 24px;
             transition: color 0.3s ease;
         }
-
+    
         .icon-bar a:hover {
             color: #73cf67;
         }
-
+    
         .container.my-5 {
             max-width: 650px;
             margin: auto;
@@ -54,8 +54,7 @@
             border-radius: 20px;
             margin-top: 50px;
         }
-
-
+    
         .cart-item {
             display: flex;
             align-items: center;
@@ -66,7 +65,7 @@
             margin-bottom: 20px;
             margin-top: 40px;
         }
-
+    
         .cart-item img {
             width: 200px;
             height: 200px;
@@ -74,20 +73,20 @@
             border-radius: 8px;
             margin-right: 20px;
         }
-
+    
         .cart-item-details {
             flex-grow: 1;
             margin-left: 20px;
         }
-
+    
         .cart-item-details h5 {
             margin: 0;
         }
-
+    
         .cart-item-details p {
             margin: 5px 0;
         }
-
+    
         .cart-item-actions {
             display: flex;
             flex-direction: column;
@@ -96,24 +95,24 @@
             gap: 10px;
             margin-left: 20px;
         }
-
+    
         .cart-item-actions i {
             font-size: 20px;
             color: #007bff;
             cursor: pointer;
             transition: color 0.3s ease;
         }
-
+    
         .cart-item-actions i:hover {
             color: #0056b3;
         }
-
+    
         .total-price {
             margin-top: 100px;
             font-size: 20px;
             font-weight: bold;
         }
-
+    
         .btn-checkout {
             background-color: #73cf67;
             color: white;
@@ -122,7 +121,7 @@
             cursor: pointer;
             width: 100%;
         }
-
+    
         .btn-add {
             background-color: #007bff;
             color: white;
@@ -130,164 +129,55 @@
             padding: 5px 10px;
             cursor: pointer;
         }
-
-        .checkbox-container {
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 20px;
-            order:-1;
+    
+        .popup-info {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            display: none; /* Initially hidden */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
         }
-
-        .checkbox-container input[type="checkbox"] {
+    
+        .popup-close {
             position: absolute;
-            width: 20px;
-            height: 20px;
-            z-index: 1;
-            opacity: 0;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
             cursor: pointer;
+            color: #888;
         }
-
-        .checkbox-container .checkmark {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #ccc;
-            border-radius: 4px;
-            cursor: pointer;
-            
+    
+        .popup-close:hover {
+            color: #f00;
         }
-
-        .checkbox-container input:checked + .checkmark {
-            background-color: #007bff;
-            border-color: #007bff;
-            
+    
+        .popup-row {
+            margin-bottom: 15px;
         }
-
-        .checkbox-container input:checked + .checkmark::after {
-            content: '';
-            position: absolute;
-            left: 7px;
-            top: 2px;
-            width: 4px;
-            height: 10px;
-            border: solid white;
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
+    
+        .popup-label {
+            font-weight: bold;
+            color: #333;
         }
-
-        /* Shopping Cart Styles */
-.cart-container {
-    width: 80%;
-    margin: 0 auto;
-    padding-top: 20px;
-}
-
-.cart-items {
-    display: flex;
-    flex-direction: column;
-}
-
-.cart-item {
-    display: flex;
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-}
-
-.cart-item img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    margin-right: 20px;
-}
-
-.cart-item-details {
-    flex: 1;
-}
-
-.cart-item-actions {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-.cart-item-actions i {
-    cursor: pointer;
-}
-
-.cart-total {
-    margin-top: 30px;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.checkout-btn {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.checkout-btn:hover {
-    background-color: green;
-}
-
-/* Popup styles */
-.popup-info {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    display: none; /* Initially hidden */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
-}
-
-.popup-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    cursor: pointer;
-    color: #888;
-}
-
-.popup-close:hover {
-    color: #f00;
-}
-
-.popup-row {
-    margin-bottom: 15px;
-}
-
-.popup-label {
-    font-weight: bold;
-    color: #333;
-}
-
-.popup-value {
-    color: #555;
-}
-
-#childrenSelect {
-    width: 100%;
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
-
+    
+        .popup-value {
+            color: #555;
+        }
+    
+        #childrenSelect {
+            width: 100%;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
     </style>
+    
 </head>
 
 <body>
