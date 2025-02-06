@@ -17,6 +17,7 @@ if (!isset($_SESSION['email'])) {
     exit;
 }
 
+
 $email = $_SESSION['email']; 
 $sql = "SELECT name, gender, age, email, role FROM users WHERE email = ?";
 $stmt = $conn->prepare($sql);
