@@ -10,8 +10,8 @@ if ($conn->connect_error) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["kadNumber"])) {
-    $kadNumber = $_POST["kadNumber"]; // 修正变量名
-    $sql = "DELETE FROM childreninfo WHERE kadNumber = '$kadNumber'"; // 修正 SQL 语句
+    $kadNumber = $_POST["kadNumber"]; 
+    $sql = "DELETE FROM childreninfo WHERE kadNumber = '$kadNumber'"; 
 
     if ($conn->query($sql) === TRUE) {
         echo "<script>alert('Children Information deleted successfully!'); window.location.href='profile.php';</script>";
