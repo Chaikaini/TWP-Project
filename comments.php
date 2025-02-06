@@ -24,4 +24,7 @@ if ($result->num_rows > 0) {
 
 // 关闭数据库连接
 $conn->close();
+
+// 返回 JSON 格式的评论数据
+echo json_encode($comments);
 ?>
