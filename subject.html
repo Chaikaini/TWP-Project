@@ -437,5 +437,39 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("get_subjects.php")
+                .then(response => response.json())
+                .then(data => {
+                    console.log("加载的课程数据:", data);
+                    renderSubjects(data);
+                })
+                .catch(error => console.error("加载数据出错:", error));
+        });
+        
+        function renderSubjects(subjectsData) {
+            Object.keys(subjectsData).forEach(year => {
+                const container = document.getElementById(year);
+                if (container) {
+                    subjectsData[year].forEach(subject => {
+                        const card = document.createElement("div");
+                        card.classList.add("subject-card");
+        
+                        card.innerHTML = `
+                            <img src="${subject.image}" alt="${subject.name}">
+                            <h3>${subject.name}</h3>
+                            <p>教师: ${subject.teacher}</p>
+                            <p>价格: RM${subject.price}</p>
+                            <p>评分: ${subject.rating} ⭐</p>
+                            <a href="${subject.page}">查看详情</a>
+                        `;
+        
+                        container.appendChild(card);
+                    });
+                }
+            });
+        }
+        </script>
 </body>
 </html>
