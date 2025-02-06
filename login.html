@@ -134,13 +134,13 @@
                         <a href="forgot.html">Forgot password?</a>
                     </div>
                     <button type="submit">Login</button>
-                    <p id="errorMessage" style="color: red; display: none;"></p> <!-- 错误信息显示 -->
+                    <p id="errorMessage" style="color: red; display: none;"></p>
                     <p>Don’t have an account? <a href="registration.html">Sign up for free</a></p>
                 </form>
                 
                 <script>
                 document.getElementById("loginForm").addEventListener("submit", function(event) {
-                    event.preventDefault(); // 阻止默认提交
+                    event.preventDefault(); 
                 
                     let formData = new FormData(this);
                 
@@ -153,10 +153,10 @@
                         if (data.success) {
                             localStorage.setItem("username", data.username);
                             localStorage.setItem("email", data.email);
-                            window.location.href = "member.html"; // 登录成功跳转
+                            window.location.href = "member.html"; 
                         } else {
                             let errorMessage = document.getElementById("errorMessage");
-                            errorMessage.textContent = data.error; // 显示错误信息
+                            errorMessage.textContent = data.error; 
                             errorMessage.style.display = "block";
                         }
                     })

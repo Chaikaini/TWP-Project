@@ -43,7 +43,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `gender`, `age`, `email`, `role`, `password`, `created_at`) VALUES
-(3, 'Super Admin', 'Male', 35, 'superadmin@example.com', 'super_admin', '$2y$10$yZsFb2rGZZqVnK5cX/r1/OodmcjEiTMiMi.w6pgHGfaK8p7qG1ddO', '2025-02-05 07:37:22');
+(4, 'Super Admin', 'Female', 20, 'kaini@gmail.com', 'super_admin', 'abc123', '2025-02-06 06:18:44');
 
 --
 -- Indexes for dumped tables
@@ -64,7 +64,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
