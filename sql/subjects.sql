@@ -43,7 +43,7 @@ CREATE TABLE `subjects` (
 --
 
 INSERT INTO `subjects` (`id`, `name`, `year`, `teacher`, `price`, `rating`, `image`, `page`) VALUES
-(1, 'Year 1 English', 'Year 1', 'Mr. John', 85.00, 4.6, 'img/english.jpg', 'Year 1 English class.html'),
+(1, 'Year 1 Englis', 'Year 1', 'Mr. John', 85.00, 4.6, 'img/english.jpg', 'Year 1 English class.html'),
 (2, 'Year 1 Malay', 'Year 1', 'Ms. Lily', 85.00, 4.5, 'img/malay.jpg', 'Year 1 Malay class.html'),
 (3, 'Year 1 Math', 'Year 1', 'Mr. David', 85.00, 4.3, 'img/math.jpg', 'Year 1 Math class.html'),
 (4, 'Year 2 English', 'Year 2', 'Mr. John', 85.00, 4.5, 'img/english.jpg', 'Year 2 English class.html'),
