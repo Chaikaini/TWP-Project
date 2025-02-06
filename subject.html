@@ -254,8 +254,10 @@
                             <img src="${subject.image}" alt="${subject.name}">
                         <h5>${subject.name}</h5>
                         <p>${subject.rating}⭐</p>
-                        <a href="${subject.page}">info</a>
                         `;
+                        card.onclick = function () {
+                    window.location.href = subject.page;
+                };
                         subjectGrid.appendChild(card);
                     });
                 })
@@ -379,6 +381,9 @@
                         <p>${subject.rating}⭐</p>
                         <a href="${subject.page}">info</a>
                     `;
+                    card.onclick = function () {
+                    window.location.href = subject.page;
+                    };
                     subjectGrid.appendChild(card);
                 });
             })
@@ -402,7 +407,6 @@ function renderSubjects(subjectsData) {
                     <img src="${subject.image}" alt="${subject.name}">
                         <h5>${subject.name}</h5>
                         <p>${subject.rating}⭐</p>
-                        <a href="${subject.page}">info</a>
                 `;
 
                 container.appendChild(card);
