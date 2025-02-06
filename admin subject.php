@@ -407,6 +407,23 @@
    });
 });
 
+document.getElementById("editSubjectForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // 防止默认提交
+
+    let formData = new FormData(this);
+
+    fetch("admin_editsubject.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert(data); // 显示返回信息
+        location.reload(); // 刷新页面
+    })
+    .catch(error => console.error("Error:", error));
+});
+
 </script>
 
 
