@@ -33,7 +33,7 @@ if ($result->num_rows > 0) {
         echo "<td>" . $row["year"] . "</td>";
         echo "<td>
                 <i class='pointer-cursor fas fa-edit text-warning edit-btn' onclick='openEditModal(\"" . $row["name"] . "\", \"" . $row["gender"] . "\", \"" . $row["birthday"] . "\", \"" . $row["school"] . "\", \"" . $row["year"] . "\")'></i>
-                <i class='pointer-cursor fas fa-trash-alt text-danger delete-btn' data-kidNumber='" . $row['kidNumber'] . "'></i>
+                <i class='pointer-cursor fas fa-trash-alt text-danger delete-btn'  data-kidNumber="<?= $row['kidNumber']; ?>"></i>
               </td>";
         echo "</tr>";
     }
