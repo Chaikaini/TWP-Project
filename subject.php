@@ -1,6 +1,7 @@
 <?php
 include('sub.php'); // 连接数据库
 
+// 查询所有课程数据
 $sql = "SELECT * FROM subjects";
 $result = $conn->query($sql);
 
@@ -9,11 +10,18 @@ if (!$result) {
     die("查询失败: " . $conn->error);
 }
 
-$sql = "SELECT * FROM subjects WHERE year = 1";
-$result = mysqli_query($conn, $sql);
-$year1Subjects = [];
+// 查询Year 1和Year 2的课程
+$sqlYear1 = "SELECT * FROM subjects WHERE year = 1";
+$sqlYear2 = "SELECT * FROM subjects WHERE year = 2";
 
-while($row = mysqli_fetch_assoc($result)) {
+$resultYear1 = $conn->query($sqlYear1);
+$resultYear2 = $conn->query($sqlYear2);
+
+// 将Year 1和Year 2的课程存入数组
+$year1Subjects = [];
+$year2Subjects = [];
+
+while ($row = $resultYear1->fetch_assoc()) {
     $year1Subjects[] = [
         'name' => $row['name'],
         'image' => $row['image'],
@@ -23,10 +31,21 @@ while($row = mysqli_fetch_assoc($result)) {
         'page' => $row['page']
     ];
 }
+
+while ($row = $resultYear2->fetch_assoc()) {
+    $year2Subjects[] = [
+        'name' => $row['name'],
+        'image' => $row['image'],
+        'teacher' => $row['teacher'],
+        'price' => $row['price'],
+        'rating' => $row['rating'],
+        'page' => $row['page']
+    ];
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <title>Subject</title>
@@ -179,32 +198,28 @@ while($row = mysqli_fetch_assoc($result)) {
         }
 
         .stars-container .star {
-        width: 20px;
-        height: 20px;
-        background-color: #ddd;
-        clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-        margin-right: 5px;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-    }
+            width: 20px;
+            height: 20px;
+            background-color: #ddd;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            margin-right: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
 
-    .stars-container .yellow {
-        background-color: gold;
-    }
+        .stars-container .yellow {
+            background-color: gold;
+        }
 
-    .stars-container .half {
-        background: linear-gradient(to right, gold 50%, #ddd 50%);
-    }
+        .stars-container .half {
+            background: linear-gradient(to right, gold 50%, #ddd 50%);
+        }
 
-    .stars-container .half-4-8 {
-        background: linear-gradient(to right, gold 65%, #ddd 35%); 
-    }
-
-    .rating-text {
-        font-size: 14px;
-        color: #666;
-        margin-top: 5px;
-        text-align: center;
-    }
+        .rating-text {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -239,13 +254,12 @@ while($row = mysqli_fetch_assoc($result)) {
             <h1>Subject</h1>
             <ul class="breadcrumb">
                 <li><a href="Home.html">Home</a></li>
-                <li>&gt;</li>
                 <li>Subject</li>
             </ul>
         </div>
         <div class="search-box">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="width: 200px;">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <input type="text" placeholder="Search for subject...">
+            <button class="btn btn-success">Search</button>
         </div>
     </div>
 
@@ -258,100 +272,57 @@ while($row = mysqli_fetch_assoc($result)) {
         <div class="subject-grid" id="subjectGrid"></div>
     </div>
 
+    <script>
+        // 传递PHP数据到JavaScript
+        const year1Subjects = <?php echo json_encode($year1Subjects); ?>;
+        const year2Subjects = <?php echo json_encode($year2Subjects); ?>;
 
-     
-             <!-- Footer Start -->
-             <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
-                <div class="container py-5">
-                    <div class="row g-5">
-                        <div class="col-lg-3 col-md-6">
-                            <h4 class="text-white mb-3">Quick Link</h4>
-                            <a class="btn btn-link" href="">About Us</a>
-                            <a class="btn btn-link" href="">Contact Us</a>
-                            <a class="btn btn-link" href="">Privacy Policy</a>
-                            <a class="btn btn-link" href="">Terms & Condition</a>
-                            <a class="btn btn-link" href="">FAQs & Help</a>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <h4 class="text-white mb-3">Contact</h4>
-                            <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
-                            <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                            <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
-                            <div class="d-flex pt-2">
-                                <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
-                                <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <h4 class="text-white mb-3">Gallery</h4>
-                            <div class="row g-2 pt-2">
-                                <div class="col-4">
-                                    <img class="img-fluid bg-light p-1" src="img/course-1.jpg" alt="">
-                                </div>
-                                <div class="col-4">
-                                    <img class="img-fluid bg-light p-1" src="img/course-2.jpg" alt="">
-                                </div>
-                                <div class="col-4">
-                                    <img class="img-fluid bg-light p-1" src="img/course-3.jpg" alt="">
-                                </div>
-                                <div class="col-4">
-                                    <img class="img-fluid bg-light p-1" src="img/course-2.jpg" alt="">
-                                </div>
-                                <div class="col-4">
-                                    <img class="img-fluid bg-light p-1" src="img/course-3.jpg" alt="">
-                                </div>
-                                <div class="col-4">
-                                    <img class="img-fluid bg-light p-1" src="img/course-1.jpg" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <h4 class="text-white mb-3">Newsletter</h4>
-                            <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
-                            <div class="position-relative mx-auto" style="max-width: 400px;">
-                                <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
-                                <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container">
-                    <div class="copyright">
-                        <div class="row">
-                            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                                &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved.
-        
-                                <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                                Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
-                            </div>
-                            <div class="col-md-6 text-center text-md-end">
-                                <div class="footer-menu">
-                                    <a href="">Home</a>
-                                    <a href="">Cookies</a>
-                                    <a href="">Help</a>
-                                    <a href="">FQAs</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Footer End -->
-        
-        
-            <!-- Back to Top -->
-            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        function showSubjects(year) {
+            let subjects = [];
+            if (year === 'year1') {
+                subjects = year1Subjects;
+            } else if (year === 'year2') {
+                subjects = year2Subjects;
+            }
 
-            
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+            const subjectGrid = document.getElementById('subjectGrid');
+            subjectGrid.innerHTML = ''; // 清空之前的课程
+
+            subjects.forEach(subject => {
+                const subjectCard = document.createElement('div');
+                subjectCard.classList.add('subject-card');
+                subjectCard.innerHTML = `
+                    <img src="${subject.image}" alt="${subject.name}">
+                    <h5>${subject.name}</h5>
+                    <p>Teacher: ${subject.teacher}</p>
+                    <p>Price: $${subject.price}</p>
+                    <div class="stars-container">
+                        ${renderStars(subject.rating)}
+                    </div>
+                    <p class="rating-text">${subject.rating} / 5</p>
+                    <a href="${subject.page}" class="btn btn-primary">View Details</a>
+                `;
+                subjectGrid.appendChild(subjectCard);
+            });
+        }
+
+        function renderStars(rating) {
+            let stars = '';
+            for (let i = 0; i < 5; i++) {
+                if (i < rating) {
+                    stars += '<div class="star yellow"></div>';
+                } else if (i < Math.floor(rating) + 0.5) {
+                    stars += '<div class="star half"></div>';
+                } else {
+                    stars += '<div class="star"></div>';
+                }
+            }
+            return stars;
+        }
+    </script>
 </body>
 </html>
 
-
-<?php $conn->close(); ?>
-
-
+<?php
+$conn->close();
+?>
