@@ -252,9 +252,9 @@
                         card.className = 'subject-card';
                         card.innerHTML = `
                             <img src="${subject.image}" alt="${subject.name}">
-                            <h5>${subject.name}</h5>
-                            <p>${subject.rating}/5</p>
-                            <a href="${subject.page}">info</a>
+                        <h5>${subject.name}</h5>
+                        <p>${subject.rating}⭐</p>
+                        <a href="${subject.page}">info</a>
                         `;
                         subjectGrid.appendChild(card);
                     });
@@ -376,8 +376,8 @@
                     card.innerHTML = `
                         <img src="${subject.image}" alt="${subject.name}">
                         <h5>${subject.name}</h5>
-                        <p>评分: ${subject.rating}⭐</p>
-                        <a href="${subject.page}">查看详情</a>
+                        <p>${subject.rating}⭐</p>
+                        <a href="${subject.page}">info</a>
                     `;
                     subjectGrid.appendChild(card);
                 });
@@ -400,11 +400,9 @@ function renderSubjects(subjectsData) {
 
                 card.innerHTML = `
                     <img src="${subject.image}" alt="${subject.name}">
-                    <h3>${subject.name}</h3>
-                    <p>教师: ${subject.teacher}</p>
-                    <p>价格: RM${subject.price}</p>
-                    <p>评分: ${subject.rating} ⭐</p>
-                    <a href="${subject.page}">查看详情</a>
+                        <h5>${subject.name}</h5>
+                        <p>${subject.rating}⭐</p>
+                        <a href="${subject.page}">info</a>
                 `;
 
                 container.appendChild(card);
