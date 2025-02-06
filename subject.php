@@ -239,6 +239,22 @@ $conn->close();
     </div>
 
     <div id="subjectGrid"></div>
+    <?php
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo "<div class='subject'>";
+                echo "<img src='" . $row['image'] . "' alt='" . $row['name'] . "'>";
+                echo "<h2>" . $row['name'] . "</h2>";
+                echo "<p>教师: " . $row['teacher'] . "</p>";
+                echo "<p>价格: $" . $row['price'] . "</p>";
+                echo "<p>评分: " . $row['rating'] . "</p>";
+                echo "<a href='" . $row['page'] . "'>查看详情</a>"; // 跳转到 HTML 页面
+                echo "</div>";
+            }
+        } else {
+            echo "<p>暂无课程</p>";
+        }
+        ?>
 
     <script>
         let subjectsData = <?php echo json_encode($subjects); ?>;
