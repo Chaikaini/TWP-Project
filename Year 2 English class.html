@@ -344,29 +344,29 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="#" class="nav-item nav-link">Home</a>
-                <a href="#" class="nav-item nav-link">Subject</a>
-                <a href="#" class="nav-item nav-link">About us</a>
-                <a href="#" class="nav-item nav-link">Contact us</a>
-                <a href="" class="nav-item nav-link">Comment</a>
+                <a href="member.html" class="nav-item nav-link">Home</a>
+                <a href="subject.html" class="nav-item nav-link">Subject</a>
+                <a href="about.html" class="nav-item nav-link">About us</a>
+                <a href="contact.html" class="nav-item nav-link">Contact us</a>
+                <a href="comment.html" class="nav-item nav-link">Comment</a>
             </div>
-            <a href="#" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Log out<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="login.html" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Log out<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
     </nav>
     <!-- Navbar End -->
 
     <!-- Icon Bar -->
     <div class="icon-bar">
-        <a href="#"><i class="fas fa-bell"></i></a>
-        <a href="#"><i class="fas fa-shopping-cart"></i></a>
-        <a href="#"><i class="fas fa-user"></i></a>
+        <a href="notification.html"><i class="fas fa-bell"></i></a>
+        <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+        <a href="profile.php"><i class="fas fa-user"></i></a>
     </div>
 
     <!-- Breadcrumb Section -->
     <div class="breadcrumb-container">
         <h2 >Year 2 English </h2>
         <ul class="breadcrumb">
-            <li><a href="Home.html">Home</a></li>
+            <li><a href="member.html">Home</a></li>
             <li>&gt;</li>
             <li><a href="subject.html">Subject</a></li>
             <li>&gt;</li>
@@ -475,38 +475,12 @@
                 <label for="yearFilter">Filter by Year: </label>
                 <select id="yearFilter">
                     <option value="All">All</option>
+                    <option value="2024">2025</option>
                     <option value="2024">2024</option>
                     <option value="2023">2023</option>
                 </select>
             </div>
-            
-            <div class="review-item" data-year="2024">
-                <div class="review-text">
-                    <p><strong>Jane Doe</strong></p>
-                    <div class="stars-container">
-                        <span class="star filled"></span>
-                        <span class="star filled"></span>
-                        <span class="star filled"></span>
-                        <span class="star filled"></span>
-                        <span class="star"></span>
-                    </div>
-                    <p>Great course! My child has made noticeable progress. The teacher is supportive, though the pacing of some lessons could improve.</p>
-                </div>
-            </div>
-            
-            <div class="review-item" data-year="2023">
-                <div class="review-text">
-                    <p><strong>John Smith</strong></p>
-                    <div class="stars-container">
-                        <span class="star filled"></span>
-                        <span class="star filled"></span>
-                        <span class="star filled"></span>
-                        <span class="star filled"></span>
-                        <span class="star "></span>
-                    </div>
-                    <p>My child enjoys the interactive activities and songs. It's a great way to learn new words, but more lesson variety would be appreciated.</p>
-                </div>
-            </div>
+            <div id = "review-list"></div>
         </section>
         
     </div>
@@ -668,6 +642,74 @@ document.getElementById("yearFilter").addEventListener("change", function() {
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // 获取并显示评论的函数
+        function fetchReviews() {
+            const url = 'y2_eng_comments.php';  // 获取固定条件下的评论
+            fetch(url)
+                .then(response => response.json())
+                .then(comments => {
+                    const reviewList = document.getElementById('review-list');
+                    reviewList.innerHTML = ''; // 清空现有的评论
+    
+                    if (comments.length > 0) {
+                        comments.forEach(comment => {
+                            const reviewItem = document.createElement('div');
+                            reviewItem.classList.add('review-item');
+                            reviewItem.setAttribute('data-year', comment.year_created);
+    
+                            const reviewText = document.createElement('div');
+                            reviewText.classList.add('review-text');
+    
+                            const name = document.createElement('p');
+                            name.innerHTML = `<strong>${comment.subject} - ${comment.year_created}</strong>`;
+                            reviewText.appendChild(name);
+    
+                            // 生成评分星星
+                            const starsContainer = document.createElement('div');
+                            starsContainer.classList.add('stars-container');
+                            const rating = comment.rating;
+                            let fullStars = Math.floor(rating);
+                            let halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
+                            let emptyStars = 5 - fullStars - halfStar;
+    
+                            for (let i = 0; i < fullStars; i++) {
+                                starsContainer.innerHTML += '<span class="star filled"></span>';
+                            }
+    
+                            if (halfStar) {
+                                starsContainer.innerHTML += '<span class="star half"></span>';
+                            }
+    
+                            for (let i = 0; i < emptyStars; i++) {
+                                starsContainer.innerHTML += '<span class="star"></span>';
+                            }
+    
+                            reviewText.appendChild(starsContainer);
+    
+                            const commentText = document.createElement('p');
+                            commentText.textContent = comment.comment;
+                            reviewText.appendChild(commentText);
+    
+                            reviewItem.appendChild(reviewText);
+                            reviewList.appendChild(reviewItem);
+                        });
+                    } else {
+                        reviewList.innerHTML = 'No reviews found.';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching reviews:', error);
+                });
+        }
+    
+        // 页面加载时显示评论
+        window.onload = function() {
+            fetchReviews(); // 默认加载所有评论（即英文二年级的评论）
+        };
+    </script>
+
 </body>
 
 </html>
