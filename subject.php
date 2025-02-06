@@ -1,102 +1,34 @@
 <?php
-// 连接到数据库
-$servername = "localhost";  // 数据库服务器
-$username = "root"; // 数据库用户名
-$password = ""; // 数据库密码
-$dbname = "tuition_centre";  // 数据库名称
+// 数据库连接配置
+$servername = "localhost"; // 数据库服务器
+$username = "root"; // 数据库用户名（请根据实际情况修改）
+$password = ""; // 数据库密码（请根据实际情况修改）
+$dbname = "tuition_centre"; // 数据库名称
 
-// 创建连接
+// 创建数据库连接
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // 检查连接是否成功
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die("连接失败: " . $conn->connect_error);
 }
 
-// 获取当前选择的年级，默认为 Year 1
-$selectedYear = 'Year 1';
-if (isset($_GET['year'])) {
-    $selectedYear = $_GET['year'];
+// 获取用户选择的年级（默认为Year 1）
+$year = isset($_GET['year']) ? $_GET['year'] : 'Year 1';
+
+// 从数据库中查询对应年级的学科信息
+$sql = "SELECT * FROM subjects WHERE year = '$year'";
+$result = $conn->query($sql);
+
+// 存储查询到的学科数据
+$subjects = [];
+if ($result->num_rows > 0) {
+    // 将查询结果存入数组
+    while ($row = $result->fetch_assoc()) {
+        $subjects[] = $row;
+    }
 }
 
-// 查询数据库中的科目
-$sql = "SELECT name, teacher, price, rating, image, page FROM subjects WHERE year = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $selectedYear); // 绑定参数
-$stmt->execute();
-$result = $stmt->get_result();
-
-// 将查询结果存储在数组中
-$subjectsData = [];
-while ($row = $result->fetch_assoc()) {
-    $subjectsData[] = $row;
-}
-
-header('Content-Type: application/json');
-
-// 假设课程数据包含图片路径
-$subjects = [
-    'year1' => [
-        [
-            'name' => 'Year 1 English',
-            'image' => 'images/english.jpg',  // 图片路径
-            'teacher' => 'Mr. John',
-            'price' => '85',
-            'rating' => 4.6,
-            'page' => 'Year 1 English class.html'
-        ],
-        [
-            'name' => 'Year 1 Malay',
-            'image' => 'images/malay.jpg',  // 图片路径
-            'teacher' => 'Ms. Lily',
-            'price' => '85',
-            'rating' => 4.5,
-            'page' => 'Year 1 Malay class.html'
-        ],
-        [
-            'name' => 'Year 1 Math',
-            'image' => 'images/math.jpg',  // 图片路径
-            'teacher' => 'Mr. David',
-            'price' => '85',
-            'rating' => 4.3,
-            'page' => 'Year 1 Math class.html'
-        ],
-    ],
-    'year2' => [
-        [
-            'name' => 'Year 2 English',
-            'image' => 'images/english.jpg',  // 图片路径
-            'teacher' => 'Mr. John',
-            'price' => '85',
-            'rating' => 4.5,
-            'page' => 'Year 2 English class.html'
-        ],
-        [
-            'name' => 'Year 2 Malay',
-            'image' => 'images/malay.jpg',  // 图片路径
-            'teacher' => 'Ms. Lily',
-            'price' => '85',
-            'rating' => 4.2,
-            'page' => 'Year 2 Malay class.html'
-        ],
-        [
-            'name' => 'Year 2 Math',
-            'image' => 'images/math.jpg',  // 图片路径
-            'teacher' => 'Mr. David',
-            'price' => '85',
-            'rating' => 4.8,
-            'page' => 'Year 2 Math class.html'
-        ],
-    ]
-];
-
-$year = $_GET['year'];
-echo json_encode($subjects[$year]);
-
-
-
-$stmt->close();
+// 关闭数据库连接
 $conn->close();
 ?>
-
-<!-- 返回HTML文件的主体部分 -->
