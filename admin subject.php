@@ -360,14 +360,14 @@
     }
     
 
-    function openEditModal(subjectID, subject, year, price) {
-            document.getElementById('editSubjectID').value = subjectID;
-            document.getElementById('editSubject').value = subject;
-            document.getElementById('editYear').value = year;
-            document.getElementById('editPrice').value = price;
-            document.getElementById('editModal').style.display = 'block';
-        }
-
+    function openEditModal(subjectID, subject, year, price, description) {
+    document.getElementById("editSubjectID").value = subjectID;
+    document.getElementById("editSubject").value = subject;
+    document.getElementById("editYear").value = year;
+    document.getElementById("editPrice").value = price;
+    document.getElementById("editDescription").value = description;
+    document.getElementById("editModal").style.display = "block";
+}
         function closeModal() {
             document.getElementById('editModal').style.display = 'none';
         }
