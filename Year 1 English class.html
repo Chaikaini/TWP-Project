@@ -645,7 +645,7 @@ document.getElementById("yearFilter").addEventListener("change", function() {
     <script>
         // 获取并显示评论的函数
         function fetchReviews() {
-            const url = 'get_comments.php';  // 获取固定条件下的评论
+            const url = 'comments.php';  // 获取固定条件下的评论
             fetch(url)
                 .then(response => response.json())
                 .then(comments => {
