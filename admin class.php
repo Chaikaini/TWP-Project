@@ -182,13 +182,13 @@
       <h4>Admin Panel</h4>
     </div>
     <ul class="nav flex-column">
-      <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
-      <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-user"></i> <span>Staff List</span></a></li>
-      <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-graduation-cap"></i> <span>Children List</span></a></li>
-      <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-users"></i> <span>Parent List</span></a></li>
-      <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-shopping-cart"></i> <span>Order List</span></a></li>
-      <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-book"></i> <span>Subject List</span></a></li>
-      <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-school"></i> <span>Class List</span></a></li>
+      <li class="nav-item"><a href="dashboard.html" class="nav-link"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+      <li class="nav-item"><a href="admin staff.html" class="nav-link"><i class="fas fa-user"></i> <span>Staff List</span></a></li>
+      <li class="nav-item"><a href="children list.html" class="nav-link"><i class="fas fa-graduation-cap"></i> <span>Children List</span></a></li>
+      <li class="nav-item"><a href="parent list.html" class="nav-link"><i class="fas fa-users"></i> <span>Parent List</span></a></li>
+      <li class="nav-item"><a href="view order.html" class="nav-link"><i class="fas fa-shopping-cart"></i> <span>Order List</span></a></li>
+      <li class="nav-item"><a href="admin subject.php" class="nav-link"><i class="fas fa-book"></i> <span>Subject List</span></a></li>
+      <li class="nav-item"><a href="admin class.php" class="nav-link"><i class="fas fa-school"></i> <span>Class List</span></a></li>
       <li class="nav-item">
         <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#reportMenu" aria-expanded="false">
           <i class="fas fa-chart-line"></i> <span>Report</span>
@@ -196,10 +196,10 @@
         </a>
         <div class="collapse" id="reportMenu">
           <ul class="nav flex-column ms-3">
-            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-invoice"></i> <span>Payment report</span></a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-alt"></i> <span>Subject Enrollment report
+            <li class="nav-item"><a href="payment report.html" class="nav-link"><i class="fas fa-file-invoice"></i> <span>Payment report</span></a></li>
+            <li class="nav-item"><a href="subject enroll report.html" class="nav-link"><i class="fas fa-file-alt"></i> <span>Subject Enrollment report
             </span></a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-alt"></i> <span>New Children report</span></a></li>
+            <li class="nav-item"><a href="new student report.html" class="nav-link"><i class="fas fa-file-alt"></i> <span>New Children report</span></a></li>
           </ul>
         </div>
       </li>      
@@ -231,7 +231,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
               <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><a class="dropdown-item" href="#">Logout</a></li>
+              <li><a class="dropdown-item" href="admin login.html">Logout</a></li>
             </ul>
           </li>
         </ul>
