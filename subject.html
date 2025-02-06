@@ -379,6 +379,9 @@
                         <p>${subject.rating}⭐</p>
                         <a href="${subject.page}">info</a>
                     `;
+                    card.onclick = function () {
+                    window.location.href = subject.page;
+                };
                     subjectGrid.appendChild(card);
                 });
             })
