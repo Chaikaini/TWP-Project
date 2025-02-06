@@ -178,8 +178,7 @@
   <!-- Sidebar -->
   <nav id="sidebar" class="d-flex flex-column p-3">
     <div class="sidebar-header">
-      <img src="https://via.placeholder.com/40" alt="Logo" />
-      <h4>Admin Panel</h4>
+      <h3>Admin Panel</h3>
     </div>
     <ul class="nav flex-column">
       <li class="nav-item"><a href="dashboard.html" class="nav-link"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
