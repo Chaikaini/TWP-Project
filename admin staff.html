@@ -176,6 +176,10 @@
               <label for="adminEmail" class="form-label">Email</label>
               <input type="email" class="form-control" id="adminEmail" required>
             </div>
+            <div class="mb-3">
+              <label for="adminPassword" class="form-label">Password</label>
+              <input type="password" class="form-control" id="adminPassword" required>
+            </div>            
 
             <!-- Centered Save Button with Full Width -->
             <div class="d-flex justify-content-center">
@@ -237,26 +241,31 @@
       });
   
       document.getElementById("adminForm").addEventListener("submit", function (event) {
-          event.preventDefault();
-  
-          let formData = new FormData(this);
-          formData.append("action", "addAdmin");
-  
-          fetch("manage_admin.php", {
-              method: "POST",
-              body: formData
-          })
-          .then(response => response.json())
-          .then(data => {
-              if (data.success) {
-                  fetchAdmins();
-                  document.getElementById("adminForm").reset();
-                  bootstrap.Modal.getInstance(document.getElementById("addAdminModal")).hide();
-              } else {
-                  alert("Delete failed: " + data.message);
-              }
-          });
-      });
+    event.preventDefault();  
+
+    let formData = new FormData(this);  
+    formData.append("action", "addAdmin");  
+
+    fetch("manage_admin.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())  
+    .then(data => {
+        console.log(data);  
+        if (data.success) {
+            fetchAdmins();  
+            document.getElementById("adminForm").reset();  
+            bootstrap.Modal.getInstance(document.getElementById("addAdminModal")).hide();  
+        } else {
+            alert("error: " + data.message);  
+        }
+    })
+    .catch(error => {
+        console.error("error:", error);  
+    });
+});
+
   });
   </script>  
 </body>
