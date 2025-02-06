@@ -37,7 +37,14 @@ $result = $conn->query($sql);
                         echo "<td>" . $row["year"] . "</td>";
                         echo "<td>" . $row["price"] . "</td>";
                        echo "<td>
-                              <i class='pointer-cursor fas fa-edit text-warning edit-btn' onclick='openEditModal(" . $row["subject_ID"] . ")'></i>
+                             <i class='pointer-cursor fas fa-edit text-warning edit-btn' 
+                             onc lick='openEditModal(
+                             "<?= $row["subject_ID"] ?>", 
+                             "<?= addslashes($row["subject"]) ?>", 
+                             "<?= $row["year"] ?>", 
+                             "<?= $row["price"] ?>", 
+                             "<?= addslashes($row["description"]) ?>"
+                              )'></i>
                               <i class='pointer-cursor fas fa-trash-alt text-danger delete-btn' data-subjectID='" . $row['subject_ID'] . "'></i>
                               </td>";
                         echo "</tr>";
