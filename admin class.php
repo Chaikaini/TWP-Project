@@ -246,104 +246,23 @@
         <button class="btn btn-primary float-end" id="addClassBtn">Add Class</button>
       </div>
       <div class="card-body">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Subject ID</th>
-              <th>Class ID</th>
-              <th>Year</th>
-              <th>Day</th>
-              <th>Time</th>
-              <th>Teacher</th>
-              <th>Capacity</th>
-              <th>Actions</th> 
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>11245</td>
-              <td>Eng0001</td>
-              <td>Year 1</td>
-              <td>Monday</td>
-              <td>2:30pm - 4:30pm</td>
-              <td>Mr.John</td>
-              <td>20/30</td>
-              <td>
-                <i class="pointer-cursor fas fa-edit text-warning edit-btn"  onclick="openModal()"></i>
-                <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn ms-2" ></i>
-              </td>
-            </tr>
-            <tr>
-              <td>11351</td>
-              <td>Mly0002</td>
-              <td>Year 1 </td>
-              <td>Tuesday</td>
-              <td>2:30pm - 4:30pm</td>
-              <td>Ms.Lily</td>
-              <td>20/30</td>
-              <td>
-                <i class="pointer-cursor fas fa-edit text-warning edit-btn "onclick="openModal()"></i>
-                <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn ms-2"></i>
-              </td>
-            </tr>
-            <tr>
-              <td>11132</td>
-              <td>Mat0003</td>
-              <td>Year 1 </td>
-              <td>Wednesday</td>
-              <td>2:30pm - 4:30pm</td>
-              <td>Mr.David</td>
-              <td>20/30</td>
-              <td>
-                <i class="pointer-cursor fas fa-edit text-warning edit-btn"onclick="openModal()"></i>
-                <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn ms-2 "></i>
-              </td>
-            </tr>
-            <tr>
-                <tr>
-                    <td>22534</td>
-                    <td>Eng2001</td>
-                    <td>Year 2 </td>
-                    <td>Monday</td>
-                    <td>5:00pm - 7:00pm</td>
-                    <td>Mr.John</td>
-                    <td>20/30</td>
-                    <td>
-                      <i class="pointer-cursor fas fa-edit text-warning edit-btn"onclick="openModal()"></i>
-                      <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn ms-2 "></i>
-                    </td>
-                </tr>
-                <tr>
-                    <td>22345</td>
-                    <td>Mly2002</td>
-                    <td>Year 2 </td>
-                    <td>Tuesday</td>
-                    <td>5:00pm - 7:00pm</td>
-                    <td>Ms.Lily</td>
-                    <td>20/30</td>
-                    <td>
-                      <i class="pointer-cursor fas fa-edit text-warning edit-btn " onclick="openModal()"></i>
-                      <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn ms-2 "></i>
-                    </td>
-                </tr>
-                <tr>
-                    <td>22134</td>
-                    <td>Mat2003</td>
-                    <td>Year 2 </td>
-                    <td>Wednesday</td>
-                    <td>5:00pm - 7:00pm</td>
-                    <td>Mr.David</td>
-                    <td>20/30</td>
-                    <td>
-                      <i class="pointer-cursor fas fa-edit text-warning edit-btn "onclick="openModal()"></i>
-                      <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn ms-2 " ></i>
-                    </td>
-                </tr>
-                
-            
-           </tr>
-          </tbody>
-        </table>
+      <table class="table table-striped">
+  <thead>
+      <tr>
+          <th>Subject ID</th>
+          <th>Class ID</th>
+          <th>Year</th>
+          <th>Day</th>
+          <th>Time</th>
+          <th>Teacher</th>
+          <th>Capacity</th>
+          <th>Actions</th>
+      </tr>
+  </thead>
+  <tbody>
+      <?php include 'admin_classlist.php'; ?>
+  </tbody>
+</table>
       </div>
     </div>
   </div>

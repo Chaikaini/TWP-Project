@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             VALUES ('$subjectid', '$classid', '$year', '$day', '$time', '$teacher', '$enrollment')";
 
     if ($conn->query($sql) === TRUE) {
-        echo "<script>alert('Class added successfully!'); window.location.href='admin_classlist.php';</script>";
+        echo "<script>alert('Class added successfully!'); window.location.href='admin class.php';</script>";
       
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;

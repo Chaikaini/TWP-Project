@@ -1,4 +1,6 @@
 <?php
+include  'dbadmin_connection.php';
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -13,26 +15,9 @@ $sql = "SELECT * FROM admin_class";
 $result = $conn->query($sql);
 ?>
 
-<h1 class="mb-4">Class List</h1>
-<div class="card">
-    <div class="card-header">
-        <h5>Class List</h5>
-        <button class="btn btn-primary float-end" id="addClassBtn">Add Class</button>
-    </div>
-    <div class="card-body">
+ <div class="card-body">
         <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Subject ID</th>
-                    <th>Class ID</th>
-                    <th>Year</th>
-                    <th>Day</th>
-                    <th>Time</th>
-                    <th>Teacher</th>
-                    <th>Capacity</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+            
             <tbody>
                 <?php
                 if ($result->num_rows > 0) {
@@ -61,4 +46,5 @@ $result = $conn->query($sql);
 </div>
 
 <?php $conn->close(); ?>
+
 
