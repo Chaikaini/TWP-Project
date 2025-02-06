@@ -644,8 +644,9 @@ document.getElementById("yearFilter").addEventListener("change", function() {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // 获取并显示评论的函数
-        function fetchReviews(year = 'All') {
-            fetch(`get_comments.php?year=${year}`)
+        function fetchReviews() {
+            const url = 'get_comments.php';  // 获取固定条件下的评论
+            fetch(url)
                 .then(response => response.json())
                 .then(comments => {
                     const reviewList = document.getElementById('review-list');
@@ -704,14 +705,8 @@ document.getElementById("yearFilter").addEventListener("change", function() {
     
         // 页面加载时显示评论
         window.onload = function() {
-            fetchReviews(); // 默认加载所有评论
+            fetchReviews(); // 默认加载所有评论（即英文一年级的评论）
         };
-    
-        // 根据年份筛选评论
-        function filterReviews() {
-            const year = document.getElementById('yearFilter').value;
-            fetchReviews(year);
-        }
     </script>
 </body>
 
