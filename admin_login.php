@@ -24,6 +24,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result->num_rows === 1) {
         $user = $result->fetch_assoc();
 
+        // Debugging: Output the retrieved password and the input password
+        error_log("Database password: " . $user['password']);
+        error_log("Input password: " . $password);
+
+        // Direct comparison of the plain text password
         if ($password === $user['password']) {  
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['name'] = $user['name'];

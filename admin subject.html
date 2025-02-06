@@ -339,7 +339,7 @@
 <div id="addSubjectModal" class="modal">
     <div class="modal-content pointer-cursor">
         <span class="close ">&times;</span>
-        <form id="addSubjectForm">
+        <form id="addSubjectForm" method="POST" action="admin_addsubject.php">
             <label for="subjectID">Subject ID:</label>
             <input type="text" id="subjectID" name="subjectID">
             <label for="subject">Subject:</label>
@@ -427,11 +427,10 @@
     }
 
     // form sumit
-    document.getElementById("addSubjectForm").onsubmit = function(event) {
-        event.preventDefault();
+    document.getElementById("addSubjectForm").onsubmit = function() {
+
+      document.getElementById("addSubjectModal").style.display = "none";
         
-        alert("Subject added!");
-        modal.style.display = "none";
     }
 
     function openEditModal(subjectID, subject, year, price) {
