@@ -2,7 +2,7 @@
 $servername = "localhost"; 
 $username = "root"; 
 $password = "";  // 如果你的 MySQL 没有密码，就留空
-$dbname = "tuition"; // 确保这里写的是 `tuition`
+$dbname = "subject"; // 确保这里写的是 `tuition`
 
 // 创建数据库连接
 $conn = new mysqli($servername, $username, $password, $dbname);
