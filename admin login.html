@@ -48,7 +48,7 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
 
-    fetch("manage_admin.php?action=login", {
+    fetch("admin_login.php?action=login", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: `email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
