@@ -271,7 +271,18 @@
     </script>
 
     <script>
-        
+        const subjectsData = {
+            year1: [
+                { name: "Year 1 English ", image: "img/english.jpg", teacher: "Mr. John", price: "85", rating: 4.6, page: "Year 1 English class.html" },
+                { name: "Year 1 Malay", image: "img/malay.jpg", teacher: "Ms. Lily", price: "85", rating: 4.5, page: "Year 1 Malay class.html" },
+                { name: "Year 1 Math ", image: "img/math.jpg", teacher: "Mr. David", price: "85", rating: 4.3, page: "Year 1 Math class.html" },
+            ],
+            year2: [
+                { name: "Year 2 English ", image: "img/english.jpg", teacher: "Mr. John", price: "85", rating: 4.5, page: "Year 2 English class.html" },
+                { name: "Year 2 Malay ", image: "img/malay.jpg", teacher: "Ms. Lily", price: "85", rating: 4.2, page: "Year 2 Malay class.html" },
+                { name: "Year 2 Math ", image: "img/math.jpg", teacher: "Mr. David", price: "85", rating: 4.8, page: "Year 2 Math class.html" },
+            ]
+        };
 
         function showSubjects(year) {
             const subjectGrid = document.getElementById("subjectGrid");
@@ -428,13 +439,36 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-    fetch("get_subjects.php")
-        .then(response => response.json())
-        .then(data => {
-            console.log("加载的课程数据:", data);
-            renderSubjects(data);
-        })
-        .catch(error => console.error("加载数据出错:", error));
+    const urlParams = new URLSearchParams(window.location.search);
+    const year = urlParams.get('year') || 'Year 1'; // 获取 URL 参数
+
+    function showSubjects(year) {
+        fetch(`subject.php?year=${year}`)
+            .then(response => response.json())
+            .then(data => {
+                const subjectGrid = document.getElementById('subjectGrid');
+                subjectGrid.innerHTML = ''; // 清空现有内容
+
+                data.forEach(subject => {
+                    const card = document.createElement('div');
+                    card.className = 'subject-card';
+                    card.innerHTML = `
+                        <img src="${subject.image}" alt="${subject.name}">
+                        <h5>${subject.name}</h5>
+                        <p>教师: ${subject.teacher}</p>
+                        <p>价格: ¥${subject.price}</p>
+                        <p>评分: ${subject.rating}/5</p>
+                        <a href="${subject.page}">查看详情</a>
+                    `;
+                    subjectGrid.appendChild(card);
+                });
+            })
+            .catch(error => {
+                console.error('获取数据失败:', error);
+            });
+    }
+
+    showSubjects(year); // 初始加载
 });
 
 function renderSubjects(subjectsData) {
