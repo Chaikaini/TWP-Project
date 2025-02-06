@@ -241,24 +241,12 @@
     <!-- Class List -->
     <h1 class="mb-4">Class List</h1>
     <div class="card">
-      <div class="card-header">
+    <div class="card-header">
         <h5>Class List</h5>
         <button class="btn btn-primary float-end" id="addClassBtn">Add Class</button>
-      </div>
-      <div class="card-body">
-      <table class="table table-striped">
-  <thead>
-      <tr>
-          <th>Subject ID</th>
-          <th>Class ID</th>
-          <th>Year</th>
-          <th>Day</th>
-          <th>Time</th>
-          <th>Teacher</th>
-          <th>Capacity</th>
-          <th>Actions</th>
-      </tr>
-  </thead>
+    </div>
+
+      
   <tbody>
       <?php include 'admin_classlist.php'; ?>
   </tbody>
@@ -384,6 +372,29 @@
   function closeModal() {
     document.getElementById('editModal').style.display = 'none';
   }
+
+  document.addEventListener("DOMContentLoaded", function() {
+   
+    document.querySelectorAll(".delete-btn").forEach(button => {
+        button.addEventListener("click", function() {
+            let classId = this.getAttribute("data-classid"); 
+            if (confirm("Are you sure you want to delete this class?")) {
+                fetch("admin_deleteclass.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: "class_id=" + classId
+                })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data); 
+                    location.reload(); // 重新加载页面
+                })
+                .catch(error => console.error("Error:", error));
+            }
+        });
+    });
+});
+
 </script>
 
 
