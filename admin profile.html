@@ -16,6 +16,7 @@
       height: 100vh;
       overflow-x: hidden;
     }
+
     #sidebar {
       width: 250px;
       background-color: #343a40;
@@ -27,15 +28,46 @@
     #sidebar a {
       color: white;
       text-decoration: none;
-      padding: 15px 15px;
+      padding: 15px 15px; 
       display: block;
     }
     #sidebar a:hover {
       background-color: #495057;
     }
+    #sidebar.collapsed {
+      width: 80px;
+    }
+    #sidebar.collapsed .sidebar-header h4,
+    #sidebar.collapsed a span {
+      display: none;
+    }
     #main-content {
       flex-grow: 1;
       padding: 20px;
+      transition: margin-left 0.3s;
+    }
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #495057;
+    }
+    .sidebar-header img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .sidebar-header h4 {
+      margin: 0;
+      font-size: 16px;
+    }
+    .table-container .fa-edit, .table-container .fa-trash-alt {
+      color: #007BFF;
+    }
+
+    .pointer-cursor{
+      cursor:pointer;
     }
   </style>
 </head>
@@ -78,10 +110,6 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
       <div class="container-fluid">
         <button class="btn btn-outline-secondary me-2" id="toggleSidebar"><i class="fas fa-bars"></i></button>
-        <form class="d-flex ms-auto">
-          <input class="form-control me-2" type="search" placeholder="Search" id="search" />
-          <button class="btn btn-outline-success" type="button" id="search-btn">Search</button>
-        </form>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="notifications" role="button" data-bs-toggle="dropdown">
@@ -96,42 +124,44 @@
               <img src="https://via.placeholder.com/30" class="rounded-circle" alt="User" />
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-              <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><a class="dropdown-item" href="admin login.html">Logout</a></li>
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="admin login.html">Logout</a></li>
             </ul>
           </li>
         </ul>
       </div>
     </nav>
-  <!-- Main Content -->
-  <div id="main-content">
-    <h1 class="mb-4">Admin Profile</h1>
-    <div class="card">
-      <div class="card-body">
-        <form id="adminProfileForm">
-          <div class="mb-3">
-            <label for="adminName" class="form-label">Name</label>
-            <input type="text" class="form-control" id="adminName" required>
-          </div>
-          <div class="mb-3">
-            <label for="adminEmail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="adminEmail" required>
-          </div>
-          <div class="mb-3">
-            <label for="adminPassword" class="form-label">New Password</label>
-            <input type="password" class="form-control" id="adminPassword">
-          </div>
-          <button type="submit" class="btn btn-primary">Save Changes</button>
-        </form>
-      </div>
-    </div>
-  </div>
 
+    <div id="profile">
+        <h3>Admin Profile</h3>
+        <p><strong>Name:</strong> <span id="profile-name"></span></p>
+        <p><strong>Gender:</strong> <span id="profile-gender"></span></p>
+        <p><strong>Age:</strong> <span id="profile-age"></span></p>
+        <p><strong>Email:</strong> <span id="profile-email"></span></p>
+        <p><strong>Role:</strong> <span id="profile-role"></span></p>
+      </div>      
+  
   <script>
-    document.getElementById("adminProfileForm").addEventListener("submit", function(event) {
-      event.preventDefault();
-      alert("Profile updated successfully!");
+    document.getElementById('toggleSidebar').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.toggle('collapsed');
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+    fetch("profile.php")
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === "success") {
+          document.getElementById("profile-name").innerText = data.data.name;
+          document.getElementById("profile-gender").innerText = data.data.gender;
+          document.getElementById("profile-age").innerText = data.data.age;
+          document.getElementById("profile-email").innerText = data.data.email;
+          document.getElementById("profile-role").innerText = data.data.role;
+        } else {
+          alert("Failed to load profile: " + data.message);
+        }
+      })
+      .catch(error => console.error("Error fetching profile:", error));
+  });
   </script>
 </body>
 </html>
