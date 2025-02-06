@@ -2,15 +2,12 @@
 // db_connect.php 用于数据库连接
 include('db_connect.php');
 
-// 获取过滤条件
-$yearFilter = isset($_GET['year']) ? $_GET['year'] : 'All';
+// 设置固定的过滤条件
+$subjectFilter = 'English';
+$yearFilter = 'Year 1';
 
-// 查询评论数据
-if ($yearFilter == 'All') {
-    $sql = "SELECT * FROM comments ORDER BY created_at DESC";
-} else {
-    $sql = "SELECT * FROM comments WHERE year = '$yearFilter' ORDER BY created_at DESC";
-}
+// 构造 SQL 查询条件
+$sql = "SELECT * FROM comments WHERE subject = '$subjectFilter' AND year = '$yearFilter' ORDER BY created_at DESC";
 
 $result = $conn->query($sql);
 
