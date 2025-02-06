@@ -656,7 +656,7 @@ document.getElementById("yearFilter").addEventListener("change", function() {
                         comments.forEach(comment => {
                             const reviewItem = document.createElement('div');
                             reviewItem.classList.add('review-item');
-                            reviewItem.setAttribute('data-year', comment.year);
+                            reviewItem.setAttribute('data-year', comment.year_created);
     
                             const reviewText = document.createElement('div');
                             reviewText.classList.add('review-text');
