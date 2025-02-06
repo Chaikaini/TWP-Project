@@ -4,10 +4,24 @@ include('sub.php'); // 连接数据库
 $sql = "SELECT * FROM subjects";
 $result = $conn->query($sql);
 
-// 检查查询是否成功
-if (!$result) {
-    die("查询失败: " . $conn->error);
+$subjects = [];
+
+while ($row = $result->fetch_assoc()) {
+    $yearKey = "year" . $row['year']; // 确保匹配 JavaScript 里的 year1, year2
+    if (!isset($subjects[$yearKey])) {
+        $subjects[$yearKey] = [];
+    }
+    $subjects[$yearKey][] = [
+        'name' => $row['name'],
+        'image' => $row['image_path'],
+        'teacher' => $row['teacher'],
+        'price' => $row['price'],
+        'rating' => $row['rating'],
+        'page' => $row['page_link']
+    ];
 }
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -235,32 +249,21 @@ if (!$result) {
         </div>
     </div>
 
-    <div class="container-main">
-        <div class="year-list">
-            <div class="year" onclick="showSubjects('year1')">Year 1</div>
-            <div class="year" onclick="showSubjects('year2')">Year 2</div>
-        </div>
-
-        <div class="subject-grid" id="subjectGrid"></div>
+    <div>
+        <button onclick="showSubjects('year1')">Year 1</button>
+        <button onclick="showSubjects('year2')">Year 2</button>
     </div>
 
+    <div id="subjectGrid"></div>
+
     <script>
-        const subjectsData = {
-            year1: [
-                { name: "Year 1 English ", image: "img/english.jpg", teacher: "Mr. John", price: "85", rating: 4.6, page: "Year 1 English class.html" },
-                { name: "Year 1 Malay", image: "img/malay.jpg", teacher: "Ms. Lily", price: "85", rating: 4.5, page: "Year 1 Malay class.html" },
-                { name: "Year 1 Math ", image: "img/math.jpg", teacher: "Mr. David", price: "85", rating: 4.3, page: "Year 1 Math class.html" },
-            ],
-            year2: [
-                { name: "Year 2 English ", image: "img/english.jpg", teacher: "Mr. John", price: "85", rating: 4.5, page: "Year 2 English class.html" },
-                { name: "Year 2 Malay ", image: "img/malay.jpg", teacher: "Ms. Lily", price: "85", rating: 4.2, page: "Year 2 Malay class.html" },
-                { name: "Year 2 Math ", image: "img/math.jpg", teacher: "Mr. David", price: "85", rating: 4.8, page: "Year 2 Math class.html" },
-            ]
-        };
+        let subjectsData = <?php echo json_encode($subjects); ?>;
 
         function showSubjects(year) {
             const subjectGrid = document.getElementById("subjectGrid");
             subjectGrid.innerHTML = "";
+
+            if (!subjectsData[year]) return;
 
             subjectsData[year].forEach(subject => {
                 const card = document.createElement("div");
@@ -271,56 +274,32 @@ if (!$result) {
                         <h5>${subject.name}</h5>
                     </a>
                     <div class="stars-container">
-                        <span class="star"></span>
-                        <span class="star"></span>
-                        <span class="star"></span>
-                        <span class="star"></span>
-                        <span class="star"></span>
+                        ${generateStars(subject.rating)}
                     </div>
                     <div class="rating-text">${subject.rating} / 5</div>
                 `;
-                
-                subjectGrid.appendChild(card);
 
-                setRating(card, subject.rating);
+                subjectGrid.appendChild(card);
             });
         }
 
-        function setRating(card, rating) {
-        const stars = card.querySelectorAll('.stars-container .star');
-        const fullStars = Math.floor(rating);
-        const halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
-
-        for (let i = 0; i < fullStars; i++) {
-            stars[i].classList.add('yellow');
+        function generateStars(rating) {
+            let starsHTML = "";
+            for (let i = 1; i <= 5; i++) {
+                if (i <= Math.floor(rating)) {
+                    starsHTML += '<span class="star yellow"></span>';
+                } else if (i - rating < 0.5) {
+                    starsHTML += '<span class="star half"></span>';
+                } else {
+                    starsHTML += '<span class="star"></span>';
+                }
+            }
+            return starsHTML;
         }
 
-       
-        if (halfStar && rating === 4.5 ) {
-            stars[fullStars].classList.add('half');
-        }
-
-        if (halfStar && rating === 4.6) {
-            stars[fullStars].classList.add('half');
-        }
-
-        if (halfStar && rating === 4.7) {
-            stars[fullStars].classList.add('half');
-        }
-        
-        if (halfStar && rating === 4.8) {
-            stars[fullStars].classList.add('half-4-8');
-        }
-
-        
-        for (let i = fullStars + halfStar; i < stars.length; i++) {
-            stars[i].classList.remove('yellow', 'half', 'half-4-8');
-        }
-
-        card.querySelector('.rating-text').textContent = `${rating.toFixed(1)} / 5`;
-    }
-    showSubjects('year1');
-</script>
+        // 默认显示 Year 1
+        showSubjects('year1');
+    </script>
 
      
              <!-- Footer Start -->
