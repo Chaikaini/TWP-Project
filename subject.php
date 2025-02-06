@@ -4,10 +4,8 @@ include('sub.php'); // 连接数据库
 $sql = "SELECT * FROM subjects";
 $result = $conn->query($sql);
 
-// 检查查询是否成功
-if (!$result) {
-    die("查询失败: " . $conn->error);
-}
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -204,27 +202,27 @@ if (!$result) {
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="#" class="nav-item nav-link">Home</a>
-                <a href="#" class="nav-item nav-link active">Subject</a>
-                <a href="#" class="nav-item nav-link">About us</a>
-                <a href="#" class="nav-item nav-link">Contact us</a>
-                <a href="" class="nav-item nav-link">Comment</a>
+                <a href="member.html" class="nav-item nav-link">Home</a>
+                <a href="subject.php" class="nav-item nav-link active">Subject</a>
+                <a href="about.html" class="nav-item nav-link">About us</a>
+                <a href="contact.html" class="nav-item nav-link">Contact us</a>
+                <a href="comment.html" class="nav-item nav-link">Comment</a>
             </div>
-            <a href="#" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Log out<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="login.html" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Log out<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
     </nav>
 
     <div class="icon-bar">
-        <a href="#"><i class="fas fa-bell"></i></a>
-        <a href="#"><i class="fas fa-shopping-cart"></i></a>
-        <a href="#"><i class="fas fa-user"></i></a>
+        <a href="notification.html"><i class="fas fa-bell"></i></a>
+        <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+        <a href="profile.php"><i class="fas fa-user"></i></a>
     </div>
 
     <div class="breadcrumb-container d-flex justify-content-between align-items-center">
         <div>
             <h1>Subject</h1>
             <ul class="breadcrumb">
-                <li><a href="Home.html">Home</a></li>
+                <li><a href="member.html">Home</a></li>
                 <li>&gt;</li>
                 <li>Subject</li>
             </ul>
@@ -235,32 +233,37 @@ if (!$result) {
         </div>
     </div>
 
-    <div class="container-main">
-        <div class="year-list">
-            <div class="year" onclick="showSubjects('year1')">Year 1</div>
-            <div class="year" onclick="showSubjects('year2')">Year 2</div>
-        </div>
-
-        <div class="subject-grid" id="subjectGrid"></div>
+    <div>
+        <button onclick="showSubjects('year1')">Year 1</button>
+        <button onclick="showSubjects('year2')">Year 2</button>
     </div>
 
+    <div id="subjectGrid"></div>
+    <?php
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo "<div class='subject'>";
+                echo "<img src='" . $row['image'] . "' alt='" . $row['name'] . "'>";
+                echo "<h2>" . $row['name'] . "</h2>";
+                echo "<p>教师: " . $row['teacher'] . "</p>";
+                echo "<p>价格: $" . $row['price'] . "</p>";
+                echo "<p>评分: " . $row['rating'] . "</p>";
+                echo "<a href='" . $row['page'] . "'>查看详情</a>"; // 跳转到 HTML 页面
+                echo "</div>";
+            }
+        } else {
+            echo "<p>暂无课程</p>";
+        }
+        ?>
+
     <script>
-        const subjectsData = {
-            year1: [
-                { name: "Year 1 English ", image: "img/english.jpg", teacher: "Mr. John", price: "85", rating: 4.6, page: "Year 1 English class.html" },
-                { name: "Year 1 Malay", image: "img/malay.jpg", teacher: "Ms. Lily", price: "85", rating: 4.5, page: "Year 1 Malay class.html" },
-                { name: "Year 1 Math ", image: "img/math.jpg", teacher: "Mr. David", price: "85", rating: 4.3, page: "Year 1 Math class.html" },
-            ],
-            year2: [
-                { name: "Year 2 English ", image: "img/english.jpg", teacher: "Mr. John", price: "85", rating: 4.5, page: "Year 2 English class.html" },
-                { name: "Year 2 Malay ", image: "img/malay.jpg", teacher: "Ms. Lily", price: "85", rating: 4.2, page: "Year 2 Malay class.html" },
-                { name: "Year 2 Math ", image: "img/math.jpg", teacher: "Mr. David", price: "85", rating: 4.8, page: "Year 2 Math class.html" },
-            ]
-        };
+        let subjectsData = <?php echo json_encode($subjects); ?>;
 
         function showSubjects(year) {
             const subjectGrid = document.getElementById("subjectGrid");
             subjectGrid.innerHTML = "";
+
+            if (!subjectsData[year]) return;
 
             subjectsData[year].forEach(subject => {
                 const card = document.createElement("div");
@@ -271,56 +274,32 @@ if (!$result) {
                         <h5>${subject.name}</h5>
                     </a>
                     <div class="stars-container">
-                        <span class="star"></span>
-                        <span class="star"></span>
-                        <span class="star"></span>
-                        <span class="star"></span>
-                        <span class="star"></span>
+                        ${generateStars(subject.rating)}
                     </div>
                     <div class="rating-text">${subject.rating} / 5</div>
                 `;
-                
-                subjectGrid.appendChild(card);
 
-                setRating(card, subject.rating);
+                subjectGrid.appendChild(card);
             });
         }
 
-        function setRating(card, rating) {
-        const stars = card.querySelectorAll('.stars-container .star');
-        const fullStars = Math.floor(rating);
-        const halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
-
-        for (let i = 0; i < fullStars; i++) {
-            stars[i].classList.add('yellow');
+        function generateStars(rating) {
+            let starsHTML = "";
+            for (let i = 1; i <= 5; i++) {
+                if (i <= Math.floor(rating)) {
+                    starsHTML += '<span class="star yellow"></span>';
+                } else if (i - rating < 0.5) {
+                    starsHTML += '<span class="star half"></span>';
+                } else {
+                    starsHTML += '<span class="star"></span>';
+                }
+            }
+            return starsHTML;
         }
 
-       
-        if (halfStar && rating === 4.5 ) {
-            stars[fullStars].classList.add('half');
-        }
-
-        if (halfStar && rating === 4.6) {
-            stars[fullStars].classList.add('half');
-        }
-
-        if (halfStar && rating === 4.7) {
-            stars[fullStars].classList.add('half');
-        }
-        
-        if (halfStar && rating === 4.8) {
-            stars[fullStars].classList.add('half-4-8');
-        }
-
-        
-        for (let i = fullStars + halfStar; i < stars.length; i++) {
-            stars[i].classList.remove('yellow', 'half', 'half-4-8');
-        }
-
-        card.querySelector('.rating-text').textContent = `${rating.toFixed(1)} / 5`;
-    }
-    showSubjects('year1');
-</script>
+        // 默认显示 Year 1
+        showSubjects('year1');
+    </script>
 
      
              <!-- Footer Start -->
