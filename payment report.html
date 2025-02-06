@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Payment Report</title>
+  <title>Payment report</title>
   
   <!-- Favicon -->
   <link href="img/the seeds.jpg" rel="icon" type="image/png">
@@ -27,7 +27,7 @@
     #sidebar a {
       color: white;
       text-decoration: none;
-      padding: 15px 15px;
+      padding: 15px 15px; 
       display: block;
     }
     #sidebar a:hover {
@@ -68,25 +68,6 @@
     .pointer-cursor{
       cursor:pointer;
     }
-
-    .date-range {
-      margin-bottom: 20px;
-      padding: 10px;
-      background-color: #f8f9fa;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      border: 1px solid #ddd;
-    }
-    .date-range h6 {
-      margin: 0;
-      font-size: 1.1rem;
-      color: #333;
-    }
-    .date-range span {
-      font-size: 1rem;
-    }
   </style>
 </head>
 <body>
@@ -97,39 +78,39 @@
       <h4>Admin Panel</h4>
     </div>
     <ul class="nav flex-column">
-      <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
-      <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-user"></i> <span>Staff List</span></a></li>
-      <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-graduation-cap"></i> <span>Children List</span></a></li>
-      <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-users"></i> <span>Parent List</span></a></li>
-      <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-shopping-cart"></i> <span>Order List</span></a></li>
-      <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-book"></i> <span>Subject List</span></a></li>
-      <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-school"></i> <span>Class List</span></a></li>
-      <!-- Report Section -->
+      <li class="nav-item"><a href="dashboard.html" class="nav-link"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+      <li class="nav-item"><a href="admin staff.html" class="nav-link"><i class="fas fa-user"></i> <span>Staff List</span></a></li>
+      <li class="nav-item"><a href="children.list.html" class="nav-link"><i class="fas fa-graduation-cap"></i> <span>Children List</span></a></li>
+      <li class="nav-item"><a href="parent list.html" class="nav-link"><i class="fas fa-users"></i> <span>Parent List</span></a></li>
+      <li class="nav-item"><a href="view order.html" class="nav-link"><i class="fas fa-shopping-cart"></i> <span>Order List</span></a></li>
+      <li class="nav-item"><a href="admin subject.html" class="nav-link"><i class="fas fa-book"></i> <span>Subject List</span></a></li>
+      <li class="nav-item"><a href="admin class.html" class="nav-link"><i class="fas fa-school"></i> <span>Class List</span></a></li>
       <li class="nav-item">
-        <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#reportMenu" aria-expanded="false" id="reportToggle">
+        <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#reportMenu" aria-expanded="false">
           <i class="fas fa-chart-line"></i> <span>Report</span>
-          <i class="fas fa-chevron-down ms-2" id="reportIcon"></i> <!-- 展开/折叠图标 -->
+          <i class="fas fa-chevron-down ms-2" id="reportIcon"></i> <!-- Add this icon for expand/collapse -->
         </a>
         <div class="collapse" id="reportMenu">
           <ul class="nav flex-column ms-3">
-            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-invoice"></i> <span>Payment report</span></a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-alt"></i> <span>Subject Enrollment report
+            <li class="nav-item"><a href="payment report.html" class="nav-link"><i class="fas fa-file-invoice"></i> <span>Payment report</span></a></li>
+            <li class="nav-item"><a href="subject enroll report.html" class="nav-link"><i class="fas fa-file-alt"></i> <span>Subject Enrollment report
             </span></a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-alt"></i> <span>New Children report</span></a></li>
+            <li class="nav-item"><a href="new student report.html" class="nav-link"><i class="fas fa-file-alt"></i> <span>New Children report</span></a></li>
           </ul>
         </div>
-      </li>
+      </li>      
     </ul>
   </nav>
 
   <!-- Main Content -->
   <div id="main-content">
-    <!-- Top Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
       <div class="container-fluid">
         <button class="btn btn-outline-secondary me-2" id="toggleSidebar"><i class="fas fa-bars"></i></button>
-        <form class="d-flex ms-auto">
-          <input class="form-control me-2" type="search" placeholder="Search by date" id="search-date" />
+        <form class="d-flex mx-auto">
+          <input class="form-control me-2" type="date" id="start-date" />
+          <span class="mx-2">to</span>
+          <input class="form-control me-2" type="date" id="end-date" />
           <button class="btn btn-outline-success" type="button" id="search-btn">Search</button>
         </form>
         <ul class="navbar-nav ms-auto">
@@ -147,20 +128,18 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
               <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><a class="dropdown-item" href="#">Logout</a></li>
+              <li><a class="dropdown-item" href="admin login.html">Logout</a></li>
             </ul>
           </li>
         </ul>
       </div>
     </nav>
 
-    <!-- Payment Report -->
     <h1 class="mb-4">Payment Report</h1>
     
-    <!-- Date Range Section -->
     <div class="date-range">
       <h6>Report for: </h6>
-      <span> 1 January 2025 to 31 January 2025</span>
+      <span></span>
     </div>
     
     <div class="card">
@@ -179,21 +158,6 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Darren</td>
-              <td>ORD1001</td>
-              <td>2025-01-01</td>
-              <td>RM510</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>John Doe</td>
-              <td>ORD1002</td>
-              <td>2025-01-03</td>
-              <td>RM1220</td>
-            </tr>
-            <!-- Add more rows as needed -->
           </tbody>
         </table>
       </div>
@@ -206,23 +170,64 @@
       document.getElementById('sidebar').classList.toggle('collapsed');
     });
 
-    // Toggle icon based on collapse state
-    document.getElementById('reportToggle').addEventListener('click', function() {
-      const icon = document.getElementById('reportIcon');
-      if (icon.classList.contains('fa-chevron-down')) {
-        icon.classList.remove('fa-chevron-down');
-        icon.classList.add('fa-chevron-up');
-      } else {
-        icon.classList.remove('fa-chevron-up');
-        icon.classList.add('fa-chevron-down');
-      }
-    });
+    document.addEventListener("DOMContentLoaded", function () {
+      fetchReportData(); // Load the default report data
 
-    // Search functionality
-    document.getElementById('search-btn').addEventListener('click', function() {
-      var searchDate = document.getElementById('search-date').value;
-      console.log('Searching for payments on: ' + searchDate);
-      // You can implement logic here to filter data by date
+      function fetchReportData(startDate = null, endDate = null) {
+        let url = 'fetch_report.php';
+        if (startDate && endDate) {
+          url += `?start_date=${startDate}&end_date=${endDate}`;
+        }
+
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            updateTable(data);
+            updateDateRange(startDate, endDate);  // Update the date range based on the selected date
+          })
+          .catch(error => console.error("Error fetching report data:", error));
+      }
+
+      function updateTable(data) {
+        let tableBody = document.querySelector("tbody");
+        tableBody.innerHTML = "";
+
+        if (data.length === 0) {
+          tableBody.innerHTML = `<tr><td colspan="5" class="text-center">No records found</td></tr>`;
+          return;
+        }
+
+        data.forEach((order, index) => {
+          let row = `<tr>
+              <td>${index + 1}</td>
+              <td>${order.student_name}</td>
+              <td>${order.order_id}</td>
+              <td>${order.order_date}</td>
+              <td>RM${order.total_amount}</td>
+          </tr>`;
+          tableBody.innerHTML += row;
+        });
+      }
+
+      function updateDateRange(startDate, endDate) {
+        let formattedStart = startDate ? new Date(startDate).toISOString().split('T')[0] : 'N/A';
+        let formattedEnd = endDate ? new Date(endDate).toISOString().split('T')[0] : 'N/A';
+
+        // Update the displayed date range
+        document.querySelector(".date-range span").textContent = ` ${formattedStart} to ${formattedEnd}`;
+      }
+
+      document.getElementById('search-btn').addEventListener('click', function() {
+        let startDate = document.getElementById('start-date').value;
+        let endDate = document.getElementById('end-date').value;
+        if (startDate && endDate) {
+          // If both start and end dates are selected, fetch the report data for the range
+          fetchReportData(startDate, endDate);
+        } else {
+          // If no date range is selected, fetch the default report data (current month)
+          fetchReportData();
+        }
+      });
     });
   </script>
 </body>
