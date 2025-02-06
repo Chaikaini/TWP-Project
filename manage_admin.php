@@ -34,14 +34,21 @@ if (isset($_POST['action']) && $_POST['action'] === 'addAdmin') {
         exit;
     }
 
+    // 获取前端传来的字段
     $name = $_POST['name'];
     $gender = $_POST['gender'];
     $age = $_POST['age'];
     $email = $_POST['email'];
-    $password = password_hash("default_password", PASSWORD_BCRYPT);
+    $password = $_POST['password'];  
+
+    if (empty($password)) {
+        $password = "admin123"; 
+    }
+
+    $passwordHash = password_hash($password, PASSWORD_BCRYPT);
 
     $stmt = $conn->prepare("INSERT INTO users (name, gender, age, email, password, role) VALUES (?, ?, ?, ?, ?, 'admin')");
-    $stmt->bind_param("ssiss", $name, $gender, $age, $email, $password);
+    $stmt->bind_param("ssiss", $name, $gender, $age, $email, $passwordHash);
 
     if ($stmt->execute()) {
         echo json_encode(['success' => true, 'id' => $stmt->insert_id]);
