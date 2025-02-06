@@ -696,10 +696,10 @@ document.getElementById("avatar-upload").addEventListener("change", function(eve
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-    
+    // 获取所有删除按钮
     document.querySelectorAll(".delete-btn").forEach(button => {
         button.addEventListener("click", function() {
-            let classId = this.getAttribute("data-kidNumber"); 
+            let classId = this.getAttribute("data-kidNumber"); // 获取 class_id
             if (confirm("Are you sure you want to delete this child?")) {
                 fetch("profile_deletechild.php", {
                     method: "POST",
@@ -708,8 +708,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 })
                 .then(response => response.text())
                 .then(data => {
-                    alert(data); 
-                    location.reload(); 
+                    alert(data); // 显示删除结果
+                    location.reload(); // 重新加载页面
                 })
                 .catch(error => console.error("Error:", error));
             }
