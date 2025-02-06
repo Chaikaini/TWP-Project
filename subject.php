@@ -3,6 +3,11 @@ include('subjects.php'); // 连接数据库
 
 $sql = "SELECT * FROM subjects";
 $result = $conn->query($sql);
+
+// 检查查询是否成功
+if (!$result) {
+    die("查询失败: " . $conn->error);
+}
 ?>
 
 <!DOCTYPE html>
@@ -37,3 +42,4 @@ $result = $conn->query($sql);
 </html>
 
 <?php $conn->close(); ?>
+
