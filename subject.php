@@ -1,5 +1,5 @@
 <?php
-include('subjects.php'); // 连接数据库
+include('tuition_centre.php'); // 连接数据库
 
 $sql = "SELECT * FROM subjects";
 $result = $conn->query($sql);
