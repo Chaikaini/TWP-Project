@@ -4,22 +4,6 @@ include('sub.php'); // 连接数据库
 $sql = "SELECT * FROM subjects";
 $result = $conn->query($sql);
 
-$subjects = [];
-
-while ($row = $result->fetch_assoc()) {
-    $yearKey = "year" . $row['year']; // 确保匹配 JavaScript 里的 year1, year2
-    if (!isset($subjects[$yearKey])) {
-        $subjects[$yearKey] = [];
-    }
-    $subjects[$yearKey][] = [
-        'name' => $row['name'],
-        'image' => $row['image_path'],
-        'teacher' => $row['teacher'],
-        'price' => $row['price'],
-        'rating' => $row['rating'],
-        'page' => $row['page_link']
-    ];
-}
 
 $conn->close();
 ?>
