@@ -78,5 +78,22 @@ if (isset($_GET['action']) && $_GET['action'] === 'deleteAdmin' && isset($_GET['
     exit;
 }
 
+if (isset($_GET['action']) && $_GET['action'] === 'searchAdmins' && isset($_GET['query'])) {
+    $query = $conn->real_escape_string($_GET['query']); 
+
+    $sql = "SELECT id, name, gender, age, email FROM users WHERE (role = 'admin' OR role = 'super_admin') AND (name LIKE '%$query%' OR gender LIKE '%$query%')";
+    
+    $result = $conn->query($sql);
+    $admins = [];
+    
+    while ($row = $result->fetch_assoc()) {
+        $admins[] = $row;
+    }
+
+    echo json_encode(['success' => true, 'admins' => $admins, 'userRole' => $_SESSION['role']]);
+    exit;
+}
+
+
 $conn->close();
 ?>

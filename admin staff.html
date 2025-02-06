@@ -300,6 +300,41 @@
     });
 });
 });
+
+document.getElementById("search-btn").addEventListener("click", function () {
+    let searchQuery = document.getElementById("search").value.trim();
+
+    if (searchQuery === "") {
+        fetchAdmins();  
+    } else {
+        searchAdmins(searchQuery);  
+    }
+});
+
+function searchAdmins(query) {
+    fetch(`manage_admin.php?action=searchAdmins&query=${query}`)
+    .then(response => response.json())
+    .then(data => {
+        const table = document.getElementById("staffTable");
+        table.innerHTML = "";
+  
+        data.admins.forEach(admin => {
+            let row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${admin.id}</td>
+                <td>${admin.name}</td>
+                <td>${admin.gender}</td>
+                <td>${admin.age}</td>
+                <td>${admin.email}</td>
+                ${data.userRole === 'super_admin' ? `<td>
+                    <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn" data-id="${admin.id}"></i>
+                </td>` : ''}
+            `;
+            table.appendChild(row);
+        });
+    });
+}
+
   </script>  
 </body>
 </html>
