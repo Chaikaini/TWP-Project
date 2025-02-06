@@ -294,22 +294,22 @@ button.btn.btn-primaryy:hover {
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="" class="nav-item nav-link">Home</a>
-                <a href="" class="nav-item nav-link">Subject</a>
-                <a href="" class="nav-item nav-link">About us</a>
-                <a href="" class="nav-item nav-link">Contact us</a>
-                <a href="" class="nav-item nav-link">Comment</a>
+                <a href="member.html" class="nav-item nav-link">Home</a>
+                <a href="subject.html" class="nav-item nav-link">Subject</a>
+                <a href="about.html" class="nav-item nav-link">About us</a>
+                <a href="contsct.html" class="nav-item nav-link">Contact us</a>
+                <a href="comment.html" class="nav-item nav-link">Comment</a>
             </div>
-            <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Log out<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="login.html" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Log out<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
     </nav>
     <!-- Navbar End -->
 
     <!-- Icon Bar Start -->
     <div class="icon-bar">
-        <a href="#"><i class="fas fa-bell"></i></a>
-        <a href="#"><i class="fas fa-shopping-cart"></i></a>
-        <a href="#"><i class="fas fa-user"></i></a>
+        <a href="notification.html"><i class="fas fa-bell"></i></a>
+        <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+        <a href="profile.php"><i class="fas fa-user"></i></a>
     </div>
     <!-- Icon Bar End -->
 
@@ -410,67 +410,49 @@ button.btn.btn-primaryy:hover {
             </form>
         </div>
     
-        <div class="profile-content" id="children-info-content">
-            <h3>Childrens Information</h3>
-            <div class="card-body">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Gender</th>
-                            <th>My kid number</th>
-                            <th>Birthday</th>
-                            <th>School</th>
-                            <th>Year</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Yuna</td>
-                            <td>Girl</td>
-                            <td>170909-01-7788</td>
-                            <td>2017-09-09</td>
-                            <td>SJKC Kulai 2</td>
-                            <td>Year 1</td>
-                            <td>
-                                <i class="pointer-cursor fas fa-edit text-warning edit-btn" onclick="openModal()"></i>
-                                <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn ms-2"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>Boy</td>
-                            <td>170115-01-2634</td>
-                            <td>2017-01-15</td>
-                            <td>SJKC Kulai 2</td>
-                            <td>Year 1</td>
-                            <td>
-                                <i class="pointer-cursor fas fa-edit text-warning edit-btn" onclick="openModal()"></i>
-                                <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn ms-2"></i>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="button-container">
-                <button class="btn btn-primary" id="addChildBtn">Add Child</button>
-            </div>
-            <div class="select-child mt-3">
-                <label for="childSelect" class="form-label">Select to display child learning status:</label>
-                <select id="childSelect" class="form-select" onchange="displayLearningStatus()">
-                    <option value="">--Select--</option>
-                    <option value="Yuna">Yuna</option>
-                    <option value="John Doe">John Doe</option>
-                </select>
-            </div>
-            <div id="learningStatus" class="card mt-3">
-                <div class="card-body">
-                    <h4 class="card-title">Learning Status</h4>
-                    <p id="statusContent" class="card-text"></p>
-                </div>
-            </div>
+    <div class="profile-content" id="children-info-content">
+    <h3>Childrens Information</h3>
+    <table class="table table-striped">
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>My kid number</th>
+                <th>Birthday</th>
+                <th>School</th>
+                <th>Year</th>
+                <th>Actions</th>
+                </tr>
+            </thead>   
+        <tbody>
+            <?php include 'profile_childlist.php'; ?>
+        </tbody>
+    </table>
+    </table>
+
+    <div class="button-container">
+        <button class="btn btn-primary" id="addChildBtn">Add Child</button>
+    </div>
+
+    <div class="select-child mt-3">
+        <label for="childSelect" class="form-label">Select to display child learning status:</label>
+        <select id="childSelect" class="form-select" onchange="displayLearningStatus()">
+            <option value="">--Select--</option>
+            <option value="Yuna">Yuna</option>
+            <option value="John Doe">John Doe</option>
+        </select>
+    </div>
+
+    <div id="learningStatus" class="card mt-3">
+        <div class="card-body">
+            <h4 class="card-title">Learning Status</h4>
+            <p id="statusContent" class="card-text"></p>
         </div>
+    </div>
+    </div> 
+
     
         <div class="profile-content" id="history-content">
             <h3>Payment History</h3>
@@ -520,11 +502,11 @@ button.btn.btn-primaryy:hover {
                 <input type="text" id="school" name="school">
             </div>
             <div class="form-group">
-                <label for="grade">Year</label>
-                <select id="grade" name="grade">
+                <label for="year">Year</label>
+                <select id="year" name="year">
                     <option value="" disabled selected>Year</option>
-                    <option value="grade1">Year 1</option>
-                    <option value="grade2">Year 2</option>   
+                    <option value="year1">Year 1</option>
+                    <option value="year2">Year 2</option>   
                 </select>
             </div>
             <div class="form-group">
@@ -621,6 +603,7 @@ button.btn.btn-primaryy:hover {
         document.getElementById('addChildBtn').onclick = function() {
             document.getElementById('addChildModal').style.display = 'block';
         }
+        
 
         function closeModal() {
             document.getElementById('addChildModal').style.display = 'none';
@@ -634,11 +617,12 @@ button.btn.btn-primaryy:hover {
             }
         }
 
-        document.getElementById('addChildForm').onsubmit = function(event) {
-            event.preventDefault();
-            alert("Child information saved!");
-            closeModal();
-        }
+
+        document.getElementById('addChildForm').onsubmit = function() {
+        
+        document.getElementById("addChildModal").style.display = "none";
+        
+        };
 
 
         function displayLearningStatus() {
@@ -710,7 +694,29 @@ document.getElementById("avatar-upload").addEventListener("change", function(eve
     };
     reader.readAsDataURL(event.target.files[0]);
 });
-        
+
+document.addEventListener("DOMContentLoaded", function() {
+   
+   document.querySelectorAll(".delete-btn").forEach(button => {
+       button.addEventListener("click", function() {
+           let classId = this.getAttribute("data-kidNumber"); 
+           if (confirm("Are you sure you want to delete this child?")) {
+               fetch("admin_deletechild.php", {
+                   method: "POST",
+                   headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                   body: "kidNumber=" + kidNumber
+               })
+               .then(response => response.text())
+               .then(data => {
+                   alert(data); 
+                   location.reload(); // 重新加载页面
+               })
+               .catch(error => console.error("Error:", error));
+           }
+       });
+   });
+});
+
     </script>
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">

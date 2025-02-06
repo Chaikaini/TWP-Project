@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Subject Enrollment Report</title>
-  
+  <title>Admin Profile</title>
+
   <!-- Favicon -->
   <link href="img/the seeds.jpg" rel="icon" type="image/png">
-  
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <style>
@@ -16,6 +16,7 @@
       height: 100vh;
       overflow-x: hidden;
     }
+
     #sidebar {
       width: 250px;
       background-color: #343a40;
@@ -27,7 +28,7 @@
     #sidebar a {
       color: white;
       text-decoration: none;
-      padding: 15px 15px;
+      padding: 15px 15px; 
       display: block;
     }
     #sidebar a:hover {
@@ -68,28 +69,10 @@
     .pointer-cursor{
       cursor:pointer;
     }
-
-    .date-range {
-      margin-bottom: 20px;
-      padding: 10px;
-      background-color: #f8f9fa;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      border: 1px solid #ddd;
-    }
-    .date-range h6 {
-      margin: 0;
-      font-size: 1.1rem;
-      color: #333;
-    }
-    .date-range span {
-      font-size: 1rem;
-    }
   </style>
 </head>
 <body>
+  <!-- Sidebar -->
   <!-- Sidebar -->
   <nav id="sidebar" class="d-flex flex-column p-3">
     <div class="sidebar-header">
@@ -104,11 +87,10 @@
       <li class="nav-item"><a href="view order.html" class="nav-link"><i class="fas fa-shopping-cart"></i> <span>Order List</span></a></li>
       <li class="nav-item"><a href="admin subject.php" class="nav-link"><i class="fas fa-book"></i> <span>Subject List</span></a></li>
       <li class="nav-item"><a href="admin class.php" class="nav-link"><i class="fas fa-school"></i> <span>Class List</span></a></li>
-      <!-- Report Section -->
       <li class="nav-item">
-        <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#reportMenu" aria-expanded="false" id="reportToggle">
+        <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#reportMenu" aria-expanded="false">
           <i class="fas fa-chart-line"></i> <span>Report</span>
-          <i class="fas fa-chevron-down ms-2" id="reportIcon"></i> <!-- 展开/折叠图标 -->
+          <i class="fas fa-chevron-down ms-2" id="reportIcon"></i> <!-- Add this icon for expand/collapse -->
         </a>
         <div class="collapse" id="reportMenu">
           <ul class="nav flex-column ms-3">
@@ -118,7 +100,7 @@
             <li class="nav-item"><a href="new student report.html" class="nav-link"><i class="fas fa-file-alt"></i> <span>New Children report</span></a></li>
           </ul>
         </div>
-      </li>
+      </li>      
     </ul>
   </nav>
 
@@ -128,10 +110,6 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
       <div class="container-fluid">
         <button class="btn btn-outline-secondary me-2" id="toggleSidebar"><i class="fas fa-bars"></i></button>
-        <form class="d-flex ms-auto">
-          <input class="form-control me-2" type="search" placeholder="Search" id="search" />
-          <button class="btn btn-outline-success" type="button" id="search-btn">Search</button>
-        </form>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="notifications" role="button" data-bs-toggle="dropdown">
@@ -146,121 +124,44 @@
               <img src="https://via.placeholder.com/30" class="rounded-circle" alt="User" />
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-              <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><a class="dropdown-item" href="admin login.html">Logout</a></li>
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="admin login.html">Logout</a></li>
             </ul>
           </li>
         </ul>
       </div>
     </nav>
 
-    <!-- Payment Report -->
-    <h1 class="mb-4">Subject Enrollment Report</h1>
-    
-    <!-- Date Range Section -->
-    <div class="date-range">
-      <h6>Report for: </h6>
-      <span> 1 January 2025 to 31 January 2025</span>
-    </div>
-    
-    <div class="card">
-      <div class="card-header">
-        <h5>11132 Math Report</h5>
-      </div>
-      <div class="card-body">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Num</th>
-              <th>Name</th>
-              <th>Gender</th>
-              <th>My kid number</th>
-              <th>Birthday</th>
-              <th>School</th>
-              <th>Year</th>
-              
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Yuna</td>
-              <td>Girl</td>
-              <td>170909-01-7788</td>
-              <td>2017-09-09</td>
-              <td>SJKC Kulai 2</td>
-              <td>Year 1</td>
-              
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>James</td>
-              <td>Boy</td>
-              <td>170517-01-3344</td>
-              <td>2017-05-17</td>
-              <td>SJKC Kulai 1</td>
-              <td>Year 1</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>David</td>
-              <td>Boy</td>
-              <td>171208-01-5656</td>
-              <td>2017-12-08</td>
-              <td>SJKC Kulai 1</td>
-              <td>Year 1</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Chong Jun kai</td>
-              <td>Boy</td>
-              <td>170808-01-3211</td>
-              <td>2017-08-08</td>
-              <td>SJKC Kulai 2</td>
-              <td>Year 1</td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Lim Xin Yi </td>
-              <td>Girl</td>
-              <td>170216-01-5511</td>
-              <td>2017-02-16</td>
-              <td>SJKC Kulai 1</td>
-              <td>Year 1</td>
-            </tr>
-            <!-- Add more rows as needed -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <div id="profile">
+        <h3>Admin Profile</h3>
+        <p><strong>Name:</strong> <span id="profile-name"></span></p>
+        <p><strong>Gender:</strong> <span id="profile-gender"></span></p>
+        <p><strong>Age:</strong> <span id="profile-age"></span></p>
+        <p><strong>Email:</strong> <span id="profile-email"></span></p>
+        <p><strong>Role:</strong> <span id="profile-role"></span></p>
+      </div>      
+  
   <script>
     document.getElementById('toggleSidebar').addEventListener('click', () => {
       document.getElementById('sidebar').classList.toggle('collapsed');
     });
 
-    // Toggle icon based on collapse state
-    document.getElementById('reportToggle').addEventListener('click', function() {
-      const icon = document.getElementById('reportIcon');
-      if (icon.classList.contains('fa-chevron-down')) {
-        icon.classList.remove('fa-chevron-down');
-        icon.classList.add('fa-chevron-up');
-      } else {
-        icon.classList.remove('fa-chevron-up');
-        icon.classList.add('fa-chevron-down');
-      }
-    });
-
-    // Search functionality
-    document.getElementById('search-btn').addEventListener('click', function() {
-      var searchDate = document.getElementById('search-date').value;
-      console.log('Searching for payments on: ' + searchDate);
-      // You can implement logic here to filter data by date
-    });
+    document.addEventListener("DOMContentLoaded", function () {
+    fetch("profile.php")
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === "success") {
+          document.getElementById("profile-name").innerText = data.data.name;
+          document.getElementById("profile-gender").innerText = data.data.gender;
+          document.getElementById("profile-age").innerText = data.data.age;
+          document.getElementById("profile-email").innerText = data.data.email;
+          document.getElementById("profile-role").innerText = data.data.role;
+        } else {
+          alert("Failed to load profile: " + data.message);
+        }
+      })
+      .catch(error => console.error("Error fetching profile:", error));
+  });
   </script>
 </body>
 </html>
-
-
