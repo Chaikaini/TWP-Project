@@ -225,12 +225,50 @@
 
     <div class="container-main">
         <div class="year-list">
-            <div class="year" onclick="showSubjects('year1')">Year 1</div>
-            <div class="year" onclick="showSubjects('year2')">Year 2</div>
+            <div class="year" onclick="showSubjects('Year 1')">Year 1</div>
+            <div class="year" onclick="showSubjects('Year 2')">Year 2</div>
         </div>
 
         <div class="subject-grid" id="subjectGrid"></div>
     </div>
+    
+    <script>
+        // 获取年级参数（默认为 Year 1）
+        const urlParams = new URLSearchParams(window.location.search);
+        const year = urlParams.get('year') || 'Year 1';
+
+        // 请求获取科目数据
+        function showSubjects(year) {
+            fetch(`subject.php?year=${year}`)
+                .then(response => response.json())
+                .then(data => {
+                    // 获取显示科目的容器
+                    const subjectGrid = document.getElementById('subjectGrid');
+                    subjectGrid.innerHTML = ''; // 清空现有内容
+
+                    // 渲染科目信息
+                    data.forEach(subject => {
+                        const card = document.createElement('div');
+                        card.className = 'subject-card';
+                        card.innerHTML = `
+                            <img src="${subject.image}" alt="${subject.name}">
+                            <h5>${subject.name}</h5>
+                            <p>教师: ${subject.teacher}</p>
+                            <p>价格: ¥${subject.price}</p>
+                            <p>评分: ${subject.rating}/5</p>
+                            <a href="${subject.page}">查看详情</a>
+                        `;
+                        subjectGrid.appendChild(card);
+                    });
+                })
+                .catch(error => {
+                    console.error('获取数据失败:', error);
+                });
+        }
+
+        // 初次加载页面时默认显示 Year 1 的科目
+        showSubjects(year);
+    </script>
 
     <script>
         const subjectsData = {
@@ -247,31 +285,10 @@
         };
 
         function showSubjects(year) {
-    const subjectGrid = document.getElementById("subjectGrid");
-    subjectGrid.innerHTML = ""; // 清空当前学科
+            const subjectGrid = document.getElementById("subjectGrid");
+            subjectGrid.innerHTML = "";
 
-    // 显示加载提示
-    const loadingMessage = document.createElement("p");
-    loadingMessage.textContent = "正在加载学科...";
-    subjectGrid.appendChild(loadingMessage);
-
-    fetch(`subject.php?year=${year}`)
-        .then(response => response.json())
-        .then(data => {
-            subjectGrid.innerHTML = ""; // 清空加载提示
-            if (data.error) {
-                alert(data.error); // 如果有错误，显示提示
-                return;
-            }
-
-            if (data.length === 0) {
-                const noSubjectsMessage = document.createElement("p");
-                noSubjectsMessage.textContent = "没有找到相关学科。";
-                subjectGrid.appendChild(noSubjectsMessage); // 如果没有数据，显示提示
-                return;
-            }
-
-            data.forEach(subject => {
+            subjectsData[year].forEach(subject => {
                 const card = document.createElement("div");
                 card.className = "subject-card";
                 card.innerHTML = `
@@ -290,40 +307,45 @@
                 `;
                 
                 subjectGrid.appendChild(card);
+
                 setRating(card, subject.rating);
             });
-        })
-        .catch(error => {
-            subjectGrid.innerHTML = ""; // 清空加载提示
-            const errorMessage = document.createElement("p");
-            errorMessage.textContent = "获取学科数据时出错，请稍后重试。";
-            subjectGrid.appendChild(errorMessage); // 如果发生错误，显示提示
-            console.error('获取学科数据时出错:', error);
-        });
-}
+        }
 
-function setRating(card, rating) {
-    const stars = card.querySelectorAll('.stars-container .star');
-    const fullStars = Math.floor(rating);
-    const halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
+        function setRating(card, rating) {
+        const stars = card.querySelectorAll('.stars-container .star');
+        const fullStars = Math.floor(rating);
+        const halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
 
-    for (let i = 0; i < fullStars; i++) {
-        stars[i].classList.add('yellow');
+        for (let i = 0; i < fullStars; i++) {
+            stars[i].classList.add('yellow');
+        }
+
+       
+        if (halfStar && rating === 4.5 ) {
+            stars[fullStars].classList.add('half');
+        }
+
+        if (halfStar && rating === 4.6) {
+            stars[fullStars].classList.add('half');
+        }
+
+        if (halfStar && rating === 4.7) {
+            stars[fullStars].classList.add('half');
+        }
+        
+        if (halfStar && rating === 4.8) {
+            stars[fullStars].classList.add('half-4-8');
+        }
+
+        
+        for (let i = fullStars + halfStar; i < stars.length; i++) {
+            stars[i].classList.remove('yellow', 'half', 'half-4-8');
+        }
+
+        card.querySelector('.rating-text').textContent = `${rating.toFixed(1)} / 5`;
     }
-
-    if (halfStar) {
-        stars[fullStars].classList.add('half');
-    }
-
-    for (let i = fullStars + halfStar; i < stars.length; i++) {
-        stars[i].classList.remove('yellow', 'half');
-    }
-
-    card.querySelector('.rating-text').textContent = `${rating.toFixed(1)} / 5`;
-}
-
-showSubjects('year1'); // 初始化加载 Year 1 的学科
-
+    showSubjects('year1');
 </script>
 
      
