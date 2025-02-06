@@ -38,7 +38,7 @@ $result = $conn->query($sql);
                         echo "<td>" . $row["price"] . "</td>";
                        echo "<td>
                               <i class='pointer-cursor fas fa-edit text-warning edit-btn' onclick='openEditModal(" . $row["subject_ID"] . ")'></i>
-                              <i class='pointer-cursor fas fa-trash-alt text-danger delete-btn' data-classid='" . $row['subject_ID'] . "'></i>
+                              <i class='pointer-cursor fas fa-trash-alt text-danger delete-btn' data-subjectID='" . $row['subject_ID'] . "'></i>
                               </td>";
                         echo "</tr>";
                     }

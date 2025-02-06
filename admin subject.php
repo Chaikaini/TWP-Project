@@ -385,6 +385,29 @@
             alert("Changes saved!");
             closeModal();
         }
+
+
+   document.addEventListener("DOMContentLoaded", function() { 
+   document.querySelectorAll(".delete-btn").forEach(button => {
+       button.addEventListener("click", function() {
+           let subjectId = this.getAttribute("data-subjectID"); 
+           if (confirm("Are you sure you want to delete this subject?")) {
+               fetch("admin_deletesubject.php", {
+                   method: "POST",
+                   headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                   body: "subject_ID=" + subjectId
+               })
+               .then(response => response.text())
+               .then(data => {
+                   alert(data); 
+                   location.reload(); // 重新加载页面
+               })
+               .catch(error => console.error("Error:", error));
+           }
+       });
+   });
+});
+
 </script>
 
 
