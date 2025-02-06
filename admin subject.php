@@ -253,19 +253,9 @@
         <h5>Subject List</h5>
         <button class="btn btn-primary float-end" id="addSubjectBtn">Add Subject</button>
       </div>
-      <div class="card-body">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Subject ID</th>
-              <th>Subject</th>
-              <th>Year</th>
-              <th>Price</th>
-              <th>Actions</th> 
-            </tr>
-          </thead>
+          
           <tbody>
-            <?php include 'admin_classlist.php'; ?>
+            <?php include 'admin_subjectlist.php'; ?>
           </tbody>
         </table>
       </div>
@@ -369,6 +359,7 @@
       document.getElementById("addSubjectModal").style.display = "none";
         
     }
+    
 
     function openEditModal(subjectID, subject, year, price) {
             document.getElementById('editSubjectID').value = subjectID;
