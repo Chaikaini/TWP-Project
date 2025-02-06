@@ -254,7 +254,6 @@
                             <img src="${subject.image}" alt="${subject.name}">
                         <h5>${subject.name}</h5>
                         <p>${subject.rating}⭐</p>
-                        <a href="${subject.page}">info</a>
                         `;
                         card.onclick = function () {
                     window.location.href = subject.page;
@@ -408,7 +407,6 @@ function renderSubjects(subjectsData) {
                     <img src="${subject.image}" alt="${subject.name}">
                         <h5>${subject.name}</h5>
                         <p>${subject.rating}⭐</p>
-                        <a href="${subject.page}">info</a>
                 `;
 
                 container.appendChild(card);
