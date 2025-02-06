@@ -225,8 +225,8 @@
 
     <div class="container-main">
         <div class="year-list">
-            <div class="year" onclick="showSubjects('Year 1')">Year 1</div>
-            <div class="year" onclick="showSubjects('Year 2')">Year 2</div>
+            <div class="year" onclick="showSubjects('year1')">Year 1</div>
+            <div class="year" onclick="showSubjects('year2')">Year 2</div>
         </div>
 
         <div class="subject-grid" id="subjectGrid"></div>
@@ -285,36 +285,32 @@
         };
 
         function showSubjects(year) {
-    // 更新 URL 参数
-    const url = new URL(window.location);
-    url.searchParams.set('year', year);
-    window.history.pushState({}, '', url);
+            const subjectGrid = document.getElementById("subjectGrid");
+            subjectGrid.innerHTML = "";
 
-    // 请求数据
-    fetch(`subject.php?year=${year}`)
-        .then(response => response.json())
-        .then(data => {
-            const subjectGrid = document.getElementById('subjectGrid');
-            subjectGrid.innerHTML = ''; // 清空现有内容
-
-            data.forEach(subject => {
-                const card = document.createElement('div');
-                card.className = 'subject-card';
+            subjectsData[year].forEach(subject => {
+                const card = document.createElement("div");
+                card.className = "subject-card";
                 card.innerHTML = `
-                    <img src="${subject.image}" alt="${subject.name}">
-                    <h5>${subject.name}</h5>
-                    <p>教师: ${subject.teacher}</p>
-                    <p>价格: ¥${subject.price}</p>
-                    <p>评分: ${subject.rating}/5</p>
-                    <a href="${subject.page}">查看详情</a>
+                    <a href="${subject.page}">
+                        <img src="${subject.image}" alt="${subject.name}">
+                        <h5>${subject.name}</h5>
+                    </a>
+                    <div class="stars-container">
+                        <span class="star"></span>
+                        <span class="star"></span>
+                        <span class="star"></span>
+                        <span class="star"></span>
+                        <span class="star"></span>
+                    </div>
+                    <div class="rating-text">${subject.rating} / 5</div>
                 `;
+                
                 subjectGrid.appendChild(card);
+
+                setRating(card, subject.rating);
             });
-        })
-        .catch(error => {
-            console.error('获取数据失败:', error);
-        });
-}
+        }
 
         function setRating(card, rating) {
         const stars = card.querySelectorAll('.stars-container .star');
