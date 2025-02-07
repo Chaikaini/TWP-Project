@@ -523,6 +523,22 @@
                 .catch(error => console.error('Error:', error));
         });
 
+        document.addEventListener("DOMContentLoaded", function() {
+    let addToCartButton = document.getElementById("addToCart");
+    addToCartButton.disabled = true; // 默认禁用
+
+    let select = document.getElementById("childrenSelect");
+
+    select.addEventListener("change", function() {
+        if (select.value) {
+            addToCartButton.disabled = false; // 选择了孩子，启用按钮
+        } else {
+            addToCartButton.disabled = true; // 没选孩子，禁用按钮
+        }
+    });
+});
+
+
         // 购物车功能
         document.getElementById("addToCart").addEventListener("click", function() {
             let selectedChild = document.getElementById("childrenSelect").value;
