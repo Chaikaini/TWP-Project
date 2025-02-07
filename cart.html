@@ -276,7 +276,7 @@
     <script>
         // Sample cart items data
 
-document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function() {
     loadCartData();
 });
 
@@ -332,23 +332,31 @@ function loadCartData() {
     .catch(error => console.error('Error:', error));
 }
 
-
 function removeFromCart(index) {
-    // 发送请求到服务器删除购物车项目
-    fetch('remove_from_cart.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ index: index })
-    })
+    // 获取购物车数据（从 GET 请求中获取）
+    fetch('get_cart.php', { method: 'GET' })
     .then(response => response.json())
     .then(data => {
-        loadCartData(); // 重新加载购物车数据
+        let cart = data.cart;
+
+        // 从购物车中删除选中的项
+        cart.splice(index, 1);
+
+        // 将更新后的购物车数据保存到服务器
+        fetch('get_cart.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ cart: cart })
+        })
+        .then(response => response.json())
+        .then(() => {
+            loadCartData(); // 重新加载购物车数据
+        })
+        .catch(error => {
+            console.error("Error updating cart:", error);
+        });
     })
-    .catch(error => {
-        console.error("Error removing from cart:", error);
-    });
+    .catch(error => console.error("Error getting cart data:", error));
 }
 
 
@@ -499,32 +507,7 @@ document.querySelector(".popup-close").addEventListener("click", () => {
      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 
-     <script>
-        function updateCartDisplay() {
-            console.log("updateCartDisplay is running!");
-        }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            updateCartDisplay();
-        });
-    </script>
-
-     <script>
-        fetch("get_cart.php")
-        .then(response => response.json())
-        .then(data => {
-            let cartList = document.getElementById("cartList");
-            if (data.length > 0) {
-                data.forEach(item => {
-                    let li = document.createElement("li");
-                    li.textContent = item.child + " - " + item.subject;
-                    cartList.appendChild(li);
-                });
-            } else {
-                cartList.innerHTML = "<p>Your cart is empty.</p>";
-            }
-        });
-    </script>
 
 </body>
 
