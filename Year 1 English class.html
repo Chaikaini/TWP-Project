@@ -559,17 +559,18 @@
 
     // 直接向后端发送购物车数据
     fetch('save_cart.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cartItem: cartItem }) // 发送单一的购物车项目
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'success') {
-            alert("Item added to cart successfully!");
-        } else {
-            alert("Error adding item to cart: " + data.message);
-        }
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ cart: cart }) // 确保 `cart` 是数组
+})
+.then(response => response.json())
+.then(data => {
+    console.log(data); // 调试输出
+    if (data.status === 'success') {
+        alert('Cart saved successfully!');
+    } else {
+        alert('Error: ' + data.message);
+    }
     })
     .catch(error => {
         console.error("Error:", error);
