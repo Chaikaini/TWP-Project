@@ -33,6 +33,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // 返回成功响应
     echo json_encode(['status' => 'success', 'cart' => $cart]);
+}else if ($_SERVER['REQUEST_METHOD'] === 'CHECK'){
+    $conn = dbConnect(); // 假设有一个函数用于连接数据库
+            
+    // 遍历购物车并插入每一项
+    foreach ($cart as $item) {
+        $subject = $item['subject'];
+        $price = $item['price'];
+        $child = $item['child'];
+        
+        // 准备 SQL 语句插入数据
+        $sql = "INSERT INTO cart_items (subject, price, child) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sds", $subject, $price, $child); // 绑定参数
+        
+        if (!$stmt->execute()) {
+            echo json_encode(['status' => 'error', 'message' => 'Failed to save cart item: ' . $stmt->error]);
+            exit;
+        }
+    }
+
+    // 成功返回
+    echo json_encode(['status' => 'success']);
+}
 }
 else {
     // 如果请求方法不是 GET 或 POST，返回错误
