@@ -463,7 +463,7 @@ button.btn.btn-primaryy:hover {
 </div>
 
 <!-- Add Child Modal -->
-<div id="addChildModal" class="modal">
+<div id="addChildModal" class="modal"> 
     <div class="modal-content pointer-cursor">
         <span class="close" onclick="closeModal()">&times;</span>
         <h3>Add Child Information</h3>
