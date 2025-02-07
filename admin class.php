@@ -226,7 +226,7 @@
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown">
-              <img src="https://via.placeholder.com/30" class="rounded-circle" alt="User" />
+            <i class="fas fa-user"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
               <li><a class="dropdown-item" href="admin profile.html">Profile</a></li>
