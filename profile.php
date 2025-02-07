@@ -548,39 +548,46 @@ button.btn.btn-primaryy:hover {
             <input type="file" id="avatar-upload" accept="image/*">
         </div>
 
-        <form id="childForm">
+        <form id="childForm" method="post" action="profile_editchild.php">
+           
+
             <div class="form-group">
                 <label for="childName">Child Name</label>
-                <input type="text" id="childName">
+                <input type="text" id="childName" name="name" required>
             </div>
             <div class="form-group">
                 <label for="childGender">Gender</label>
-                <select id="childGender">
-                    <option>Boy</option>
-                    <option>Girl</option>
+                <select id="childGender" name="gender" required>
+                    <option value="Boy">Boy</option>
+                    <option value="Girl">Girl</option>
                 </select>
+            </div>
+            <div class="form-group">
+                <label for="kidNumber">My kid number</label>
+                <input type="text" id="kidNumber" name="kidNumber" required>
             </div>
             <div class="form-group">
                 <label for="childBirthday">Birthday</label>
-                <input type="date" id="childBirthday">
+                <input type="date" id="childBirthday" name="birthday" required>
             </div>
             <div class="form-group">
                 <label for="childSchool">School</label>
-                <input type="text" id="childSchool">
+                <input type="text" id="childSchool" name="school" required>
             </div>
             <div class="form-group">
                 <label for="childYear">Year</label>
-                <select id="childYear">
-                    <option>Year 1</option>
-                    <option>Year 2</option>
+                <select id="childYear" name="year">
+                    <option value="Year 1">Year 1</option>
+                    <option value="Year 2">Year 2</option>
                 </select>
             </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
         </form>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primaryy">Save Changes</button>
-        </div>
     </div>
 </div>
+
   
        
 
@@ -683,16 +690,19 @@ button.btn.btn-primaryy:hover {
    }
 
    document.querySelectorAll('.edit-btn').forEach(button => {
-  button.addEventListener('click', function() {
-    const row = this.closest('tr');
-    const childName = row.querySelector('td:nth-child(1)').textContent;
-    const childGender = row.querySelector('td:nth-child(2)').textContent;
-    const childBirthday = row.querySelector('td:nth-child(4)').textContent;
-    const childSchool = row.querySelector('td:nth-child(5)').textContent;
-    const childYear = row.querySelector('td:nth-child(6)').textContent;
-    openModal(childName, childGender, childBirthday, childSchool, childYear);
-  });
+    button.addEventListener('click', function() {
+        const row = this.closest('tr');
+        const childName = row.querySelector('td:nth-child(1)').textContent.trim();
+        const childGender = row.querySelector('td:nth-child(2)').textContent.trim();
+        const kidNumber = row.querySelector('td:nth-child(3)').textContent.trim(); 
+        const childBirthday = row.querySelector('td:nth-child(4)').textContent.trim();
+        const childSchool = row.querySelector('td:nth-child(5)').textContent.trim();
+        const childYear = row.querySelector('td:nth-child(6)').textContent.trim();
+        
+        openEditModal(childName, childGender, kidNumber, childBirthday, childSchool, childYear);
+    });
 });
+
 
 document.querySelector('.close').addEventListener('click', function() {
   document.getElementById('childFormModal').style.display = "none";
@@ -738,8 +748,47 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+document.getElementById("childForm").addEventListener("submit", function (event) {
+    event.preventDefault(); 
+
+    let formData = new FormData(this);
+
+    fetch("profile_editchild.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert(data);
+        location.reload(); 
+    })
+    .catch(error => console.error("Error:", error));
+});
+
+function openEditModal(name, gender, kidNumber, birthday, school, year) {
+    document.getElementById("childName").value = name;
+    document.getElementById("childGender").value = gender;
+    document.getElementById("kidNumber").value = kidNumber;
+    document.getElementById("childBirthday").value = birthday;
+    document.getElementById("childSchool").value = school;
+    document.getElementById("childYear").value = year;
+
+    
+    let genderSelect = document.getElementById("childGender");
+    for (let i = 0; i < genderSelect.options.length; i++) {
+        if (genderSelect.options[i].value.toLowerCase() === gender.toLowerCase()) {
+            genderSelect.options[i].selected = true;
+            break;
+        }
+    }
+
+    document.getElementById("childFormModal").style.display = "block";
+}
+
 
     </script>
+
+
     <!-- Footer Start -->
 <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container py-5">
