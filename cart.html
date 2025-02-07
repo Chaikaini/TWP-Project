@@ -275,15 +275,25 @@
 
     <script>
         // Sample cart items data
-        function loadCartData() {
-    fetch('get_cart.php', { method: 'GET' })
+
+        document.addEventListener('DOMContentLoaded', function() {
+    loadCartData();
+});
+
+function loadCartData() {
+    // 发送 GET 请求获取购物车数据
+    fetch('get_cart.php', {
+        method: 'GET'
+    })
     .then(response => response.json())
     .then(data => {
         let cart = data.cart;
 
+        // 获取购物车容器和总价格元素
         let cartContainer = document.querySelector('.cart-items');
         let totalPriceElement = document.getElementById('total-price');
 
+        // 如果购物车为空，显示空购物车提示
         if (cart.length === 0) {
             cartContainer.innerHTML = "<p>Your cart is empty.</p>";
             totalPriceElement.textContent = "0";
@@ -293,20 +303,20 @@
         cartContainer.innerHTML = '';  // 清空现有购物车显示
         let totalPrice = 0;
 
+        // 遍历购物车数据并动态生成 HTML
         cart.forEach((item, index) => {
             let itemPrice = parseFloat(item.price);
-            let childCount = item.child;  // 假设 child 对应的是学生 ID，且价格是按孩子数量来计算的
+            totalPrice += itemPrice;
 
-            totalPrice += itemPrice * childCount; // 计算总价时乘以孩子数量
-
+            // 创建 cart-item 元素
             let cartItem = document.createElement('div');
             cartItem.classList.add('cart-item');
 
             cartItem.innerHTML = `
                 <div class="cart-item-details">
                     <h5>${item.subject}</h5>
-                    <p>Child: ${item.child}</p>  <!-- 显示孩子的 ID -->
-                    <p>Price: RM ${(itemPrice * childCount).toFixed(2)}</p> <!-- 显示每个孩子的总价 -->
+                    <p>Child: ${item.child}</p>
+                    <p>Price: RM ${itemPrice.toFixed(2)}</p>
                 </div>
                 <div class="cart-item-actions">
                     <i class="fas fa-trash" onclick="removeFromCart(${index})"></i>
@@ -316,9 +326,37 @@
             cartContainer.appendChild(cartItem);
         });
 
-        totalPriceElement.textContent = totalPrice.toFixed(2); // 更新总价
+        // 更新总价
+        totalPriceElement.textContent = totalPrice.toFixed(2); // 显示总价
     })
     .catch(error => console.error('Error:', error));
+}
+
+function removeFromCart(index) {
+    // 获取购物车数据（从 GET 请求中获取）
+    fetch('get_cart.php', { method: 'GET' })
+    .then(response => response.json())
+    .then(data => {
+        let cart = data.cart;
+
+        // 从购物车中删除选中的项
+        cart.splice(index, 1);
+
+        // 将更新后的购物车数据保存到服务器
+        fetch('get_cart.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ cart: cart })
+        })
+        .then(response => response.json())
+        .then(() => {
+            loadCartData(); // 重新加载购物车数据
+        })
+        .catch(error => {
+            console.error("Error updating cart:", error);
+        });
+    })
+    .catch(error => console.error("Error getting cart data:", error));
 }
 
 

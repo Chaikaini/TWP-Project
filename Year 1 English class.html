@@ -542,11 +542,6 @@
         // 购物车功能
         document.getElementById("addToCart").addEventListener("click", function() {
     let selectedChild = document.getElementById("childrenSelect").value;
-    if (!selectedChild) {
-        alert("Please select a child.");
-        return; // 如果没有选择孩子，阻止添加到购物车
-    }
-
     let subjectName = document.getElementById("subjectName").innerText;
     let subjectPrice = document.getElementById("subjectPrice").innerText.replace('Price: RM', '').trim();
     let price = parseFloat(subjectPrice);
@@ -559,38 +554,20 @@
     const cartItem = {
         subject: subjectName,
         price: price,
-        child: selectedChild, // 孩子 ID
+        child: selectedChild
     };
 
-    // 获取当前购物车数据
-    fetch('get_cart.php', { method: 'GET' })
-        .then(response => response.json())
-        .then(data => {
-            let cart = data.cart || [];
-
-            // 检查购物车中是否已有此商品
-            const existingItemIndex = cart.findIndex(item => item.subject === subjectName && item.child === selectedChild);
-            if (existingItemIndex !== -1) {
-                alert("This item is already in your cart!");
-                return;
-            }
-
-            // 如果没有，添加到购物车
-            cart.push(cartItem);
-
-            // 更新购物车到服务器
-            fetch('get_cart.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ cart: cart })
-            })
-            .then(response => response.json())
-            .then(() => {
-                alert("Item added to cart!");
-            })
-            .catch(error => console.error('Error:', error));
-        })
-        .catch(error => console.error('Error:', error));
+    // 直接向后端发送购物车数据
+    fetch('get_cart.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cart: [cartItem] }) // 只发送单一项，后端将合并
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert("Item added to cart!");
+    })
+    .catch(error => console.error('Error:', error));
 });
 
 
