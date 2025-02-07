@@ -514,9 +514,7 @@
     document.getElementById("addToCart").addEventListener("click", function() {
         let selectedChild = document.getElementById("childrenSelect").value;
         let subjectName = document.getElementById("subjectName").innerText;
-
         let subjectPrice = document.getElementById("subjectPrice").innerText.replace('Price: RM', '').trim();
-        
         let price = parseFloat(subjectPrice);
 
         const cartItem = {
@@ -525,12 +523,21 @@
             child: selectedChild
         };
 
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        cart.push(cartItem);
-
-        localStorage.setItem('cart', JSON.stringify(cart));
-        alert("Item added to cart!");
+        // 发送购物车项到服务器
+        fetch('add_to_cart.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(cartItem)
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert("Item added to cart!");
+        })
+        .catch(error => {
+            console.error("Error adding to cart:", error);
+        });
     });
 });
 
