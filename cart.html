@@ -270,37 +270,12 @@
     <script>
         // Sample cart items data
        
-        const cartItems = [
-    {
-        image: 'img/english.jpg',
-        subject: 'English class',
-        teacher: 'Mr. John',
-        year: 'Year 1', 
-        price: 85,
-        time: 'Monday, 2.30pm-4.30pm',
-        capacity: '20/30',
-        student: 'Yuna',
-        startMonth: 0 // January
-    },
-    {
-        image: 'img/math.jpg',
-        subject: 'Math  class',
-        teacher: 'Mr. David',
-        year: 'Year 1', 
-        price: 85,
-        time: 'Wednesday, 2.30pm-4.30pm',
-        capacity: '20/30',
-        student: 'Yuna',
-        startMonth: 0
-    }
-];
-
-
-function updateCart() {
+        function loadCart() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
     const cartContainer = document.querySelector('.cart-items');
     cartContainer.innerHTML = '';
 
-    cartItems.forEach((item, index) => {
+    cart.forEach((item, index) => {
         const cartItemDiv = document.createElement('div');
         cartItemDiv.classList.add('cart-item');
         cartItemDiv.innerHTML = `
@@ -312,8 +287,8 @@ function updateCart() {
             <div class="cart-item-details">
                 <h5>${item.subject}</h5>
                 <p><strong>Teacher:</strong> ${item.teacher}</p>
-                <p><strong>Year:</strong> ${item.year  }</p>
-                <p><strong>Price:</strong> RM <span id="price-${index}">${calculatePrice(item)}</span>     ( 85 *6 month) </p>
+                <p><strong>Year:</strong> ${item.year}</p>
+                <p><strong>Price:</strong> RM <span id="price-${index}">${calculatePrice(item)}</span> ( 85 * 6 months )</p>
                 <p><strong>Time:</strong> ${item.time}</p>
                 <p><strong>Student:</strong> ${item.student}</p>
             </div>
@@ -324,28 +299,21 @@ function updateCart() {
         `;
         cartContainer.appendChild(cartItemDiv);
     });
+
+    updateTotalPrice();
 }
 
-
-function calculatePrice(course) {
-    const currentMonth = new Date().getMonth();
-    const monthsPassed = (currentMonth - course.startMonth + 12) % 12; 
-    const remainingMonths = Math.max(6 - monthsPassed, 0); 
-    return remainingMonths * course.price;
-}
-
-
+// 计算总价
 function updateTotalPrice() {
-    const selectedItems = document.querySelectorAll('.select-item:checked');
-    let total = 0;
-
-    selectedItems.forEach(item => {
-        const index = item.dataset.index;
-        total += calculatePrice(cartItems[index]);
-    });
-
-    document.getElementById("total-price").textContent = total;
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let total = cart.reduce((sum, item) => sum + item.price * 6, 0);
+    document.getElementById('total-price').innerText = total;
 }
+
+// 页面加载时执行
+document.addEventListener("DOMContentLoaded", loadCart);
+
+
 
 
 function toggleSelection(index) {
