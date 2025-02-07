@@ -299,34 +299,29 @@
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    function updateCartDisplay() {
-        let cartContainer = document.getElementById("cart-container");
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let cartList = document.getElementById("cartList");
 
-        // 清空当前容器
-        cartContainer.innerHTML = "";
-
-        if (cart.length === 0) {
-            cartContainer.innerHTML = "<p>Your cart is empty.</p>";
-            return;
-        }
-
-        cart.forEach((item, index) => {
-            let cartItem = document.createElement("div");
-            cartItem.classList.add("cart-item");
-            cartItem.innerHTML = `
-                <img src="${item.image}" alt="${item.subject}" width="100">
-                <p><strong>${item.subject}</strong> - ${item.teacher}</p>
-                <p>${item.year}</p>
-                <p>Time: ${item.time}</p>
-                <p>Capacity: ${item.capacity}</p>
-                <p>Child: ${item.student}</p>
-                <p>Price: RM${item.price}</p>
-                <button onclick="removeFromCart(${index})">Remove</button>
-            `;
-            cartContainer.appendChild(cartItem);
-        });
+    if (cartList) { // ✅ 先检查元素是否存在
+        fetch("get_cart.php")
+        .then(response => response.json())
+        .then(data => {
+            if (data.length > 0) {
+                cartList.innerHTML = ""; // 先清空
+                data.forEach(item => {
+                    let li = document.createElement("li");
+                    li.textContent = item.child + " - " + item.subject;
+                    cartList.appendChild(li);
+                });
+            } else {
+                cartList.innerHTML = "<p>Your cart is empty.</p>";
+            }
+        })
+        .catch(error => console.error("Error loading cart:", error));
+    } else {
+        console.error("cartList not found!");
     }
+});
+
 
     function removeFromCart(index) {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -498,7 +493,7 @@ document.querySelector(".popup-close").addEventListener("click", () => {
             updateCartDisplay();
         });
     </script>
-    
+
      <script>
         fetch("get_cart.php")
         .then(response => response.json())
