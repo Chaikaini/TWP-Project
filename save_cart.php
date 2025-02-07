@@ -1,7 +1,7 @@
 <?php
 // 启动会话，确保你有一个有效的数据库连接
 session_start();
-include('db_connection.php'); // 包含数据库连接
+include('db_connect.php'); // 包含数据库连接
 
 // 获取 JSON 数据
 $data = json_decode(file_get_contents('php://input'), true);
