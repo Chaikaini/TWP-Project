@@ -344,7 +344,7 @@ function removeFromCart(index) {
 
         // 将更新后的购物车数据保存到服务器
         fetch('get_cart.php', {
-            method: 'POST',
+            method: 'DEL',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ cart: cart })
         })
