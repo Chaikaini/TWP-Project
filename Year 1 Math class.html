@@ -543,39 +543,38 @@
             addToCartButton.disabled = true; // 没选孩子，禁用按钮
         }
     });
-
-    // 购物车功能
-    document.getElementById("addToCart").addEventListener("click", function() {
-        let selectedChild = select.value; // 使用 select.value 获取选中的孩子
-        let subjectName = document.getElementById("subjectName").innerText;
-        let subjectPrice = document.getElementById("subjectPrice").innerText.replace('Price: RM', '').trim();
-        let price = parseFloat(subjectPrice);
-
-        if (isNaN(price)) {
-            alert("Invalid price value");
-            return;
-        }
-
-        const cartItem = {
-            subject: subjectName,
-            price: price,
-            child: selectedChild
-        };
-
-        // 发送购物车数据到后端
-        fetch('get_cart.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ cart: [cartItem] }) // 发送单一项，后端合并
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert("Item added to cart!");
-        })
-        .catch(error => console.error('Error:', error));
-    });
 });
 
+
+        // 购物车功能
+        document.getElementById("addToCart").addEventListener("click", function() {
+    let selectedChild = document.getElementById("childrenSelect").innerText.replace('Choose', '').trim();;
+    let subjectName = document.getElementById("subjectName").innerText;
+    let subjectPrice = document.getElementById("subjectPrice").innerText.replace('Price: RM', '').trim();
+    let price = parseFloat(subjectPrice);
+
+    if (isNaN(price)) {
+        alert("Invalid price value");
+        return;
+    }
+
+    const cartItem = {
+        subject: subjectName,
+        price: price,
+        child: selectedChild
+    };
+
+    // 直接向后端发送购物车数据
+    fetch('get_cart.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cart: [cartItem] }) // 只发送单一项，后端将合并
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert("Item added to cart!");
+    })
+    .catch(error => console.error('Error:', error));
 });
 
 
