@@ -17,15 +17,15 @@ if ($result->num_rows > 0) {
         echo "<tr>";
         echo "<td>" . $row["name"] . "</td>";
         echo "<td>" . $row["gender"] . "</td>";
-        echo "<td>" . $row["kid_number"] . "</td>";
+        echo "<td>" . $row["kidNumber"] . "</td>";
         echo "<td>" . $row["birthday"] . "</td>";
         echo "<td>" . $row["school"] . "</td>";
-        echo "<td>" . $row["grade"] . "</td>";
+        echo "<td>" . $row["year"] . "</td>";
         echo "<td>
         <i class='pointer-cursor fas fa-edit text-warning edit-btn' 
-           onclick='openEditModal(\"" . $row["name"] . "\", \"" . $row["gender"] . "\", \"" . $row["birthday"] . "\", \"" . $row["school"] . "\", \"" . $row["grade"] . "\")'></i>
+           onclick='openEditModal(\"" . $row["name"] . "\", \"" . $row["gender"] . "\", \"" . $row["birthday"] . "\", \"" . $row["school"] . "\", \"" . $row["year"] . "\")'></i>
         <i class='pointer-cursor fas fa-trash-alt text-danger delete-btn' 
-           data-kidNumber=\"" . $row['kid_number'] . "\"></i>
+           data-kidNumber=\"" . $row['kidNumber'] . "\"></i>
       </td>";
         echo "</tr>";
     }
