@@ -577,7 +577,7 @@ document.getElementById("yearFilter").addEventListener("change", function() {
 
 
 function loadClassInfo(classId, userEmail) {
-    fetch(`fetch_class.php?class_id=${classId}&email=${encodeURIComponent(userEmail)}`)
+    fetch(`fetch_class_data.php?class_id=${classId}&email=${encodeURIComponent(userEmail)}`)
         .then(response => response.json())
         .then(data => {
             document.getElementById("classTime").innerText = data.classData.classTime;
