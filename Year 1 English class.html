@@ -424,10 +424,6 @@
             <!-- Information section with flex layout -->
             <div class="popup-info">
                 <div class="popup-row">
-                    <span class="popup-label">Month:</span>
-                    <span class="popup-value" id="popupMonth"></span>
-                </div>
-                <div class="popup-row">
                     <span class="popup-label">Time:</span>
                     <span class="popup-value" id="popupTime"></span>
                 </div>
@@ -439,7 +435,7 @@
                     <span class="popup-label">Children:</span>
                     <span class="popup-value">
                         <select id="childrenSelect">
-                            <option value="1">Yuna</option> 
+                            <option value="1"></option> 
                             <option value="2"></option>
                             <option value="3"></option>
                         </select>
@@ -730,6 +726,35 @@ document.getElementById("yearFilter").addEventListener("change", function() {
             fetchReviews(); // 默认加载所有评论（即英文一年级的评论）
         };
     </script>
+
+<script>
+    // 使用fetch从PHP文件获取数据
+    fetch('fetch_class_data.php')
+        .then(response => response.json())
+        .then(data => {
+            // 填充课程信息
+            document.getElementById('popupTime').textContent = data.classData.classTime;
+            document.getElementById('popupCapacity').textContent = data.classData.classCapacity;
+
+            // 填充孩子选择框
+            const selectElement = document.getElementById('childrenSelect');
+            if (data.childrenData.length > 0) {
+                data.childrenData.forEach(child => {
+                    const option = document.createElement('option');
+                    option.value = child.id; // 设置选项的值为孩子的ID
+                    option.textContent = child.name + " (" + child.grade + ")"; // 显示孩子的姓名和年级
+                    selectElement.appendChild(option); // 将选项添加到select元素
+                });
+            } else {
+                const option = document.createElement('option');
+                option.textContent = "没有孩子信息";
+                selectElement.appendChild(option); // 如果没有孩子信息，显示提示
+            }
+        })
+        .catch(error => {
+            console.error('获取数据时出错:', error);
+        });
+</script>
 </body>
 
 </html>
