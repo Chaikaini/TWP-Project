@@ -31,19 +31,4 @@ if ($result->num_rows > 0) {
 $conn->close();
 ?>
 
-<?php
-session_start();
-include 'get_child.php';
 
-$sql = "SELECT id, name FROM profile.childreninfo"; // 加上 profile 数据库前缀
-$result = $conn->query($sql);
-
-$children = [];
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $children[] = $row;
-    }
-}
-
-echo json_encode($children);
-?>
