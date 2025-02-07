@@ -55,9 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // 成功返回
     echo json_encode(['status' => 'success']);
-}
-}
-else {
+}else {
     // 如果请求方法不是 GET 或 POST，返回错误
     echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
 }
