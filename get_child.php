@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "profile"; // 这里改成 profile 数据库
+$dbname = "tuition_centre"; // 这里改成 profile 数据库
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
