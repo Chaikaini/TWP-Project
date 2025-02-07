@@ -8,7 +8,7 @@ ini_set('display_errors', 1);
 $servername = "localhost";
 $username = "root";
 $password = "";
-$db_admin = "admin"; // admin_class 数据库
+$db_admin = "tuition_centre"; // admin_class 数据库
 $db_profile = "profile"; // childreninfo 数据库
 
 // 创建连接
