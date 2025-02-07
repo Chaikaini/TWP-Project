@@ -288,7 +288,7 @@
   <div id="editModal" class="modal">
     <div class="modal-content pointer-cursor">
         <span class="close" onclick="closeModal()">&times;</span>
-        <form id="editSubjectForm">
+        <form id="editSubjectForm" method="POST" action="admin_editsubject.php">>
             <div class="form-group">
                 <label for="editSubjectID">Subject ID:</label>
                 <input type="text" id="editSubjectID" name="subjectID">

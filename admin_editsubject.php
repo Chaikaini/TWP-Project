@@ -9,19 +9,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $description = $_POST['description'];
 
     // 更新数据库
-    $sql = "UPDATE subjects SET 
+    $sql = "UPDATE admin_subject SET 
                 subject = '$subject', 
                 year = '$year', 
                 price = '$price',
                 description = '$description' 
-            WHERE subjectID = '$subjectID'";
+            WHERE subject_ID = '$subjectID'";
 
-    if (mysqli_query($conn, $sql)) {
+    if (mysqli_query($connect, $sql)) { // 使用 $connect 而不是 $conn
         echo "<script>alert('Subject edit successfully!'); window.location.href='admin subject.php';</script>";
     } else {
-        echo "Error updating subject: " . mysqli_error($conn);
+        echo "Error updating subject: " . mysqli_error($connect);
     }
 
-    mysqli_close($conn);
+    mysqli_close($connect);
 }
+
 ?>
