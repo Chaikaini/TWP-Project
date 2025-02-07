@@ -498,6 +498,23 @@ document.querySelector(".popup-close").addEventListener("click", () => {
             updateCartDisplay();
         });
     </script>
+    
+     <script>
+        fetch("get_cart.php")
+        .then(response => response.json())
+        .then(data => {
+            let cartList = document.getElementById("cartList");
+            if (data.length > 0) {
+                data.forEach(item => {
+                    let li = document.createElement("li");
+                    li.textContent = item.child + " - " + item.subject;
+                    cartList.appendChild(li);
+                });
+            } else {
+                cartList.innerHTML = "<p>Your cart is empty.</p>";
+            }
+        });
+    </script>
 
 </body>
 
