@@ -1,16 +1,11 @@
 <?php
-session_start();
-header("Content-Type: application/json");
+// 禁用错误报告
+error_reporting(0);
 
-if (!empty($_SESSION["cart"])) {
-    echo json_encode($_SESSION["cart"]);
-} else {
-    echo json_encode([]);
-}
+// 清除任何之前的输出
+ob_clean();
 
-?>
-<?php
-// 设置 Content-Type 为 JSON，确保返回的数据是正确的 JSON 格式
+// 设置 Content-Type 为 JSON
 header('Content-Type: application/json');
 
 // 你的测试数据
@@ -32,5 +27,6 @@ $cart_data = [
 // 返回 JSON 格式的数据
 echo json_encode($cart_data);
 ?>
+
 
 
