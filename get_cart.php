@@ -10,7 +10,10 @@ if (!empty($_SESSION["cart"])) {
 
 ?>
 <?php
-// 你可以直接在这里硬编码数据作为测试
+// 设置 Content-Type 为 JSON，确保返回的数据是正确的 JSON 格式
+header('Content-Type: application/json');
+
+// 你的测试数据
 $cart_data = [
     [
         "child" => "Yuna",
@@ -27,7 +30,7 @@ $cart_data = [
 ];
 
 // 返回 JSON 格式的数据
-header('Content-Type: application/json');
 echo json_encode($cart_data);
 ?>
+
 
