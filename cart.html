@@ -267,6 +267,8 @@
             </div>
         </div>
 
+        <div id="cart-container"></div>
+
     <script>
         // Sample cart items data
        
@@ -296,35 +298,50 @@
 ];
 
 
-function updateCart() {
-    const cartContainer = document.querySelector('.cart-items');
-    cartContainer.innerHTML = '';
+document.addEventListener("DOMContentLoaded", function () {
+    function updateCartDisplay() {
+        let cartContainer = document.getElementById("cart-container");
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    cartItems.forEach((item, index) => {
-        const cartItemDiv = document.createElement('div');
-        cartItemDiv.classList.add('cart-item');
-        cartItemDiv.innerHTML = `
-            <div class="checkbox-container">
-                <input type="checkbox" class="select-item" data-index="${index}" onchange="toggleSelection(${index})">
-                <span class="checkmark"></span>
-            </div>
-            <img src="${item.image}" alt="Course Image">
-            <div class="cart-item-details">
-                <h5>${item.subject}</h5>
-                <p><strong>Teacher:</strong> ${item.teacher}</p>
-                <p><strong>Year:</strong> ${item.year  }</p>
-                <p><strong>Price:</strong> RM <span id="price-${index}">${calculatePrice(item)}</span>     ( 85 *6 month) </p>
-                <p><strong>Time:</strong> ${item.time}</p>
-                <p><strong>Student:</strong> ${item.student}</p>
-            </div>
-            <div class="cart-item-actions">
-                <i class="fas fa-pencil-alt" onclick="editItem(${index})"></i>
-                <i class="fas fa-trash" onclick="removeFromCart(${index})"></i>
-            </div>
-        `;
-        cartContainer.appendChild(cartItemDiv);
-    });
-}
+        // 清空当前容器
+        cartContainer.innerHTML = "";
+
+        if (cart.length === 0) {
+            cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+            return;
+        }
+
+        cart.forEach((item, index) => {
+            let cartItem = document.createElement("div");
+            cartItem.classList.add("cart-item");
+            cartItem.innerHTML = `
+                <img src="${item.image}" alt="${item.subject}" width="100">
+                <p><strong>${item.subject}</strong> - ${item.teacher}</p>
+                <p>${item.year}</p>
+                <p>Time: ${item.time}</p>
+                <p>Capacity: ${item.capacity}</p>
+                <p>Child: ${item.student}</p>
+                <p>Price: RM${item.price}</p>
+                <button onclick="removeFromCart(${index})">Remove</button>
+            `;
+            cartContainer.appendChild(cartItem);
+        });
+    }
+
+    function removeFromCart(index) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart.splice(index, 1); // 删除对应索引的项目
+        localStorage.setItem("cart", JSON.stringify(cart)); // 更新 localStorage
+        updateCartDisplay(); // 重新渲染购物车
+    }
+
+    // 初次加载时显示购物车
+    updateCartDisplay();
+
+    // 让 removeFromCart 可以在全局使用
+    window.removeFromCart = removeFromCart;
+});
+
 
 
 function calculatePrice(course) {
