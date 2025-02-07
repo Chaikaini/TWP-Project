@@ -1,6 +1,8 @@
 <?php 
-// 禁用错误报告
-error_reporting(0);
+// 启用所有错误报告（临时调试）
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 
 // 连接数据库
 $servername = "localhost";
