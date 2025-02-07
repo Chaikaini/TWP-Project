@@ -543,8 +543,7 @@
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            alert(`Subject: ${cartItem.subject}\nPrice: RM ${cartItem.price.toFixed(2)}\nChild: ${cartItem.child}`);
-            //alert("Item added to cart!");
+            alert("Item added to cart!");
         })
         .catch(error => console.error('Error:', error));
     });
