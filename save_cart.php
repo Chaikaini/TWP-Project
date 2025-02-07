@@ -1,4 +1,9 @@
 <?php
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+
 session_start(); // 启动会话
 
 // 获取客户端发送的 JSON 数据
