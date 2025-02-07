@@ -333,99 +333,6 @@
  </style>
 </head>
 
- <!-- JavaScript -->
- <script>
-
-    document.getElementById('partA').addEventListener('click', function() {
-   // Update the popup content for Part A
-   document.getElementById('popupMonth').innerText = 'January - June'; // Month
-   document.getElementById('popupTime').innerText = 'Monday 2.30pm-4.30pm'; // Time
-   document.getElementById('popupchildren').innerText = "20/30"; // Capacity
-   document.getElementById('popup').style.display = 'flex'; // Show the popup
-   });
-
-   document.getElementById('partB').addEventListener('click', function() {
-   // Update the popup content for Part B
-   document.getElementById('popupMonth').innerText = 'July - December'; // Month
-   document.getElementById('popupTime').innerText = 'Monday 2.30pm-4.30pm'; // Time
-   document.getElementById('popupchildren').innerText = "0/30 (Unavailable)"; // Capacity
-   document.getElementById('popup').style.display = 'flex'; // Show the popup
-   });
-
-   // Close popup functionality 
-   document.getElementById('closePopup').addEventListener('click', function() {
-   document.getElementById('popup').style.display = 'none'; // Hide popup on close
-   });
-
-   document.getElementById("addToCart").addEventListener("click", function() {
-   let selectedChild = document.getElementById("childrenSelect").value;
-   let subjectName = document.getElementById("subjectName").innerText; // 获取课程名称
-   let subjectPrice = document.getElementById("subjectPrice").innerText.replace('RM', '').trim(); // 获取课程价格，并去掉货币符号
-
-   // 将价格转换为数字类型，确保计算时正确
-   let price = parseFloat(subjectPrice);
-
-   // 创建一个购物车项目对象
-   const cartItem = {
-       subject: subjectName,
-       price: price,
-       child: selectedChild
-   };
-
-   // 获取当前购物车数据，如果没有数据则初始化为空数组
-   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-   // 将新的商品添加到购物车数组中
-   cart.push(cartItem);
-
-   // 将更新后的购物车数据存回 localStorage
-   localStorage.setItem('cart', JSON.stringify(cart));
-
-   alert("Item added to cart!");
-});
-
-
-
-
-
-
-
-       function setRating(rating) {
-   const stars = document.querySelectorAll('.stars-container .star');
-   const fullStars = Math.floor(rating);
-   const halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
-   const emptyStars = stars.length - fullStars - halfStar;
-
-   for (let i = 0; i < fullStars; i++) {
-       stars[i].classList.add('yellow');
-   }
-
-   if (halfStar) {
-       stars[fullStars].classList.add('half');
-   }
-
-   for (let i = fullStars + halfStar; i < stars.length; i++) {
-       stars[i].classList.remove('yellow', 'half');
-   }
-}
-
-setRating(4.6);
-
-document.getElementById("yearFilter").addEventListener("change", function() {
-   var selectedYear = this.value;
-   var reviews = document.querySelectorAll(".review-item");
-   reviews.forEach(function(review) {
-       var reviewYear = review.getAttribute("data-year");
-       if (selectedYear === "All" || selectedYear === reviewYear) {
-           review.style.display = "flex";
-       } else {
-           review.style.display = "none";
-       }
-   });
-});
-
-   </script>
-
 <body>
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
@@ -579,7 +486,96 @@ document.getElementById("yearFilter").addEventListener("change", function() {
     </div>
     
 
-   
+    <!-- JavaScript -->
+    <script>
+
+     document.getElementById('partA').addEventListener('click', function() {
+    // Update the popup content for Part A
+    document.getElementById('popupMonth').innerText = 'January - June'; // Month
+    document.getElementById('popupTime').innerText = 'Monday 2.30pm-4.30pm'; // Time
+    document.getElementById('popupchildren').innerText = "20/30"; // Capacity
+    document.getElementById('popup').style.display = 'flex'; // Show the popup
+    });
+
+    document.getElementById('partB').addEventListener('click', function() {
+    // Update the popup content for Part B
+    document.getElementById('popupMonth').innerText = 'July - December'; // Month
+    document.getElementById('popupTime').innerText = 'Monday 2.30pm-4.30pm'; // Time
+    document.getElementById('popupchildren').innerText = "0/30 (Unavailable)"; // Capacity
+    document.getElementById('popup').style.display = 'flex'; // Show the popup
+    });
+
+    // Close popup functionality 
+    document.getElementById('closePopup').addEventListener('click', function() {
+    document.getElementById('popup').style.display = 'none'; // Hide popup on close
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("addToCart").addEventListener("click", function() {
+        let selectedChild = document.getElementById("childrenSelect").value;
+        let subjectName = document.getElementById("subjectName").innerText;
+        let subjectPrice = document.getElementById("subjectPrice").innerText.replace('RM', '').trim();
+        
+        let price = parseFloat(subjectPrice);
+
+        const cartItem = {
+            subject: subjectName,
+            price: price,
+            child: selectedChild
+        };
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        cart.push(cartItem);
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        alert("Item added to cart!");
+    });
+});
+
+
+
+
+
+
+
+
+        function setRating(rating) {
+    const stars = document.querySelectorAll('.stars-container .star');
+    const fullStars = Math.floor(rating);
+    const halfStar = (rating - fullStars) >= 0.5 ? 1 : 0;
+    const emptyStars = stars.length - fullStars - halfStar;
+
+    for (let i = 0; i < fullStars; i++) {
+        stars[i].classList.add('yellow');
+    }
+
+    if (halfStar) {
+        stars[fullStars].classList.add('half');
+    }
+
+    for (let i = fullStars + halfStar; i < stars.length; i++) {
+        stars[i].classList.remove('yellow', 'half');
+    }
+}
+
+setRating(4.6);
+
+document.getElementById("yearFilter").addEventListener("change", function() {
+    var selectedYear = this.value;
+    var reviews = document.querySelectorAll(".review-item");
+    reviews.forEach(function(review) {
+        var reviewYear = review.getAttribute("data-year");
+        if (selectedYear === "All" || selectedYear === reviewYear) {
+            review.style.display = "flex";
+        } else {
+            review.style.display = "none";
+        }
+    });
+});
+
+    </script>
                   <!-- Footer Start -->
                   <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
                     <div class="container py-5">
