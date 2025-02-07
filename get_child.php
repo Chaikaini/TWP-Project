@@ -1,9 +1,9 @@
 <?php
 header('Content-Type: application/json'); // 确保返回 JSON
-include 'db_connection.php'; // 确保数据库连接文件存在
+include 'db_connect.php'; // 确保数据库连接文件存在
 
 if (!$conn) {
-    echo json_encode(["error" => "数据库连接失败"]);
+    echo json_encode(["error" => "database connot connect"]);
     exit();
 }
 
