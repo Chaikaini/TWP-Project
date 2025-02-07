@@ -27,7 +27,7 @@
     #sidebar a {
       color: white;
       text-decoration: none;
-      padding: 15px 15px;
+      padding: 15px 15px; 
       display: block;
     }
     #sidebar a:hover {
@@ -68,32 +68,12 @@
     .pointer-cursor{
       cursor:pointer;
     }
-
-    .date-range {
-      margin-bottom: 20px;
-      padding: 10px;
-      background-color: #f8f9fa;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      border: 1px solid #ddd;
-    }
-    .date-range h6 {
-      margin: 0;
-      font-size: 1.1rem;
-      color: #333;
-    }
-    .date-range span {
-      font-size: 1rem;
-    }
   </style>
 </head>
 <body>
   <!-- Sidebar -->
   <nav id="sidebar" class="d-flex flex-column p-3">
     <div class="sidebar-header">
-      
       <h3>Admin Panel</h3>
     </div>
     <ul class="nav flex-column">
@@ -104,11 +84,10 @@
       <li class="nav-item"><a href="view order.html" class="nav-link"><i class="fas fa-shopping-cart"></i> <span>Order List</span></a></li>
       <li class="nav-item"><a href="admin subject.php" class="nav-link"><i class="fas fa-book"></i> <span>Subject List</span></a></li>
       <li class="nav-item"><a href="admin class.php" class="nav-link"><i class="fas fa-school"></i> <span>Class List</span></a></li>
-      <!-- Report Section -->
       <li class="nav-item">
-        <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#reportMenu" aria-expanded="false" id="reportToggle">
+        <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#reportMenu" aria-expanded="false">
           <i class="fas fa-chart-line"></i> <span>Report</span>
-          <i class="fas fa-chevron-down ms-2" id="reportIcon"></i> <!-- 展开/折叠图标 -->
+          <i class="fas fa-chevron-down ms-2" id="reportIcon"></i> <!-- Add this icon for expand/collapse -->
         </a>
         <div class="collapse" id="reportMenu">
           <ul class="nav flex-column ms-3">
@@ -118,17 +97,16 @@
             <li class="nav-item"><a href="new student report.html" class="nav-link"><i class="fas fa-file-alt"></i> <span>New Children report</span></a></li>
           </ul>
         </div>
-      </li>
+      </li>      
     </ul>
   </nav>
 
   <!-- Main Content -->
   <div id="main-content">
-    <!-- Top Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
       <div class="container-fluid">
         <button class="btn btn-outline-secondary me-2" id="toggleSidebar"><i class="fas fa-bars"></i></button>
-        <form class="d-flex ms-auto">
+        <form class="d-flex mx-auto">
           <input class="form-control me-2" type="date" id="start-date" />
           <span class="mx-2">to</span>
           <input class="form-control me-2" type="date" id="end-date" />
@@ -145,7 +123,7 @@
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown">
-            <i class="fas fa-user"></i>
+              <i class="fas fa-user"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
               <li><a class="dropdown-item" href="admin profile.html">Profile</a></li>
@@ -156,111 +134,99 @@
       </div>
     </nav>
 
-    
     <h1 class="mb-4">Subject Enrollment Report</h1>
-      
-      <div class="date-range">
-        <h6>Report for: </h6>
-        <span></span>
-      </div>
-      
-      <div class="card">
-        <div class="card-header">
-          <h5>Math Enrollment Report</h5>
-        </div>
-        <div class="card-body">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Student Name</th>
-                <th>Teacher Name</th>
-                <th>Enroll Time</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-        </div>
-      </div>
+    
+    <div class="date-range">
+      <h6>Report for: </h6>
+      <span></span>
     </div>
     
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // 侧边栏切换
-        document.getElementById('toggleSidebar').addEventListener('click', () => {
-          document.getElementById('sidebar').classList.toggle('collapsed');
-        });
-    
-        // 获取数据
-        function fetchReportData(startDate = null, endDate = null) {
-          let url = 'fetch_enrollment_report.php';
-          if (startDate && endDate) {
-            url += `?start_date=${startDate}&end_date=${endDate}`;
-          }
-    
-          fetch(url)
-            .then(response => response.json())
-            .then(data => {
-              let filteredData = data.filter(item => 
-                item.student_name.includes("Math") || item.teacher_name.includes("Math")
-              );
-              updateTable(filteredData);
-              updateDateRange(startDate, endDate);
-            })
-            .catch(error => console.error("Error fetching report data:", error));
-        }
-    
-        // 更新表格
-        function updateTable(data) {
-          let tableBody = document.querySelector("tbody");
-          tableBody.innerHTML = ""; // 清空现有数据
-    
-          if (!data.length) {
-            tableBody.innerHTML = `<tr><td colspan="4" class="text-center">No records found</td></tr>`;
-            return;
-          }
-    
-          let rowsHTML = data.map(({ id, student_name, teacher_name, order_date }) => 
-            `<tr>
-              <td>${id}</td>
-              <td>${student_name}</td>
-              <td>${teacher_name}</td>
-              <td>${order_date}</td>
-            </tr>`
-          ).join('');
-    
-          tableBody.insertAdjacentHTML("beforeend", rowsHTML);
-        }
-    
-        // 更新日期范围
-        function updateDateRange(startDate, endDate) {
-          let formattedStart = startDate ? new Date(startDate).toISOString().split('T')[0] : 'N/A';
-          let formattedEnd = endDate ? new Date(endDate).toISOString().split('T')[0] : 'N/A';
-          document.querySelector(".date-range span").textContent = ` ${formattedStart} to ${formattedEnd}`;
-        }
-    
-        // 搜索按钮事件
-        document.getElementById('search-btn').addEventListener('click', function () {
-          let startDate = document.getElementById('start-date').value;
-          let endDate = document.getElementById('end-date').value;
-    
-          if (!startDate || !endDate) {
-            alert("Please select both start and end dates.");
-            return;
-          }
-    
-          fetchReportData(startDate, endDate);
-        });
-    
-        // 页面加载时默认获取数据
-        fetchReportData();
-      });
-    </script>
-    
+    <div class="card">
+      <div class="card-header">
+        <h5>Math Enrollment Report</h5>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Student Name</th>
+              <th>Teacher Name</th>
+              <th>Enroll Date</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById('toggleSidebar').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.toggle('collapsed');
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      fetchReportData(); // Load the default report data
+
+      function fetchReportData(startDate = null, endDate = null) {
+        let url = 'fetch_enrollment_report.php';
+        if (startDate && endDate) {
+          url += `?start_date=${startDate}&end_date=${endDate}`;
+        }
+
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            updateTable(data);
+            updateDateRange(startDate, endDate);  // Update the date range based on the selected date
+          })
+          .catch(error => console.error("Error fetching report data:", error));
+      }
+
+      function updateTable(data) {
+        let tableBody = document.querySelector("tbody");
+        tableBody.innerHTML = "";
+
+        if (data.length === 0) {
+          tableBody.innerHTML = `<tr><td colspan="5" class="text-center">No records found</td></tr>`;
+          return;
+        }
+
+        data.forEach((order, index) => {
+          let row = `<tr>
+              <td>${index + 1}</td>
+              <td>${order.student_name}</td>
+              <td>${order.teacher_name}</td>
+              <td>${order.order_date}</td>
+              
+          </tr>`;
+          tableBody.innerHTML += row;
+        });
+      }
+
+      function updateDateRange(startDate, endDate) {
+        let formattedStart = startDate ? new Date(startDate).toISOString().split('T')[0] : 'N/A';
+        let formattedEnd = endDate ? new Date(endDate).toISOString().split('T')[0] : 'N/A';
+
+        // Update the displayed date range
+        document.querySelector(".date-range span").textContent = ` ${formattedStart} to ${formattedEnd}`;
+      }
+
+      document.getElementById('search-btn').addEventListener('click', function() {
+        let startDate = document.getElementById('start-date').value;
+        let endDate = document.getElementById('end-date').value;
+        if (startDate && endDate) {
+          // If both start and end dates are selected, fetch the report data for the range
+          fetchReportData(startDate, endDate);
+        } else {
+          // If no date range is selected, fetch the default report data (current month)
+          fetchReportData();
+        }
+      });
+    });
+  </script>
 </body>
 </html>
-
-
