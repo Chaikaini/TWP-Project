@@ -303,9 +303,10 @@
 
 
 function updateCartDisplay() {
+    function updateCartDisplay() {
     console.log("updateCartDisplay is running!");
 
-    // 通过 ID 获取元素
+    // 获取购物车容器和总价格元素
     let cartContainer = document.querySelector('.cart-items');
     let totalPriceElement = document.getElementById('total-price');
     
@@ -327,6 +328,10 @@ function updateCartDisplay() {
 
     // 遍历购物车数据，渲染每个商品
     cart.forEach(item => {
+        // 确保价格是数字
+        let itemPrice = parseFloat(item.price);
+        totalPrice += itemPrice; // 累加价格
+
         // 创建一个新的 cart-item 元素
         let cartItem = document.createElement('div');
         cartItem.classList.add('cart-item');
@@ -337,7 +342,7 @@ function updateCartDisplay() {
             <div class="cart-item-details">
                 <h5>${item.subject}</h5>
                 <p>Teacher: ${item.teacher}</p>
-                <p>Price: RM ${item.price}</p>
+                <p>Price: RM ${itemPrice.toFixed(2)}</p>
             </div>
             <div class="cart-item-actions">
                 <i class="fas fa-trash" onclick="removeFromCart(${cart.indexOf(item)})"></i>
@@ -346,19 +351,18 @@ function updateCartDisplay() {
 
         // 添加到容器中
         cartContainer.appendChild(cartItem);
-
-        // 累加价格
-        totalPrice += item.price;
     });
 
     // 更新总价
-    totalPriceElement.textContent = totalPrice;
+    totalPriceElement.textContent = totalPrice.toFixed(2); // 显示两位小数
 }
 
 
 
 
-function calculatePrice(course) {
+
+
+/* function calculatePrice(course) {
     const currentMonth = new Date().getMonth();
     const monthsPassed = (currentMonth - course.startMonth + 12) % 12; 
     const remainingMonths = Math.max(6 - monthsPassed, 0); 
@@ -409,7 +413,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.querySelector(".popup-close").addEventListener("click", () => {
     document.querySelector(".popup-info").style.display = "none";
-});
+});   */
 
 
 </script>
