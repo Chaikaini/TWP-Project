@@ -332,7 +332,6 @@ button.btn.btn-primaryy:hover {
     <!-- Header End -->
 
     <div class="profile-container">
-    <?php include 'My_profile.php'; ?> 
         <div class="profile-options">
             <a href="#" id="my-info-tab" class="active">My Information</a>
             <a href="#" id="children-info-tab">Childrens Information</a>
