@@ -302,48 +302,59 @@
 ];
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    let cartList = document.getElementById("cartList");
+function updateCartDisplay() {
+    console.log("updateCartDisplay is running!");
 
-    if (cartList) {
-        fetch("get_cart.php")
-        .then(response => response.json())
-        .then(data => {
-            console.log("Cart data loaded: ", data);  // 添加日志检查数据是否加载成功
-            if (data.length > 0) {
-                cartList.innerHTML = ""; // 清空之前的内容
-                data.forEach(item => {
-                    let li = document.createElement("li");
-                    li.textContent = item.child + " - " + item.subject;
-                    cartList.appendChild(li);
-                });
-            } else {
-                cartList.innerHTML = "<p>Your cart is empty.</p>";
-            }
-        })
-        .catch(error => {
-            console.error("Error loading cart:", error);
-        });
-    } else {
-        console.error("cartList not found!");
+    // 通过 ID 获取元素
+    let cartContainer = document.querySelector('.cart-items');
+    let totalPriceElement = document.getElementById('total-price');
+    
+    // 获取购物车数据
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // 如果购物车没有内容，显示空信息
+    if (cart.length === 0) {
+        cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+        totalPriceElement.textContent = "0";
+        return;
     }
 
+    // 清空之前的内容
+    cartContainer.innerHTML = '';
 
+    // 用于计算总价
+    let totalPrice = 0;
 
+    // 遍历购物车数据，渲染每个商品
+    cart.forEach(item => {
+        // 创建一个新的 cart-item 元素
+        let cartItem = document.createElement('div');
+        cartItem.classList.add('cart-item');
 
-    function removeFromCart(index) {
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        cart.splice(index, 1); // 删除对应索引的项目
-        localStorage.setItem("cart", JSON.stringify(cart)); // 更新 localStorage
-        updateCartDisplay(); // 重新渲染购物车
-    }
+        // 将商品信息渲染到 cart-item 中
+        cartItem.innerHTML = `
+            <img src="${item.image}" alt="${item.subject}">
+            <div class="cart-item-details">
+                <h5>${item.subject}</h5>
+                <p>Teacher: ${item.teacher}</p>
+                <p>Price: RM ${item.price}</p>
+            </div>
+            <div class="cart-item-actions">
+                <i class="fas fa-trash" onclick="removeFromCart(${cart.indexOf(item)})"></i>
+            </div>
+        `;
 
-    // 初次加载时显示购物车
-    updateCartDisplay();
+        // 添加到容器中
+        cartContainer.appendChild(cartItem);
 
-    // 让 removeFromCart 可以在全局使用
-    window.removeFromCart = removeFromCart;
-});
+        // 累加价格
+        totalPrice += item.price;
+    });
+
+    // 更新总价
+    totalPriceElement.textContent = totalPrice;
+}
+
 
 
 
