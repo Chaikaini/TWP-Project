@@ -1,4 +1,7 @@
 <?php
+// 禁用错误报告
+error_reporting(0);
+
 // 连接数据库
 $servername = "localhost";
 $username = "root";
@@ -13,15 +16,15 @@ if ($conn->connect_error) {
     die("连接失败: " . $conn->connect_error);
 }
 
-// 获取课程信息（admin_class.sql）
-$sqlClass = "SELECT class_time, class_capacity FROM admin_class WHERE class_id = 1"; // 假设class_id为1
+// 获取课程信息（admin_class.sql），假设 time 和 day 需要拼接
+$sqlClass = "SELECT CONCAT(time, ' ', day) AS class_time, class_capacity FROM admin_class WHERE class_id = 1"; // 假设class_id为1
 $resultClass = $conn->query($sqlClass);
 
 $classData = array();
 
 if ($resultClass->num_rows > 0) {
     $rowClass = $resultClass->fetch_assoc();
-    $classData['classTime'] = $rowClass['class_time']; // 假设class_time已经是拼接后的时间
+    $classData['classTime'] = $rowClass['class_time']; // 拼接后的时间
     $classData['classCapacity'] = $rowClass['class_capacity'];
 } else {
     $classData['classTime'] = "未提供";
@@ -50,5 +53,6 @@ if ($resultChildren->num_rows > 0) {
 $conn->close();
 
 // 返回数据为JSON格式
+header('Content-Type: application/json'); // 确保返回 JSON 格式
 echo json_encode(array('classData' => $classData, 'childrenData' => $childrenData));
 ?>
