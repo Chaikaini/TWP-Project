@@ -517,29 +517,38 @@
         let subjectPrice = document.getElementById("subjectPrice").innerText.replace('Price: RM', '').trim();
         let price = parseFloat(subjectPrice);
 
+        if (isNaN(price)) {
+            alert("Invalid price value");
+            return;
+        }
+
         const cartItem = {
             subject: subjectName,
             price: price,
             child: selectedChild
         };
 
-        // 发送购物车项到服务器
-        fetch('add_to_cart.php', {
+        // 获取当前购物车数据
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.push(cartItem);
+
+        // 发送购物车数据到 PHP 后端（POST 请求）
+        fetch('get_cart.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(cartItem)
+            body: JSON.stringify({ cart: cart })
         })
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             alert("Item added to cart!");
         })
-        .catch(error => {
-            console.error("Error adding to cart:", error);
-        });
+        .catch(error => console.error('Error:', error));
     });
 });
+
 
 
 
