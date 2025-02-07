@@ -276,62 +276,63 @@
     <script>
         // Sample cart items data
        
-        const cartItems = [
-    {
-        image: 'img/english.jpg',
-        subject: 'English class',
-        teacher: 'Mr. John',
-        year: 'Year 1', 
-        price: 85,
-        time: 'Monday, 2.30pm-4.30pm',
-        capacity: '20/30',
-        student: 'Yuna',
-        startMonth: 0 // January
-    },
-    {
-        image: 'img/math.jpg',
-        subject: 'Math  class',
-        teacher: 'Mr. David',
-        year: 'Year 1', 
-        price: 85,
-        time: 'Wednesday, 2.30pm-4.30pm',
-        capacity: '20/30',
-        student: 'Yuna',
-        startMonth: 0
-    }
-];
+     // 在页面加载时调用这个函数
+function loadCartData() {
+    // 模拟从 get_cart.php 获取的数据
+    const cartData = [
+        {
+            image: 'img/english.jpg',
+            subject: 'Year 1 English',
+            teacher: 'Mr. John',
+            year: 'Year 1', 
+            price: 85,
+            time: 'Monday, 2.30pm-4.30pm',
+            capacity: '20/30',
+            student: 'Yuna',
+            startMonth: 0 // January
+        },
+        {
+            image: 'img/math.jpg',
+            subject: 'Year 1 Math',
+            teacher: 'Mr. David',
+            year: 'Year 1', 
+            price: 85,
+            time: 'Wednesday, 2.30pm-4.30pm',
+            capacity: '20/30',
+            student: 'David',
+            startMonth: 0
+        }
+    ];
 
+    // 将数据存储到 localStorage
+    localStorage.setItem('cart', JSON.stringify(cartData));
+    updateCartDisplay();
+}
 
+// 更新购物车显示
 function updateCartDisplay() {
     console.log("updateCartDisplay is running!");
 
-    // 获取购物车容器和总价格元素
     let cartContainer = document.querySelector('.cart-items');
     let totalPriceElement = document.getElementById('total-price');
     
-    // 获取购物车数据
+    // 从 localStorage 获取购物车数据
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    // 如果购物车没有内容，显示空信息
     if (cart.length === 0) {
         cartContainer.innerHTML = "<p>Your cart is empty.</p>";
         totalPriceElement.textContent = "0";
         return;
     }
 
-    // 清空之前的内容
-    cartContainer.innerHTML = '';
+    cartContainer.innerHTML = '';  // 清空现有购物车显示
 
-    // 用于计算总价
     let totalPrice = 0;
 
-    // 遍历购物车数据，渲染每个商品
     cart.forEach(item => {
-        // 确保价格是数字
         let itemPrice = parseFloat(item.price);
         totalPrice += itemPrice; // 累加价格
 
-        // 创建一个新的 cart-item 元素
         let cartItem = document.createElement('div');
         cartItem.classList.add('cart-item');
 
@@ -348,13 +349,25 @@ function updateCartDisplay() {
             </div>
         `;
 
-        // 添加到容器中
         cartContainer.appendChild(cartItem);
     });
 
-    // 更新总价
-    totalPriceElement.textContent = totalPrice.toFixed(2); // 显示两位小数
+    totalPriceElement.textContent = totalPrice.toFixed(2); // 更新总价
 }
+
+// 删除购物车中的某项
+function removeFromCart(index) {
+    let cart = JSON.parse(localStorage.getItem("cart"));
+    cart.splice(index, 1);  // 删除指定项
+    localStorage.setItem('cart', JSON.stringify(cart));  // 更新 localStorage
+    updateCartDisplay();  // 更新显示
+}
+
+// 例如页面加载时调用 loadCartData()
+window.onload = function() {
+    loadCartData();  // 加载购物车数据
+};
+
 
 
 
