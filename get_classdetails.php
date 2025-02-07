@@ -15,6 +15,9 @@ if ($conn->connect_error) {
 // 获取课程数据，根据 class_name 来过滤
 $class_name = isset($_GET['class_name']) ? $_GET['class_name'] : 'Year 1 English'; // 如果没有传递 class_name 参数，默认使用 'Year 1 English'
 
+// 调试输出，查看传递的 class_name
+echo "Requested class name: " . htmlspecialchars($class_name); // 输出 class_name
+
 $sql = "SELECT * FROM classdetail WHERE class_name = '$class_name'";  // 查询指定课程
 $result = $conn->query($sql);
 
@@ -26,7 +29,7 @@ if ($result->num_rows > 0) {
     }
     echo json_encode($classes); // 返回 JSON 数据
 } else {
-    echo "No data found";
+    echo "No data found for class: " . htmlspecialchars($class_name); // 调试输出
 }
 
 $conn->close();
