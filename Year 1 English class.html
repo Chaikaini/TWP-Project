@@ -576,31 +576,6 @@ document.getElementById("yearFilter").addEventListener("change", function() {
 });
 
 
-function loadClassInfo(classId, userEmail) {
-    fetch(`fetch_class_data.php?class_id=${classId}&email=${encodeURIComponent(userEmail)}`)
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById("classTime").innerText = data.classData.classTime;
-            document.getElementById("currentCapacity").innerText = data.classData.currentCapacity;
-            document.getElementById("maxCapacity").innerText = data.classData.maxCapacity;
-            document.getElementById("selectedChildren").innerText = data.classData.selectedChildren;
-
-            const childrenList = document.getElementById("childrenList");
-            childrenList.innerHTML = ""; // 清空当前内容
-
-            data.childrenData.forEach(child => {
-                const li = document.createElement("li");
-                li.textContent = `${child.name} (Year ${child.grade})`;
-                childrenList.appendChild(li);
-            });
-        })
-        .catch(error => console.error("Error loading class info:", error));
-}
-
-// 示例调用（加载 Eng0001 的数据）
-loadClassInfo("Eng0001", "kaini@gmail.com");
-
-
     </script>
                   <!-- Footer Start -->
                   <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
