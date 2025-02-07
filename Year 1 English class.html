@@ -436,9 +436,7 @@
                     <span class="popup-label" id="selectedChildren">Children:</span>
                     <span class="popup-value">
                         <select id="childrenSelect">
-                            <option value="1">Yuna</option> 
-                            <option value="2">John</option>
-                            <option value="3">Sara</option>
+                            <option value="">Choose the child</option>
                         </select>
                     </span>
                 </div>
@@ -525,6 +523,22 @@
                 .catch(error => console.error('Error:', error));
         });
 
+        document.addEventListener("DOMContentLoaded", function() {
+    let addToCartButton = document.getElementById("addToCart");
+    addToCartButton.disabled = true; // 默认禁用
+
+    let select = document.getElementById("childrenSelect");
+
+    select.addEventListener("change", function() {
+        if (select.value) {
+            addToCartButton.disabled = false; // 选择了孩子，启用按钮
+        } else {
+            addToCartButton.disabled = true; // 没选孩子，禁用按钮
+        }
+    });
+});
+
+
         // 购物车功能
         document.getElementById("addToCart").addEventListener("click", function() {
             let selectedChild = document.getElementById("childrenSelect").value;
@@ -557,6 +571,25 @@
             })
             .catch(error => console.error('Error:', error));
         });
+
+        
+        document.addEventListener("DOMContentLoaded", function() {
+    fetch('get_child.php?id=2') // 通过查询参数获取 id 为 2 的孩子数据
+        .then(response => response.json())
+        .then(data => {
+            let select = document.getElementById("childrenSelect");
+            select.innerHTML = '<option value="">Choose</option>'; // 先清空后填充
+
+            // 如果数据存在，将孩子信息填充到下拉框
+            if (data && data.id) {
+                let option = document.createElement("option");
+                option.value = data.id;
+                option.textContent = data.name;
+                select.appendChild(option);
+            }
+        })
+        .catch(error => console.error('Children information fail:', error));
+});
 
 
         function setRating(rating) {
