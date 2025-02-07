@@ -1,27 +1,22 @@
 <?php
-session_start();
-header('Content-Type: application/json');
-include 'db_connection.php';
+header('Content-Type: application/json'); // 确保返回 JSON
+include 'db_connect.php'; // 确保数据库连接文件存在
 
-// 确保用户已登录
-if (!isset($_SESSION['email'])) {
-    echo json_encode(["error" => "用户未登录"]);
+if (!$conn) {
+    echo json_encode(["error" => "database connot connect"]);
     exit();
 }
 
-$email = $_SESSION['email']; // 获取当前登录用户的邮箱
-
-// 只查询当前用户的孩子
-$sql = "SELECT * FROM childreninfo WHERE email = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $email);
-$stmt->execute();
-$result = $stmt->get_result();
+$sql = "SELECT * FROM childreninfo"; // 选择表
+$result = $conn->query($sql);
 
 $children = [];
-while ($row = $result->fetch_assoc()) {
-    $children[] = $row;
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $children[] = $row;
+    }
 }
 
-echo json_encode($children);
+echo json_encode($children, JSON_PRETTY_PRINT); // 返回 JSON
 ?>
