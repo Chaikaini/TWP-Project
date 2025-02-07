@@ -12,7 +12,7 @@ $db_admin = "admin"; // admin_class 数据库
 $db_profile = "profile"; // childreninfo 数据库
 
 // 创建连接
-$conn = new mysqli($servername, $username, $password, "", $db_admin);
+$conn = new mysqli($servername, $username, $password, $db_admin);
 
 // 检查连接
 if ($conn->connect_error) {
