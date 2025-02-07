@@ -332,6 +332,7 @@ button.btn.btn-primaryy:hover {
     <!-- Header End -->
 
     <div class="profile-container">
+    <?php include 'My_profile.php'; ?> 
         <div class="profile-options">
             <a href="#" id="my-info-tab" class="active">My Information</a>
             <a href="#" id="children-info-tab">Childrens Information</a>
@@ -696,10 +697,9 @@ document.getElementById("avatar-upload").addEventListener("change", function(eve
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-    // 获取所有删除按钮
     document.querySelectorAll(".delete-btn").forEach(button => {
         button.addEventListener("click", function() {
-            let classId = this.getAttribute("data-kidNumber"); // 获取 class_id
+            let classId = this.getAttribute("data-kidNumber"); 
             if (confirm("Are you sure you want to delete this child?")) {
                 fetch("profile_deletechild.php", {
                     method: "POST",
@@ -708,8 +708,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 })
                 .then(response => response.text())
                 .then(data => {
-                    alert(data); // 显示删除结果
-                    location.reload(); // 重新加载页面
+                    alert(data); 
+                    location.reload(); 
                 })
                 .catch(error => console.error("Error:", error));
             }
