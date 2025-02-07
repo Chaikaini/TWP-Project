@@ -382,14 +382,15 @@ function editItem(index) {
 
 function removeFromCart(index) {
     cartItems.splice(index, 1); 
-    updateCart(); 
+    updateCartDisplay();  // 这里改为 updateCartDisplay()
     updateTotalPrice(); 
 }
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    updateCart();
+    updateCartDisplay();  // 改成 updateCartDisplay()
 });
+
 
 
 document.querySelector(".popup-close").addEventListener("click", () => {
