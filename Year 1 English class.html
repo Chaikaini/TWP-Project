@@ -558,7 +558,7 @@
 
         
 document.addEventListener("DOMContentLoaded", function() {
-    fetch('get_children.php') // 让这个 PHP 文件返回 JSON 数据
+    fetch('get_child.php') // 让这个 PHP 文件返回 JSON 数据
         .then(response => response.json())
         .then(data => {
             let select = document.getElementById("childrenSelect");
