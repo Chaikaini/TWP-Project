@@ -510,11 +510,37 @@
     document.getElementById('popup').style.display = 'none'; // Hide popup on close
     });
 
-// Add to cart button functionality
-    document.getElementById('addToCart').addEventListener('click', function() {
-    alert('Item added to cart!'); // Alert when the item is added to the cart
-    document.getElementById('popup').style.display = 'none'; // Hide the popup
-    });
+// 获取“加入购物车”按钮并添加点击事件监听器
+document.getElementById('addToCart').addEventListener('click', function() {
+    // 获取课程信息（可以从弹出框中动态获取）
+    const course = {
+        image: 'img/english.jpg', // 课程图片路径
+        subject: 'Year 1 English', // 课程名称
+        teacher: 'Mr. John', // 教师
+        year: 'Year 1', // 年级
+        price: 510, // 价格 (85 * 6)
+        time: document.getElementById('popupTime').innerText, // 从弹出框获取时间
+        capacity: document.getElementById('popupchildren').innerText, // 从弹出框获取容量
+        student: document.getElementById('childrenSelect').value, // 学生（从选择框中获取）
+        startMonth: 0 // 开始月份（根据需要修改）
+    };
+
+    // 获取现有的购物车内容（如果有）
+    let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+
+    // 将新课程添加到购物车
+    cartItems.push(course);
+
+    // 更新 localStorage
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+    // 提示用户已成功加入购物车
+    alert('Item added to cart!');
+
+    // 关闭弹出框
+    document.getElementById('popup').style.display = 'none';
+});
+
 
 
 
