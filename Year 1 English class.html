@@ -510,11 +510,20 @@
     document.getElementById('popup').style.display = 'none'; // Hide popup on close
     });
 
-// Add to cart button functionality
-    document.getElementById('addToCart').addEventListener('click', function() {
-    alert('Item added to cart!'); // Alert when the item is added to the cart
-    document.getElementById('popup').style.display = 'none'; // Hide the popup
+    //Add to cart functionality
+    document.getElementById("addToCart").addEventListener("click", function() {
+    let selectedChild = document.getElementById("childrenSelect").value;
+    let subjectName = document.getElementById("subjectName").innerText; // 获取课程名称
+
+    fetch("add_to_cart.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `subject=${encodeURIComponent(subjectName)}&child=${encodeURIComponent(selectedChild)}`
+    }).then(response => response.text()).then(data => {
+        alert(data); // 显示添加成功
     });
+});
+
 
 
 
