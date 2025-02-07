@@ -390,13 +390,7 @@ function updateCartDisplay() {
     totalPriceElement.textContent = totalPrice.toFixed(2); // 更新总价
 }
 
-// 删除购物车中的某项
-function removeFromCart(index) {
-    let cart = JSON.parse(localStorage.getItem("cart"));
-    cart.splice(index, 1);  // 删除指定项
-    localStorage.setItem('cart', JSON.stringify(cart));  // 更新 localStorage
-    updateCartDisplay();  // 更新显示
-}
+
 
 // 例如页面加载时调用 loadCartData()
 window.onload = function() {
