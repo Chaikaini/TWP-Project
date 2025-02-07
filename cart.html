@@ -312,7 +312,7 @@ function loadCartData() {
             <div class="cart-item-details">
                 <h5>${item.subject}</h5>
                 <p>Child: ${item.child}</p>
-                <p>Price: RM ${itemPrice}</p>
+                <p>Price: RM ${itemPrice.toFixed(2)}</p>
             </div>
             <div class="cart-item-actions">
                 <i class="fas fa-trash" onclick="removeFromCart(${index})"></i>
