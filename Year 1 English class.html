@@ -557,18 +557,12 @@
         });
 
         
-        document.addEventListener("DOMContentLoaded", function() {
-    fetch('get_child.php')
+document.addEventListener("DOMContentLoaded", function() {
+    fetch('get_child.php') // 让这个 PHP 文件返回 JSON 数据
         .then(response => response.json())
         .then(data => {
-            if (data.error) {
-                console.error("Information children fail:", data.error);
-                return;
-            }
-
             let select = document.getElementById("childrenSelect");
-            select.innerHTML = '<option value="">Choose</option>'; // 清空后填充
-
+            select.innerHTML = '<option value="">Choose</option>'; // 先清空后填充
             data.forEach(child => {
                 let option = document.createElement("option");
                 option.value = child.id;
@@ -578,7 +572,6 @@
         })
         .catch(error => console.error('Children information fail:', error));
 });
-
 
         function setRating(rating) {
     const stars = document.querySelectorAll('.stars-container .star');
