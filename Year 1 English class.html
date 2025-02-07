@@ -510,16 +510,18 @@
     document.getElementById('popup').style.display = 'none'; // Hide popup on close
     });
 
-    //Add to cart functionality
     document.getElementById("addToCart").addEventListener("click", function() {
     let selectedChild = document.getElementById("childrenSelect").value;
     let subjectName = document.getElementById("subjectName").innerText; // 获取课程名称
-    let subjectPrice = document.getElementById("subjectPrice").innerText; // 获取课程价格
+    let subjectPrice = document.getElementById("subjectPrice").innerText.replace('RM', '').trim(); // 获取课程价格，并去掉货币符号
+
+    // 将价格转换为数字类型，确保计算时正确
+    let price = parseFloat(subjectPrice);
 
     // 创建一个购物车项目对象
     const cartItem = {
         subject: subjectName,
-        price: subjectPrice,
+        price: price,
         child: selectedChild
     };
 
@@ -534,6 +536,7 @@
 
     alert("Item added to cart!");
 });
+
 
 
 
