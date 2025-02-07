@@ -402,48 +402,48 @@
                     <p><strong>Price: RM</strong> 510 (85 * 6 Month)</p>
                 </div>
 
-     <!-- Time Slot Selection -->
-     <div class="time-slot-container">
-        <div class="time-slot green" id="partA">
-            <strong>Part A</strong> (January - June)
-        </div> <!-- Available part -->
-        <div class="time-slot gray" id="partB">
-            <strong>Part B</strong> (July - December) (No open)
-        </div> <!-- Unavailable part -->
-    </div>
-
-    <div class="popup" id="popup">
-        <div class="popup-content">
-            <span class="close-btn" id="closePopup">&times;</span>
-            <h4>Class Time Details</h4>
-            
-            <!-- Information section with flex layout -->
-            <div class="popup-info">
-                <div class="popup-row">
-                    <span class="popup-label">Month:</span>
-                    <span class="popup-value" id="popupMonth"></span>
-                </div>
-                <div class="popup-row">
-                    <span class="popup-label" id="classTime">Time:</span>
-                    <span class="popup-value" id="popupTime"></span>
-                </div>
-                <div class="popup-row">
-                    <span class="popup-label" id="currentCapacity">Capacity:</span>
-                    <span class="popup-value" id="popupchildren"></span>
-                </div>
-                <div class="popup-row">
-                    <span class="popup-label" id="selectedChildren">Children:</span>
-                    <span class="popup-value">
-                        <select id="childrenSelect">
-                            <option value="">Choose the child</option>
-                        </select>
-                    </span>
-                </div>
-            </div>
-    
-            <button id="addToCart">Add to Cart</button>
+        <!-- Time Slot Selection -->
+        <div class="time-slot-container">
+            <div class="time-slot green" id="partA">
+                <strong>Part A</strong> (January - June)
+            </div> <!-- Available part -->
+            <div class="time-slot gray" id="partB">
+                <strong>Part B</strong> (July - December) (No open)
+            </div> <!-- Unavailable part -->
         </div>
-    </div>
+    
+        <div class="popup" id="popup">
+            <div class="popup-content">
+                <span class="close-btn" id="closePopup">&times;</span>
+                <h4>Class Time Details</h4>
+                
+                <!-- Information section with flex layout -->
+                <div class="popup-info">
+                    <div class="popup-row">
+                        <span class="popup-label">Month:</span>
+                        <span class="popup-value" id="popupMonth"></span>
+                    </div>
+                    <div class="popup-row">
+                        <span class="popup-label" id="classTime">Time:</span>
+                        <span class="popup-value" id="popupTime"></span>
+                    </div>
+                    <div class="popup-row">
+                        <span class="popup-label" id="currentCapacity">Capacity:</span>
+                        <span class="popup-value" id="popupchildren"></span>
+                    </div>
+                    <div class="popup-row">
+                        <span class="popup-label" id="selectedChildren">Children:</span>
+                        <span class="popup-value">
+                            <select id="childrenSelect">
+                                <option value="">Choose the child</option>
+                            </select>
+                        </span>
+                    </div>
+                </div>
+        
+                <button id="addToCart">Add to Cart</button>
+            </div>
+        </div>
     
 
 
@@ -484,8 +484,8 @@
     <!-- JavaScript -->
     <script>
 
-         // 页面加载时获取课程状态（你可以从后台获取数据）
-         document.addEventListener("DOMContentLoaded", function() {
+  // 页面加载时获取课程状态（你可以从后台获取数据）
+  document.addEventListener("DOMContentLoaded", function() {
             fetch('y1_math_classdetails.php')  // PHP 查询返回课程数据
                 .then(response => response.json())
                 .then(data => {
