@@ -276,7 +276,7 @@
     <script>
         // Sample cart items data
 
-        document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     loadCartData();
 });
 
@@ -334,30 +334,21 @@ function loadCartData() {
 
 
 function removeFromCart(index) {
-    // 获取购物车数据（从 GET 请求中获取）
-    fetch('get_cart.php', { method: 'GET' })
+    // 发送请求到服务器删除购物车项目
+    fetch('remove_from_cart.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ index: index })
+    })
     .then(response => response.json())
     .then(data => {
-        let cart = data.cart;
-
-        // 从购物车中删除选中的项
-        cart.splice(index, 1);
-
-        // 将更新后的购物车数据保存到服务器
-        fetch('get_cart.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ cart: cart })
-        })
-        .then(response => response.json())
-        .then(() => {
-            loadCartData(); // 重新加载购物车数据
-        })
-        .catch(error => {
-            console.error("Error updating cart:", error);
-        });
+        loadCartData(); // 重新加载购物车数据
     })
-    .catch(error => console.error("Error getting cart data:", error));
+    .catch(error => {
+        console.error("Error removing from cart:", error);
+    });
 }
 
 
