@@ -1,4 +1,6 @@
 <?php
+include  'dbprofile_connection.php';
+
 $servername = "localhost";
 $username = "root";
 $password = "";

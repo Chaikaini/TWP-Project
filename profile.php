@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-?>
+
 
 <head>
     <meta charset="utf-8">
@@ -281,6 +278,8 @@ button.btn.btn-primaryy:hover {
 </head>
 
 <body>
+
+
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
