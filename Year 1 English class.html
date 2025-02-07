@@ -557,25 +557,31 @@
         child: selectedChild
     };
 
-    // 直接向后端发送购物车数据
-    fetch('save_cart.php', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ cart: cart }) // 确保 `cart` 是数组
-})
-.then(response => response.json())
-.then(data => {
-    console.log(data); // 调试输出
-    if (data.status === 'success') {
-        alert('Cart saved successfully!');
-    } else {
-        alert('Error: ' + data.message);
-    }
+    let cart = [];
+
+    fetch('get_cart.php', { method: 'GET' })
+    .then(response => response.json())
+    .then(data => {
+        cart = data.cart || []; // **确保 cart 是数组**
+        cart.push(cartItem); // **添加新的商品**
+
+        // **发送更新后的 cart 到服务器**
+        return fetch('save_cart.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ cart: cart }) // **发送完整的 cart**
+        });
     })
-    .catch(error => {
-        console.error("Error:", error);
-        alert("There was an error adding the item to the cart.");
-    });
+    .then(response => response.json())
+    .then(data => {
+        console.log("Server response:", data);
+        if (data.status === 'success') {
+            alert("Item added to cart!");
+        } else {
+            alert("Error: " + data.message);
+        }
+    })
+    .catch(error => console.error('Error:', error));
 });
 
 
