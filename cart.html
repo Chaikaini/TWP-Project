@@ -229,7 +229,7 @@
         <!-- Total Price Section -->
         <div class="total-price">
             <p>Total: RM <span id="total-price">0</span></p>
-            <button class="btn-checkout">Proceed to CheckOut</button>
+            <button class="btn-checkout" id="checkoutButton">Proceed to CheckOut</button>
         </div>
     </div>
 
@@ -279,7 +279,25 @@
         document.addEventListener('DOMContentLoaded', function() {
     loadCartData();
 });
-
+document.getElementById('checkoutButton').addEventListener('click', function() {
+    // 发送 CHECK 请求来保存购物车数据
+    fetch('get_cart.php', {
+        method: 'CHECK',
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            // 提示用户结账成功
+            alert('Checkout successful!');
+            
+            // 跳转到 check.html 页面
+            window.location.href = 'check.html';
+        } else {
+            alert('Error during checkout: ' + data.message);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
 function loadCartData() {
     // 发送 GET 请求获取购物车数据
     fetch('get_cart.php', {
