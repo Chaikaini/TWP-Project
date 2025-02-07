@@ -424,6 +424,10 @@
             <!-- Information section with flex layout -->
             <div class="popup-info">
                 <div class="popup-row">
+                    <span class="popup-label">Month:</span>
+                    <span class="popup-value" id="popupMonth"></span>
+                </div>
+                <div class="popup-row">
                     <span class="popup-label">Time:</span>
                     <span class="popup-value" id="popupTime"></span>
                 </div>
@@ -526,6 +530,7 @@
         cart.push(cartItem);
 
         localStorage.setItem('cart', JSON.stringify(cart));
+        alert(`Subject: ${cartItem.subject}\nPrice: RM ${cartItem.price.toFixed(2)}\nChild: ${cartItem.child}`);
         alert("Item added to cart!");
     });
 });
@@ -726,8 +731,6 @@ document.getElementById("yearFilter").addEventListener("change", function() {
             fetchReviews(); // 默认加载所有评论（即英文一年级的评论）
         };
     </script>
-
-    
 </body>
 
 </html>
