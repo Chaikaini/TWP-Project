@@ -9,14 +9,33 @@ session_start(); // 启动会话
 // 获取客户端发送的 JSON 数据
 $cart = json_decode(file_get_contents('php://input'), true)['cart'];
 
-// 检查购物车是否为空
-if (empty($cart)) {
-    echo json_encode(['status' => 'error', 'message' => 'No items to save']);
+if (!$cart) {
+    error_log("No cart data received!");
+    echo json_encode(['status' => 'error', 'message' => 'No cart data']);
     exit;
 }
 
+error_log("Cart data received: " . print_r($cart, true));
+
 // 连接到数据库（假设已经创建了数据库连接函数）
 $conn = new mysqli("localhost", "username", "password", "database_name");
+
+$sql = "INSERT INTO cart_items (subject, price, child) VALUES (?, ?, ?)";
+$stmt = $conn->prepare($sql);
+
+if (!$stmt) {
+    error_log('SQL error: ' . $conn->error);
+    echo json_encode(['status' => 'error', 'message' => 'Database error: ' . $conn->error]);
+    exit;
+}
+
+$stmt->bind_param("sds", $subject, $price, $child);
+
+if (!$stmt->execute()) {
+    error_log('Execution error: ' . $stmt->error);
+    echo json_encode(['status' => 'error', 'message' => 'Failed to save cart item: ' . $stmt->error]);
+    exit;
+}
 
 // 检查连接
 if ($conn->connect_error) {

@@ -283,33 +283,24 @@
 document.getElementById('checkoutButton').addEventListener('click', function() {
     // 获取购物车数据
     fetch('get_cart.php', {
-        method: 'GET'
-    })
-    .then(response => response.json())
-    .then(data => {
-        let cart = data.cart;
+    method: 'GET'
+})
+.then(response => response.json())
+.then(data => {
+    console.log('Cart data fetched:', data);  // 查看返回的购物车数据
+    let cart = data.cart;
 
-        // 发送购物车数据到 save_cart.php
-        fetch('save_cart.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ cart: cart }) // 发送购物车数据
-        })
-        .then(response => response.json())
-        .then(result => {
-            if (result.status === 'success') {
-                alert('Checkout successful!');
-                // 跳转到 check.html 页面
-                window.location.href = 'check.html';
-            } else {
-                alert('Error during checkout: ' + result.message);
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    })
-    .catch(error => console.error('Error fetching cart data:', error));
+    if (!cart || cart.length === 0) {
+        console.log('No items in cart');  // 确保购物车不为空
+        alert('Your cart is empty!');
+        return;
+    }
+
+    // 后续操作
+})
+.catch(error => {
+    console.error('Error fetching cart data:', error);
+    alert('Error fetching cart data.');
 });
 
 
