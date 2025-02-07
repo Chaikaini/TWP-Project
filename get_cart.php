@@ -3,14 +3,21 @@ session_start(); // 启动会话
 
 // 判断请求方法
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // 处理保存购物车数据
+    // 获取请求的购物车数据
     $cart = json_decode(file_get_contents('php://input'), true)['cart'];
 
-    // 将购物车数据存储在会话中
+    // 检查是否已经有购物车数据
+    if (isset($_SESSION['cart'])) {
+        // 如果有，合并现有购物车和新添加的项
+        $existingCart = $_SESSION['cart'];
+        $cart = array_merge($existingCart, $cart);
+    }
+
+    // 将更新后的购物车数据存储到会话中
     $_SESSION['cart'] = $cart;
 
     // 返回成功响应
-    echo json_encode(['status' => 'success', 'cart' => $cart]);
+    echo json_encode(['status' => 'success', 'cart' => $_SESSION['cart']]);
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // 处理获取购物车数据
     $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
