@@ -305,12 +305,13 @@
 document.addEventListener("DOMContentLoaded", function () {
     let cartList = document.getElementById("cartList");
 
-    if (cartList) { // ✅ 先检查元素是否存在
+    if (cartList) {
         fetch("get_cart.php")
         .then(response => response.json())
         .then(data => {
+            console.log("Cart data loaded: ", data);  // 添加日志检查数据是否加载成功
             if (data.length > 0) {
-                cartList.innerHTML = ""; // 先清空
+                cartList.innerHTML = ""; // 清空之前的内容
                 data.forEach(item => {
                     let li = document.createElement("li");
                     li.textContent = item.child + " - " + item.subject;
@@ -320,10 +321,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 cartList.innerHTML = "<p>Your cart is empty.</p>";
             }
         })
-        .catch(error => console.error("Error loading cart:", error));
+        .catch(error => {
+            console.error("Error loading cart:", error);
+        });
     } else {
         console.error("cartList not found!");
     }
+
 
 
 
