@@ -457,7 +457,24 @@ button.btn.btn-primaryy:hover {
         <div class="profile-content" id="history-content">
             <h3>Payment History</h3>
             <p>Here you can view your payment for tuition fee history.</p>
-            <!-- Add form or content for History -->
+            <table class="table table-striped">
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                <th>Student Name</th>
+                <th>Course Name</th>
+                <th>Payment Method</th>
+                <th>Total Amount</th>
+                <th>Payment Date</th>
+                
+                </tr>
+            </thead>   
+        <tbody>
+            <?php include 'profile_history.php'; ?>
+        </tbody>
+    </table>
+    </table>
         </div>
     </div>
 
