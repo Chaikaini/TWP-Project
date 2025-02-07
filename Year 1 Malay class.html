@@ -403,14 +403,17 @@
                     <p id="subjectPrice"><strong>Price: RM</strong> 510 </p>
                 </div>
 
-     <!-- Time Slot Selection -->
-     <div class="time-slot-container">
-        <div class="time-slot green" id="partA">
-            <strong>Part A</strong> (January - June)
-        </div> <!-- Available part -->
-        <div class="time-slot gray" id="partB">
-            <strong>Part B</strong> (July - December) (No open)
-        </div> <!-- Unavailable part -->
+                <!-- Time Slot Selection -->
+                <div class="time-slot-container">
+                    <div class="time-slot green" id="partA">
+                        <strong>Part A</strong> (January - June)
+                    </div> <!-- Available part -->
+                    <div class="time-slot gray" id="partB">
+                        <strong>Part B</strong> (July - December) (No open)
+                    </div> <!-- Unavailable part -->
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="popup" id="popup">
@@ -425,18 +428,20 @@
                     <span class="popup-value" id="popupMonth"></span>
                 </div>
                 <div class="popup-row">
-                    <span class="popup-label" id="classTime">Time:</span>
+                    <span class="popup-label">Time:</span>
                     <span class="popup-value" id="popupTime"></span>
                 </div>
                 <div class="popup-row">
-                    <span class="popup-label" id="currentCapacity">Capacity:</span>
+                    <span class="popup-label">Capacity:</span>
                     <span class="popup-value" id="popupchildren"></span>
                 </div>
                 <div class="popup-row">
-                    <span class="popup-label" id="selectedChildren">Children:</span>
+                    <span class="popup-label">Children:</span>
                     <span class="popup-value">
                         <select id="childrenSelect">
-                            <option value="">Choose the child</option>
+                            <option value="1">Yuna</option> 
+                            <option value="2"></option>
+                            <option value="3"></option>
                         </select>
                     </span>
                 </div>
@@ -445,20 +450,24 @@
             <button id="addToCart">Add to Cart</button>
         </div>
     </div>
+    
+
+
 
     <div class="container">
         <!-- Subject Overview Section -->
         <section class="subject-overview">
             <h2>Subject Overview</h2>
-            <p>In this subject, we will help you quickly master key strategies for the English DSE exam. We focus on high-efficiency techniques, practical advice, and step-by-step guidance. You'll learn how to:</p>
+            <p>In this subject, we will help you quickly master key strategies for the Year 1 Bahasa Melayu exam. We focus on effective techniques, practical advice, and step-by-step guidance. You will learn how to: </p>
             <ul>
-                <li>Understand the exam format and each section's focus.</li>
-                <li>Develop critical reading and writing skills with targeted practice.</li>
-                <li>Learn essential grammar rules and vocabulary needed for the DSE exam.</li>
+                <li>Understand the exam format and the focus of each section.</li>
+                <li>Develop essential reading and writing skills through targeted practice.</li>
+                <li>Learn the basic grammar rules and vocabulary needed for Year 1 Bahasa Melayu.</li>
                 <li>Focus on key past paper topics and strategies for answering questions effectively.</li>
-                <li>Improve exam-time management and tips for getting the best results in limited time.</li>
+                <li>Improve time management skills for exams and tips for achieving the best results under time constraints.</li>
             </ul>
-            <p>Our goal is to transform English from a weak subject into your strongest asset, helping you achieve the highest marks possible and ensuring you secure your university entry!</p>
+            <p>Our goal is to transform Bahasa Melayu from a challenging subject into your strongest asset, helping you achieve the highest marks possible and ensuring you secure your university entry!</p>
+            
         </section>
     
         <section class="review-section">
@@ -467,129 +476,63 @@
                 <label for="yearFilter">Filter by Year: </label>
                 <select id="yearFilter">
                     <option value="All">All</option>
-                    <option value="2025">2025</option>
+                    <option value="2024">2025</option>
                     <option value="2024">2024</option>
                     <option value="2023">2023</option>
                 </select>
             </div>
-            <div id="review-list"></div>
+            
+            <div id = "review-list"></div>
         </section>
+        
     </div>
+    
 
+    <!-- JavaScript -->
     <script>
-        // 页面加载时获取课程状态（你可以从后台获取数据）
-        document.addEventListener("DOMContentLoaded", function() {
-            fetch('get_classdetails.php')  // PHP 查询返回课程数据
-                .then(response => response.json())
-                .then(data => {
-                    // 假设我们获取的是 Year 1 English 类别
-                    const partA = data.find(classDetail => classDetail.part === 'Part A');
-                    const partB = data.find(classDetail => classDetail.part === 'Part B');
 
-                    // 更新 Part A 和 Part B 的状态
-                    if (partA && partA.status === 'available') {
-                        document.getElementById('partA').classList.remove('gray');
-                        document.getElementById('partA').classList.add('green');
-                    }
+     document.getElementById('partA').addEventListener('click', function() {
+    // Update the popup content for Part A
+    document.getElementById('popupMonth').innerText = 'January - June'; // Month
+    document.getElementById('popupTime').innerText = 'Tuesday 2.30pm-4.30pm'; // Time
+    document.getElementById('popupchildren').innerText = "20/30"; // Capacity
+    document.getElementById('popup').style.display = 'flex'; // Show the popup
+    });
 
-                    if (partB && partB.status === 'unavailable') {
-                        document.getElementById('partB').classList.add('disabled');
-                    } else {
-                        document.getElementById('partB').classList.remove('disabled');
-                    }
+    document.getElementById('partB').addEventListener('click', function() {
+    // Update the popup content for Part B
+    document.getElementById('popupMonth').innerText = 'July - December'; // Month
+    document.getElementById('popupTime').innerText = 'Tuesday 2.30pm-4.30pm'; // Time
+    document.getElementById('popupchildren').innerText = "0/30 (Unavailable)"; // Capacity
+    document.getElementById('popup').style.display = 'flex'; // Show the popup
+    });
 
-                    // 点击 Part A 和 Part B 处理弹出内容
-                    document.getElementById('partA').addEventListener('click', function() {
-                        document.getElementById('popupMonth').innerText = partA.month;
-                        document.getElementById('popupTime').innerText = partA.time;
-                        document.getElementById('popupchildren').innerText = `${partA.enrolled} / ${partA.capacity}`;
-                        document.getElementById('popup').style.display = 'flex';
-                    });
+    // Close popup functionality 
+    document.getElementById('closePopup').addEventListener('click', function() {
+    document.getElementById('popup').style.display = 'none'; // Hide popup on close
+    });
 
-                    document.getElementById('partB').addEventListener('click', function() {
-                        if (partB.status === 'available') {
-                            document.getElementById('popupMonth').innerText = partB.month;
-                            document.getElementById('popupTime').innerText = partB.time;
-                            document.getElementById('popupchildren').innerText = `${partB.enrolled} / ${partB.capacity}`;
-                            document.getElementById('popup').style.display = 'flex';
-                        }
-                    });
+    document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("addToCart").addEventListener("click", function() {
+        let selectedChild = document.getElementById("childrenSelect").value;
+        let subjectName = document.getElementById("subjectName").innerText;
+        let subjectPrice = document.getElementById("subjectPrice").innerText.replace('Price: RM', '').trim();
+        let price = parseFloat(subjectPrice);
 
-                    // 关闭弹窗
-                    document.getElementById('closePopup').addEventListener('click', function() {
-                        document.getElementById('popup').style.display = 'none';
-                    });
-                })
-                .catch(error => console.error('Error:', error));
-        });
+        const cartItem = {
+            subject: subjectName,
+            price: price,
+            child: selectedChild
+        };
 
-        document.addEventListener("DOMContentLoaded", function() {
-    let addToCartButton = document.getElementById("addToCart");
-    addToCartButton.disabled = true; // 默认禁用
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    let select = document.getElementById("childrenSelect");
+        cart.push(cartItem);
 
-    select.addEventListener("change", function() {
-        if (select.value) {
-            addToCartButton.disabled = false; // 选择了孩子，启用按钮
-        } else {
-            addToCartButton.disabled = true; // 没选孩子，禁用按钮
-        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert("Item added to cart!");
     });
 });
-
-
-        // 购物车功能
-        document.getElementById("addToCart").addEventListener("click", function() {
-    let selectedChild = document.getElementById("childrenSelect").innerText.replace('Choose', '').trim();;
-    let subjectName = document.getElementById("subjectName").innerText;
-    let subjectPrice = document.getElementById("subjectPrice").innerText.replace('Price: RM', '').trim();
-    let price = parseFloat(subjectPrice);
-
-    if (isNaN(price)) {
-        alert("Invalid price value");
-        return;
-    }
-
-    const cartItem = {
-        subject: subjectName,
-        price: price,
-        child: selectedChild
-    };
-
-    // 直接向后端发送购物车数据
-    fetch('get_cart.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cart: [cartItem] }) // 只发送单一项，后端将合并
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert("Item added to cart!");
-    })
-    .catch(error => console.error('Error:', error));
-});
-
-
-        
-        document.addEventListener("DOMContentLoaded", function() {
-    fetch('get_child.php?id=2') // 通过查询参数获取 id 为 2 的孩子数据
-        .then(response => response.json())
-        .then(data => {
-            let select = document.getElementById("childrenSelect");
-            select.innerHTML = '<option value="">Choose</option>'; // 先清空后填充
-
-            // 如果数据存在，将孩子信息填充到下拉框
-            if (data && data.id) {
-                let option = document.createElement("option");
-                option.value = data.id;
-                option.textContent = data.name;
-                select.appendChild(option);
-            }
-        })
-        .catch(error => console.error('Children information fail:', error));
-});
-
 
 
 
