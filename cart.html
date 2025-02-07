@@ -219,212 +219,81 @@
         </ul>
         </div>
 
-    <!-- Cart Items Section -->
-    <div class="container my-5">
-        <h3>Select class</h3>
-        <div class="cart-items">
-            <!-- Cart Item Template -->
-        </div>
-
-        <!-- Total Price Section -->
-        <div class="total-price">
-            <p>Total: RM <span id="total-price">0</span></p>
-            <button class="btn-checkout">Proceed to CheckOut</button>
-        </div>
-    </div>
-
-        <!-- Shopping Cart Section -->
-        <div class="cart-container">
-            <div class="cart-items">
-                <!-- Cart items will be injected here dynamically -->
-            </div>
-        </div>
+        <table id="cartTable">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Year</th>
+                    <th>Price</th>
+                    <th>Children</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="cartBody">
+                <!-- Items will be dynamically inserted here -->
+            </tbody>
+        </table>
+        <button onclick="checkout()">Checkout</button>
     
-        <!-- Popup for editing -->
-        <div class="popup-info">
-            <div class="popup-close">&times;</div>
-            <div class="popup-row">
-                <span class="popup-label">Month:</span>
-                <span class="popup-value" id="popupMonth"></span>
-            </div>
-            <div class="popup-row">
-                <span class="popup-label">Time:</span>
-                <span class="popup-value" id="popupTime"></span>
-            </div>
-            <div class="popup-row">
-                <span class="popup-label">Capacity:</span>
-                <span class="popup-value" id="popupCapacity"></span>
-            </div>
-            <div class="popup-row">
-                <span class="popup-label">Children:</span>
-                <span class="popup-value">
-                    <select id="childrenSelect">
-                        <option value="1">Yuna</option> 
-                        <option value="2"></option>
-                        <option value="3"></option>
-                    </select>
-                </span>
-            </div>
-        </div>
-
-    <script>
-        // Sample cart items data
-       
-        const cartItems = [
-    {
-        image: 'img/english.jpg',
-        subject: 'English class',
-        teacher: 'Mr. John',
-        year: 'Year 1', 
-        price: 85,
-        time: 'Monday, 2.30pm-4.30pm',
-        capacity: '20/30',
-        student: 'Yuna',
-        startMonth: 0 // January
-    },
-    {
-        image: 'img/math.jpg',
-        subject: 'Math  class',
-        teacher: 'Mr. David',
-        year: 'Year 1', 
-        price: 85,
-        time: 'Wednesday, 2.30pm-4.30pm',
-        capacity: '20/30',
-        student: 'Yuna',
-        startMonth: 0
-    }
-];
-
-
-// 获取购物车数据
-function getCartItems() {
-    try {
-        return JSON.parse(localStorage.getItem("cartItems")) || [];
-    } catch (error) {
-        console.error("Error reading cartItems from localStorage:", error);
-        return [];
-    }
-}
-
-// 保存购物车数据
-function saveCartItems(cartItems) {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-}
-
-// 更新购物车显示
-function updateCartDisplay() {
-    const cartItems = getCartItems();
-    const cartContainer = document.getElementById("cart-container");
-    const totalPriceElement = document.getElementById("total-price");
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                updateCartDisplay();
+            });
     
-    cartContainer.innerHTML = "";
+            function updateCartDisplay() {
+                const cartBody = document.getElementById("cartBody");
+                cartBody.innerHTML = "";
+                let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
     
-    if (cartItems.length === 0) {
-        cartContainer.innerHTML = "<p>购物车为空</p>";
-        totalPriceElement.textContent = "$0.00";
-        return;
-    }
-
-    let totalPrice = 0;
-    cartItems.forEach((item, index) => {
-        const itemElement = document.createElement("div");
-        itemElement.classList.add("cart-item");
-        itemElement.innerHTML = `
-            <p>${item.name} - $${item.price.toFixed(2)}</p>
-            <button onclick="editItem(${index})">编辑</button>
-            <button onclick="removeItem(${index})">删除</button>
-        `;
-        cartContainer.appendChild(itemElement);
-        totalPrice += item.price;
-    });
-    totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
-}
-
-// 编辑购物车项目
-function editItem(index) {
-    let cartItems = getCartItems();
-    if (!cartItems || index < 0 || index >= cartItems.length) {
-        console.error("Invalid cart item index");
-        return;
-    }
-    const newName = prompt("修改课程名称:", cartItems[index].name);
-    if (newName !== null) {
-        cartItems[index].name = newName;
-        saveCartItems(cartItems);
-        updateCartDisplay();
-    }
-}
-
-// 移除购物车项目
-function removeItem(index) {
-    let cartItems = getCartItems();
-    if (index >= 0 && index < cartItems.length) {
-        cartItems.splice(index, 1);
-        saveCartItems(cartItems);
-        updateCartDisplay();
-    } else {
-        console.error("Attempted to remove invalid cart item");
-    }
-}
-
-// 初始化购物车
-document.addEventListener("DOMContentLoaded", updateCartDisplay);
-
-
-function calculatePrice(course) {
-    const currentMonth = new Date().getMonth();
-    const monthsPassed = (currentMonth - course.startMonth + 12) % 12; 
-    const remainingMonths = Math.max(6 - monthsPassed, 0); 
-    return remainingMonths * course.price;
-}
-
-
-function updateTotalPrice() {
-    const selectedItems = document.querySelectorAll('.select-item:checked');
-    let total = 0;
-
-    selectedItems.forEach(item => {
-        const index = item.dataset.index;
-        total += calculatePrice(cartItems[index]);
-    });
-
-    document.getElementById("total-price").textContent = total;
-}
-
-
-function toggleSelection(index) {
-    updateTotalPrice();
-}
-
-
-function editItem(index) {
-    const selectedCourse = cartItems[index];
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    document.getElementById("popupMonth").textContent = monthNames[selectedCourse.startMonth];
-    document.getElementById("popupTime").textContent = selectedCourse.time;
-    document.getElementById("popupCapacity").textContent = selectedCourse.capacity;
-    document.querySelector(".popup-info").style.display = "block";
-}
-
-
-function removeFromCart(index) {
-    cartItems.splice(index, 1); 
-    updateCart(); 
-    updateTotalPrice(); 
-}
-
-
-document.addEventListener("DOMContentLoaded", () => {
-    updateCart();
-});
-
-
-document.querySelector(".popup-close").addEventListener("click", () => {
-    document.querySelector(".popup-info").style.display = "none";
-});
-
-
-</script>
+                if (cartItems.length === 0) {
+                    cartBody.innerHTML = "<tr><td colspan='5'>Your cart is empty.</td></tr>";
+                    return;
+                }
+    
+                cartItems.forEach((item, index) => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${item.subject}</td>
+                        <td>${item.year}</td>
+                        <td>${item.price}</td>
+                        <td><span id="children-${index}">${item.children}</span></td>
+                        <td>
+                            <button onclick="editItem(${index})">Edit</button>
+                            <button onclick="removeItem(${index})">Remove</button>
+                        </td>
+                    `;
+                    cartBody.appendChild(row);
+                });
+            }
+    
+            function editItem(index) {
+                let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    
+                if (index < 0 || index >= cartItems.length) return;
+    
+                let newChildren = prompt("Enter new number of children:", cartItems[index].children);
+                if (newChildren !== null) {
+                    cartItems[index].children = newChildren;
+                    localStorage.setItem("cart", JSON.stringify(cartItems));
+                    updateCartDisplay();
+                }
+            }
+    
+            function removeItem(index) {
+                let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    
+                if (index < 0 || index >= cartItems.length) return;
+    
+                cartItems.splice(index, 1);
+                localStorage.setItem("cart", JSON.stringify(cartItems));
+                updateCartDisplay();
+            }
+    
+            function checkout() {
+                alert("Proceeding to checkout...");
+                // Add your checkout logic here
+            }
+        </script>
 
 
         <!-- Footer Start -->
