@@ -440,7 +440,7 @@
                     <span class="popup-value">
                         <select id="childrenSelect">
                             <option value="1">Yuna</option> 
-                            <option value="2">John Doe</option>
+                            <option value="2"></option>
                             <option value="3"></option>
                         </select>
                     </span>
@@ -509,40 +509,12 @@
     document.getElementById('closePopup').addEventListener('click', function() {
     document.getElementById('popup').style.display = 'none'; // Hide popup on close
     });
-    
-    console.log("addToCart() is running!");
 
+// Add to cart button functionality
     document.getElementById('addToCart').addEventListener('click', function() {
-    let month = document.getElementById('popupMonth').innerText;
-    let time = document.getElementById('popupTime').innerText;
-    let capacity = document.getElementById('popupCapacity').innerText;
-    let selectedChild = document.getElementById('childrenSelect').value;
-
-    if (!selectedChild) {
-        alert("Please select a child before adding to cart.");
-        return;
-    }
-
-    let subject = {
-        image: "img/english.jpg", // 课程图片
-        subject: "Year 1 English",
-        teacher: "Mr. John",
-        year: "Year 1",
-        price: 85,
-        time: time,
-        capacity: capacity,
-        student: selectedChild,
-        startMonth: 0 // January
-    };
-
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push(subject);
-    localStorage.setItem("cart", JSON.stringify(cart));
-
-    alert("Class added to cart!");
-    document.getElementById('popup').style.display = 'none';
-});
-
+    alert('Item added to cart!'); // Alert when the item is added to the cart
+    document.getElementById('popup').style.display = 'none'; // Hide the popup
+    });
 
 
 
