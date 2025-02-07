@@ -514,15 +514,27 @@
     document.getElementById("addToCart").addEventListener("click", function() {
     let selectedChild = document.getElementById("childrenSelect").value;
     let subjectName = document.getElementById("subjectName").innerText; // 获取课程名称
+    let subjectPrice = document.getElementById("subjectPrice").innerText; // 获取课程价格
 
-    fetch("add_to_cart.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `subject=${encodeURIComponent(subjectName)}&child=${encodeURIComponent(selectedChild)}`
-    }).then(response => response.text()).then(data => {
-        alert(data); // 显示添加成功
-    });
+    // 创建一个购物车项目对象
+    const cartItem = {
+        subject: subjectName,
+        price: subjectPrice,
+        child: selectedChild
+    };
+
+    // 获取当前购物车数据，如果没有数据则初始化为空数组
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // 将新的商品添加到购物车数组中
+    cart.push(cartItem);
+
+    // 将更新后的购物车数据存回 localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    alert("Item added to cart!");
 });
+
 
 
 

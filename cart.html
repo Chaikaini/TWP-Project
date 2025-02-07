@@ -277,37 +277,69 @@
         // Sample cart items data
        
      // 在页面加载时调用这个函数
-function loadCartData() {
-    // 模拟从 get_cart.php 获取的数据
-    const cartData = [
-        {
-            image: 'img/english.jpg',
-            subject: 'Year 1 English',
-            teacher: 'Mr. John',
-            year: 'Year 1', 
-            price: 85,
-            time: 'Monday, 2.30pm-4.30pm',
-            capacity: '20/30',
-            student: 'Yuna',
-            startMonth: 0 // January
-        },
-        {
-            image: 'img/math.jpg',
-            subject: 'Year 1 Math',
-            teacher: 'Mr. David',
-            year: 'Year 1', 
-            price: 85,
-            time: 'Wednesday, 2.30pm-4.30pm',
-            capacity: '20/30',
-            student: 'David',
-            startMonth: 0
-        }
-    ];
+     document.addEventListener('DOMContentLoaded', function() {
+    loadCartData();
+});
 
-    // 将数据存储到 localStorage
-    localStorage.setItem('cart', JSON.stringify(cartData));
-    updateCartDisplay();
+function loadCartData() {
+    // 从 localStorage 获取购物车数据
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // 获取购物车容器和总价格元素
+    let cartContainer = document.querySelector('.cart-items');
+    let totalPriceElement = document.getElementById('total-price');
+
+    // 如果购物车为空，显示空购物车提示
+    if (cart.length === 0) {
+        cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+        totalPriceElement.textContent = "0";
+        return;
+    }
+
+    cartContainer.innerHTML = '';  // 清空现有购物车显示
+    let totalPrice = 0;
+
+    // 遍历购物车数据并动态生成 HTML
+    cart.forEach(item => {
+        let itemPrice = parseFloat(item.price);
+        totalPrice += itemPrice;
+
+        // 创建 cart-item 元素
+        let cartItem = document.createElement('div');
+        cartItem.classList.add('cart-item');
+
+        cartItem.innerHTML = `
+            <div class="cart-item-details">
+                <h5>${item.subject}</h5>
+                <p>Child: ${item.child}</p>
+                <p>Price: RM ${itemPrice.toFixed(2)}</p>
+            </div>
+            <div class="cart-item-actions">
+                <i class="fas fa-trash" onclick="removeFromCart(${cart.indexOf(item)})"></i>
+            </div>
+        `;
+
+        cartContainer.appendChild(cartItem);
+    });
+
+    // 更新总价
+    totalPriceElement.textContent = totalPrice.toFixed(2); // 显示总价
 }
+
+function removeFromCart(index) {
+    // 获取当前购物车数据
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // 从购物车中移除指定项
+    cart.splice(index, 1);
+
+    // 将更新后的购物车数据存回 localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // 重新加载购物车显示
+    loadCartData();
+}
+
 
 // 更新购物车显示
 function updateCartDisplay() {
