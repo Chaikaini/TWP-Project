@@ -558,18 +558,23 @@
     };
 
     // 直接向后端发送购物车数据
-    fetch('get_cart.php', {
+    fetch('save_cart.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cart: [cartItem] }) // 只发送单一项，后端将合并
+        body: JSON.stringify({ cartItem: cartItem }) // 发送单一的购物车项目
     })
     .then(response => response.json())
     .then(data => {
-        alert("Item added to cart!");
+        if (data.status === 'success') {
+            alert("Item added to cart successfully!");
+        } else {
+            alert("Error adding item to cart: " + data.message);
+        }
     })
-    .catch(error => console.error('Error:', error));
-
-    
+    .catch(error => {
+        console.error("Error:", error);
+        alert("There was an error adding the item to the cart.");
+    });
 });
 
 
