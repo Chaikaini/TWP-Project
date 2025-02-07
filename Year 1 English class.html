@@ -436,9 +436,7 @@
                     <span class="popup-label" id="selectedChildren">Children:</span>
                     <span class="popup-value">
                         <select id="childrenSelect">
-                            <option value="1">Yuna</option> 
-                            <option value="2">John</option>
-                            <option value="3">Sara</option>
+                            <option value="">Choose the child</option>
                         </select>
                     </span>
                 </div>
@@ -558,6 +556,22 @@
             .catch(error => console.error('Error:', error));
         });
 
+        
+document.addEventListener("DOMContentLoaded", function() {
+    fetch('get_children.php') // 让这个 PHP 文件返回 JSON 数据
+        .then(response => response.json())
+        .then(data => {
+            let select = document.getElementById("childrenSelect");
+            select.innerHTML = '<option value="">请选择孩子</option>'; // 先清空后填充
+            data.forEach(child => {
+                let option = document.createElement("option");
+                option.value = child.id;
+                option.textContent = child.name;
+                select.appendChild(option);
+            });
+        })
+        .catch(error => console.error('获取孩子数据失败:', error));
+});
 
         function setRating(rating) {
     const stars = document.querySelectorAll('.stars-container .star');
