@@ -272,6 +272,7 @@
        
         function loadCart() {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    console.log("Loaded Cart:", cart);  // 添加日志检查
     const cartContainer = document.querySelector('.cart-items');
     cartContainer.innerHTML = '';
 
