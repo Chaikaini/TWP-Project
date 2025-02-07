@@ -435,7 +435,7 @@
                 <div class="popup-row">
                     <span class="popup-label" id="selectedChildren">Children:</span>
                     <span class="popup-value">
-                        <select >
+                        <select id="childrenSelect">
                             <option value="">Choose the child</option>
                         </select>
                     </span>
@@ -541,7 +541,7 @@
 
         // 购物车功能
         document.getElementById("addToCart").addEventListener("click", function() {
-    let selectedChild = document.getElementById("childrenSelect").value;
+    let selectedChild = document.getElementById("childrenSelect");
     let subjectName = document.getElementById("subjectName").innerText;
     let subjectPrice = document.getElementById("subjectPrice").innerText.replace('Price: RM', '').trim();
     let price = parseFloat(subjectPrice);
