@@ -191,14 +191,18 @@
 <script>
 
 document.addEventListener("DOMContentLoaded", function() {
+  // 获取搜索框和家长列表
   const searchInput = document.getElementById('search');
   const parentList = document.getElementById('parentList');
 
+  // 从 PHP 文件获取家长数据
   fetch('fetch_parents.php')
     .then(response => response.json())
     .then(data => {
-      let parents = data;
+      // 存储家长数据
+      const parents = data;
 
+      // 显示家长数据
       function displayParents(parentsToDisplay) {
         parentList.innerHTML = '';
         parentsToDisplay.forEach(parent => {
@@ -215,40 +219,43 @@ document.addEventListener("DOMContentLoaded", function() {
         });
       }
 
+      // 初始化显示所有家长
       displayParents(parents);
 
+      // 搜索功能
       searchInput.addEventListener('input', function() {
         const searchText = searchInput.value.toLowerCase();
+
         const filteredParents = parents.filter(parent => {
-          return (parent.username && parent.username.toLowerCase().includes(searchText)) ||
-                 (parent.gender && parent.gender.toLowerCase().includes(searchText)) ||
-                 (parent.address && parent.address.toLowerCase().includes(searchText)) ||
-                 (parent.phone_number && parent.phone_number.toString().includes(searchText)) ||
-                 (parent.email && parent.email.toLowerCase().includes(searchText));
+          return parent.username.toLowerCase().includes(searchText) ||
+                 parent.gender.toLowerCase().includes(searchText) ||
+                 parent.address.toLowerCase().includes(searchText) ||
+                 parent.phone_number.toLowerCase().includes(searchText) ||
+                 parent.email.toLowerCase().includes(searchText);
         });
 
         displayParents(filteredParents);
       });
 
+      // 删除家长功能
       parentList.addEventListener('click', function(e) {
         if (e.target && e.target.classList.contains('fa-trash-alt')) {
           const parentId = e.target.getAttribute('data-id');
-
-          fetch(`fetch_parents.php?id=${parentId}`, {
-            method: 'GET',
-          })
+          // 发起删除请求
+          fetch(`fetch_parents.php?username=${parentUsername}`)
             .then(response => response.json())
             .then(response => {
               if (response.status === 'success') {
-                parents = parents.filter(parent => parent.id != parentId);
-                displayParents(parents);
+                // 删除成功后，移除对应的家长
+                const updatedParents = parents.filter(parent => parent.id != parentId);
+                displayParents(updatedParents);
               } else {
                 console.error('delete fail:', response.message);
               }
             })
             .catch(error => console.error('can not action:', error));
         }
-      });
+      }); 
     })
     .catch(error => console.error('information parent fail:', error));
 });
