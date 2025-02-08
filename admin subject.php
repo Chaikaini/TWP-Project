@@ -399,7 +399,7 @@
                .then(response => response.text())
                .then(data => {
                    alert(data); 
-                   location.reload(); // 重新加载页面
+                   location.reload(); 
                })
                .catch(error => console.error("Error:", error));
            }
@@ -408,7 +408,7 @@
 });
 
 document.getElementById("editSubjectForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // 防止默认提交
+    event.preventDefault(); 
 
     let formData = new FormData(this);
 
@@ -418,10 +418,22 @@ document.getElementById("editSubjectForm").addEventListener("submit", function(e
     })
     .then(response => response.text())
     .then(data => {
-        alert(data); // 显示返回信息
-        location.reload(); // 刷新页面
+        alert(data); 
+        location.reload(); 
     })
     .catch(error => console.error("Error:", error));
+});
+
+
+document.getElementById("search-btn").addEventListener("click", function() {
+    let searchQuery = document.getElementById("search").value.trim();
+
+    fetch("admsubject_search.php?query=" + encodeURIComponent(searchQuery))
+        .then(response => response.text())
+        .then(data => {
+            document.querySelector("tbody").innerHTML = data;
+        })
+        .catch(error => console.error("Error:", error));
 });
 
 </script>

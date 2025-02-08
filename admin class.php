@@ -212,8 +212,8 @@
       <div class="container-fluid">
         <button class="btn btn-outline-secondary me-2" id="toggleSidebar"><i class="fas fa-bars"></i></button>
         <form class="d-flex ms-auto">
-          <input class="form-control me-2" type="search" placeholder="Search" />
-          <button class="btn btn-outline-success" type="submit">Search</button>
+           <input class="form-control me-2" type="search" placeholder="Search" id="search" />
+           <button class="btn btn-outline-success" type="button" id="search-btn">Search</button>
         </form>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item dropdown">
@@ -386,12 +386,24 @@
                 .then(response => response.text())
                 .then(data => {
                     alert(data); 
-                    location.reload(); // 重新加载页面
+                    location.reload(); 
                 })
                 .catch(error => console.error("Error:", error));
             }
         });
     });
+});
+
+
+document.getElementById("search-btn").addEventListener("click", function() {
+    let searchQuery = document.getElementById("search").value.trim();
+
+    fetch("admclass_search.php?query=" + encodeURIComponent(searchQuery))
+        .then(response => response.text())
+        .then(data => {
+            document.querySelector("tbody").innerHTML = data;
+        })
+        .catch(error => console.error("Error:", error));
 });
 
 </script>

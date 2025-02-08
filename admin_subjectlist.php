@@ -16,6 +16,8 @@ $result = $conn->query($sql);
 ?>
 
 
+
+
  <div class="card-body">
         <table class="table table-striped">
             <thead>
@@ -58,5 +60,8 @@ $result = $conn->query($sql);
         </table>
     </div>
 </div>
+
+
+
 
 <?php $conn->close(); ?>
