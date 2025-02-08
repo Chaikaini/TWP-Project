@@ -15,6 +15,7 @@ if ($conn->connect_error) {
 
 // 获取 POST 请求的 JSON 数据
 $requestBody = file_get_contents("php://input");
+error_log("Request Body: " . $requestBody); // 输出请求体，查看实际内容
 $data = json_decode($requestBody, true);
 
 // 检查是否成功解析 JSON
@@ -22,6 +23,7 @@ if ($data === null) {
     echo json_encode(['status' => 'error', 'message' => 'Invalid JSON received']);
     exit;
 }
+
 
 if (isset($data['username'])) {
     $username = $data['username']; // 获取要删除的用户名

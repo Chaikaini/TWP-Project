@@ -240,31 +240,25 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-function deleteParent(username) {
-    if (confirm("You sure need delete this parent？")) {
-        fetch('dele_parent.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ username: username }) // 发送删除项的用户名
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === "success") {
-                // 删除成功，重新加载家长列表
-                alert("Deleted Successfu!");
-                location.reload(); // 重新加载页面，刷新数据
-            } else {
-                alert("Delete Failed : " + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert("Delete Process Error");
-        });
-    }
-}
+const dataToSend = { username: 'exampleUser' }; // 示例数据
+console.log(JSON.stringify(dataToSend)); // 打印检查 JSON 格式
+
+fetch('dele_parent.php', {
+    method: 'DELETE',
+    headers: {
+        'Content-Type': 'application/json', // 确保请求是 JSON 格式
+    },
+    body: JSON.stringify(dataToSend), // 发送正确的 JSON 数据
+})
+.then(response => response.json())
+.then(data => {
+    console.log(data);
+})
+.catch(error => {
+    console.error('Error:', error);
+    alert("Delete Process Error");
+});
+
 
 
 </script>
