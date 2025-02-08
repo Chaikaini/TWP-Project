@@ -1,36 +1,40 @@
 <?php
 session_start();
-include('db_connect.php'); // 确保连接数据库
+include('db_connect.php'); // 确保数据库连接
 
-header('Content-Type: application/json');
+header('Content-Type: application/json'); 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 $conn = dbConnect();
 
-// 获取前端传过来的 JSON 数据
-$data = json_decode(file_get_contents('php://input'), true);
-$cart = $data['cart'] ?? [];
+// 读取 JSON 数据
+$json = file_get_contents('php://input');
+$data = json_decode($json, true);
 
-if (!empty($cart)) {
-    foreach ($cart as $item) {
-        $subject = $item['subject'] ?? '';
-        $price = $item['price'] ?? 0;
-        $child = $item['child'] ?? '';
+// 调试输出 JSON
+if (!$data) {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid JSON input', 'raw' => $json]);
+    exit;
+}
 
-        if ($subject && $price > 0 && $child) {
-            $stmt = $conn->prepare("INSERT INTO cart_items (subject, price, child) VALUES (?, ?, ?)");
-            $stmt->bind_param("sds", $subject, $price, $child);
+$subject = $data['subject'] ?? '';
+$price = $data['price'] ?? 0;
+$child = $data['child'] ?? '';
 
-            if (!$stmt->execute()) {
-                echo json_encode(['status' => 'error', 'message' => 'Failed to save cart item']);
-                exit;
-            }
-        }
+if (!empty($subject) && $price > 0 && !empty($child)) {
+    $stmt = $conn->prepare("INSERT INTO cart_items (subject, price, child) VALUES (?, ?, ?)");
+    $stmt->bind_param("sds", $subject, $price, $child);
+
+    if ($stmt->execute()) {
+        echo json_encode(['status' => 'success']);
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Failed to save cart item']);
     }
-
-    echo json_encode(['status' => 'success']);
 } else {
-    echo json_encode(['status' => 'error', 'message' => 'Invalid cart data']);
+    echo json_encode(['status' => 'error', 'message' => 'Invalid cart data', 'received' => $data]);
 }
 
 $conn->close();
 ?>
+
