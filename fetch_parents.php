@@ -24,17 +24,15 @@ if ($result->num_rows > 0) {
         $parents[] = $row;
     }
 }
-// 获取家长数据
-$parentId = $_GET['username'];  // 假设你传递的是 `username` 而不是 `id`
 
+// 获取家长数据
+$parentUsername = $_GET['username'];  // 假设你传递的是 `username`
+
+// 执行删除操作
 $sql = "DELETE FROM users WHERE username = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $parentId);
-if ($stmt->execute()) {
-    echo json_encode(['status' => 'success']);
-} else {
-    echo json_encode(['status' => 'error', 'message' => '删除失败']);
-}
+$stmt->bind_param("s", $parentUsername);
+$stmt->execute();
 
 // 关闭连接
 $conn->close();
