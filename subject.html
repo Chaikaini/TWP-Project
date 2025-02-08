@@ -218,7 +218,7 @@
         <div class="search-box">
             <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="width: 200px;">
             <button id="searchButton" class="btn btn-outline-success" type="submit">Search</button>
-        </div>
+        </div>        
     </div>
 
     <div class="container-main">
@@ -231,7 +231,7 @@
     </div>
 
     <div id="resultsContainer"></div>
-    
+
     <script>
         // 获取年级参数（默认为 Year 1）
         const urlParams = new URLSearchParams(window.location.search);
@@ -397,6 +397,7 @@ function renderSubjects(subjectsData) {
     });
 }
 
+
 document.getElementById('searchButton').addEventListener('click', function() {
     // 获取用户输入
     var query = document.getElementById('searchInput').value.trim();
@@ -433,26 +434,26 @@ document.addEventListener('DOMContentLoaded', function () {
     // 获取搜索框和按钮元素
     const searchInput = document.querySelector('.search-box input');
     const searchButton = document.querySelector('.search-box button');
-
-    // 获取显示结果的容器
     const resultsContainer = document.getElementById('resultsContainer');
-    if (!resultsContainer) {
-        console.error('没有找到结果显示容器');
+
+    if (!searchInput || !searchButton || !resultsContainer) {
+        console.error('Required elements not found.');
         return;
     }
 
-    // 监听按钮点击事件
     searchButton.addEventListener('click', function (event) {
-        event.preventDefault(); // 防止表单提交
-        const searchQuery = searchInput.value.trim(); // 获取搜索框的值
+        event.preventDefault(); 
+        const searchQuery = searchInput.value.trim(); 
 
         if (searchQuery) {
-            console.log('Searching for:', searchQuery); // 调试：打印搜索查询
+            console.log('Searching for:', searchQuery); 
             search(searchQuery);
         } else {
             alert('请输入搜索词！');
         }
     });
+});
+
 
     // 监听回车键事件
     searchInput.addEventListener('keypress', function (event) {
