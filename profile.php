@@ -395,15 +395,15 @@ button.btn.btn-primaryy:hover {
                 
                 <div class="form-group">
                     <label for="current-password">Current Password</label>
-                    <input type="password" id="current-password" autocomplete="new-password" placeholder="Enter current password" required>
+                    <input type="password" id="current-password" autocomplete="new-password" placeholder="Enter current password">
                 </div>
                 <div class="form-group">
                     <label for="new-password">New Password</label>
-                    <input type="password" id="new-password" placeholder="Enter new password" required>
+                    <input type="password" id="new-password" placeholder="Enter new password">
                 </div>
                 <div class="form-group">
                     <label for="confirm-password">Confirm Password</label>
-                   <input type="password" id="confirm-password" placeholder="Confirm new password" required>
+                   <input type="password" id="confirm-password" placeholder="Confirm new password">
                 </div>
 
                 <div class="form-group">
@@ -798,6 +798,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("email").value = data.data.email;
                 document.getElementById("address").value = data.data.address;
                 document.getElementById("phone-num-1").value = data.data.phone_number;
+                document.getElementById("phone-num-2").value = data.data.phone_number2;
                 document.getElementById("relationship").value = data.data.relationship;
                 
                 
@@ -837,6 +838,48 @@ document.getElementById("update-password").addEventListener("click", function ()
     })
     .catch(error => console.error("Error updating password:", error));
 });
+
+document.querySelector("form").addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const formData = {
+        name: document.getElementById("name").value,
+        gender: document.getElementById("gender").value,
+        ic_num: document.getElementById("ic-num").value,
+        phone_num_1: document.getElementById("phone-num-1").value,
+        phone_num_2: document.getElementById("phone-num-2").value,
+        relationship: document.getElementById("relationship").value,
+        address: document.getElementById("address").value,
+        current_password: document.getElementById("current-password").value,
+        new_password: document.getElementById("new-password").value,
+        confirm_password: document.getElementById("confirm-password").value
+    };
+    
+
+
+    
+    // 如果用户输入了新密码，检查是否匹配
+    if (formData.new_password || formData.current_password) {
+        if (formData.new_password !== formData.confirm_password) {
+            alert("New password and confirm password do not match!");
+            return;
+        }
+    }
+
+    try {
+        const response = await fetch("update_profile.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+        });
+
+        const result = await response.json();
+        alert(result.message);
+    } catch (error) {
+        console.error("Error:", error);
+    }
+});
+
 
 
     </script>
