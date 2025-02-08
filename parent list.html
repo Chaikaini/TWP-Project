@@ -240,15 +240,12 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-const dataToSend = { username: 'exampleUser' }; // 示例数据
-console.log(JSON.stringify(dataToSend)); // 打印检查 JSON 格式
-
 fetch('dele_parent.php', {
     method: 'DELETE',
     headers: {
-        'Content-Type': 'application/json', // 确保请求是 JSON 格式
+        'Content-Type': 'application/json',
     },
-    body: JSON.stringify(dataToSend), // 发送正确的 JSON 数据
+    body: JSON.stringify({ username: cartItem.child }),  // 确保数据被正确转换为 JSON
 })
 .then(response => response.json())
 .then(data => {
