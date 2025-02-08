@@ -546,6 +546,9 @@
     let subjectPrice = document.getElementById("subjectPrice").innerText.replace('Price: RM', '').trim();
     let price = parseFloat(subjectPrice);
 
+    // 获取图片路径
+    let subjectImage = document.getElementById("subjectImage").src; // 获取img标签的src属性
+
     if (isNaN(price)) {
         alert("Invalid price value");
         return;
@@ -554,20 +557,15 @@
     const cartItem = {
         subject: subjectName,
         price: price,
-        child: selectedChild
+        child: selectedChild,
+        image: subjectImage // 将图片路径添加到cartItem中
     };
 
-    const data = {
-        cart: [cartItem]  // 确保发送的结构包含 cart 数组
-    };
-
-    // 发送 POST 请求到 save_cart.php
+    // 发送数据到后端
     fetch('save_cart.php', {
         method: 'POST',
-        headers: { 
-            'Content-Type': 'application/json'  // 确保使用正确的 Content-Type
-        },
-        body: JSON.stringify(data)  // 发送 JSON 格式数据
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cart: [cartItem] }) // 发送包含subject image的cartItem
     })
     .then(response => response.json())
     .then(data => {
@@ -577,13 +575,8 @@
             alert("Error: " + data.message);
         }
     })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+    .catch(error => console.error('Error:', error));
 });
-
-
-
 
 
         
