@@ -30,19 +30,26 @@ $cart = $data['cart'] ?? [];
 
 // 如果购物车数据有效
 if (!empty($cart)) {
-    foreach ($cart as $item)$subject = $item['subject'] ?? '';
-    $price = $item['price'] ?? 0;
-    $child = $item['child'] ?? '';
-    $image = $item['image'] ?? ''; // 获取图片路径
-    
-    // 插入数据到数据库
-    $stmt = $conn->prepare("INSERT INTO cart_items (subject, price, child, image) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("sdss", $subject, $price, $child, $image);
-    
-    if (empty($data['cart'])) {
-        echo json_encode(['status' => 'error', 'message' => 'No data received']);
-        exit;
-    }
+    foreach ($cart as $item) {
+        $subject = $item['subject'] ?? '';
+        $price = $item['price'] ?? 0;
+        $child = $item['child'] ?? '';
+        $image = $item['image'] ?? ''; // 获取图片路径
         
+        // 插入数据到数据库
+        $stmt = $conn->prepare("INSERT INTO cart_items (subject, price, child, image) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("sdss", $subject, $price, $child, $image);
+        
+        // 执行插入操作
+        if (!$stmt->execute()) {
+            echo json_encode(['status' => 'error', 'message' => 'Failed to save cart item']);
+            exit;
+        }
+    }
+    echo json_encode(['status' => 'success']);
+} else {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid cart data']);
+}
+
 $conn->close();
 ?>
