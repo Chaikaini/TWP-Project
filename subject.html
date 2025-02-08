@@ -425,18 +425,47 @@ document.getElementById('searchButton').addEventListener('click', function() {
     xhr.send();
 });
 
-// 显示搜索结果的函数
-function displaySearchResults(data) {
-    // 假设你有一个地方来展示搜索结果，比如一个ID为searchResults的div
-    var resultsContainer = document.getElementById('searchResults');
-    resultsContainer.innerHTML = ''; // 清空之前的搜索结果
 
-    data.forEach(function(item) {
-        var div = document.createElement('div');
-        div.classList.add('result-item');
-        div.innerHTML = '<h5>' + item.subject + '</h5><p>' + item.description + '</p>';
-        resultsContainer.appendChild(div);
-    });
+
+// 获取搜索框的值
+const searchInput = document.querySelector('.search-box input').value.trim();
+
+// 发送请求到 search.php
+if (searchInput) {
+    fetch(`search.php?query=${encodeURIComponent(searchInput)}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                const results = data.data;
+                // 更新页面显示搜索结果
+                displayResults(results);
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+// 更新搜索结果显示的函数
+function displayResults(results) {
+    const resultsContainer = document.getElementById('resultsContainer');
+    resultsContainer.innerHTML = ''; // 清空现有的结果
+
+    if (results.length === 0) {
+        resultsContainer.innerHTML = '<p>No results found.</p>';
+    } else {
+        results.forEach(item => {
+            const resultItem = document.createElement('div');
+            resultItem.classList.add('result-item');
+            resultItem.innerHTML = `
+                <h5>${item.name}</h5>
+                <p>${item.year}</p>
+                <p>Price: RM ${item.price}</p>
+                <img src="${item.image}" alt="${item.name}">
+            `;
+            resultsContainer.appendChild(resultItem);
+        });
+    }
 }
 
         </script>
