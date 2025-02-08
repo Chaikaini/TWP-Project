@@ -1,41 +1,33 @@
 <?php
-// 先连接数据库，使用 PDO
+// 检查是否存在 'year' 参数，若不存在则使用默认值 'Year 1'
+$year = isset($_GET['year']) ? $_GET['year'] : 'Year 1';
+$query = isset($_GET['query']) ? $_GET['query'] : '';
+
+// 数据库连接
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "tuition_centre";
 
-// 使用 PDO 连接数据库
-try {
-    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo "连接失败: " . $e->getMessage();
-    exit();
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("连接失败: " . $conn->connect_error);
 }
 
-// 检查是否存在 'query' 参数，如果不存在则返回一个错误
-if (!isset($_GET['query'])) {
-    echo json_encode(['status' => 'error', 'message' => 'Missing query parameter']);
-    exit();
+// 根据年级和查询条件搜索科目
+$sql = "SELECT * FROM subjects WHERE year = '$year' AND name LIKE '%$query%'";
+$result = $conn->query($sql);
+
+$subjects = [];
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $subjects[] = $row;
+    }
 }
 
-$query = $_GET['query'];
+$conn->close();
 
-// 如果没有传入 'year' 参数，则使用默认值 'Year 1'
-$year = isset($_GET['year']) ? $_GET['year'] : 'Year 1';
-
-// 使用 SQL 查询
-$sql = "SELECT * FROM subjects WHERE name LIKE :query AND year = :year";
-$stmt = $pdo->prepare($sql);
-$stmt->execute(['query' => '%' . $query . '%', 'year' => $year]);
-
-// 获取所有匹配的结果
-$subjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// 返回结果为 JSON 格式
-echo json_encode(['status' => 'success', 'data' => $subjects]);
-
-// 关闭数据库连接
-$pdo = null;
+// 返回 JSON 格式的结果
+echo json_encode($subjects);
 ?>
