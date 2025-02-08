@@ -243,49 +243,28 @@
         </div>
 
    <!-- Payment Start -->
-<div class="containerp">
-    <div class="course-info">
-        <h2>Checkout</h2> 
-        <div class="course-item">
-            <img src="img/english.jpg" alt="English">
-            <div>
-                <p><b>English Class</b></p>
-                <p><b>Teacher:</b> Mr.John</p>
-                <p><b>Year:</b> Year 1</p>
-                <p><b>Price:</b> RM510 (85*6 month)</p>
-                <p><b>Time:</b> Monday 2:30pm-4:30pm</p>
-                <p><b>Student:</b> Yuna</p>
-            </div>
+   <div class="containerp">
+    <h2>Checkout</h2>
+    <div id="cart-container"></div>
+  
+    <div class="total-amount">
+        <h4>Payment Details</h4>
+        <div class="amount-detail">
+            <p>Subject Fee:</p>
+            <p id="subject-fee">RM0</p>
         </div>
-        <hr>
-        <div class="course-item">
-            <img src="img/math.jpg" alt="Math">
-            <div>
-                <p><b>Math Class</b></p>
-                <p><b>Teacher:</b> Mr.David</p>
-                <p><b>Year:</b> Year 1</p>
-                <p><b>Price:</b> RM510 (85*6 month)</p>
-                <p><b>Time:</b> Wednesday 2:30pm-4:30pm</p>
-                <p><b>Student:</b> Yuna</p>
-            </div>
+        <div class="amount-detail">
+            <p>Enrollment Fee:</p>
+            <p>RM100</p>
         </div>
-        <hr>
-        <div class="total-amount">
-            <h4>Payment Details</h4>
-            <div class="amount-detail">
-                <p>Subject Fee:</p>
-                <p>RM1120</p>
-            </div>
-            <div class="amount-detail">
-                <p>Materials Fee:</p>
-                <p>RM100</p>
-            </div>
-            <div class="amount-detail">
-                <p><b>Total Amount:</b></p>
-                <p><b>RM1220</b></p>
-            </div>
+        <div class="amount-detail">
+           <h5><p><b>Total Amount:</b></p><h5>
+            <p id="total-amount"><b>RM0</b></p>
         </div>
-        <hr>
+    </div>
+
+    <hr>
+    
         <div class="payment-info">
             <h4>Choose Your Payment Method</h4>
             <div class="payment-method">
@@ -313,33 +292,125 @@
     </div>
 </div>
 
-  <script>
-     document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('tng').addEventListener('change', function() {
-            document.getElementById('phone-number-field').style.display = 'block';
-        });
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      var tngRadio = document.getElementById("tng");
+      var jompayRadio = document.getElementById("jompay");
+      var phoneNumberField = document.getElementById("phone-number-field");
 
-        document.getElementById('jompay').addEventListener('change', function() {
-            document.getElementById('phone-number-field').style.display = 'none';
-        });
+      tngRadio.addEventListener("change", function () {
+          if (tngRadio.checked) {
+              phoneNumberField.style.display = "block";
+          }
       });
 
-      function validateForm() {
-         var tngSelected = document.getElementById('tng').checked;
-         var phoneNumber = document.getElementById('phone-number').value;
-         var phoneError = document.getElementById('phone-error');
+      jompayRadio.addEventListener("change", function () {
+          if (jompayRadio.checked) {
+              phoneNumberField.style.display = "none";
+          }
+      });
 
-         if (tngSelected && phoneNumber === '') {
+      fetch("checkout.php")
+          .then(response => response.json())
+          .then(data => {
+              const container = document.getElementById("cart-container");
+              let totalAmount = 0;
+              let enrollmentFee = 100; // 固定费用
+              container.innerHTML = ""; // 清空
+
+              data.forEach(item => {
+                  totalAmount += parseFloat(item.price);
+
+                  const courseItem = `
+                      <div class="course-item">
+                          <img src="${item.image}" alt="${item.subject}">
+                          <div>
+                              <p><b>${item.subject}</b></p>
+                              <p><b>Teacher:</b> ${item.teacher}</p>
+                              <p><b>Price:</b> RM${item.price}</p>
+                              <p><b>Time:</b> ${item.time}</p>
+                              <p><b>Student:</b> ${item.child}</p>
+                          </div>
+                      </div>
+                      <hr>
+                  `;
+                  container.innerHTML += courseItem;
+              });
+
+              document.getElementById("subject-fee").innerText = `RM${totalAmount}`;
+              document.getElementById("total-amount").innerText = `RM${totalAmount + enrollmentFee}`;
+          })
+          .catch(error => console.error("Error fetching cart data:", error));
+  });
+
+  function validateForm() {
+        var tngSelected = document.getElementById('tng').checked;
+        var jompaySelected = document.getElementById('jompay').checked;
+        var phoneNumber = document.getElementById('phone-number').value;
+        var phoneError = document.getElementById('phone-error');
+        var paymentMethod = tngSelected ? "TNG" : (jompaySelected ? "JomPAY" : "");
+
+        if (tngSelected && phoneNumber === '') {
             phoneError.style.display = 'inline';
             alert('Please enter your phone number.');
-         } else if (tngSelected && !/^\d{9}$/.test(phoneNumber)) {
+            return;
+        } else if (tngSelected && !/^\d{9}$/.test(phoneNumber)) {
             phoneError.style.display = 'inline';
             alert('Please enter a valid phone number.');
-         } else {
+            return;
+        } else {
             phoneError.style.display = 'none';
-         }
-      }
-   </script>
+        }
+
+        var totalAmount = document.getElementById("total-amount").innerText.replace("RM", "").trim();
+
+        var studentName = document.querySelector(".course-item p:nth-of-type(5)") ? 
+                          document.querySelector(".course-item p:nth-of-type(5)").innerText.replace("Student: ", "") : "";
+
+        var courseName = document.querySelector(".course-item p b") ? 
+                         document.querySelector(".course-item p b").innerText : "";
+
+        var teacherName = document.querySelector(".course-item p:nth-of-type(2)") ? 
+                          document.querySelector(".course-item p:nth-of-type(2)").innerText.replace("Teacher: ", "") : "";
+
+        var courseTime = document.querySelector(".course-item p:nth-of-type(4)") ? 
+                         document.querySelector(".course-item p:nth-of-type(4)").innerText.replace("Time: ", "") : "";
+
+        if (!studentName || !courseName || !teacherName || !courseTime) {
+            alert("Order details are missing.");
+            return;
+        }
+
+        var orderData = {
+            student_name: studentName,
+            course_name: courseName,
+            teacher_name: teacherName,
+            total_amount: totalAmount,
+            payment_method: paymentMethod,
+            time: courseTime
+        };
+
+        fetch("process_payment.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(orderData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Payment successful! Order ID: " + data.order_id);
+                window.location.href = "subject.html";
+            } else {
+                alert("Payment failed: " + data.message);
+            }
+        })
+        .catch(error => console.error("Error processing payment:", error));
+    }
+
+  
+</script>
+
+
         
     <!-- Footer Start -->
 <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
