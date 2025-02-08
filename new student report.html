@@ -69,24 +69,6 @@
       cursor:pointer;
     }
 
-    .date-range {
-      margin-bottom: 20px;
-      padding: 10px;
-      background-color: #f8f9fa;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      border: 1px solid #ddd;
-    }
-    .date-range h6 {
-      margin: 0;
-      font-size: 1.1rem;
-      color: #333;
-    }
-    .date-range span {
-      font-size: 1rem;
-    }
   </style>
 </head>
 <body>
@@ -126,8 +108,10 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
       <div class="container-fluid">
         <button class="btn btn-outline-secondary me-2" id="toggleSidebar"><i class="fas fa-bars"></i></button>
-        <form class="d-flex ms-auto">
-          <input class="form-control me-2" type="search" placeholder="Search" id="search" />
+        <form class="d-flex mx-auto">
+          <input class="form-control me-2" type="date" id="start-date" />
+          <span class="mx-2">to</span>
+          <input class="form-control me-2" type="date" id="end-date" />
           <button class="btn btn-outline-success" type="button" id="search-btn">Search</button>
         </form>
         <ul class="navbar-nav ms-auto">
@@ -154,67 +138,71 @@
 
     <!-- New Student Report -->
     <h1 class="mb-4">New Student Report</h1>
-    
-    <!-- Date Range Section -->
+
+
     <div class="date-range">
       <h6>Report for: </h6>
-      <span> 1 January 2025 to 31 January 2025</span>
+      <span></span>
     </div>
-    
     <div class="card">
       <div class="card-header">
         <h5>New Student Report</h5>
       </div>
-      <div class="card-body">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Gender</th>
-              <th>My kid number</th>
-              <th>Date of Birth</th>
-              <th>Enrollment Date</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Doe</td>
-              <td>Female</td>
-              <td>170615-01-2592</td>
-              <td>2017-06-15</td>
-              <td>2025-01-05</td>
-              <td>Active</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Johney</td>
-              <td>Male</td>
-              <td>170720-01-2220</td>
-              <td>2017-07-20</td>
-              <td>2025-01-07</td>
-              <td>Active</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Johwin</td>
-                <td>Male</td>
-                <td>180125-01-2049</td>
-                <td>2018-01-25</td>
-                <td>2025-01-07</td>
-                <td>Active</td>
-              </tr>
-            <!-- Add more rows as needed -->
-          </tbody>
-        </table>
-      </div>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>My kid number</th>
+            <th>Date of Birth</th>
+            <th>Join Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody> <!-- 添加 tbody -->
+        </tbody>
+      </table>      
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script>
+
+fetch("fetch_new_children_report.php") // 直接从 PHP 获取数据
+  .then(response => response.json())
+  .then(data => {
+    console.log("Fetched Data:", data); // 调试输出
+    const tableBody = document.querySelector("table tbody");
+    tableBody.innerHTML = ""; // 清空表格
+
+    if (data.length === 0) {
+      tableBody.innerHTML = "<tr><td colspan='7' class='text-center'>No records found</td></tr>";
+    } else {
+      data.forEach(child => {
+        const joinDate = "2024-02-08"; // 这里写死 Joindate，可以改成你想要的默认值
+        const row = `
+          <tr>
+            <td>${child.id}</td>
+            <td>${child.name}</td>
+            <td>${child.gender}</td>
+            <td>${child.kid_number}</td>
+            <td>${child.birthday}</td>
+            <td>${joinDate}</td>
+            <td>Active</td>
+          </tr>
+        `;
+        tableBody.innerHTML += row;
+      });
+    }
+  })
+  .catch(error => console.error("Error fetching data:", error));
+
+
+
+
+
     document.getElementById('toggleSidebar').addEventListener('click', () => {
       document.getElementById('sidebar').classList.toggle('collapsed');
     });
