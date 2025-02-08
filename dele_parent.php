@@ -14,11 +14,19 @@ if ($conn->connect_error) {
 }
 
 // 获取 POST 请求的 JSON 数据
-$data = json_decode(file_get_contents("php://input"), true);
-$username = $data['username']; // 获取要删除的用户名
+$requestBody = file_get_contents("php://input");
+$data = json_decode($requestBody, true);
 
-// 执行删除操作
-if (isset($username)) {
+// 检查是否成功解析 JSON
+if ($data === null) {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid JSON received']);
+    exit;
+}
+
+if (isset($data['username'])) {
+    $username = $data['username']; // 获取要删除的用户名
+
+    // 执行删除操作
     $sql = "DELETE FROM parents WHERE username = ?";
     $stmt = $conn->prepare($sql);
 
@@ -31,16 +39,16 @@ if (isset($username)) {
             echo json_encode(['status' => 'success']);
         } else {
             // 如果没有删除任何记录
-            echo json_encode(['status' => 'error', 'message' => 'can not search this parent']);
+            echo json_encode(['status' => 'error', 'message' => 'Can not find this parent']);
         }
     } else {
         // SQL 执行失败
-        echo json_encode(['status' => 'error', 'message' => 'Deleted Fail']);
+        echo json_encode(['status' => 'error', 'message' => 'Delete failed']);
     }
 
     $stmt->close();
 } else {
-    echo json_encode(['status' => 'error', 'message' => 'Action Fail']);
+    echo json_encode(['status' => 'error', 'message' => 'Username not provided']);
 }
 
 // 关闭连接
