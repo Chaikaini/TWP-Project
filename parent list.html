@@ -189,22 +189,18 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  // 获取搜索框和家长列表
-  const searchInput = document.getElementById('search');
-  const parentList = document.getElementById('parentList');
-
-  // 从 PHP 文件获取家长数据
-  fetch('fetch_parents.php')
-    .then(response => response.json())
-    .then(data => {
-      // 存储家长数据
-      const parents = data;
-
-      // 显示家长数据
-      function displayParents(parentsToDisplay) {
+  document.addEventListener("DOMContentLoaded", function() {
+    // 从 PHP 文件获取家长数据
+    fetch('fetch_parents.php')
+      .then(response => response.json())
+      .then(data => {
+        const parentList = document.getElementById('parentList');
+        
+        // 清空现有的行
         parentList.innerHTML = '';
-        parentsToDisplay.forEach(parent => {
+
+        // 使用获取的数据填充表格
+        data.forEach(parent => {
           const row = document.createElement('tr');
           row.innerHTML = `
             <td>${parent.username}</td>
@@ -212,33 +208,13 @@ document.addEventListener("DOMContentLoaded", function() {
             <td>${parent.address}</td>
             <td>${parent.phone_number}</td>
             <td>${parent.email}</td>
-            <td><i class='fas fa-trash-alt text-danger' style='cursor:pointer;' data-id='${parent.id}'></i></td>
+            <td><i class='fas fa-trash-alt text-danger' style='cursor:pointer;'></i></td>
           `;
           parentList.appendChild(row);
         });
-      }
-
-      // 初始化显示所有家长
-      displayParents(parents);
-
-      // 搜索功能
-      searchInput.addEventListener('input', function() {
-        const searchText = searchInput.value.toLowerCase();
-
-        const filteredParents = parents.filter(parent => {
-          return parent.username.toLowerCase().includes(searchText) ||
-                 parent.gender.toLowerCase().includes(searchText) ||
-                 parent.address.toLowerCase().includes(searchText) ||
-                 parent.phone_number.toLowerCase().includes(searchText) ||
-                 parent.email.toLowerCase().includes(searchText);
-        });
-
-        displayParents(filteredParents);
-      });
-    })
-    .catch(error => console.error('获取家长数据时出错:', error));
-});
-
+      })
+      .catch(error => console.error('获取家长数据时出错:', error));
+  });
 </script>
 
 
