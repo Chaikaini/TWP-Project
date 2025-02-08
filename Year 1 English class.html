@@ -557,11 +557,15 @@
         child: selectedChild
     };
 
+    const data = {
+        cart: [cartItem]  // 确保发送的结构正确
+    };
+
     // 发送到 save_cart.php
     fetch('save_cart.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(cartItem)  // 直接发送 cartItem
+        body: JSON.stringify(data)  // 发送完整的 cart 数据
     })
     .then(response => response.json())
     .then(data => {
@@ -572,28 +576,6 @@
         }
     })
     .catch(error => console.error('Error:', error));
-});
-
-
-
-
-        
-        document.addEventListener("DOMContentLoaded", function() {
-    fetch('get_child.php?id=2') // 通过查询参数获取 id 为 2 的孩子数据
-        .then(response => response.json())
-        .then(data => {
-            let select = document.getElementById("childrenSelect");
-            select.innerHTML = '<option value="">Choose</option>'; // 先清空后填充
-
-            // 如果数据存在，将孩子信息填充到下拉框
-            if (data && data.id) {
-                let option = document.createElement("option");
-                option.value = data.id;
-                option.textContent = data.name;
-                select.appendChild(option);
-            }
-        })
-        .catch(error => console.error('Children information fail:', error));
 });
 
 
