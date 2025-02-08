@@ -232,46 +232,30 @@
 
 
 
-// Fetch data from the PHP file
-fetch('dashboard_data.php')
+    // Fetch data from the PHP file
+    fetch('dashboard_data.php')
       .then(response => response.json())
       .then(data => {
         // Insert data into the respective HTML elements
         document.getElementById('total-children').textContent = data.total_children;
         document.getElementById('total-parents').textContent = data.total_parents;
         
-    // Toggle sidebar
-    document.getElementById('toggleSidebar').addEventListener('click', () => {
-      document.getElementById('sidebar').classList.toggle('collapsed');
-    });
-
-    // Chart 1: Subjects Bar Chart
-    const ctxSubjects = document.getElementById('subjectsChart').getContext('2d');
-    const subjectsChart = new Chart(ctxSubjects, {
-      type: 'bar',
-      data: {
-        labels: ['English', 'Malay', 'Math'],
-        datasets: [{
-          data: [20, 15, 18],
-          backgroundColor: ['#1e88e5', '#ff9800', '#388e3c'],
-          borderWidth: 1
-        }]
-      }
-    });
-
-    // Chart 2: New vs Old Users Pie Chart
-    const ctxUsers = document.getElementById('usersChart').getContext('2d');
-    const usersChart = new Chart(ctxUsers, {
-      type: 'pie',
-      data: {
-        labels: ['New Users', 'Old Users'],
-        datasets: [{
-          data: [30, 70],
-          backgroundColor: ['#FF5733', '#33FF57'],
-          hoverOffset: 4
-        }]
-      }
-    });
+        // Optionally, update charts with the fetched data
+        const ctxSubjects = document.getElementById('subjectsChart').getContext('2d');
+        const subjectsChart = new Chart(ctxSubjects, {
+          type: 'bar',
+          data: {
+            labels: ['English', 'Malay', 'Math'],
+            datasets: [{
+              data: [data.total_subjects, data.total_subjects, data.total_subjects], // For example
+              backgroundColor: ['#1e88e5', '#ff9800', '#388e3c'],
+              borderWidth: 1
+            }]
+          }
+        });
+      })
+      .catch(error => console.error('Error fetching data:', error));
+      
   </script>
 </body>
 </html>
