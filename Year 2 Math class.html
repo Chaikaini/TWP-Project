@@ -398,8 +398,9 @@
                 
 
                 <div class="class-info">
-                    <p><strong>Teacher:</strong> Mr.  David</p>
+                    <p id="teacher"><strong>Teacher: </strong> Mr.  David</p>
                     <p id="subjectPrice"><strong>Price: RM</strong> 510 (85 * 6 Month)</p>
+                    <p id="time"><strong>Time: </strong> Webnesday 5.00pm-7.00pm </p>
                 </div>
 
               <!-- Time Slot Selection -->
@@ -549,9 +550,12 @@
     let selectedChild = document.getElementById("childrenSelect").innerText.replace('Choose', '').trim();
     let subjectName = document.getElementById("subjectName").innerText;
     let subjectPrice = document.getElementById("subjectPrice").innerText.replace('Price: RM', '').trim();
+    let teacher = document.getElementById("teacher").innerText.replace('Teacher: ', '').trim();
+    let time = document.getElementById("time").innerText.replace('Time: ', '').trim();
     let price = parseFloat(subjectPrice);
 
     let subjectImage = document.getElementById("subjectImage").src; // 获取img标签的src属性
+    
 
     if (isNaN(price)) {
         alert("Invalid price value");
@@ -562,7 +566,9 @@
         subject: subjectName,
         price: price,
         child: selectedChild,
-        image: subjectImage // 将图片路径添加到cartItem中
+        image: subjectImage, // 将图片路径添加到cartItem中
+        teacher:teacher,
+        time:time
     };
 
     const data = {
