@@ -215,7 +215,7 @@
                 <li>Subject</li>
             </ul>
         </div>
-        <div class="search-box" id="resultsContainer">
+        <div class="search-box">
             <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="width: 200px;">
             <button id="searchButton" class="btn btn-outline-success" type="submit">Search</button>
         </div>
@@ -231,43 +231,70 @@
     </div>
     
     <script>
-        // 获取年级参数（默认为 Year 1）
-        const urlParams = new URLSearchParams(window.location.search);
-        const year = urlParams.get('year') || 'Year 1';
-
-        // 请求获取科目数据
-        function showSubjects(year) {
-            fetch(`subject.php?year=${year}`)
-                .then(response => response.json())
-                .then(data => {
-                    // 获取显示科目的容器
-                    const subjectGrid = document.getElementById('subjectGrid');
-                    subjectGrid.innerHTML = ''; // 清空现有内容
-
-                    // 渲染科目信息
-                    data.forEach(subject => {
-                        const card = document.createElement('div');
-                        card.className = 'subject-card';
-                        card.innerHTML = `
-                            <img src="${subject.image}" alt="${subject.name}">
-                        <h5>${subject.name}</h5>
-                        <p>${subject.rating}⭐</p>
-                        `;
-                        card.onclick = function () {
-                    window.location.href = subject.page;
-                };
-                        subjectGrid.appendChild(card);
+        document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const year = urlParams.get('year') || 'Year 1'; // 获取 URL 参数
+        
+            function showSubjects(year, query = '') {
+                // 将查询参数传给 PHP 文件进行过滤
+                fetch(`subject.php?year=${year}&query=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const subjectGrid = document.getElementById('subjectGrid');
+                        subjectGrid.innerHTML = ''; // 清空现有内容
+        
+                        data.forEach(subject => {
+                            const card = document.createElement('div');
+                            card.className = 'subject-card';
+                            card.innerHTML = `
+                                <img src="${subject.image}" alt="${subject.name}">
+                                <h5>${subject.name}</h5>
+                                <p>${subject.rating}⭐</p>
+                                <a href="${subject.page}"></a>
+                            `;
+                            card.onclick = function () {
+                                window.location.href = subject.page;
+                            };
+                            subjectGrid.appendChild(card);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('获取数据失败:', error);
                     });
-                })
-                .catch(error => {
-                    console.error('获取数据失败:', error);
-                });
-        }
-
-        // 初次加载页面时默认显示 Year 1 的科目
-        showSubjects(year);
-    </script>
-
+            }
+        
+            // 初始化页面显示
+            showSubjects(year);
+        
+            // 搜索功能
+            const searchInput = document.querySelector('.search-box input');
+            const searchButton = document.getElementById('searchButton');
+        
+            searchButton.addEventListener('click', function (event) {
+                event.preventDefault(); // 防止表单提交
+                const searchQuery = searchInput.value.trim(); // 获取搜索框的值
+        
+                if (searchQuery) {
+                    showSubjects(year, searchQuery); // 根据年级和搜索词显示科目
+                } else {
+                    showSubjects(year); // 如果没有搜索词，显示所有科目
+                }
+            });
+        
+            // 监听回车键事件
+            searchInput.addEventListener('keypress', function (event) {
+                if (event.key === 'Enter') {
+                    const searchQuery = searchInput.value.trim();
+                    if (searchQuery) {
+                        showSubjects(year, searchQuery); // 根据年级和搜索词显示科目
+                    } else {
+                        showSubjects(year); // 如果没有搜索词，显示所有科目
+                    }
+                }
+            });
+        });
+        </script>
+        
 
      
     <!-- Footer Start -->
@@ -395,113 +422,6 @@ function renderSubjects(subjectsData) {
     });
 }
 
-document.getElementById('searchButton').addEventListener('click', function() {
-    // 获取用户输入
-    var query = document.getElementById('searchInput').value.trim();
-
-    // 检查输入是否为空
-    if (query === '') {
-        alert('Please enter a search term!');
-        return;
-    }
-
-    // 创建一个AJAX请求
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'search.php?query=' + encodeURIComponent(query), true);
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            // 解析返回的JSON数据
-            var result = JSON.parse(xhr.responseText);
-
-            // 检查返回的结果
-            if (result.status === 'success') {
-                // 如果有结果，展示它们
-                displaySearchResults(result.data);
-            } else {
-                alert('No results found.');
-            }
-        }
-    };
-    xhr.send();
-});
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    // 获取搜索框和按钮元素
-    const searchInput = document.querySelector('.search-box input');
-    const searchButton = document.querySelector('.search-box button');
-
-    // 获取显示结果的容器
-    const resultsContainer = document.getElementById('resultsContainer');
-    if (!resultsContainer) {
-        console.error('没有找到结果显示容器');
-        return;
-    }
-
-    // 监听按钮点击事件
-    searchButton.addEventListener('click', function (event) {
-        event.preventDefault(); // 防止表单提交
-        const searchQuery = searchInput.value.trim(); // 获取搜索框的值
-
-        if (searchQuery) {
-            console.log('Searching for:', searchQuery); // 调试：打印搜索查询
-            search(searchQuery);
-        } else {
-            alert('请输入搜索词！');
-        }
-    });
-
-    // 监听回车键事件
-    searchInput.addEventListener('keypress', function (event) {
-        if (event.key === 'Enter') {
-            const searchQuery = searchInput.value.trim();
-            if (searchQuery) {
-                console.log('Searching for:', searchQuery); // 调试：打印搜索查询
-                search(searchQuery);
-            } else {
-                alert('请输入搜索词！');
-            }
-        }
-    });
-
-    // 搜索功能
-    function search(query) {
-        fetch(`search.php?query=${encodeURIComponent(query)}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log('Search result:', data); // 调试：打印搜索结果
-                if (data.status === 'success') {
-                    const results = data.data;
-                    displayResults(results);
-                } else {
-                    alert(data.message);
-                }
-            })
-            .catch(error => console.error('Error:', error));
-    }
-
-    // 显示搜索结果的函数
-    function displayResults(results) {
-        resultsContainer.innerHTML = ''; // 清空现有的结果
-
-        if (results.length === 0) {
-            resultsContainer.innerHTML = '<p>没有找到结果。</p>';
-        } else {
-            results.forEach(item => {
-                const resultItem = document.createElement('div');
-                resultItem.classList.add('result-item');
-                resultItem.innerHTML = `
-                    <h5>${item.name}</h5>
-                    <p>${item.year}</p>
-                    <p>价格: RM ${item.price}</p>
-                    <img src="${item.image}" alt="${item.name}">
-                `;
-                resultsContainer.appendChild(resultItem);
-            });
-        }
-    }
-});
 
 
         </script>
