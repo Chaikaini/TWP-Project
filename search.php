@@ -32,8 +32,5 @@ if ($result->num_rows > 0) {
 
 $stmt->close();
 
-}
-
-// 返回JSON响应
-echo json_encode($response);
+// 代码结束，不需要额外的echo
 ?>
