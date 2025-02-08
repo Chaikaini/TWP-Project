@@ -222,7 +222,7 @@
     </div>
 
     <div class="container-main">
-        <div class="year-list">
+        <div class="year-list" id="resultsContainer" >
             <div class="year" onclick="showSubjects('Year 1')">Year 1</div>
             <div class="year" onclick="showSubjects('Year 2')">Year 2</div>
         </div>
@@ -432,6 +432,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.querySelector('.search-box input');
     const searchButton = document.querySelector('.search-box button');
 
+    // 获取显示结果的容器
+    const resultsContainer = document.getElementById('resultsContainer');
+    if (!resultsContainer) {
+        console.error('没有找到结果显示容器');
+        return;
+    }
+
     // 监听按钮点击事件
     searchButton.addEventListener('click', function (event) {
         event.preventDefault(); // 防止表单提交
@@ -476,7 +483,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 显示搜索结果的函数
     function displayResults(results) {
-        const resultsContainer = document.getElementById('resultsContainer');
         resultsContainer.innerHTML = ''; // 清空现有的结果
 
         if (results.length === 0) {
