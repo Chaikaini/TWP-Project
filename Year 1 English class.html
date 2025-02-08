@@ -566,24 +566,24 @@
 
     // 发送 POST 请求到 save_cart.php
     fetch('save_cart.php', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ cart: [cartItem] }) // Sending data
-})
-.then(response => {
-    return response.json();  // Ensure you're expecting JSON
-})
-.then(data => {
-    if (data.status === "success") {
-        alert("Item added to cart!");
-    } else {
-        alert("Error: " + data.message);
-    }
-})
-.catch(error => {
-    console.error('Error:', error);
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json'  // 确保使用正确的 Content-Type
+        },
+        body: JSON.stringify(data)  // 发送 JSON 格式数据
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === "success") {
+            alert("Item added to cart!");
+        } else {
+            alert("Error: " + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 });
-
 
 
 
