@@ -212,7 +212,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <td>${parent.address}</td>
             <td>${parent.phone_number}</td>
             <td>${parent.email}</td>
-            <td><i class='fas fa-trash-alt text-danger' style='cursor:pointer;' data-id='${parent.id}'></i></td>
+            <td><i class='fas fa-trash-alt text-danger' style='cursor:pointer;' data-username='${parent.username}' onclick="deleteParent('${parent.username}')"></i></td>
           `;
           parentList.appendChild(row);
         });
@@ -236,8 +236,36 @@ document.addEventListener("DOMContentLoaded", function() {
         displayParents(filteredParents);
       });
     })
-    .catch(error => console.error('获取家长数据时出错:', error));
+    .catch(error => console.error('Information Parent Fail:', error));
 });
+
+
+function deleteParent(username) {
+    if (confirm("You sure need delete this parent？")) {
+        fetch('delete_parent.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username: username }) // 发送删除项的用户名
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                // 删除成功，重新加载家长列表
+                alert("Deleted Successfu!");
+                location.reload(); // 重新加载页面，刷新数据
+            } else {
+                alert("Delete Failed : " + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("删除过程中发生错误");
+        });
+    }
+}
+
 
 </script>
 
