@@ -343,8 +343,8 @@ function removeFromCart(index) {
         cart.splice(index, 1);
 
         // 将更新后的购物车数据保存到服务器
-        fetch('get_cart.php', {
-            method: 'DEL',
+        fetch('save_cart.php', {  // 使用 save_cart.php 来保存删除后的购物车数据
+            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ cart: cart })
         })
@@ -358,6 +358,7 @@ function removeFromCart(index) {
     })
     .catch(error => console.error("Error getting cart data:", error));
 }
+
 
 
 
