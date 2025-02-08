@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($data['username'])) {
         $username = $data['username']; // 获取要删除的用户名
-        $sql = "DELETE FROM parents WHERE username = ?";
+        $sql = "DELETE FROM users WHERE username = ?";
         $stmt = $conn->prepare($sql);
 
         if ($stmt) {
