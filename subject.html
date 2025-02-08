@@ -216,7 +216,7 @@
             </ul>
         </div>
         <div class="search-box">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="width: 200px;">
+            <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="width: 200px;" id="searchInput">
             <button id="searchButton" class="btn btn-outline-success" type="submit">Search</button>
         </div>        
     </div>
@@ -398,42 +398,9 @@ function renderSubjects(subjectsData) {
 }
 
 
-document.getElementById('searchButton').addEventListener('click', function() {
-    // 获取用户输入
-    var query = document.getElementById('searchInput').value.trim();
-
-    // 检查输入是否为空
-    if (query === '') {
-        alert('Please enter a search term!');
-        return;
-    }
-
-    // 创建一个AJAX请求
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'search.php?query=' + encodeURIComponent(query), true);
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            // 解析返回的JSON数据
-            var result = JSON.parse(xhr.responseText);
-
-            // 检查返回的结果
-            if (result.status === 'success') {
-                // 如果有结果，展示它们
-                displaySearchResults(result.data);
-            } else {
-                alert('No results found.');
-            }
-        }
-    };
-    xhr.send();
-});
-
-
-
 document.addEventListener('DOMContentLoaded', function () {
-    // 获取搜索框和按钮元素
-    const searchInput = document.querySelector('.search-box input');
-    const searchButton = document.querySelector('.search-box button');
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
     const resultsContainer = document.getElementById('resultsContainer');
 
     if (!searchInput || !searchButton || !resultsContainer) {
@@ -442,20 +409,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     searchButton.addEventListener('click', function (event) {
-        event.preventDefault(); 
-        const searchQuery = searchInput.value.trim(); 
+        event.preventDefault();
+        const searchQuery = searchInput.value.trim();
 
         if (searchQuery) {
-            console.log('Searching for:', searchQuery); 
+            console.log('Searching for:', searchQuery);
             search(searchQuery);
         } else {
             alert('请输入搜索词！');
         }
     });
-});
 
-
-    // 监听回车键事件
     searchInput.addEventListener('keypress', function (event) {
         if (event.key === 'Enter') {
             const searchQuery = searchInput.value.trim();
@@ -468,7 +432,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // 搜索功能
     function search(query) {
         fetch(`search.php?query=${encodeURIComponent(query)}`)
             .then(response => response.json())
@@ -484,7 +447,6 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => console.error('Error:', error));
     }
 
-    // 显示搜索结果的函数
     function displayResults(results) {
         resultsContainer.innerHTML = ''; // 清空现有的结果
 
@@ -504,6 +466,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     }
+});
 
 
         </script>
