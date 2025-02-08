@@ -165,101 +165,58 @@
       </div>
     </nav>
 
-  <!-- 家长列表表格 -->
-  <div class="main-title">
-    <h2>View ParentList</h2>
+   <!-- Parent List Table -->
+   <div class="main-title">
+    <h2>View Parent List</h2>
   </div>
   <div class="table-container">
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
           <th>Name</th>
+          <th>IC</th>
           <th>Gender</th>
           <th>Address</th>
-          <th>Phone</th>
-          <th>email</th>
-          <th>action</th> 
+          <th>Phone Number</th>
+          <th>Email</th>
+          <th>Actions</th> 
         </tr>
       </thead>
       <tbody id="parentList">
-        <!-- 家长数据将通过 JavaScript 动态插入 -->
+        <!-- Parent data will be injected here by JavaScript -->
       </tbody>
     </table>
   </div>
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  // 获取搜索框和家长列表
-  const searchInput = document.getElementById('search');
-  const parentList = document.getElementById('parentList');
-
-  // 从 PHP 文件获取家长数据
-  fetch('fetch_parents.php')
-    .then(response => response.json())
-    .then(data => {
-      // 存储家长数据
-      const parents = data;
-
-      // 显示家长数据
-      function displayParents(parentsToDisplay) {
+  document.addEventListener("DOMContentLoaded", function() {
+    // Fetch parent data from the PHP file
+    fetch('fetch_parents.php')
+      .then(response => response.json())
+      .then(data => {
+        const parentList = document.getElementById('parentList');
+        
+        // Clear any existing rows
         parentList.innerHTML = '';
-        parentsToDisplay.forEach(parent => {
+
+        // Populate the table with fetched data
+        data.forEach(parent => {
           const row = document.createElement('tr');
           row.innerHTML = `
             <td>${parent.username}</td>
+            <td>IC-${Math.floor(Math.random() * 900000 + 100000)}</td> <!-- Random IC -->
             <td>${parent.gender}</td>
             <td>${parent.address}</td>
             <td>${parent.phone_number}</td>
             <td>${parent.email}</td>
-            <td><i class='fas fa-trash-alt text-danger' style='cursor:pointer;' data-id='${parent.id}'></i></td>
-         ` ;
+            <td><i class='fas fa-trash-alt text-danger' style='cursor:pointer;'></i></td>
+          `;
           parentList.appendChild(row);
         });
-      }
-
-      // 初始化显示所有家长
-      displayParents(parents);
-
-      // 搜索功能
-      searchInput.addEventListener('input', function() {
-        const searchText = searchInput.value.toLowerCase();
-
-        const filteredParents = parents.filter(parent => {
-          return parent.username.toLowerCase().includes(searchText) ||
-                 parent.gender.toLowerCase().includes(searchText) ||
-                 parent.address.toLowerCase().includes(searchText) ||
-                 parent.phone_number.toLowerCase().includes(searchText) ||
-                 parent.email.toLowerCase().includes(searchText);
-        });
-
-        displayParents(filteredParents);
-      });
-
-      // 删除家长功能
-      parentList.addEventListener('click', function(e) {
-        if (e.target && e.target.classList.contains('fa-trash-alt')) {
-          const parentId = e.target.getAttribute('data-id');
-          // 发起删除请求
-          fetch('fetch_parents.php?id=' + parentId)
-            .then(response => response.json())
-            .then(response => {
-              if (response.status === 'success') {
-                // 删除成功后，移除对应的家长
-                const updatedParents = parents.filter(parent => parent.id != parentId);
-                displayParents(updatedParents);
-              } else {
-                console.error('delete fail:', response.message);
-              }
-            })
-            .catch(error => console.error('can not action:', error));
-        }
-      });
-    })
-    .catch(error => console.error('information parent fail:', error));
-});
-
-
+      })
+      .catch(error => console.error('Error fetching parent data:', error));
+  });
 </script>
 
 
