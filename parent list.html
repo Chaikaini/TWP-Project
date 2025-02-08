@@ -239,28 +239,33 @@ document.addEventListener("DOMContentLoaded", function() {
     .catch(error => console.error('Information Parent Fail:', error));
 });
 
-function deleteParent (parentUsername){
-fetch('dele_parent.php', {
+function deleteParent (parentUsername) {
+  fetch('dele_parent.php', {
     method: 'POST',  // 确保是 POST 请求
     headers: {
-        'Content-Type': 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ username: parentUsername })  // 发送正确的 JSON 数据
-})
-.then(response => response.json())  // 解析响应为 JSON
-.then(data => {
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();  // 解析响应为 JSON
+  })
+  .then(data => {
     console.log(data);
     if (data.status === 'success') {
-        alert('Parent deleted successfully');
-        location.reload(); // 刷新页面
+      alert('Parent deleted successfully');
+      location.reload(); // 刷新页面
     } else {
-        alert('Error: ' + data.message);  // 显示错误信息
+      alert('Error: ' + data.message);  // 显示错误信息
     }
-})
-.catch(error => {
+  })
+  .catch(error => {
     console.error('Error:', error);
     alert("Delete Process Error");
-});
+  });
 }
 
 </script>
