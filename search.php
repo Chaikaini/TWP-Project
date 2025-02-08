@@ -3,7 +3,12 @@
 include('db_connect.php'); 
 
 // 获取查询参数
+// 获取查询参数
 $query = isset($_GET['query']) ? $_GET['query'] : '';
+
+// 调试：打印查询参数
+var_dump($query);  // 用来检查传入的 query 参数
+exit;  // 添加 exit 以便仅显示调试结果
 
 // 防止空查询
 if (empty($query)) {

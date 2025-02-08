@@ -427,17 +427,17 @@ document.getElementById('searchButton').addEventListener('click', function() {
 
 
 
-/// 获取搜索框和按钮
+// 获取搜索框和按钮
 const searchInput = document.querySelector('.search-box input');
 const searchButton = document.querySelector('.search-box button');
 
 // 监听点击事件
 searchButton.addEventListener('click', function(event) {
     event.preventDefault(); // 防止表单提交
-    // 获取搜索框的值
-    const searchQuery = searchInput.value.trim();
+    const searchQuery = searchInput.value.trim(); // 获取搜索框的值
 
     if (searchQuery) {
+        console.log('Searching for:', searchQuery); // 调试：查看搜索查询的值
         search(searchQuery);
     } else {
         alert('Please enter a search term.');
@@ -447,9 +447,9 @@ searchButton.addEventListener('click', function(event) {
 // 监听回车键事件
 searchInput.addEventListener('keypress', function(event) {
     if (event.key === 'Enter') {
-        // 获取搜索框的值
         const searchQuery = searchInput.value.trim();
         if (searchQuery) {
+            console.log('Searching for:', searchQuery); // 调试：查看搜索查询的值
             search(searchQuery);
         } else {
             alert('Please enter a search term.');
@@ -462,9 +462,9 @@ function search(query) {
     fetch(`search.php?query=${encodeURIComponent(query)}`)
         .then(response => response.json())
         .then(data => {
+            console.log('Search result:', data); // 调试：查看返回的数据
             if (data.status === 'success') {
                 const results = data.data;
-                // 更新页面显示搜索结果
                 displayResults(results);
             } else {
                 alert(data.message);
