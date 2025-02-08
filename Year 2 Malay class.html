@@ -490,7 +490,7 @@
             fetch('y2_malay_classdetails.php')  // PHP 查询返回课程数据
                 .then(response => response.json())
                 .then(data => {
-                    // 假设我们获取的是 Year 1 English 类别
+                    // 假设我们获取的是 Year 2 Malay 类别
                     const partA = data.find(classDetail => classDetail.part === 'Part A');
                     const partB = data.find(classDetail => classDetail.part === 'Part B');
 
@@ -593,6 +593,23 @@
     });
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+    fetch('get_child.php?id=2') // 通过查询参数获取 id 为 2 的孩子数据
+        .then(response => response.json())
+        .then(data => {
+            let select = document.getElementById("childrenSelect");
+            select.innerHTML = '<option value="">Choose</option>'; // 先清空后填充
+
+            // 如果数据存在，将孩子信息填充到下拉框
+            if (data && data.id) {
+                let option = document.createElement("option");
+                option.value = data.id;
+                option.textContent = data.name;
+                select.appendChild(option);
+            }
+        })
+        .catch(error => console.error('Children information fail:', error));
+});
 
 
 
