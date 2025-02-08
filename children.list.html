@@ -191,6 +191,12 @@
     </div>
     
     <script>
+
+document.addEventListener("DOMContentLoaded", function() {
+  // 获取搜索框和家长列表
+  const searchInput = document.getElementById('search');
+  const parentList = document.getElementById('studentList');
+
       // 加载学生数据
     document.addEventListener("DOMContentLoaded", () => {
       fetch('fetch_children.php')
