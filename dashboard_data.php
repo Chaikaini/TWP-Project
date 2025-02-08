@@ -27,6 +27,26 @@ $total_parents = ($result_parents->num_rows > 0) ? $result_parents->fetch_assoc(
 // 关闭第二个数据库连接
 $conn_parents->close();
 
+// 连接到 admin 数据库
+$conn_admin = new mysqli("localhost", "root", "", "admin");
+
+// 检查连接是否成功
+if ($conn_admin->connect_error) {
+    die("Connection failed: " . $conn_admin->connect_error);
+}
+
+// 查询 admin_subject 表中的科目总数
+$sql_subject = "SELECT COUNT(*) AS total_subjects FROM admin_subject";
+$result_subject = $conn_admin->query($sql_subject);
+
+if ($result_subject->num_rows > 0) {
+    // 获取科目总数
+    $row = $result_subject->fetch_assoc();
+    $total_subjects = $row['total_subjects'];
+} else {
+    $total_subjects = 0;
+}
+
 // 返回所有数据为 JSON 格式
 echo json_encode([
     'total_children' => $total_children,
