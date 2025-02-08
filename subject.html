@@ -231,70 +231,43 @@
     </div>
     
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const year = urlParams.get('year') || 'Year 1'; // 获取 URL 参数
-        
-            function showSubjects(year, query = '') {
-                // 将查询参数传给 PHP 文件进行过滤
-                fetch(`subject.php?year=${year}&query=${encodeURIComponent(query)}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const subjectGrid = document.getElementById('subjectGrid');
-                        subjectGrid.innerHTML = ''; // 清空现有内容
-        
-                        data.forEach(subject => {
-                            const card = document.createElement('div');
-                            card.className = 'subject-card';
-                            card.innerHTML = `
-                                <img src="${subject.image}" alt="${subject.name}">
-                                <h5>${subject.name}</h5>
-                                <p>${subject.rating}⭐</p>
-                                <a href="${subject.page}"></a>
-                            `;
-                            card.onclick = function () {
-                                window.location.href = subject.page;
-                            };
-                            subjectGrid.appendChild(card);
-                        });
-                    })
-                    .catch(error => {
-                        console.error('获取数据失败:', error);
+        // 获取年级参数（默认为 Year 1）
+        const urlParams = new URLSearchParams(window.location.search);
+        const year = urlParams.get('year') || 'Year 1';
+
+        // 请求获取科目数据
+        function showSubjects(year) {
+            fetch(`subject.php?year=${year}`)
+                .then(response => response.json())
+                .then(data => {
+                    // 获取显示科目的容器
+                    const subjectGrid = document.getElementById('subjectGrid');
+                    subjectGrid.innerHTML = ''; // 清空现有内容
+
+                    // 渲染科目信息
+                    data.forEach(subject => {
+                        const card = document.createElement('div');
+                        card.className = 'subject-card';
+                        card.innerHTML = `
+                            <img src="${subject.image}" alt="${subject.name}">
+                        <h5>${subject.name}</h5>
+                        <p>${subject.rating}⭐</p>
+                        `;
+                        card.onclick = function () {
+                    window.location.href = subject.page;
+                };
+                        subjectGrid.appendChild(card);
                     });
-            }
-        
-            // 初始化页面显示
-            showSubjects(year);
-        
-            // 搜索功能
-            const searchInput = document.querySelector('.search-box input');
-            const searchButton = document.getElementById('searchButton');
-        
-            searchButton.addEventListener('click', function (event) {
-                event.preventDefault(); // 防止表单提交
-                const searchQuery = searchInput.value.trim(); // 获取搜索框的值
-        
-                if (searchQuery) {
-                    showSubjects(year, searchQuery); // 根据年级和搜索词显示科目
-                } else {
-                    showSubjects(year); // 如果没有搜索词，显示所有科目
-                }
-            });
-        
-            // 监听回车键事件
-            searchInput.addEventListener('keypress', function (event) {
-                if (event.key === 'Enter') {
-                    const searchQuery = searchInput.value.trim();
-                    if (searchQuery) {
-                        showSubjects(year, searchQuery); // 根据年级和搜索词显示科目
-                    } else {
-                        showSubjects(year); // 如果没有搜索词，显示所有科目
-                    }
-                }
-            });
-        });
-        </script>
-        
+                })
+                .catch(error => {
+                    console.error('获取数据失败:', error);
+                });
+        }
+
+        // 初次加载页面时默认显示 Year 1 的科目
+        showSubjects(year);
+    </script>
+
 
      
     <!-- Footer Start -->

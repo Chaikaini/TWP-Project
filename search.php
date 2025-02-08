@@ -1,8 +1,9 @@
 <?php
-$year = $_GET['year'];
+// 检查是否存在 'year' 参数，若不存在则使用默认值 'Year 1'
+$year = isset($_GET['year']) ? $_GET['year'] : 'Year 1';
 $query = isset($_GET['query']) ? $_GET['query'] : '';
 
-// 假设你使用的是 MySQL 数据库
+// 数据库连接
 $servername = "localhost";
 $username = "root";
 $password = "";
