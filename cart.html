@@ -343,7 +343,6 @@ function removeFromCart(itemId) {
     .then(response => response.json())
     .then(data => {
         if (data.status === "success") {
-            alert("Item removed from cart!");
             loadCartData(); // 重新加载购物车数据
         } else {
             alert("Error: " + data.message);
