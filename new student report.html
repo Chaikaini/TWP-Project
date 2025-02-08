@@ -157,7 +157,7 @@
     <!-- New Student Report -->
     <h1 class="mb-4">New Student Report</h1>
 
-    
+
     <div class="date-range">
       <h6>Report for: </h6>
       <span></span>
@@ -256,6 +256,9 @@ document.getElementById("filter-btn").addEventListener("click", function () {
       .catch(error => console.error("Error fetching data:", error));
   });
 
+          // Update the displayed date range
+          document.querySelector(".date-range span").textContent = ` ${formattedStart} to ${formattedEnd}`;
+      }
 
 
     document.getElementById('toggleSidebar').addEventListener('click', () => {
