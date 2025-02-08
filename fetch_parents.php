@@ -24,6 +24,18 @@ if ($result->num_rows > 0) {
         $parents[] = $row;
     }
 }
+// 获取家长ID
+$parentId = $_GET['id'];
+
+// 删除家长数据
+$sql = "DELETE FROM users WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $parentId);
+if ($stmt->execute()) {
+    echo json_encode(['status' => 'success']);
+} else {
+    echo json_encode(['status' => 'error', 'message' => '删除失败']);
+}
 
 // 关闭连接
 $conn->close();
