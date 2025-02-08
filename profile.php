@@ -359,8 +359,8 @@ button.btn.btn-primaryy:hover {
                     <label for="gender">Gender</label>
                     <select id="gender" name="gender">
                         <option value="" disabled selected>Select your gender</option>
-                        <option value="parent">Male</option>
-                        <option value="guardian">Female</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -372,12 +372,12 @@ button.btn.btn-primaryy:hover {
                     <input type="email" id="email" value="" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="phone-num">Phone Number 1</label>
-                    <input type="text" id="phone-num">
+                    <label for="phone-num-1">Phone Number 1</label>
+                    <input type="text" id="phone-num-1">
                 </div>
                 <div class="form-group">
-                    <label for="phone-num">Phone Number 2</label>
-                    <input type="text" id="phone-num">
+                    <label for="phone-num-2">Phone Number 2</label>
+                    <input type="text" id="phone-num-2">
                 </div>
                 <div class="form-group">
                     <label for="relationship">Relationship</label>
@@ -785,6 +785,26 @@ function openEditModal(name, gender, kidNumber, birthday, school, year) {
     document.getElementById("childFormModal").style.display = "block";
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("profile_myinfo.php")
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                document.getElementById("name").value = data.data.username;
+                document.getElementById("gender").value = data.data.gender;
+                document.getElementById("ic-num").value = data.data.ic_number;
+                document.getElementById("email").value = data.data.email;
+                document.getElementById("address").value = data.data.address;
+                document.getElementById("phone-num-1").value = data.data.phone_number;
+                document.getElementById("relationship").value = data.data.relationship;
+                
+                
+            } else {
+                alert("Failed to load profile: " + data.message);
+            }
+        })
+        .catch(error => console.error("Error fetching profile:", error));
+});
 
     </script>
 
