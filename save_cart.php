@@ -35,10 +35,12 @@ if (!empty($cart)) {
         $price = $item['price'] ?? 0;
         $child = $item['child'] ?? '';
         $image = $item['image'] ?? ''; // 获取图片路径
+        $teacher = $item['teacher'] ?? ''; // 获取教师名称
+        $time = $item['time'] ?? ''; // 获取课程时间
         
         // 插入数据到数据库
-        $stmt = $conn->prepare("INSERT INTO cart_items (subject, price, child, image) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("sdss", $subject, $price, $child, $image);
+        $stmt = $conn->prepare("INSERT INTO cart_items (subject, price, child, image, teacher, time) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sdssss", $subject, $price, $child, $image, $teacher, $time);
         
         // 执行插入操作
         if (!$stmt->execute()) {
