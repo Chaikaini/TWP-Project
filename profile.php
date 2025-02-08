@@ -394,16 +394,17 @@ button.btn.btn-primaryy:hover {
                 <h3>Reset Password</h3>
                 <div class="form-group">
                     <label for="current-password">Current Password</label>
-                    <input type="text" id="current-password">
+                    <input type="password" id="current-password" placeholder="Enter current password">
                 </div>
                 <div class="form-group">
                     <label for="new-password">New Password</label>
-                    <input type="text" id="new-password">
+                    <input type="password" id="new-password" placeholder="Enter new password">
                 </div>
                 <div class="form-group">
                     <label for="confirm-password">Confirm Password</label>
-                    <input type="text" id="confirm-password">
+                    <input type="password" id="confirm-password" placeholder="Confirm new password">
                 </div>
+                
                 <div class="form-group">
                     <button type="submit">Save Changes</button>
                 </div>
@@ -804,6 +805,32 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         })
         .catch(error => console.error("Error fetching profile:", error));
+});
+document.getElementById("update-password").addEventListener("click", function () {
+    const currentPassword = document.getElementById("current-password").value;
+    const newPassword = document.getElementById("new-password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
+
+    if (newPassword !== confirmPassword) {
+        alert("New password and confirm password do not match!");
+        return;
+    }
+
+    fetch("update_password.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            current_password: currentPassword,
+            new_password: newPassword
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+    })
+    .catch(error => console.error("Error updating password:", error));
 });
 
     </script>

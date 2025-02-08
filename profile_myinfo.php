@@ -32,6 +32,9 @@ if ($user) {
     echo json_encode(['status' => 'error', 'message' => 'User not found']);
 }
 
+
+
+
 $stmt->close();
 $conn->close();
 ?>
