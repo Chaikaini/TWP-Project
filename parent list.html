@@ -189,7 +189,7 @@
 </div>
 
 <script>
-  
+
 document.addEventListener("DOMContentLoaded", function() {
   // 获取搜索框和家长列表
   const searchInput = document.getElementById('search');
@@ -213,7 +213,8 @@ document.addEventListener("DOMContentLoaded", function() {
             <td>${parent.address}</td>
             <td>${parent.phone_number}</td>
             <td>${parent.email}</td>
-            <td><i class='fas fa-trash-alt text-danger' style='cursor:pointer;' data-id='${parent.id}'></i></td>
+            <td><i class='fas fa-trash-alt text-danger' style='cursor:pointer;' data-id='${parent.username}'></i></td>
+
           `;
           parentList.appendChild(row);
         });
@@ -242,7 +243,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (e.target && e.target.classList.contains('fa-trash-alt')) {
           const parentId = e.target.getAttribute('data-id');
           // 发起删除请求
-          fetch('fetch_parents.php?id=' + parentId)
+          fetch(`fetch_parents.php?username=${parentUsername}`)
             .then(response => response.json())
             .then(response => {
               if (response.status === 'success') {
