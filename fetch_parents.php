@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 }
 
 // 查询父母的数据
-$sql = "SELECT id, username, phone_number, gender, address, email FROM users";
+$sql = "SELECT username, phone_number, gender, address, email FROM users";
 $result = $conn->query($sql);
 
 // 存储查询结果
@@ -25,22 +25,9 @@ if ($result->num_rows > 0) {
     }
 }
 
-// 删除家长数据（如果提供了id）
-if (isset($_GET['id'])) {
-    $parentId = $_GET['id'];
-    $sql = "DELETE FROM users WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $parentId);
-    if ($stmt->execute()) {
-        echo json_encode(['status' => 'success']);
-    } else {
-        echo json_encode(['status' => 'error', 'message' => 'delete fail']);
-    }
-}
-
 // 关闭连接
 $conn->close();
 
-// 返回家长数据
+// 返回 JSON 格式的结果
 echo json_encode($parents);
 ?>
