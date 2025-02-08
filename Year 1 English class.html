@@ -570,7 +570,7 @@
         headers: { 
             'Content-Type': 'application/json'  // 确保使用正确的 Content-Type
         },
-        body: JSON.stringify(data)  // 发送 JSON 格式数据
+        body: JSON.stringify({ cart: [cartItem] }) // 发送包含subject image的cartItem
     })
     .then(response => response.json())
     .then(data => {
