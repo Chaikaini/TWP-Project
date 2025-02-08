@@ -6,7 +6,7 @@ if ($conn_children->connect_error) {
 }
 
 // 查询 children 数据
-$sql_children = "SELECT COUNT(*) AS total_children FROM children";
+$sql_children = "SELECT COUNT(*) AS total_children FROM childreninfo";
 $result_children = $conn_children->query($sql_children);
 $total_children = ($result_children->num_rows > 0) ? $result_children->fetch_assoc()['total_children'] : 0;
 
