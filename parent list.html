@@ -222,22 +222,29 @@ document.addEventListener("DOMContentLoaded", function() {
       displayParents(parents);
 
       // 搜索功能
-      searchInput.addEventListener('input', function() {
-        const searchText = searchInput.value.toLowerCase();
+      fetch('fetch_parents.php')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data); // 输出获取到的数据，检查gender字段
+    const parents = data;
+    displayParents(parents);
 
-        const filteredParents = parents.filter(parent => {
-          return parent.username.toLowerCase().includes(searchText) ||
-                 parent.gender.toLowerCase().includes(searchText) ||
-                 parent.address.toLowerCase().includes(searchText) ||
-                 parent.phone_number.toLowerCase().includes(searchText) ||
-                 parent.email.toLowerCase().includes(searchText);
-        });
+    searchInput.addEventListener('input', function() {
+      const searchText = searchInput.value.toLowerCase();
 
-        displayParents(filteredParents);
+      const filteredParents = parents.filter(parent => {
+        return parent.username.toLowerCase().includes(searchText) ||
+               parent.gender.toLowerCase().includes(searchText) ||
+               parent.address.toLowerCase().includes(searchText) ||
+               parent.phone_number.toLowerCase().includes(searchText) ||
+               parent.email.toLowerCase().includes(searchText);
       });
-    })
-    .catch(error => console.error('获取家长数据时出错:', error));
-});
+
+      displayParents(filteredParents);
+    });
+  })
+  .catch(error => console.error('获取家长数据时出错:', error));
+
 
 </script>
 
