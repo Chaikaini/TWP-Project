@@ -427,12 +427,13 @@ document.getElementById('searchButton').addEventListener('click', function() {
 
 
 
-// 获取搜索框和按钮
+/// 获取搜索框和按钮
 const searchInput = document.querySelector('.search-box input');
 const searchButton = document.querySelector('.search-box button');
 
 // 监听点击事件
-searchButton.addEventListener('click', function() {
+searchButton.addEventListener('click', function(event) {
+    event.preventDefault(); // 防止表单提交
     // 获取搜索框的值
     const searchQuery = searchInput.value.trim();
 
