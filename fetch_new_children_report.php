@@ -1,25 +1,28 @@
 <?php
 include 'db.php';
 
+// 确保 `$conn` 可用
+global $conn;
+
+// 获取参数
 $start_date = $_GET['start_date'] ?? '';
 $end_date = $_GET['end_date'] ?? '';
 
-if (!$start_date || !$end_date) {
-    echo json_encode(["error" => "Missing dates"]);
-    exit;
+// 如果 `start_date` 或 `end_date` 为空，则查询所有数据
+if (empty($start_date) || empty($end_date)) {
+    $sql = "SELECT id, name, gender, kid_number, birthday FROM childreninfo";
+    $stmt = $conn->prepare($sql);
+} else {
+    $sql = "SELECT id, name, gender, kid_number, birthday FROM childreninfo 
+            WHERE birthday BETWEEN ? AND ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $start_date, $end_date);
 }
 
-// 调试：检查传入的日期
-var_dump($start_date, $end_date);
-
-$sql = "SELECT id, name, gender, kid_number, birthday FROM childreninfo 
-        WHERE birthday BETWEEN ? AND ?";
-$stmt = $conn->prepare($sql);
 if (!$stmt) {
     die(json_encode(["error" => "SQL Error: " . $conn->error]));
 }
 
-$stmt->bind_param("ss", $start_date, $end_date);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -28,8 +31,6 @@ while ($row = $result->fetch_assoc()) {
     $children[] = $row;
 }
 
-// 调试：输出查询结果
-var_dump($children);
-
+// 返回 JSON 数据
 echo json_encode($children);
 ?>
