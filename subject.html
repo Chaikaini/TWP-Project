@@ -216,9 +216,9 @@
             </ul>
         </div>
         <div class="search-box">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="width: 200px;">
+            <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="width: 200px;" id="searchInput">
             <button id="searchButton" class="btn btn-outline-success" type="submit">Search</button>
-        </div>
+        </div>        
     </div>
 
     <div class="container-main">
@@ -231,7 +231,7 @@
     </div>
 
     <div id="resultsContainer"></div>
-    
+
     <script>
         // 获取年级参数（默认为 Year 1）
         const urlParams = new URLSearchParams(window.location.search);
@@ -397,82 +397,49 @@ function renderSubjects(subjectsData) {
     });
 }
 
-document.getElementById('searchButton').addEventListener('click', function() {
-    // 获取用户输入
-    var query = document.getElementById('searchInput').value.trim();
-
-    // 检查输入是否为空
-    if (query === '') {
-        alert('Please enter a search term!');
-        return;
-    }
-
-    // 创建一个AJAX请求
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'search.php?query=' + encodeURIComponent(query), true);
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            // 解析返回的JSON数据
-            var result = JSON.parse(xhr.responseText);
-
-            // 检查返回的结果
-            if (result.status === 'success') {
-                // 如果有结果，展示它们
-                displaySearchResults(result.data);
-            } else {
-                alert('No results found.');
-            }
-        }
-    };
-    xhr.send();
-});
-
-
 
 document.addEventListener('DOMContentLoaded', function () {
-    // 获取搜索框和按钮元素
-    const searchInput = document.querySelector('.search-box input');
-    const searchButton = document.querySelector('.search-box button');
-
-    // 获取显示结果的容器
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
     const resultsContainer = document.getElementById('resultsContainer');
-    if (!resultsContainer) {
-        console.error('没有找到结果显示容器');
+
+    if (!searchInput || !searchButton || !resultsContainer) {
+        console.error('Required elements not found.');
         return;
     }
 
-    // 监听按钮点击事件
+    // Handle search button click
     searchButton.addEventListener('click', function (event) {
-        event.preventDefault(); // 防止表单提交
-        const searchQuery = searchInput.value.trim(); // 获取搜索框的值
+        event.preventDefault();
+        const searchQuery = searchInput.value.trim();
 
         if (searchQuery) {
-            console.log('Searching for:', searchQuery); // 调试：打印搜索查询
+            console.log('Searching for:', searchQuery); // Debugging log
             search(searchQuery);
         } else {
-            alert('请输入搜索词！');
+            alert('Please enter a search term!');
         }
     });
 
-    // 监听回车键事件
+    // Handle 'Enter' key press in search input
     searchInput.addEventListener('keypress', function (event) {
         if (event.key === 'Enter') {
             const searchQuery = searchInput.value.trim();
             if (searchQuery) {
-                console.log('Searching for:', searchQuery); // 调试：打印搜索查询
+                console.log('Searching for:', searchQuery); // Debugging log
                 search(searchQuery);
             } else {
-                alert('请输入搜索词！');
+                alert('Please enter a search term!');
             }
         }
     });
 
-    // 搜索功能
+    // Function to perform the search
     function search(query) {
         fetch(`search.php?query=${encodeURIComponent(query)}`)
             .then(response => response.json())
             .then(data => {
-                console.log('Search result:', data); // 调试：打印搜索结果
+                console.log('Search result:', data); // Debugging log
                 if (data.status === 'success') {
                     const results = data.data;
                     displayResults(results);
@@ -483,27 +450,31 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => console.error('Error:', error));
     }
 
-    // 显示搜索结果的函数
+    // Function to display search results
     function displayResults(results) {
-        resultsContainer.innerHTML = ''; // 清空现有的结果
+        resultsContainer.innerHTML = ''; // Clear existing results
 
         if (results.length === 0) {
-            resultsContainer.innerHTML = '<p>没有找到结果。</p>';
+            resultsContainer.innerHTML = '<p>No results found.</p>';
         } else {
             results.forEach(item => {
                 const resultItem = document.createElement('div');
                 resultItem.classList.add('result-item');
                 resultItem.innerHTML = `
-                    <h5>${item.name}</h5>
-                    <p>${item.year}</p>
-                    <p>价格: RM ${item.price}</p>
-                    <img src="${item.image}" alt="${item.name}">
+                    <div class="subject-card">
+                        <img src="${item.image}" alt="${item.name}">
+                        <h5>${item.name}</h5>
+                        <p>${item.year}</p>
+                        <p>Price: RM ${item.price}</p>
+                        <a href="${item.page}">More details</a>
+                    </div>
                 `;
                 resultsContainer.appendChild(resultItem);
             });
         }
     }
 });
+
 
 
         </script>

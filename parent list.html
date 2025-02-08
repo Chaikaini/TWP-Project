@@ -106,31 +106,30 @@
   <!-- Sidebar -->
   <nav id="sidebar" class="d-flex flex-column p-3">
     <div class="sidebar-header">
-      <img src="https://via.placeholder.com/40" alt="Logo" />
-      <h4>Admin Panel</h4>
+      <h3>Admin Panel</h3>
     </div>
     <ul class="nav flex-column">
-      <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
-      <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-user"></i> <span>Staff List</span></a></li>
-      <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-graduation-cap"></i> <span>Children List</span></a></li>
-      <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-users"></i> <span>Parent List</span></a></li>
-      <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-shopping-cart"></i> <span>Order List</span></a></li>
-      <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-book"></i> <span>Subject List</span></a></li>
-      <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-school"></i> <span>Class List</span></a></li>
-
+      <li class="nav-item"><a href="dashboard.html" class="nav-link"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+      <li class="nav-item"><a href="admin staff.html" class="nav-link"><i class="fas fa-user"></i> <span>Staff List</span></a></li>
+      <li class="nav-item"><a href="children.list.html" class="nav-link"><i class="fas fa-graduation-cap"></i> <span>Children List</span></a></li>
+      <li class="nav-item"><a href="parent list.html" class="nav-link"><i class="fas fa-users"></i> <span>Parent List</span></a></li>
+      <li class="nav-item"><a href="view order.html" class="nav-link"><i class="fas fa-shopping-cart"></i> <span>Order List</span></a></li>
+      <li class="nav-item"><a href="admin subject.php" class="nav-link"><i class="fas fa-book"></i> <span>Subject List</span></a></li>
+      <li class="nav-item"><a href="admin class.php" class="nav-link"><i class="fas fa-school"></i> <span>Class List</span></a></li>
       <li class="nav-item">
-        <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#reportMenu" aria-expanded="false" id="reportToggle">
+        <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#reportMenu" aria-expanded="false">
           <i class="fas fa-chart-line"></i> <span>Report</span>
-          <i class="fas fa-chevron-down ms-2" id="reportIcon"></i>
+          <i class="fas fa-chevron-down ms-2" id="reportIcon"></i> <!-- Add this icon for expand/collapse -->
         </a>
         <div class="collapse" id="reportMenu">
           <ul class="nav flex-column ms-3">
-            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-invoice"></i> <span>Payment report</span></a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-alt"></i> <span>Subject Enrollment report</span></a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-alt"></i> <span>New Children report</span></a></li>
+            <li class="nav-item"><a href="payment report.html" class="nav-link"><i class="fas fa-file-invoice"></i> <span>Payment report</span></a></li>
+            <li class="nav-item"><a href="subject enroll report.html" class="nav-link"><i class="fas fa-file-alt"></i> <span>Subject Enrollment report
+            </span></a></li>
+            <li class="nav-item"><a href="new student report.html" class="nav-link"><i class="fas fa-file-alt"></i> <span>New Children report</span></a></li>
           </ul>
         </div>
-      </li>
+      </li>      
     </ul>
   </nav>
 
@@ -141,7 +140,7 @@
       <div class="container-fluid">
         <button class="btn btn-outline-secondary me-2" id="toggleSidebar"><i class="fas fa-bars"></i></button>
         <form class="d-flex ms-auto">
-          <input class="form-control me-2" type="search" placeholder="Search" id="search-date" />
+          <input class="form-control me-2" type="search" placeholder="Search" id="search" />
           <button class="btn btn-outline-success" type="button" id="search-btn">Search</button>
         </form>
         <ul class="navbar-nav ms-auto">
@@ -155,74 +154,109 @@
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown">
-              <img src="https://via.placeholder.com/30" class="rounded-circle" alt="User" />
+              <i class="fas fa-user"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-              <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><a class="dropdown-item" href="#">Logout</a></li>
+              <li><a class="dropdown-item" href="admin profile.html">Profile</a></li>
+              <li><a class="dropdown-item" href="admin login.html">Logout</a></li>
             </ul>
           </li>
         </ul>
       </div>
     </nav>
 
-    <!-- Parent List Table -->
-    <div class="main-title">
-      <h2>View Parent List</h2>
-    </div>
-    <div class="table-container">
-      <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>IC</th>
-            <th>Gender</th>
-            <th>Address</th>
-            <th>Phone Number</th>
-            <th>Email</th>
-            <th>Actions</th> 
-          </tr>
-        </thead>
-        <tbody id="parentList">
-          <tr>
-            <td>John David</td>
-            <td>920516-01-4812</td>
-            <td>Male</td>
-            <td>Lot 10, Jalan Dengan</td>
-            <td>+6011-252-4775</td>
-            <td>John4812@gmail.com</td>
-            <td>
-              <i class="fas fa-trash-alt text-danger delete-btn" style="cursor:pointer;"></i>
-            </td>
-          </tr>
-          <tr>
-            <td>Joey Sim</td>
-            <td>980722-01-1536</td>
-            <td>Female</td>
-            <td>2549, Jalan Enermge</td>
-            <td>+6013-514-3002</td>
-            <td>Joeysim1536@gmail.com</td>
-            <td>
-              <i class="fas fa-trash-alt text-danger delete-btn" style="cursor:pointer;"></i>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <!-- 家长列表表格 -->
+  <div class="main-title">
+    <h2>View ParentList</h2>
   </div>
+  <div class="table-container">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Gender</th>
+          <th>Address</th>
+          <th>Phone</th>
+          <th>email</th>
+          <th>action</th> 
+        </tr>
+      </thead>
+      <tbody id="parentList">
+        <!-- 家长数据将通过 JavaScript 动态插入 -->
+      </tbody>
+    </table>
+  </div>
+</div>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const parentList = document.getElementById("parentList");
+<script>
 
-      parentList.addEventListener("click", (e) => {
-        // delete button
-        if (e.target.classList.contains("delete-btn")) {
-          e.target.closest("tr").remove();
+document.addEventListener("DOMContentLoaded", function() {
+  const searchInput = document.getElementById('search');
+  const parentList = document.getElementById('parentList');
+
+  fetch('fetch_parents.php')
+    .then(response => response.json())
+    .then(data => {
+      let parents = data;
+
+      function displayParents(parentsToDisplay) {
+        parentList.innerHTML = '';
+        parentsToDisplay.forEach(parent => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${parent.username}</td>
+            <td>${parent.gender}</td>
+            <td>${parent.address}</td>
+            <td>${parent.phone_number}</td>
+            <td>${parent.email}</td>
+            <td><i class='fas fa-trash-alt text-danger' style='cursor:pointer;' data-id='${parent.user_id}'></i></td>
+          `;
+          parentList.appendChild(row);
+        });
+      }
+
+      displayParents(parents);
+
+      searchInput.addEventListener('input', function() {
+        const searchText = searchInput.value.toLowerCase();
+        const filteredParents = parents.filter(parent => {
+          return (parent.username && parent.username.toLowerCase().includes(searchText)) ||
+                 (parent.gender && parent.gender.toLowerCase().includes(searchText)) ||
+                 (parent.address && parent.address.toLowerCase().includes(searchText)) ||
+                 (parent.phone_number && parent.phone_number.toString().includes(searchText)) ||
+                 (parent.email && parent.email.toLowerCase().includes(searchText));
+        });
+
+        displayParents(filteredParents);
+      });
+
+      parentList.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('fa-trash-alt')) {
+          const parentId = e.target.getAttribute('data-id');  // 获取 ID
+
+          fetch(`fetch_parents.php?id=${parentId}`, {
+            method: 'GET',
+          })
+            .then(response => response.json())
+            .then(response => {
+              if (response.status === 'success') {
+                // 删除成功后从当前列表中移除该家长
+                parents = parents.filter(parent => parent.user_id != parentId);
+                displayParents(parents);
+              } else {
+                console.error('删除失败:', response.message);
+              }
+            })
+            .catch(error => console.error('无法执行删除操作:', error));
         }
       });
-    });
-  </script>
+    })
+    .catch(error => console.error('加载家长信息失败:', error));
+});
+
+
+</script>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script>
