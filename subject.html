@@ -394,6 +394,51 @@ function renderSubjects(subjectsData) {
         }
     });
 }
+
+document.getElementById('searchButton').addEventListener('click', function() {
+    // 获取用户输入
+    var query = document.getElementById('searchInput').value.trim();
+
+    // 检查输入是否为空
+    if (query === '') {
+        alert('Please enter a search term!');
+        return;
+    }
+
+    // 创建一个AJAX请求
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'search.php?query=' + encodeURIComponent(query), true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            // 解析返回的JSON数据
+            var result = JSON.parse(xhr.responseText);
+
+            // 检查返回的结果
+            if (result.status === 'success') {
+                // 如果有结果，展示它们
+                displaySearchResults(result.data);
+            } else {
+                alert('No results found.');
+            }
+        }
+    };
+    xhr.send();
+});
+
+// 显示搜索结果的函数
+function displaySearchResults(data) {
+    // 假设你有一个地方来展示搜索结果，比如一个ID为searchResults的div
+    var resultsContainer = document.getElementById('searchResults');
+    resultsContainer.innerHTML = ''; // 清空之前的搜索结果
+
+    data.forEach(function(item) {
+        var div = document.createElement('div');
+        div.classList.add('result-item');
+        div.innerHTML = '<h5>' + item.subject + '</h5><p>' + item.description + '</p>';
+        resultsContainer.appendChild(div);
+    });
+}
+
         </script>
 </body>
 </html>
