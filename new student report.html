@@ -85,6 +85,7 @@
       <li class="nav-item"><a href="view order.html" class="nav-link"><i class="fas fa-shopping-cart"></i> <span>Order List</span></a></li>
       <li class="nav-item"><a href="admin subject.php" class="nav-link"><i class="fas fa-book"></i> <span>Subject List</span></a></li>
       <li class="nav-item"><a href="admin class.php" class="nav-link"><i class="fas fa-school"></i> <span>Class List</span></a></li>
+      <li class="nav-item"><a href="admin notification.html" class="nav-link"><i class="fas fa-envelope"></i> <span>Notification</span></a></li>
       <li class="nav-item">
         <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#reportMenu" aria-expanded="false">
           <i class="fas fa-chart-line"></i> <span>Report</span>
@@ -170,34 +171,61 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script>
 
-fetch("fetch_new_children_report.php") // 直接从 PHP 获取数据
+let originalData = []; // 存储所有数据
+
+// 获取数据并初始化表格
+fetch("fetch_new_children_report.php")
   .then(response => response.json())
   .then(data => {
-    console.log("Fetched Data:", data); // 调试输出
-    const tableBody = document.querySelector("table tbody");
-    tableBody.innerHTML = ""; // 清空表格
-
-    if (data.length === 0) {
-      tableBody.innerHTML = "<tr><td colspan='7' class='text-center'>No records found</td></tr>";
-    } else {
-      data.forEach(child => {
-        const joinDate = "2024-02-08"; // 这里写死 Joindate，可以改成你想要的默认值
-        const row = `
-          <tr>
-            <td>${child.id}</td>
-            <td>${child.name}</td>
-            <td>${child.gender}</td>
-            <td>${child.kid_number}</td>
-            <td>${child.birthday}</td>
-            <td>${joinDate}</td>
-            <td>Active</td>
-          </tr>
-        `;
-        tableBody.innerHTML += row;
-      });
-    }
+    console.log("Fetched Data:", data);
+    originalData = data; // 保存原始数据
+    renderTable(data); // 初始化表格
   })
   .catch(error => console.error("Error fetching data:", error));
+
+// 渲染表格的函数
+function renderTable(data) {
+  const tableBody = document.querySelector("table tbody");
+  tableBody.innerHTML = "";
+
+  if (data.length === 0) {
+    tableBody.innerHTML = "<tr><td colspan='7' class='text-center'>No records found</td></tr>";
+  } else {
+    data.forEach(child => {
+      const joinDate = "2024-02-08"; // 这里的 Join Date 只是示例，你可以换成动态的
+      const row = `
+        <tr>
+          <td>${child.id}</td>
+          <td>${child.name}</td>
+          <td>${child.gender}</td>
+          <td>${child.kid_number}</td>
+          <td>${child.birthday}</td>
+          <td class="join-date">${joinDate}</td> <!-- 确保这里有 class方便筛选 -->
+          <td>Active</td>
+        </tr>
+      `;
+      tableBody.innerHTML += row;
+    });
+  }
+}
+
+// 监听搜索按钮
+document.getElementById("search-btn").addEventListener("click", () => {
+  const startDate = document.getElementById("start-date").value;
+  const endDate = document.getElementById("end-date").value;
+
+  if (!startDate || !endDate) {
+    alert("Please select both start and end dates.");
+    return;
+  }
+
+  const filteredData = originalData.filter(child => {
+    const joinDate = new Date("2024-02-08"); // 这里的日期格式需要和上面 `Join Date` 一致
+    return joinDate >= new Date(startDate) && joinDate <= new Date(endDate);
+  });
+
+  renderTable(filteredData);
+});
 
 
 
