@@ -189,6 +189,7 @@
 </div>
 
 <script>
+  
 document.addEventListener("DOMContentLoaded", function() {
   // 获取搜索框和家长列表
   const searchInput = document.getElementById('search');
@@ -237,27 +238,27 @@ document.addEventListener("DOMContentLoaded", function() {
       });
 
       // 删除家长功能
-parentList.addEventListener('click', function(e) {
-  if (e.target && e.target.classList.contains('fa-trash-alt')) {
-    const parentUsername = e.target.closest('tr').querySelector('td:first-child').textContent; // 获取用户名
-    if (!confirm(`Are you sure you want to delete ${parentUsername}?`)) return;
-
-    // 发送删除请求
-    fetch('fetch_parents.php?username=' + encodeURIComponent(parentUsername), {
-      method: 'GET'
+      parentList.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('fa-trash-alt')) {
+          const parentId = e.target.getAttribute('data-id');
+          // 发起删除请求
+          fetch('fetch_parents.php?id=' + parentId)
+            .then(response => response.json())
+            .then(response => {
+              if (response.status === 'success') {
+                // 删除成功后，移除对应的家长
+                const updatedParents = parents.filter(parent => parent.id != parentId);
+                displayParents(updatedParents);
+              } else {
+                console.error('delete fail:', response.message);
+              }
+            })
+            .catch(error => console.error('can not action:', error));
+        }
+      }); 
     })
-    .then(response => response.json())
-    .then(response => {
-      if (response.status === 'success') {
-        e.target.closest('tr').remove(); // 删除成功后移除表格中的行
-      } else {
-        console.error('Delete failed:', response.message);
-      }
-    })
-    .catch(error => console.error('Action failed:', error));
-  }
+    .catch(error => console.error('information parent fail:', error));
 });
-
 
 
 </script>
