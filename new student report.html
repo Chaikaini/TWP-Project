@@ -177,9 +177,10 @@ fetch("fetch_new_children_report.php") // 直接从 PHP 获取数据
     tableBody.innerHTML = ""; // 清空表格
 
     if (data.length === 0) {
-      tableBody.innerHTML = "<tr><td colspan='6' class='text-center'>No records found</td></tr>";
+      tableBody.innerHTML = "<tr><td colspan='7' class='text-center'>No records found</td></tr>";
     } else {
       data.forEach(child => {
+        const joinDate = "2024-02-08"; // 这里写死 Joindate，可以改成你想要的默认值
         const row = `
           <tr>
             <td>${child.id}</td>
@@ -187,6 +188,7 @@ fetch("fetch_new_children_report.php") // 直接从 PHP 获取数据
             <td>${child.gender}</td>
             <td>${child.kid_number}</td>
             <td>${child.birthday}</td>
+            <td>${joinDate}</td>
             <td>Active</td>
           </tr>
         `;
