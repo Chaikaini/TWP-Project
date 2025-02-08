@@ -4,14 +4,14 @@ include('db_connect.php'); // 确保连接数据库
 
 header('Content-Type: application/json'); 
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 1); // 显示所有错误
 
 $conn = dbConnect();
 
-// 读取 JSON 数据
+// 获取请求体中的原始数据
 $json = file_get_contents('php://input');
 
-// 调试：打印 `php://input` 数据
+// 调试：打印接收到的原始数据
 if (empty($json)) {
     echo json_encode(['status' => 'error', 'message' => 'No data received', 'raw' => $json]);
     exit;
@@ -19,7 +19,7 @@ if (empty($json)) {
 
 $data = json_decode($json, true);
 
-// 调试：打印解析后的 JSON
+// 调试：打印解析后的 JSON 数据
 if (!$data) {
     echo json_encode(['status' => 'error', 'message' => 'Invalid JSON input', 'raw' => $json]);
     exit;
