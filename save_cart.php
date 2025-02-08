@@ -1,39 +1,36 @@
 <?php
-// 启动会话，确保你有一个有效的数据库连接
 session_start();
-include('db_connect.php'); // 包含数据库连接
+include('db_connection.php'); // 确保连接数据库
 
-// 获取 JSON 数据
+header('Content-Type: application/json');
+
+$conn = dbConnect();
+
+// 获取前端传过来的 JSON 数据
 $data = json_decode(file_get_contents('php://input'), true);
+$cart = $data['cart'] ?? [];
 
-// 获取 cartItem
-$cartItem = $data['cartItem'];
+if (!empty($cart)) {
+    foreach ($cart as $item) {
+        $subject = $item['subject'] ?? '';
+        $price = $item['price'] ?? 0;
+        $child = $item['child'] ?? '';
 
-// 检查数据是否有效
-if (!$cartItem || !isset($cartItem['subject'], $cartItem['price'], $cartItem['child'])) {
-    echo json_encode(['status' => 'error', 'message' => 'Invalid cart item data']);
-    exit;
-}
+        if ($subject && $price > 0 && $child) {
+            $stmt = $conn->prepare("INSERT INTO cart_items (subject, price, child) VALUES (?, ?, ?)");
+            $stmt->bind_param("sds", $subject, $price, $child);
 
-// 提取数据
-$subject = $cartItem['subject'];
-$price = $cartItem['price'];
-$child = $cartItem['child'];
+            if (!$stmt->execute()) {
+                echo json_encode(['status' => 'error', 'message' => 'Failed to save cart item']);
+                exit;
+            }
+        }
+    }
 
-// 插入数据到数据库
-$conn = dbConnect(); // 假设 dbConnect 是你的数据库连接函数
-
-// 插入 SQL 查询
-$sql = "INSERT INTO cart_items (subject, price, child) VALUES (?, ?, ?)";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("sds", $subject, $price, $child); // 绑定参数
-
-if ($stmt->execute()) {
-    echo json_encode(['status' => 'success', 'message' => 'Item added to cart']);
+    echo json_encode(['status' => 'success']);
 } else {
-    echo json_encode(['status' => 'error', 'message' => 'Failed to add item to cart']);
+    echo json_encode(['status' => 'error', 'message' => 'Invalid cart data']);
 }
 
-$stmt->close();
 $conn->close();
 ?>
