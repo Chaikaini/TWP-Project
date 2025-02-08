@@ -14,7 +14,7 @@ $total_children = ($result_children->num_rows > 0) ? $result_children->fetch_ass
 $conn_children->close();
 
 // 连接第二个数据库 userinformation/user.sql
-$conn_parents = new mysqli("localhost", "root", "", "userinformation");
+$conn_parents = new mysqli("localhost", "root", "", "user_information");
 if ($conn_parents->connect_error) {
     die("Connection failed: " . $conn_parents->connect_error);
 }
