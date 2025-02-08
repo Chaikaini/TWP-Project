@@ -1,5 +1,5 @@
 <?php
-include 'database_connection.php';
+include 'db.php';
 
 $start_date = $_GET['start_date'] ?? '';
 $end_date = $_GET['end_date'] ?? '';
