@@ -408,35 +408,38 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
+    // Handle search button click
     searchButton.addEventListener('click', function (event) {
         event.preventDefault();
         const searchQuery = searchInput.value.trim();
 
         if (searchQuery) {
-            console.log('Searching for:', searchQuery);
+            console.log('Searching for:', searchQuery); // Debugging log
             search(searchQuery);
         } else {
-            alert('Please enter title！');
+            alert('Please enter a search term!');
         }
     });
 
+    // Handle 'Enter' key press in search input
     searchInput.addEventListener('keypress', function (event) {
         if (event.key === 'Enter') {
             const searchQuery = searchInput.value.trim();
             if (searchQuery) {
-                console.log('Searching for:', searchQuery); // 调试：打印搜索查询
+                console.log('Searching for:', searchQuery); // Debugging log
                 search(searchQuery);
             } else {
-                alert('Please enter title！');
+                alert('Please enter a search term!');
             }
         }
     });
 
+    // Function to perform the search
     function search(query) {
         fetch(`search.php?query=${encodeURIComponent(query)}`)
             .then(response => response.json())
             .then(data => {
-                console.log('Search result:', data); // 调试：打印搜索结果
+                console.log('Search result:', data); // Debugging log
                 if (data.status === 'success') {
                     const results = data.data;
                     displayResults(results);
@@ -447,26 +450,31 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => console.error('Error:', error));
     }
 
+    // Function to display search results
     function displayResults(results) {
-        resultsContainer.innerHTML = ''; // 清空现有的结果
+        resultsContainer.innerHTML = ''; // Clear existing results
 
         if (results.length === 0) {
-            resultsContainer.innerHTML = '<p>没有找到结果。</p>';
+            resultsContainer.innerHTML = '<p>No results found.</p>';
         } else {
             results.forEach(item => {
                 const resultItem = document.createElement('div');
                 resultItem.classList.add('result-item');
                 resultItem.innerHTML = `
-                    <h5>${item.name}</h5>
-                    <p>${item.year}</p>
-                    <p>价格: RM ${item.price}</p>
-                    <img src="${item.image}" alt="${item.name}">
+                    <div class="subject-card">
+                        <img src="${item.image}" alt="${item.name}">
+                        <h5>${item.name}</h5>
+                        <p>${item.year}</p>
+                        <p>Price: RM ${item.price}</p>
+                        <a href="${item.page}">More details</a>
+                    </div>
                 `;
                 resultsContainer.appendChild(resultItem);
             });
         }
     }
 });
+
 
 
         </script>
