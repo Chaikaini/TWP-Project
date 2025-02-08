@@ -541,7 +541,7 @@
 
         // 购物车功能
         document.getElementById("addToCart").addEventListener("click", function() {
-    let selectedChild = document.getElementById("childrenSelect").innerText.replace('Choose', '').trim();
+    let selectedChild = document.getElementById("childrenSelect").value.replace('Choose', '').trim();
     let subjectName = document.getElementById("subjectName").innerText;
     let subjectPrice = document.getElementById("subjectPrice").innerText.replace('Price: RM', '').trim();
     let price = parseFloat(subjectPrice);
@@ -557,12 +557,12 @@
         child: selectedChild
     };
 
-    // 直接发送到 `save_cart.php` 存入数据库
     fetch('save_cart.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cart: [cartItem] }) // 只发送单一项，后端处理存入数据库
-    })
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(cartItem) // 直接发送单个对象
+})
+
     .then(response => response.json())
     .then(data => {
         if (data.status === "success") {

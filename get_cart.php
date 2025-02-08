@@ -8,9 +8,23 @@ $conn = dbConnect();
 $sql = "SELECT * FROM cart_items";
 $result = $conn->query($sql);
 
-$cart = [];
-while ($row = $result->fetch_assoc()) {
-    $cart[] = $row;
+$data = json_decode(file_get_contents('php://input'), true);
+
+$subject = $data['subject'] ?? '';
+$price = $data['price'] ?? 0;
+$child = $data['child'] ?? '';
+
+if (!empty($subject) && $price > 0 && !empty($child)) {
+    $stmt = $conn->prepare("INSERT INTO cart_items (subject, price, child) VALUES (?, ?, ?)");
+    $stmt->bind_param("sds", $subject, $price, $child);
+
+    if ($stmt->execute()) {
+        echo json_encode(['status' => 'success']);
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Failed to save cart item']);
+    }
+} else {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid cart data']);
 }
 
 // 关闭数据库连接
