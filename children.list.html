@@ -193,7 +193,7 @@
     <script>
       // 加载学生数据
     document.addEventListener("DOMContentLoaded", () => {
-      fetch('get_children.php')
+      fetch('fetch_children.php')
         .then(response => response.json())
         .then(data => {
           const studentList = document.getElementById("studentList");
@@ -227,7 +227,7 @@
           const id = e.target.getAttribute("data-id");
           
           // 发送删除请求
-          fetch('delete_child.php', {
+          fetch('dele_child.php', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
