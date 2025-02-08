@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo json_encode(['status' => 'error', 'message' => 'Parent not found']);
             }
         } else {
-            echo json_encode(['status' => 'error', 'message' => 'SQL Error']);
+            echo json_encode(['status' => 'error', 'message' => 'SQL Error', 'sql_error' => $conn->error]);
         }
 
         $stmt->close();
