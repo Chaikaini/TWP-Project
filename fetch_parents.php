@@ -32,7 +32,7 @@ if (isset($_GET['id'])) {
 }
 
 // 获取家长数据
-$sql = "SELECT id, username, phone_number, gender, address, email FROM users";
+$query = "SELECT user_id, username, email, address, phone_number, gender FROM users";
 $result = $conn->query($sql);
 
 $parents = [];
