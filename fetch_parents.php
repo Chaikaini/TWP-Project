@@ -25,15 +25,6 @@ if ($result->num_rows > 0) {
     }
 }
 
-// 获取家长数据
-$parentUsername = $_GET['username'];  // 假设你传递的是 `username`
-
-// 执行删除操作
-$sql = "DELETE FROM users WHERE username = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $parentUsername);
-$stmt->execute();
-
 // 关闭连接
 $conn->close();
 
