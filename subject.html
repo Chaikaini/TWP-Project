@@ -422,6 +422,113 @@ function renderSubjects(subjectsData) {
     });
 }
 
+document.getElementById('searchButton').addEventListener('click', function() {
+    // 获取用户输入
+    var query = document.getElementById('searchInput').value.trim();
+
+    // 检查输入是否为空
+    if (query === '') {
+        alert('Please enter a search term!');
+        return;
+    }
+
+    // 创建一个AJAX请求
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'search.php?query=' + encodeURIComponent(query), true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            // 解析返回的JSON数据
+            var result = JSON.parse(xhr.responseText);
+
+            // 检查返回的结果
+            if (result.status === 'success') {
+                // 如果有结果，展示它们
+                displaySearchResults(result.data);
+            } else {
+                alert('No results found.');
+            }
+        }
+    };
+    xhr.send();
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    // 获取搜索框和按钮元素
+    const searchInput = document.querySelector('.search-box input');
+    const searchButton = document.querySelector('.search-box button');
+
+    // 获取显示结果的容器
+    const resultsContainer = document.getElementById('resultsContainer');
+    if (!resultsContainer) {
+        console.error('没有找到结果显示容器');
+        return;
+    }
+
+    // 监听按钮点击事件
+    searchButton.addEventListener('click', function (event) {
+        event.preventDefault(); // 防止表单提交
+        const searchQuery = searchInput.value.trim(); // 获取搜索框的值
+
+        if (searchQuery) {
+            console.log('Searching for:', searchQuery); // 调试：打印搜索查询
+            search(searchQuery);
+        } else {
+            alert('请输入搜索词！');
+        }
+    });
+
+    // 监听回车键事件
+    searchInput.addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+            const searchQuery = searchInput.value.trim();
+            if (searchQuery) {
+                console.log('Searching for:', searchQuery); // 调试：打印搜索查询
+                search(searchQuery);
+            } else {
+                alert('请输入搜索词！');
+            }
+        }
+    });
+
+    // 搜索功能
+    function search(query) {
+        fetch(`search.php?query=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log('Search result:', data); // 调试：打印搜索结果
+                if (data.status === 'success') {
+                    const results = data.data;
+                    displayResults(results);
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // 显示搜索结果的函数
+    function displayResults(results) {
+        resultsContainer.innerHTML = ''; // 清空现有的结果
+
+        if (results.length === 0) {
+            resultsContainer.innerHTML = '<p>没有找到结果。</p>';
+        } else {
+            results.forEach(item => {
+                const resultItem = document.createElement('div');
+                resultItem.classList.add('result-item');
+                resultItem.innerHTML = `
+                    <h5>${item.name}</h5>
+                    <p>${item.year}</p>
+                    <p>价格: RM ${item.price}</p>
+                    <img src="${item.image}" alt="${item.name}">
+                `;
+                resultsContainer.appendChild(resultItem);
+            });
+        }
+    }
+});
 
 
         </script>
