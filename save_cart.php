@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('db_connection.php'); // 确保连接数据库
+include('db_connect.php'); // 确保连接数据库
 
 header('Content-Type: application/json');
 
