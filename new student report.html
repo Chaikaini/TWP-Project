@@ -162,36 +162,6 @@
               <th>Status</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Doe</td>
-              <td>Female</td>
-              <td>170615-01-2592</td>
-              <td>2017-06-15</td>
-              <td>2025-01-05</td>
-              <td>Active</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Johney</td>
-              <td>Male</td>
-              <td>170720-01-2220</td>
-              <td>2017-07-20</td>
-              <td>2025-01-07</td>
-              <td>Active</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Johwin</td>
-                <td>Male</td>
-                <td>180125-01-2049</td>
-                <td>2018-01-25</td>
-                <td>2025-01-07</td>
-                <td>Active</td>
-              </tr>
-            <!-- Add more rows as needed -->
-          </tbody>
         </table>
       </div>
     </div>
@@ -200,7 +170,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script>
 
-document.getElementById("filter-btn").addEventListener("click", function () {
+document.getElementById("search-btn").addEventListener("click", function () {
     const startDate = document.getElementById("start-date").value;
     const endDate = document.getElementById("end-date").value;
 
@@ -217,7 +187,7 @@ document.getElementById("filter-btn").addEventListener("click", function () {
         tableBody.innerHTML = ""; // 清空表格
 
         if (data.length === 0) {
-          tableBody.innerHTML = "<tr><td colspan='7' class='text-center'>No records found</td></tr>";
+          tableBody.innerHTML = "<tr><td colspan='6' class='text-center'>No records found</td></tr>";
         } else {
           data.forEach(child => {
             const row = `
@@ -225,10 +195,9 @@ document.getElementById("filter-btn").addEventListener("click", function () {
                 <td>${child.id}</td>
                 <td>${child.name}</td>
                 <td>${child.gender}</td>
-                <td>${child.my_kid_number}</td>
-                <td>${child.dob}</td>
-                <td>${child.enrollment_date}</td>
-                <td>${child.status}</td>
+                <td>${child.kid_number}</td>
+                <td>${child.birthday}</td>
+                <td>Active</td>
               </tr>
             `;
             tableBody.innerHTML += row;
@@ -236,7 +205,7 @@ document.getElementById("filter-btn").addEventListener("click", function () {
         }
       })
       .catch(error => console.error("Error fetching data:", error));
-  });
+});
 
 
 

@@ -1,5 +1,5 @@
 <?php
-include 'database_connection.php'; // 确保你的数据库连接文件
+include 'db.php'; // 确保你的数据库连接文件正确
 
 $start_date = $_GET['start_date'] ?? '';
 $end_date = $_GET['end_date'] ?? '';
@@ -9,8 +9,9 @@ if (!$start_date || !$end_date) {
     exit;
 }
 
-$sql = "SELECT id, name, gender, my_kid_number, dob, enrollment_date, status FROM children 
-        WHERE enrollment_date BETWEEN ? AND ?";
+// 修改 SQL 以匹配 `childreninfo` 表
+$sql = "SELECT id, name, gender, kid_number, birthday FROM childreninfo 
+        WHERE birthday BETWEEN ? AND ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("ss", $start_date, $end_date);
 $stmt->execute();
