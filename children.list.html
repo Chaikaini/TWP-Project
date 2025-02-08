@@ -170,58 +170,85 @@
       <h2>View Children List</h2>
     </div>
     
-    <div class="table-container">
+    <div class="container mt-5">
+      <h2>Children List</h2>
       <table class="table table-bordered table-striped">
         <thead>
           <tr>
             <th>Name</th>
-            <th>My kid number</th>
+            <th>Kid Number</th>
             <th>Gender</th>
             <th>School</th>
             <th>Year</th>
             <th>Birthday</th>
-            <th>Actions</th> 
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody id="studentList">
-          <tr>
-            <td>John Doe</td>
-            <td>170115-01-2634</td>
-            <td>Boy</td>
-            <td>SJKC Kulai 2</td>
-            <td>Year 1</td>
-            <td>2017-01-15</td>
-            <td>
-              <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
-            </td>
-          </tr>
-          <tr>
-            <td>Yuna</td>
-            <td>170909-01-7788</td>
-            <td>Girl</td>
-            <td>SJKC Kulai 2</td>
-            <td>Year 1</td>
-            <td>2017-09-09</td>
-            <td>
-              <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;"></i>
-            </td>
-          </tr>
+          <!-- 动态数据填充 -->
         </tbody>
       </table>
     </div>
     
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const studentList = document.getElementById("studentList");
-    
-        // click
-        studentList.addEventListener("click", (e) => {
-          // delete button
-          if (e.target.classList.contains("delete-btn")) {
-            e.target.closest("tr").remove();
-          }
-        });
+      // 加载学生数据
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch('get_children.php')
+        .then(response => response.json())
+        .then(data => {
+          const studentList = document.getElementById("studentList");
+          studentList.innerHTML = ""; // 清空表格内容
+          
+          // 动态插入数据到表格
+          data.forEach(child => {
+            const row = document.createElement("tr");
+            row.setAttribute("data-id", child.id);
+
+            row.innerHTML = `
+              <td>${child.name}</td>
+              <td>${child.kid_number}</td>
+              <td>${child.gender.charAt(0).toUpperCase() + child.gender.slice(1)}</td>
+              <td>${child.school}</td>
+              <td>${child.grade}</td>
+              <td>${child.birthday}</td>
+              <td>
+                <i class="fas fa-trash-alt text-danger delete-btn ms-2" style="cursor:pointer;" data-id="${child.id}"></i>
+              </td>
+            `;
+            
+            studentList.appendChild(row);
+          });
+        })
+        .catch(error => console.error('Error loading data:', error));
+      
+      // 删除按钮点击事件
+      document.getElementById("studentList").addEventListener("click", (e) => {
+        if (e.target.classList.contains("delete-btn")) {
+          const id = e.target.getAttribute("data-id");
+          
+          // 发送删除请求
+          fetch('delete_child.php', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: id })
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === 'success') {
+              e.target.closest("tr").remove(); // 从表格中移除该行
+            } else {
+              alert("Error: " + data.message);
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            alert("Delete Process Error");
+          });
+        }
       });
+    });
     </script>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
