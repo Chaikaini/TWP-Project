@@ -392,19 +392,20 @@ button.btn.btn-primaryy:hover {
                     <textarea id="address"></textarea>
                 </div>
                 <h3>Reset Password</h3>
+                
                 <div class="form-group">
                     <label for="current-password">Current Password</label>
-                    <input type="password" id="current-password" placeholder="Enter current password">
+                    <input type="password" id="current-password" autocomplete="new-password" placeholder="Enter current password" required>
                 </div>
                 <div class="form-group">
                     <label for="new-password">New Password</label>
-                    <input type="password" id="new-password" placeholder="Enter new password">
+                    <input type="password" id="new-password" placeholder="Enter new password" required>
                 </div>
                 <div class="form-group">
                     <label for="confirm-password">Confirm Password</label>
-                    <input type="password" id="confirm-password" placeholder="Confirm new password">
+                   <input type="password" id="confirm-password" placeholder="Confirm new password" required>
                 </div>
-                
+
                 <div class="form-group">
                     <button type="submit">Save Changes</button>
                 </div>
@@ -806,16 +807,20 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => console.error("Error fetching profile:", error));
 });
+
+
 document.getElementById("update-password").addEventListener("click", function () {
     const currentPassword = document.getElementById("current-password").value;
     const newPassword = document.getElementById("new-password").value;
     const confirmPassword = document.getElementById("confirm-password").value;
 
+    // 检查新密码是否匹配
     if (newPassword !== confirmPassword) {
         alert("New password and confirm password do not match!");
         return;
     }
 
+    // 发送请求到后端
     fetch("update_password.php", {
         method: "POST",
         headers: {
@@ -828,10 +833,11 @@ document.getElementById("update-password").addEventListener("click", function ()
     })
     .then(response => response.json())
     .then(data => {
-        alert(data.message);
+        alert(data.message); // 显示后端返回的消息
     })
     .catch(error => console.error("Error updating password:", error));
 });
+
 
     </script>
 
