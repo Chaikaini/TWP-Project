@@ -18,40 +18,47 @@ $requestBody = file_get_contents("php://input");
 error_log("Request Body: " . $requestBody); // 输出请求体，查看实际内容
 $data = json_decode($requestBody, true);
 
-// 检查是否成功解析 JSON
-if ($data === null) {
-    echo json_encode(['status' => 'error', 'message' => 'Invalid JSON received']);
-    exit;
-}
 
 
-if (isset($data['username'])) {
-    $username = $data['username']; // 获取要删除的用户名
-
-    // 执行删除操作
-    $sql = "DELETE FROM parents WHERE username = ?";
-    $stmt = $conn->prepare($sql);
-
-    if ($stmt) {
-        $stmt->bind_param("s", $username); // 使用字符串绑定参数
-        $stmt->execute();
-
-        if ($stmt->affected_rows > 0) {
-            // 删除成功
-            echo json_encode(['status' => 'success']);
-        } else {
-            // 如果没有删除任何记录
-            echo json_encode(['status' => 'error', 'message' => 'Can not find this parent']);
-        }
-    } else {
-        // SQL 执行失败
-        echo json_encode(['status' => 'error', 'message' => 'Delete failed']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // 获取 POST 请求的 JSON 数据
+    $requestBody = file_get_contents("php://input");
+    error_log("Request Body: " . $requestBody); // 输出请求体，查看实际内容
+    $data = json_decode($requestBody, true);
+    
+    // 检查是否成功解析 JSON
+    if ($data === null) {
+        echo json_encode(['status' => 'error', 'message' => 'Invalid JSON received']);
+        exit;
     }
 
-    $stmt->close();
+    if (isset($data['username'])) {
+        $username = $data['username']; // 获取要删除的用户名
+        $sql = "DELETE FROM parents WHERE username = ?";
+        $stmt = $conn->prepare($sql);
+
+        if ($stmt) {
+            $stmt->bind_param("s", $username);
+            $stmt->execute();
+
+            if ($stmt->affected_rows > 0) {
+                echo json_encode(['status' => 'success']);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'Parent not found']);
+            }
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'SQL Error']);
+        }
+
+        $stmt->close();
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Username not provided']);
+    }
 } else {
-    echo json_encode(['status' => 'error', 'message' => 'Username not provided']);
+    echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
 }
+
+
 
 // 关闭连接
 $conn->close();
