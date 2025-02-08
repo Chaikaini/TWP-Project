@@ -315,11 +315,12 @@ function loadCartData() {
             cartItem.innerHTML = `
                 <div class="cart-item-details">
                     <h5>${item.subject}</h5>
+                    <img src="${item.image}" alt="${item.subject} Image" class="cart-item-image"> <!-- Display image -->
                     <p>Child: ${item.child}</p>
                     <p>Price: RM ${itemPrice.toFixed(2)}</p>
                 </div>
                 <div class="cart-item-actions">
-                    <i class="fas fa-trash" onclick="removeFromCart(${index})"></i>
+                    <i class="fas fa-trash" onclick="removeFromCart(${item.id})"></i>
                 </div>
             `;
 
@@ -332,31 +333,23 @@ function loadCartData() {
     .catch(error => console.error('Error:', error));
 }
 
-function removeFromCart(index) {
-    // 获取购物车数据（从 GET 请求中获取）
-    fetch('get_cart.php', { method: 'GET' })
+function removeFromCart(itemId) {
+    fetch('remove_cart.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: itemId }) // 发送删除项的 id
+    })
     .then(response => response.json())
     .then(data => {
-        let cart = data.cart;
-
-        // 从购物车中删除选中的项
-        cart.splice(index, 1);
-
-        // 将更新后的购物车数据保存到服务器
-        fetch('save_cart.php', {  // 使用 save_cart.php 来保存删除后的购物车数据
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ cart: cart })
-        })
-        .then(response => response.json())
-        .then(() => {
+        if (data.status === "success") {
             loadCartData(); // 重新加载购物车数据
-        })
-        .catch(error => {
-            console.error("Error updating cart:", error);
-        });
+        } else {
+            alert("Error: " + data.message);
+        }
     })
-    .catch(error => console.error("Error getting cart data:", error));
+    .catch(error => console.error('Error:', error));
 }
 
 document.getElementById("checkoutButton").addEventListener("click", function() {

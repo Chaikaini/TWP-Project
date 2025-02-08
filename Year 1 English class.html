@@ -546,6 +546,8 @@
     let subjectPrice = document.getElementById("subjectPrice").innerText.replace('Price: RM', '').trim();
     let price = parseFloat(subjectPrice);
 
+    let subjectImage = document.getElementById("subjectImage").src; // 获取img标签的src属性
+
     if (isNaN(price)) {
         alert("Invalid price value");
         return;
@@ -554,7 +556,8 @@
     const cartItem = {
         subject: subjectName,
         price: price,
-        child: selectedChild
+        child: selectedChild,
+        image: subjectImage // 将图片路径添加到cartItem中
     };
 
     const data = {
