@@ -557,11 +557,17 @@
         child: selectedChild
     };
 
-    // 发送到 save_cart.php
+    const data = {
+        cart: [cartItem]  // 确保发送的结构包含 cart 数组
+    };
+
+    // 发送 POST 请求到 save_cart.php
     fetch('save_cart.php', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(cartItem)  // 直接发送 cartItem
+        headers: { 
+            'Content-Type': 'application/json'  // 确保使用正确的 Content-Type
+        },
+        body: JSON.stringify(data)  // 发送 JSON 格式数据
     })
     .then(response => response.json())
     .then(data => {
@@ -571,8 +577,11 @@
             alert("Error: " + data.message);
         }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        console.error('Error:', error);
+    });
 });
+
 
 
 
