@@ -239,7 +239,7 @@ document.addEventListener("DOMContentLoaded", function() {
     .catch(error => console.error('Information Parent Fail:', error));
 });
 
-
+function deleteParent (parentUsername){
 fetch('dele_parent.php', {
     method: 'POST',  // 确保是 POST 请求
     headers: {
@@ -261,7 +261,7 @@ fetch('dele_parent.php', {
     console.error('Error:', error);
     alert("Delete Process Error");
 });
-
+}
 
 </script>
 
