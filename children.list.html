@@ -218,8 +218,26 @@
             
             studentList.appendChild(row);
           });
+
+           // 搜索功能
+      searchInput.addEventListener('input', function() {
+        const searchText = searchInput.value.toLowerCase();
+
+        const filteredParents = parents.filter(parent => {
+          return child.name.toLowerCase().includes(searchText) ||
+                 child.kid_number.toLowerCase().includes(searchText) ||
+                 child.gender.toLowerCase().includes(searchText) ||
+                 child.schoolr.toLowerCase().includes(searchText) ||
+                 child.grade.toLowerCase().includes(searchText);
+                 child.birthday.toLowerCase().includes(searchText);
+        });
+
+        displayParents(filteredParents);
+      });
         })
         .catch(error => console.error('Error loading data:', error));
+
+        
       
       // 删除按钮点击事件
       document.getElementById("studentList").addEventListener("click", (e) => {
