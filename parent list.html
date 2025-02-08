@@ -209,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <td>${parent.address}</td>
             <td>${parent.phone_number}</td>
             <td>${parent.email}</td>
-            <td><i class='fas fa-trash-alt text-danger' style='cursor:pointer;' data-id='${parent.id}'></i></td>
+            <td><i class='fas fa-trash-alt text-danger' style='cursor:pointer;' data-id='${parent.user_id}'></i></td>
           `;
           parentList.appendChild(row);
         });
@@ -232,7 +232,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
       parentList.addEventListener('click', function(e) {
         if (e.target && e.target.classList.contains('fa-trash-alt')) {
-          const parentId = e.target.getAttribute('data-id');
+          const parentId = e.target.getAttribute('data-id');  // 获取 ID
 
           fetch(`fetch_parents.php?id=${parentId}`, {
             method: 'GET',
@@ -240,17 +240,18 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(response => response.json())
             .then(response => {
               if (response.status === 'success') {
-                parents = parents.filter(parent => parent.id != parentId);
+                // 删除成功后从当前列表中移除该家长
+                parents = parents.filter(parent => parent.user_id != parentId);
                 displayParents(parents);
               } else {
-                console.error('delete fail:', response.message);
+                console.error('删除失败:', response.message);
               }
             })
-            .catch(error => console.error('can not action:', error));
+            .catch(error => console.error('无法执行删除操作:', error));
         }
       });
     })
-    .catch(error => console.error('information parent fail:', error));
+    .catch(error => console.error('加载家长信息失败:', error));
 });
 
 

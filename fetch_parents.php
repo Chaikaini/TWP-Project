@@ -25,16 +25,19 @@ if ($result->num_rows > 0) {
     }
 }
 
-// 获取家长数据
-if (isset($_GET['username'])) {
-    $parentUsername = $_GET['username'];  // 假设你传递的是 `username`
+// 删除操作
+if (isset($_GET['id'])) {
+    $parentId = $_GET['id'];  // 通过GET请求获取家长ID
 
     // 执行删除操作
-    $sql = "DELETE FROM users WHERE username = ?";
+    $sql = "DELETE FROM users WHERE user_id = ?";
     $stmt = $conn->prepare($sql);
     if ($stmt) {
-        $stmt->bind_param("s", $parentUsername);
+        $stmt->bind_param("i", $parentId);
         $stmt->execute();
+        // 返回成功状态
+        echo json_encode(['status' => 'success']);
+        exit();
     } else {
         echo json_encode(['status' => 'error', 'message' => '删除失败']);
         exit();
