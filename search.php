@@ -1,7 +1,13 @@
 <?php
 // 检查是否存在 'year' 参数，若不存在则使用默认值 'Year 1'
 $year = isset($_GET['year']) ? $_GET['year'] : 'Year 1';
-$query = isset($_GET['query']) ? $_GET['query'] : '';
+$query = $_GET['query'];
+$sql = "SELECT * FROM subjects WHERE name LIKE :query";
+$stmt = $pdo->prepare($sql);
+$stmt->execute(['query' => '%' . $query . '%']);
+$subjects = $stmt->fetchAll();
+echo json_encode(['status' => 'success', 'data' => $subjects]);
+
 
 // 数据库连接
 $servername = "localhost";
