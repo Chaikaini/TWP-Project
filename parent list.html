@@ -241,20 +241,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 fetch('dele_parent.php', {
-    method: 'POST', // 修改为 POST 请求
+    method: 'POST',  // 确保是 POST 请求
     headers: {
         'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ username: parentUsername })  // 确保传递正确的 username
+    body: JSON.stringify({ username: parentUsername })  // 发送正确的 JSON 数据
 })
-.then(response => response.json())
+.then(response => response.json())  // 解析响应为 JSON
 .then(data => {
-    console.log(data);  // 查看返回的数据
+    console.log(data);
     if (data.status === 'success') {
         alert('Parent deleted successfully');
-        location.reload(); // 刷新页面以反映删除结果
+        location.reload(); // 刷新页面
     } else {
-        alert('Error: ' + data.message);
+        alert('Error: ' + data.message);  // 显示错误信息
     }
 })
 .catch(error => {
