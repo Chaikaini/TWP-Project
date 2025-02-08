@@ -1,49 +1,36 @@
 <?php
-// 数据库连接设置
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "user_information";
+$host = "localhost"; // 你的数据库主机
+$user = "root"; // 你的数据库用户名
+$pass = ""; // 你的数据库密码
+$dbname = "tuition_centre"; // 你的数据库名称
 
-// 创建连接
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// 检查连接
+$conn = new mysqli($host, $user, $pass, $dbname);
 if ($conn->connect_error) {
-    die("连接失败: " . $conn->connect_error);
+    die(json_encode(["status" => "error", "message" => "Database connection failed"]));
 }
 
-// 查询父母的数据
-$sql = "SELECT username, phone_number, gender, address, email FROM users";
-$result = $conn->query($sql);
+// 检查是否有删除请求
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
+    $id = intval($_POST["id"]); // 确保 ID 是整数
+    $stmt = $conn->prepare("DELETE FROM parents WHERE id = ?");
+    $stmt->bind_param("i", $id);
 
-// 存储查询结果
-$parents = [];
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-        $parents[] = $row;
+    if ($stmt->execute()) {
+        echo json_encode(["status" => "success", "message" => "Parent deleted successfully"]);
+    } else {
+        echo json_encode(["status" => "error", "message" => "Delete failed"]);
     }
+    $stmt->close();
+    exit;
 }
 
 // 获取家长数据
-if (isset($_GET['username'])) {
-    $parentUsername = $_GET['username'];  // 假设你传递的是 `username`
-
-    // 执行删除操作
-    $sql = "DELETE FROM users WHERE username = ?";
-    $stmt = $conn->prepare($sql);
-    if ($stmt) {
-        $stmt->bind_param("s", $parentUsername);
-        $stmt->execute();
-    } else {
-        echo json_encode(['status' => 'error', 'message' => '删除失败']);
-        exit();
-    }
+$result = $conn->query("SELECT id, username, gender, address, phone_number, email FROM parents");
+$parents = [];
+while ($row = $result->fetch_assoc()) {
+    $parents[] = $row;
 }
 
-// 关闭连接
-$conn->close();
-
-// 返回 JSON 格式的结果
 echo json_encode($parents);
+$conn->close();
 ?>
