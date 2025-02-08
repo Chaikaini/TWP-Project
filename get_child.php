@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-include 'db_connect.php';
+include 'db.php';
 
 if (!$conn) {
     echo json_encode(["error" => "Database cannot connect"]);
