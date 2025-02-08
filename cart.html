@@ -359,7 +359,9 @@ function removeFromCart(index) {
     .catch(error => console.error("Error getting cart data:", error));
 }
 
-
+document.getElementById("checkoutButton").addEventListener("click", function() {
+    window.location.href = "check.html";  // 跳转到 check.html 页面
+});
 
 
 
