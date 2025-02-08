@@ -1,9 +1,9 @@
 <?php
 // 数据库连接设置
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "user_information";
+$servername = "localhost";  // 数据库主机（通常是 localhost）
+$username = "root";         // 数据库用户名（替换为你的用户名）
+$password = "";             // 数据库密码（替换为你的密码）
+$dbname = "user_information";  // 确保数据库名称正确
 
 // 创建连接
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -26,21 +26,13 @@ if ($result->num_rows > 0) {
 }
 
 // 获取家长数据
-if (isset($_GET['username'])) {
-    $parentUsername = $_GET['username'];  // 假设你传递的是 `username`
+$parentUsername = $_GET['username'];  // 假设你传递的是 `username`
 
-    // 执行删除操作
-    $sql = "DELETE FROM users WHERE username = ?";
-    $stmt = $conn->prepare($sql);
-    if ($stmt) {
-        $stmt->bind_param("s", $parentUsername);
-        $stmt->execute();
-    } else {
-        echo json_encode(['status' => 'error', 'message' => '删除失败']);
-        exit();
-    }
-}
-
+// 执行删除操作
+$sql = "DELETE FROM users WHERE username = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $parentUsername);
+$stmt->execute();
 
 // 关闭连接
 $conn->close();
