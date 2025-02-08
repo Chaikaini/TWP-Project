@@ -2,7 +2,7 @@
 $host = "localhost"; // 你的数据库主机
 $user = "root"; // 你的数据库用户名
 $pass = ""; // 你的数据库密码
-$dbname = "tuition_centre"; // 你的数据库名称
+$dbname = "user_information"; // 你的数据库名称
 
 $conn = new mysqli($host, $user, $pass, $dbname);
 if ($conn->connect_error) {
