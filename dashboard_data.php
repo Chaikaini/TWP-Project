@@ -50,6 +50,7 @@ if ($result_subject->num_rows > 0) {
 // 返回所有数据为 JSON 格式
 echo json_encode([
     'total_children' => $total_children,
-    'total_parents' => $total_parents
+    'total_parents' => $total_parents,
+    'total_subjects'=> $total_subjects,
 ]);
 ?>
