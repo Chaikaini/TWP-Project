@@ -19,7 +19,7 @@ if (!isset($_SESSION['email'])) {
 
 
 $email = $_SESSION['email']; 
-$sql = "SELECT username, gender, ic_number, email, address, phone_number, relationship, password FROM users WHERE email = ?";
+$sql = "SELECT username, gender, ic_number, email, address, phone_number, phone_number2, relationship, password FROM users WHERE email = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $email);
 $stmt->execute();
