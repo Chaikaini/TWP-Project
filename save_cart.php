@@ -39,10 +39,10 @@ if (!empty($cart)) {
     $stmt = $conn->prepare("INSERT INTO cart_items (subject, price, child, image) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("sdss", $subject, $price, $child, $image);
     
-    if (!$stmt->execute()) {
-        echo json_encode(['status' => 'error', 'message' => 'Failed to save cart item']);
+    if (empty($data['cart'])) {
+        echo json_encode(['status' => 'error', 'message' => 'No data received']);
         exit;
     }
-    
+        
 $conn->close();
 ?>
