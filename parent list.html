@@ -235,9 +235,30 @@ document.addEventListener("DOMContentLoaded", function() {
 
         displayParents(filteredParents);
       });
+
+      // 删除家长功能
+      parentList.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('fa-trash-alt')) {
+          const parentId = e.target.getAttribute('data-id');
+          // 发起删除请求
+          fetch('fetch_parents.php?id=' + parentId)
+            .then(response => response.json())
+            .then(response => {
+              if (response.status === 'success') {
+                // 删除成功后，移除对应的家长
+                const updatedParents = parents.filter(parent => parent.id != parentId);
+                displayParents(updatedParents);
+              } else {
+                console.error('delete fail:', response.message);
+              }
+            })
+            .catch(error => console.error('can not action:', error));
+        }
+      });
     })
-    .catch(error => console.error('获取家长数据时出错:', error));
+    .catch(error => console.error('information parent fail:', error));
 });
+
 
 </script>
 
