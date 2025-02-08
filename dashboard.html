@@ -192,9 +192,9 @@
         <div class="card card-subject">
           <div class="card-inner">
             <h3>SUBJECTS</h3>
-            <i class="fas fa-book"></i>
+            <i class="fas fa-users"></i>
           </div>
-          <h1>3</h1>
+          <h1 id="total-parents">0</h1>
         </div>
       </div>
 
@@ -239,6 +239,7 @@
         // Insert data into the respective HTML elements
         document.getElementById('total-children').textContent = data.total_children;
         document.getElementById('total-parents').textContent = data.total_parents;
+        document.getElementById('total-subjects').textContent = data.total_subjects;
         
         // Optionally, update charts with the fetched data
         const ctxSubjects = document.getElementById('subjectsChart').getContext('2d');
@@ -255,7 +256,7 @@
         });
       })
       .catch(error => console.error('Error fetching data:', error));
-      
+
   </script>
 </body>
 </html>
