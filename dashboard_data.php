@@ -47,10 +47,27 @@ if ($result_subject->num_rows > 0) {
     $total_subjects = 0;
 }
 
+ // 连接到 admin_panel 数据库
+$conn_admin_panel = new mysqli("localhost", "root", "", "admin_panel");
+if ($conn_admin_panel->connect_error) {
+    die("Connection failed: " . $conn_admin_panel->connect_error);
+}
+
+// 查询 users 表中的用户数量
+$sql_users = "SELECT COUNT(*) AS total_users FROM users";
+$result_users = $conn_admin_panel->query($sql_users);
+$total_users = ($result_users->num_rows > 0) ? $result_users->fetch_assoc()['total_users'] : 0;
+
+// 关闭 admin_panel 数据库连接
+$conn_admin_panel->close();
+
+
+
 // 返回所有数据为 JSON 格式
 echo json_encode([
     'total_children' => $total_children,
     'total_parents' => $total_parents,
     'total_subjects'=> $total_subjects,
+    'total_users'=> $total_users,
 ]);
 ?>
