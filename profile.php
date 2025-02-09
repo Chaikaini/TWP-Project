@@ -352,8 +352,8 @@ button.btn.btn-primaryy:hover {
 
             <form>
                 <div class="form-group">
-                    <label for="name"> Name</label>
-                    <input type="text" id="name">
+                    <label for="username"> Name</label>
+                    <input type="text" id="username">
                 </div>
                 <div class="form-group">
                     <label for="gender">Gender</label>
@@ -792,7 +792,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(data => {
             if (data.status === "success") {
-                document.getElementById("name").value = data.data.username;
+                document.getElementById("username").value = data.data.username;
                 document.getElementById("gender").value = data.data.gender;
                 document.getElementById("ic-num").value = data.data.ic_number;
                 document.getElementById("email").value = data.data.email;
@@ -800,8 +800,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("phone-num-1").value = data.data.phone_number;
                 document.getElementById("phone-num-2").value = data.data.phone_number2;
                 document.getElementById("relationship").value = data.data.relationship;
-                
-                
             } else {
                 alert("Failed to load profile: " + data.message);
             }
@@ -809,56 +807,23 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error("Error fetching profile:", error));
 });
 
-
-document.getElementById("update-password").addEventListener("click", function () {
-    const currentPassword = document.getElementById("current-password").value;
-    const newPassword = document.getElementById("new-password").value;
-    const confirmPassword = document.getElementById("confirm-password").value;
-
-    // 检查新密码是否匹配
-    if (newPassword !== confirmPassword) {
-        alert("New password and confirm password do not match!");
-        return;
-    }
-
-    // 发送请求到后端
-    fetch("update_password.php", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            current_password: currentPassword,
-            new_password: newPassword
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert(data.message); // 显示后端返回的消息
-    })
-    .catch(error => console.error("Error updating password:", error));
-});
-
 document.querySelector("form").addEventListener("submit", async function (event) {
     event.preventDefault();
 
     const formData = {
-        name: document.getElementById("name").value,
+        username: document.getElementById("username").value,
         gender: document.getElementById("gender").value,
         ic_num: document.getElementById("ic-num").value,
         phone_num_1: document.getElementById("phone-num-1").value,
         phone_num_2: document.getElementById("phone-num-2").value,
         relationship: document.getElementById("relationship").value,
         address: document.getElementById("address").value,
-        current_password: document.getElementById("current-password").value,
-        new_password: document.getElementById("new-password").value,
-        confirm_password: document.getElementById("confirm-password").value
+        current_password: document.getElementById("current-password").value.trim(),
+        new_password: document.getElementById("new-password").value.trim(),
+        confirm_password: document.getElementById("confirm-password").value.trim(),
     };
-    
 
-
-    
-    // 如果用户输入了新密码，检查是否匹配
+    // 校验密码
     if (formData.new_password || formData.current_password) {
         if (formData.new_password !== formData.confirm_password) {
             alert("New password and confirm password do not match!");
@@ -875,10 +840,18 @@ document.querySelector("form").addEventListener("submit", async function (event)
 
         const result = await response.json();
         alert(result.message);
+
+        // 如果更新成功，则清空密码输入框
+        if (result.status === "success") {
+            document.getElementById("current-password").value = "";
+            document.getElementById("new-password").value = "";
+            document.getElementById("confirm-password").value = "";
+        }
     } catch (error) {
         console.error("Error:", error);
     }
 });
+
 
 
 
