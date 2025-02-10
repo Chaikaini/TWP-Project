@@ -25,8 +25,8 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         echo "<tr>";
-        echo "<td>" . $row["class_id"] . "</td>";
         echo "<td>" . $row["subject_id"] . "</td>";
+        echo "<td>" . $row["class_id"] . "</td>";
         echo "<td>" . $row["year"] . "</td>";
         echo "<td>" . $row["day"] . "</td>";
         echo "<td>" . $row["time"] . "</td>";
@@ -35,8 +35,8 @@ if ($result->num_rows > 0) {
         echo "<td>
                 <i class='pointer-cursor fas fa-edit text-warning edit-btn' 
                 onclick='openEditModal(
+                \"" . $row["subject_id"] . "\", 
                     \"" . $row["class_id"] . "\", 
-                    \"" . $row["subject_id"] . "\", 
                     \"" . addslashes($row["year"]) . "\", 
                     \"" . $row["day"] . "\", 
                     \"" . $row["time"] . "\", 
