@@ -220,7 +220,7 @@ document.getElementById("search-btn").addEventListener("click", () => {
   }
 
   const filteredData = originalData.filter(child => {
-    const joinDate = new Date("2024-02-08"); // 这里的日期格式需要和上面 `Join Date` 一致
+    const joinDate = new Date("2025-02-07"); // 这里的日期格式需要和上面 `Join Date` 一致
     return joinDate >= new Date(startDate) && joinDate <= new Date(endDate);
   });
 
