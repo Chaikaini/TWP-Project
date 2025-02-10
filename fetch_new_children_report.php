@@ -10,10 +10,10 @@ $end_date = $_GET['end_date'] ?? '';
 
 // 如果 `start_date` 或 `end_date` 为空，则查询所有数据
 if (empty($start_date) || empty($end_date)) {
-    $sql = "SELECT id, name, gender, kid_number, birthday FROM childreninfo";
+    $sql = "SELECT id, name, gender, kidNumber, birthday FROM childreninfo";
     $stmt = $conn->prepare($sql);
 } else {
-    $sql = "SELECT id, name, gender, kid_number, birthday FROM childreninfo 
+    $sql = "SELECT id, name, gender, kidNumber, birthday FROM childreninfo 
             WHERE birthday BETWEEN ? AND ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ss", $start_date, $end_date);
