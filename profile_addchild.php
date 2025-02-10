@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $grade = $_POST['year'] ?? '';  
 
    
-    $sql = "INSERT INTO childreninfo (name, gender, kidNumber, birthday, school, year) 
+    $sql = "INSERT INTO childreninfo (name, gender, kidNumber, birthday, school,year) 
     VALUES (?, ?, ?, ?, ?, ?)";
 
    
