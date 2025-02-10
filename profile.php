@@ -662,7 +662,7 @@ button.btn.btn-primaryy:hover {
 
             ]
             "John Doe": [
-                { subject: "Math", year: "Year 1", day: "Wednesday",time: "2:30pm-4:30pm",status: "active" },
+                { subject: "Math", year: "Year 1", day: "Wednesday",time: "2:30pm-4:30pm"},
                 
             ]
         };
