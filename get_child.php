@@ -3,27 +3,46 @@ header('Content-Type: application/json');
 include 'db.php';
 
 if (!$conn) {
-    echo json_encode(["error" => "Database cannot connect"]);
+    echo json_encode(["error" => "Database connection failed"]);
     exit();
 }
 
-// 获取请求中的参数（例如传递的孩子 id）
-$childId = isset($_GET['id']) ? $_GET['id'] : null; // 获取查询参数 'id'
+// 获取请求参数
+$email = isset($_GET['email']) ? $_GET['email'] : null; 
+$childId = isset($_GET['id']) ? intval($_GET['id']) : null; 
 
-// 如果没有提供 id，默认返回 id=2 的孩子数据
-if ($childId === null) {
-    $childId = 2;
+if (!$email) {
+    echo json_encode(["error" => "Missing email"]);
+    exit();
 }
 
-// 使用指定的 id 来查询孩子信息
-$sql = "SELECT * FROM childreninfo WHERE id = " . intval($childId);
-$result = $conn->query($sql);
+// 如果提供了 id，就查询该用户的特定孩子，否则查询该用户的所有孩子
+if ($childId) {
+    $sql = "SELECT * FROM childreninfo WHERE id = ? AND email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("is", $childId, $email);
+} else {
+    $sql = "SELECT * FROM childreninfo WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email);
+}
+
+$stmt->execute();
+$result = $stmt->get_result();
 
 $children = [];
-
-if ($result->num_rows > 0) {
-    $children = $result->fetch_assoc();
+while ($row = $result->fetch_assoc()) {
+    $children[] = $row;
 }
 
-echo json_encode($children, JSON_PRETTY_PRINT);
+// 返回 JSON 数据
+if (!empty($children)) {
+    echo json_encode($children, JSON_PRETTY_PRINT);
+} else {
+    echo json_encode(["error" => "No children found for this user"]);
+}
+
+// 关闭数据库连接
+$stmt->close();
+$conn->close();
 ?>
