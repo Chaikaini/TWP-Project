@@ -47,29 +47,24 @@
         }
 
         .breadcrumb-container {
-            padding: 20px;
-            background-color: #f8f9fa;
-            border-bottom: 1px solid #ccc;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    flex-direction: column; /* 让内容垂直排列 */
+    align-items: flex-start; /* 左对齐 */
+}
 
-        .breadcrumb-container .search-box {
-            display: flex;
-            align-items: center;
-        }
+.breadcrumb-container h2 {
+    margin-bottom: 10px; /* 增加与面包屑导航的间距 */
+}
 
-        .breadcrumb-container .search-box input {
-            width: 200px;
-            margin-right: 10px;
-        }
+.breadcrumb-container .breadcrumb {
+    display: flex;
+    gap: 5px;
+    font-size: 14px;
+}
 
-        .breadcrumb-container h1 {
-            margin: 0;
-            font-size: 28px;
-            font-weight: bold;
-        }
 
         .breadcrumb-container .breadcrumb {
             margin: 0;
