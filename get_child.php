@@ -7,42 +7,19 @@ if (!$conn) {
     exit();
 }
 
-// 获取请求参数
-$email = isset($_GET['email']) ? $_GET['email'] : null; 
-$childId = isset($_GET['id']) ? intval($_GET['id']) : null; 
+// 查询所有孩子的名字
+$sql = "SELECT name FROM childreninfo";
+$result = $conn->query($sql);
 
-if (!$email) {
-    echo json_encode(["error" => "Missing email"]);
-    exit();
-}
+$childrenNames = [];
 
-// 如果提供了 id，就查询该用户的特定孩子，否则查询该用户的所有孩子
-if ($childId) {
-    $sql = "SELECT * FROM childreninfo WHERE id = ? AND email = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("is", $childId, $email);
-} else {
-    $sql = "SELECT * FROM childreninfo WHERE email = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $email);
-}
-
-$stmt->execute();
-$result = $stmt->get_result();
-
-$children = [];
 while ($row = $result->fetch_assoc()) {
-    $children[] = $row;
+    $childrenNames[] = $row['name'];
 }
 
 // 返回 JSON 数据
-if (!empty($children)) {
-    echo json_encode($children, JSON_PRETTY_PRINT);
-} else {
-    echo json_encode(["error" => "No children found for this user"]);
-}
+echo json_encode($childrenNames, JSON_PRETTY_PRINT);
 
 // 关闭数据库连接
-$stmt->close();
 $conn->close();
 ?>
