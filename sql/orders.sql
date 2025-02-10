@@ -55,18 +55,18 @@ DELIMITER $$
 CREATE TRIGGER `before_insert_order` BEFORE INSERT ON `orders` FOR EACH ROW BEGIN
     DECLARE new_order_id VARCHAR(20);
 
-    -- 获取最大现有的order_id
+   
     SELECT MAX(order_id) INTO new_order_id FROM orders;
 
-    -- 如果没有订单，则设置为ORD1001
+    
     IF new_order_id IS NULL THEN
         SET new_order_id = 'ORD1001';
     ELSE
-        -- 提取当前的数字部分并加1
+       
         SET new_order_id = CONCAT('ORD', LPAD(SUBSTRING(new_order_id, 4) + 1, 4, '0'));
     END IF;
 
-    -- 设置新插入订单的order_id
+    
     SET NEW.order_id = new_order_id;
 END
 $$
