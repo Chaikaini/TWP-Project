@@ -55,6 +55,41 @@
     margin: 20px;
     }
 
+    .breadcrumb-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    flex-direction: column; /* 让内容垂直排列 */
+    align-items: flex-start; /* 左对齐 */
+}
+
+.breadcrumb-container h2 {
+    margin-bottom: 10px; /* 增加与面包屑导航的间距 */
+}
+
+.breadcrumb-container .breadcrumb {
+    display: flex;
+    gap: 5px;
+    font-size: 14px;
+}
+
+
+
+
+        .breadcrumb-container .breadcrumb li {
+            color: #555;
+        }
+
+        .breadcrumb-container .breadcrumb li a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .breadcrumb-container .breadcrumb li a:hover {
+            text-decoration: underline;
+        }
+
    .containerp {
     max-width: 650px;
     margin: auto;
