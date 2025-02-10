@@ -442,7 +442,7 @@ button.btn.btn-primaryy:hover {
         <label for="childSelect" class="form-label">Select to display child learning status:</label>
         <select id="childSelect" class="form-select" onchange="displayLearningStatus()">
             <option value="">--Select--</option>
-            <option value="Yuna">Yuna</option>
+            
             <option value="John Doe">John Doe</option>
         </select>
     </div>
@@ -657,13 +657,10 @@ button.btn.btn-primaryy:hover {
         var learningStatus = document.getElementById("learningStatus");
 
         var courses = {
-            "Yuna": [
-                { subject: "English",year: "Year 1", day: "Monday",time: "2:30pm-4:30pm",status: "active" },
-                { subject: "Math", year: "Year 1", day: "Wednesday", time: "2:30pm-4:30pm",status: "active"}
-            ],
+           
             "John Doe": [
-                { subject: "English", year: "Year 1", day: "Monday",time: "2:30pm-4:30pm" },
-                { subject: "Malay", year: "Year 1", day: "Thursday", time: "2:30pm-4:30pm"  }
+                { subject: "Math", year: "Year 1", day: "Wednesday",time: "2:30pm-4:30pm",status: "active" },
+                
             ]
         };
 
