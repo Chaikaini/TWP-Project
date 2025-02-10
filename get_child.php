@@ -3,23 +3,27 @@ header('Content-Type: application/json');
 include 'db.php';
 
 if (!$conn) {
-    echo json_encode(["error" => "Database connection failed"]);
+    echo json_encode(["error" => "Database cannot connect"]);
     exit();
 }
 
-// 查询所有孩子的名字
-$sql = "SELECT name FROM childreninfo";
-$result = $conn->query($sql);
+// 获取请求中的参数（例如传递的孩子 id）
+$childId = isset($_GET['id']) ? $_GET['id'] : null; // 获取查询参数 'id'
 
-$childrenNames = [];
-
-while ($row = $result->fetch_assoc()) {
-    $childrenNames[] = $row['name'];
+// 如果没有提供 id，默认返回 id=2 的孩子数据
+if ($childId === null) {
+    $childId = 2;
 }
 
-// 返回 JSON 数据
-echo json_encode($childrenNames, JSON_PRETTY_PRINT);
+// 使用指定的 id 来查询孩子信息
+$sql = "SELECT * FROM childreninfo WHERE id = " . intval($childId);
+$result = $conn->query($sql);
 
-// 关闭数据库连接
-$conn->close();
+$children = [];
+
+if ($result->num_rows > 0) {
+    $children = $result->fetch_assoc();
+}
+
+echo json_encode($children, JSON_PRETTY_PRINT);
 ?>
