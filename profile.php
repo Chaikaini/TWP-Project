@@ -658,7 +658,7 @@ button.btn.btn-primaryy:hover {
 
         var courses = {
             "Yuna": [
-                { subject: "Malay", year: "Year 1", day: "Thursday", time: "2:30pm-4:30pm",status: "active" }
+                { subject: "English",year: "Year 1", day: "Monday",time: "2:30pm-4:30pm",status: "active" }
             ],
             "John Doe": [
                 { subject: "Math", year: "Year 1", day: "Wednesday", time: "2:30pm-4:30pm",status: "active"}
