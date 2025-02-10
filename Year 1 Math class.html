@@ -636,7 +636,7 @@
 
         
         document.addEventListener("DOMContentLoaded", function() {
-    fetch('get_child.php?id=2') // 通过查询参数获取 id 为 2 的孩子数据
+    fetch('get_child.php?') // 通过查询参数获取 id 为 2 的孩子数据
         .then(response => response.json())
         .then(data => {
             let select = document.getElementById("childrenSelect");
