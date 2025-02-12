@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2025 at 09:51 AM
+-- Generation Time: Feb 12, 2025 at 01:57 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -43,12 +43,12 @@ CREATE TABLE `subjects` (
 --
 
 INSERT INTO `subjects` (`id`, `name`, `year`, `teacher`, `price`, `rating`, `image`, `page`) VALUES
-(1, 'Year 1 English', 'Year 1', 'Mr. John', 85.00, 4.6, 'img/english.jpg', 'Year 1 English class.html'),
-(2, 'Year 1 Malay', 'Year 1', 'Ms. Lily', 85.00, 4.5, 'img/malay.jpg', 'Year 1 Malay class.html'),
-(3, 'Year 1 Math', 'Year 1', 'Mr. David', 85.00, 4.3, 'img/math.jpg', 'Year 1 Math class.html'),
-(4, 'Year 2 English', 'Year 2', 'Mr. John', 85.00, 4.5, 'img/english.jpg', 'Year 2 English class.html'),
-(5, 'Year 2 Malay', 'Year 2', 'Ms. Lily', 85.00, 4.2, 'img/malay.jpg', 'Year 2 Malay class.html'),
-(6, 'Year 2 Math', 'Year 2', 'Mr. David', 85.00, 4.8, 'img/math.jpg', 'Year 2 Math class.html');
+(11132, 'Year 1 Math', 'Year 1', 'Mr. David', 510.00, 4.3, 'img/math.jpg', 'Year 1 Math class.html'),
+(11245, 'Year 1 English', 'Year 1', 'Mr. John', 510.00, 4.6, 'img/english.jpg', 'Year 1 English class.html'),
+(11351, 'Year 1 Malay', 'Year 1', 'Ms. Lily', 510.00, 4.5, 'img/malay.jpg', 'Year 1 Malay class.html'),
+(22134, 'Year 2 Math', 'Year 2', 'Mr. David', 510.00, 4.8, 'img/math.jpg', 'Year 2 Math class.html'),
+(22345, 'Year 2 Malay', 'Year 2', 'Ms. Lily', 510.00, 4.2, 'img/malay.jpg', 'Year 2 Malay class.html'),
+(22534, 'Year 2 English', 'Year 2', 'Mr. John', 510.00, 4.5, 'img/english.jpg', 'Year 2 English class.html');
 
 --
 -- Indexes for dumped tables
@@ -68,7 +68,7 @@ ALTER TABLE `subjects`
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23416;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
