@@ -31,6 +31,9 @@ if ($result->num_rows > 0) {
         } elseif ($row["year"] == 2) {
             $subjectsData["year2"][] = $subject;
         }
+        elseif ($row["year"] == 3) {
+            $subjectsData["year3"][] = $subject;
+        }
     }
 }
 
