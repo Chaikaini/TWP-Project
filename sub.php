@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 $sql = "SELECT name, image, teacher, price, rating, page, year FROM subjects ORDER BY year";
 $result = $conn->query($sql);
 
-$subjectsData = ["year1" => [], "year2" => []];
+$subjectsData = ["year1" => [], "year2" => [],"year3" => []];
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
