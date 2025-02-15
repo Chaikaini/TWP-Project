@@ -32,10 +32,10 @@ CREATE TABLE `childreninfo` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `gender` enum('boy','girl') DEFAULT NULL,
-  `kid_number` varchar(20) NOT NULL,
+  `kidNumber` varchar(20) NOT NULL,
   `birthday` date DEFAULT NULL,
   `school` varchar(100) DEFAULT NULL,
-  `grade` varchar(20) DEFAULT NULL
+  `year` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -55,7 +55,7 @@ INSERT INTO `childreninfo` (`email`, `id`, `name`, `gender`, `kidNumber`, `birth
 --
 ALTER TABLE `childreninfo`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `kid_number` (`kid_number`);
+  ADD UNIQUE KEY `kidNumber` (`kidNumber`);
 
 --
 -- AUTO_INCREMENT for dumped tables
