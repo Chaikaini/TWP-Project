@@ -6,6 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $subject = $_POST['subject'];
     $year = $_POST['year'];
     $price = $_POST['price'];
+    $image = $_POST['image'];
     $description = $_POST['description'];
 
    
@@ -13,6 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 subject = '$subject', 
                 year = '$year', 
                 price = '$price',
+                image = '$image',
                 description = '$description' 
             WHERE subject_ID = '$subjectID'";
 

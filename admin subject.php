@@ -275,6 +275,8 @@
             <input type="text" id="year" name="year">
             <label for="price">Price:</label>
             <input type="text" id="price" name="price">
+            <label for="image">Image:</label>
+            <input type="text" id="image" name="image">
             <div class="form-group">
               <label for="description">Subject description:</label>
               <textarea id="description" name="description"></textarea>
@@ -305,6 +307,10 @@
             <div class="form-group">
                 <label for="editPrice">Price:</label>
                 <input type="text" id="editPrice" name="price">
+            </div>
+            <div class="form-group">
+                <label for="editImage">Image:</label>
+                <input type="text" id="editImage" name="image">
             </div>
             <div class="form-group">
                 <label for="editDescription">Subject description:</label>
