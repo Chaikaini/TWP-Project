@@ -46,6 +46,7 @@ $result = $conn->query($sql);
                                 \"" . $row["year"] . "\", 
                                 \"" . $row["price"] . "\", 
                                 \"" . addslashes($row["description"]) . "\"
+                                \"" . $row["image"] . "\",
                             )'></i>
                             <i class='pointer-cursor fas fa-trash-alt text-danger delete-btn' data-subjectID='" . $row['subject_ID'] . "'></i>
                           </td>";
