@@ -45,6 +45,7 @@ $result = $conn->query($sql);
                                 \"" . addslashes($row["subject"]) . "\", 
                                 \"" . $row["year"] . "\", 
                                 \"" . $row["price"] . "\",
+                                \"" . $row["image"] . "\",
                                 \"" . addslashes($row["description"]) . "\"
                                 
                             )'></i>

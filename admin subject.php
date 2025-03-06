@@ -367,11 +367,12 @@
     }
     
 
-    function openEditModal(subjectID, subject, year, price, description) {
+    function openEditModal(subjectID, subject, year, price, image, description) {
     document.getElementById("editSubjectID").value = subjectID;
     document.getElementById("editSubject").value = subject;
     document.getElementById("editYear").value = year;
     document.getElementById("editPrice").value = price;
+    document.getElementById("editImage").value = image;
     document.getElementById("editDescription").value = description;
     document.getElementById("editModal").style.display = "block";
 }
