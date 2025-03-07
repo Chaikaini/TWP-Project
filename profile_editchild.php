@@ -9,25 +9,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $school = mysqli_real_escape_string($connect, $_POST['school']);
     $year = mysqli_real_escape_string($connect, $_POST['year']);
 
+    
     $sql = "UPDATE childreninfo SET 
                 name = ?, 
                 gender = ?, 
                 birthday = ?, 
                 school = ?, 
                 year = ? 
-            WHERE kidNumber = '$kidNumber'";
+            WHERE kidNumber = ?";  
 
     $stmt = mysqli_prepare($connect, $sql);
-    mysqli_stmt_bind_param($stmt, "ssssss", $name, $gender, $birthday, $school, $year, $kidNumber);
+    if ($stmt) {
+      
+        mysqli_stmt_bind_param($stmt, "ssssss", $name, $gender, $birthday, $school, $year, $kidNumber);
 
-    if (mysqli_stmt_execute($stmt)) {
-        echo "<script>alert('Children information edited successfully!'); window.location.href='profile.php';</script>";
+        if (mysqli_stmt_execute($stmt)) {
+            echo "<script>alert('Children information edited successfully!'); window.location.href='profile.php';</script>";
+        } else {
+            echo "Error updating children information: " . mysqli_error($connect);
+        }
+
+        mysqli_stmt_close($stmt);
     } else {
-        echo "Error updating children information: " . mysqli_error($connect);
+        echo "SQL statement preparation failed: " . mysqli_error($connect);
     }
 
-    mysqli_stmt_close($stmt);
     mysqli_close($connect);
 }
 ?>
-

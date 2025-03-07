@@ -429,7 +429,7 @@ button.btn.btn-primaryy:hover {
                 </tr>
             </thead>   
         <tbody>
-            <?php include 'profile_childlist.php'; ?>
+            
         </tbody>
     </table>
     </table>
@@ -821,7 +821,7 @@ document.querySelector("form").addEventListener("submit", async function (event)
         confirm_password: document.getElementById("confirm-password").value.trim(),
     };
 
-    // 校验密码
+    // check password
     if (formData.new_password || formData.current_password) {
         if (formData.new_password !== formData.confirm_password) {
             alert("New password and confirm password do not match!");
@@ -850,6 +850,42 @@ document.querySelector("form").addEventListener("submit", async function (event)
     }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    fetchChildrenInfo();
+});
+
+function fetchChildrenInfo() {
+    fetch("profile_childlist.php")
+        .then(response => response.json())
+        .then(data => {
+            const tbody = document.querySelector("#children-info-content tbody");
+            tbody.innerHTML = ""; 
+
+            if (data.status === "success") {
+                data.data.forEach(child => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${child.name}</td>
+                        <td>${child.gender}</td>
+                        <td>${child.kidNumber}</td>
+                        <td>${child.birthday}</td>
+                        <td>${child.school}</td>
+                        <td>${child.year}</td>
+                        <td>
+                            <i class="pointer-cursor fas fa-edit text-warning edit-btn" 
+                               onclick="openEditModal('${child.name}', '${child.gender}', '${child.kidNumber}','${child.birthday}', '${child.school}', '${child.year}')"></i>
+                            <i class="pointer-cursor fas fa-trash-alt text-danger delete-btn" 
+                               data-kidNumber="${child.kidNumber}"></i>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } else {
+                tbody.innerHTML = `<tr><td colspan='7'>${data.message}</td></tr>`;
+            }
+        })
+        .catch(error => console.error("Error fetching child information:", error));
+}
 
 
 

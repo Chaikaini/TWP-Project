@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -6,34 +8,35 @@ $dbname = "profile";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die(json_encode(['status' => 'error', 'message' => 'Database connection failed']));
 }
 
-$sql = "SELECT * FROM childreninfo";
-$result = $conn->query($sql);
+// check parent login
+if (!isset($_SESSION['email'])) {
+    echo json_encode(['status' => 'error', 'message' => 'User not logged in']);
+    exit;
+}
 
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        echo "<tr>";
-        echo "<td>" . $row["name"] . "</td>";
-        echo "<td>" . $row["gender"] . "</td>";
-        echo "<td>" . $row["kidNumber"] . "</td>";
-        echo "<td>" . $row["birthday"] . "</td>";
-        echo "<td>" . $row["school"] . "</td>";
-        echo "<td>" . $row["year"] . "</td>";
-        echo "<td>
-        <i class='pointer-cursor fas fa-edit text-warning edit-btn' 
-           onclick='openEditModal(\"" . $row["name"] . "\", \"" . $row["gender"] . "\", \"" . $row["birthday"] . "\", \"" . $row["school"] . "\", \"" . $row["year"] . "\")'></i>
-        <i class='pointer-cursor fas fa-trash-alt text-danger delete-btn' 
-           data-kidNumber=\"" . $row['kidNumber'] . "\"></i>
-      </td>";
-        echo "</tr>";
-    }
+$email = $_SESSION['email']; // get parent email
+
+// check parent child information
+$sql = "SELECT name, gender, kidNumber, birthday, school, year FROM childreninfo WHERE email = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$children = [];
+while ($row = $result->fetch_assoc()) {
+    $children[] = $row;
+}
+
+if (!empty($children)) {
+    echo json_encode(['status' => 'success', 'data' => $children]);
 } else {
-    echo "<tr><td colspan='7'>No children found</td></tr>";
+    echo json_encode(['status' => 'error', 'message' => 'No children found']);
 }
+
+$stmt->close();
+$conn->close();
 ?>
-
-
-<?php $conn->close(); ?>
-
