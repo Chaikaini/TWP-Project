@@ -34,7 +34,7 @@ while ($row = $result->fetch_assoc()) {
 if (!empty($children)) {
     echo json_encode(['status' => 'success', 'data' => $children]);
 } else {
-    echo json_encode(['status' => 'error', 'message' => 'No children found']);
+    echo json_encode(['status' => 'error', 'message' => 'No child information yet']);
 }
 
 $stmt->close();

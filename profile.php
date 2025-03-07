@@ -680,9 +680,10 @@ button.btn.btn-primaryy:hover {
         learningStatus.style.display = selectedChild ? "block" : "none";
     }
 
-    function openModal(childName, childGender, childBirthday, childSchool, childYear) {
+    function openModal(childName, childGender, kidNumber, childBirthday, childSchool, childYear) {
     document.getElementById('childName').value = childName;
     document.getElementById('childGender').value = childGender;
+    document.getElementById('kidNumber').value = kidNumber;
     document.getElementById('childBirthday').value = childBirthday;
     document.getElementById('childSchool').value = childSchool;
     document.getElementById('childYear').value = childYear;
