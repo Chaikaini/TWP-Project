@@ -724,9 +724,9 @@ document.getElementById("avatar-upload").addEventListener("change", function(eve
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".delete-btn").forEach(button => {
-        button.addEventListener("click", function () {
-            let kidNumber = this.getAttribute("data-kidNumber");
+    document.querySelector("#children-info-content").addEventListener("click", function (event) {
+        if (event.target.classList.contains("delete-btn")) {
+            let kidNumber = event.target.getAttribute("data-kidNumber");
 
             if (confirm("Are you sure you want to delete this child?")) {
                 fetch("profile_deletechild.php", {
@@ -745,9 +745,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 })
                 .catch(error => console.error("Error:", error));
             }
-        });
+        }
     });
 });
+
 
 document.getElementById("childForm").addEventListener("submit", function (event) {
     event.preventDefault(); 
