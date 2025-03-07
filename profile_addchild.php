@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $kidNumber = $_POST['kidNumber'] ?? '';
     $birthday = $_POST['birthday'] ?? '';
     $school = $_POST['school'] ?? '';
-    $grade = $_POST['year'] ?? '';  
+    $year = $_POST['year'] ?? '';  
 
    
     $sql = "INSERT INTO childreninfo (name, gender, kidNumber, birthday, school,year) 

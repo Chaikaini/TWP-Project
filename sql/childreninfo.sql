@@ -43,8 +43,8 @@ CREATE TABLE `childreninfo` (
 --
 
 INSERT INTO `childreninfo` (`email`, `id`, `name`, `gender`, `kidNumber`, `birthday`, `school`, `year`) VALUES
-('kaini@gmail.com', 1, 'Yuna', 'girl', '170909-01-7788', '2017-09-09', 'SJKC Kulai 2', 'Year 1'),
-('kaini@gmail.com', 2, 'John Doe', 'boy', '170115-01-2634', '2017-01-15', 'SJKC Kulai 2', 'Year 1');
+('12345@gmail.com', 1, 'Yuna', 'girl', '170909-01-7788', '2017-09-09', 'SJKC Kulai 2', 'Year 1'),
+('12345@gmail.com', 2, 'John Doe', 'boy', '170115-01-2634', '2017-01-15', 'SJKC Kulai 2', 'Year 1');
 
 --
 -- Indexes for dumped tables
