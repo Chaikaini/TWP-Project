@@ -439,7 +439,7 @@ button.btn.btn-primaryy:hover {
     </div>
 
     <div class="select-child mt-3">
-        <label for="childSelect" class="form-label">Select to display child learning status:</label>
+        <label for="childSelect" class="form-label">Select to display child learning classes:</label>
         <select id="childSelect" class="form-select" onchange="displayLearningStatus()">
             <option value="">--Select--</option>
             <option value="Yuna">Yuna</option>
@@ -449,7 +449,7 @@ button.btn.btn-primaryy:hover {
 
     <div id="learningStatus" class="card mt-3">
         <div class="card-body">
-            <h4 class="card-title">Learning Status</h4>
+            <h4 class="card-title">Learning Classes</h4>
             <p id="statusContent" class="card-text"></p>
         </div>
     </div>
