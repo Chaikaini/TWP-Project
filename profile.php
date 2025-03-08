@@ -473,7 +473,7 @@ button.btn.btn-primaryy:hover {
                 </tr>
             </thead>   
         <tbody>
-            <?php include 'profile_history.php'; ?>
+            
         </tbody>
     </table>
     </table>
@@ -888,6 +888,33 @@ function fetchChildrenInfo() {
         })
         .catch(error => console.error("Error fetching child information:", error));
 }
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("profile_history.php")
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success" && Array.isArray(data.data)) {
+                const tableBody = document.querySelector("#history-content tbody");
+                tableBody.innerHTML = ""; // 清空旧数据
+
+                data.data.forEach(payment => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${payment.student_name}</td>
+                        <td>${payment.course_name}</td>
+                        <td>${payment.payment_method}</td>
+                        <td>RM${parseFloat(payment.total_amount).toFixed(2)}</td>
+                        <td>${payment.order_date}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } else {
+                console.error("Failed to load payment history:", data.message);
+            }
+        })
+        .catch(error => console.error("Error fetching payment history:", error.message));
+});
 
 
 
