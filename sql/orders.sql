@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `order_id` varchar(20) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `student_name` varchar(255) DEFAULT NULL,
   `course_name` varchar(255) DEFAULT NULL,
   `teacher_name` varchar(255) DEFAULT NULL,
@@ -43,8 +44,8 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `order_id`, `student_name`, `course_name`, `teacher_name`, `total_amount`, `payment_method`, `order_date`, `time`) VALUES
-(1, 'ORD1001', 'Yuna', 'Year 1 Math', 'Mr. David', 610.00, 'JomPAY', '2025-02-07 08:23:48', 'Wednesday 2.30pm-4.30pm'),
+INSERT INTO `orders` (`id`, `order_id`, `email`, `student_name`, `course_name`, `teacher_name`, `total_amount`, `payment_method`, `order_date`, `time`) VALUES
+(1, 'ORD1001', '12345@gmail.com', 'Yuna', 'Year 1 Math', 'Mr. David', 610.00, 'JomPAY', '2025-02-07 08:23:48', 'Wednesday 2.30pm-4.30pm'),
 (2, 'ORD1002', 'Bob Lee', 'Year 2 Malay', 'Ms.Lily', 610.00, 'TNG', '2025-02-07 08:23:48', 'Tuesday 5:00pm - 7:00pm'),
 (3, 'ORD1003', 'Anna', 'Year 1 Math', 'Mr. David', 610.00, 'JomPay', '2025-02-07 08:23:48', 'Wednesday 2:30pm-4:30pm');
 
