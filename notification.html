@@ -225,6 +225,23 @@
                 }
             });
         });
+
+           // 使用 fetch 获取 welcome.php 中的消息
+           fetch('notification.php')
+            .then(response => response.json())
+            .then(data => {
+                const welcomeMessage = document.getElementById('welcomeMessage');
+                if (data.error) {
+                    welcomeMessage.innerHTML = `<div class="title">Error: ${data.error}</div>`;
+                } else {
+                    welcomeMessage.innerHTML = `
+                        <div class="title">${data.message}</div>
+                        <div class="content">We are happy to have you at The Seeds Learning Centre. Let's get started with your first class!</div>
+                        <div class="date">${new Date().toLocaleDateString()}</div>
+                    `;
+                }
+            })
+            .catch(error => console.error('Error fetching welcome message:', error));
     </script>
 
     <!-- Footer Start -->
