@@ -442,8 +442,7 @@ button.btn.btn-primaryy:hover {
         <label for="childSelect" class="form-label">Select to display child learning classes:</label>
         <select id="childSelect" class="form-select" onchange="displayLearningStatus()">
             <option value="">--Select--</option>
-            <option value="Yuna">Yuna</option>
-            <option value="John Doe">John Doe</option>
+            
         </select>
     </div>
 
@@ -651,34 +650,78 @@ button.btn.btn-primaryy:hover {
         };
 
 
-        function displayLearningStatus() {
-        var select = document.getElementById("childSelect");
-        var statusContent = document.getElementById("statusContent");
-        var learningStatus = document.getElementById("learningStatus");
+        document.addEventListener("DOMContentLoaded", function () {
+    fetchUserEmail();
+});
 
-        var courses = {
-            "Yuna": [
-                { subject: "English",year: "Year 1", day: "Monday",time: "2:30pm-4:30pm",status: "active" }
-            ],
-            "John Doe": [
-                { subject: "Math", year: "Year 1", day: "Wednesday", time: "2:30pm-4:30pm",status: "active"}
-            ]
-        };
 
-        var selectedChild = select.value;
-        if (selectedChild && courses[selectedChild]) {
-            var table = "<table class='table table-striped'><thead><tr><th>Subject</th><th>Year</th><th>Day</th><th>Time</th><th>Status</th></tr></thead><tbody>";
-            courses[selectedChild].forEach(function(course) {
-                table += "<tr><td>" + course.subject + "</td><td>" + course.year + "</td><td>" + course.day + "</td><td>" + course.time + "</td><td><span class='status-circle'></span></td></tr>";
+// **第二步：根据 email 获取 childreninfo 里的 name**
+function fetchChildren(email) {
+    fetch(`/profile_select.php?email=${encodeURIComponent(email)}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log("Fetched children:", data);
+            const select = document.getElementById("childSelect");
+            select.innerHTML = '<option value="">--Select--</option>'; // 清空
+
+            if (!data.length) {
+                console.warn("No children found for this email");
+                return;
+            }
+
+            data.forEach(child => {
+                let option = document.createElement("option");
+                option.value = child.name; // 使用 childreninfo 里的 `name`
+                option.textContent = child.name;
+                select.appendChild(option);
+            });
+
+            // 绑定 onchange 事件
+            select.addEventListener("change", displayLearningStatus);
+        })
+        .catch(error => console.error("Error fetching children:", error));
+}
+
+// **第三步：根据选中的 name 获取 learning status**
+function displayLearningStatus() {
+    var select = document.getElementById("childSelect");
+    var selectedChild = select.value; // `name` 作为参数
+    var statusContent = document.getElementById("statusContent");
+    var learningStatus = document.getElementById("learningStatus");
+
+    if (!selectedChild) {
+        statusContent.innerHTML = "";
+        learningStatus.style.display = "none";
+        return;
+    }
+
+    fetch(`/profile_learning.php?student_name=${encodeURIComponent(selectedChild)}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log("Learning status for", selectedChild, ":", data);
+
+            if (!data.length) {
+                statusContent.innerHTML = "<p>No learning status found.</p>";
+                learningStatus.style.display = "block";
+                return;
+            }
+
+            // 构建表格
+            var table = "<table class='table table-striped'><thead><tr><th>Course</th><th>Time</th></tr></thead><tbody>";
+            data.forEach(course => {
+                table += `<tr><td>${course.course_name}</td><td>${course.time}</td></tr>`;
             });
             table += "</tbody></table>";
-            statusContent.innerHTML = table;
-        } else {
-            statusContent.innerHTML = "";
-        }
 
-        learningStatus.style.display = selectedChild ? "block" : "none";
-    }
+            statusContent.innerHTML = table;
+            learningStatus.style.display = "block";
+        })
+        .catch(error => console.error("Error fetching learning status:", error));
+}
+
+
+
+
 
     function openModal(childName, childGender, kidNumber, childBirthday, childSchool, childYear) {
     document.getElementById('childName').value = childName;
