@@ -671,7 +671,7 @@ function fetchChildren(email) {
 
             data.forEach(child => {
                 let option = document.createElement("option");
-                option.value = child.name; // 使用 childreninfo 里的 `name`
+                option.value = child.name;
                 option.textContent = child.name;
                 select.appendChild(option);
             });
@@ -685,7 +685,7 @@ function fetchChildren(email) {
 // **第三步：根据选中的 name 获取 learning status**
 function displayLearningStatus() {
     var select = document.getElementById("childSelect");
-    var selectedChild = select.value; // `name` 作为参数
+    var selectedChild = select.value;
     var statusContent = document.getElementById("statusContent");
     var learningStatus = document.getElementById("learningStatus");
 
@@ -718,8 +718,6 @@ function displayLearningStatus() {
         })
         .catch(error => console.error("Error fetching learning status:", error));
 }
-
-
 
 
 

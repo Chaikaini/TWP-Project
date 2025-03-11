@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-$servername = "localhost"; 
-$username = "root";        
-$password = "";            
-$dbname = "profile"; 
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "profile";
 
 // 连接数据库
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -20,7 +20,7 @@ if (!isset($_SESSION['email'])) {
     exit;
 }
 
-$email = $_SESSION['email']; // 直接从 session 获取 email
+$email = $_SESSION['email']; // 从 session 获取 email
 $sql = "SELECT name FROM childreninfo WHERE email = ?";
 
 $stmt = $conn->prepare($sql);
@@ -40,7 +40,7 @@ while ($row = $result->fetch_assoc()) {
 $stmt->close();
 $conn->close();
 
-// 返回 JSON 数据，包含 email 和孩子的信息
+// 返回 JSON 数据
 echo json_encode([
     "email" => $email,
     "children" => $children
