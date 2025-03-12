@@ -220,9 +220,57 @@
     background-color: white;
 }
 
-    
+#bank-selection {
+        margin-top: 10px;
+        padding: 15px;
+        background-color: #f9f9f9;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        display: none;
+    }
 
+    /* 一行一个银行 */
+    .bank-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+    }
 
+    .bank-option {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 4px;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.3s;
+        background-color: #fff;
+    }
+
+    .bank-option img {
+        width: 20px;
+        height: 20px;
+        margin-right: 15px;
+    }
+
+    .bank-option span {
+        font-size: 16px;
+        font-weight: 500;
+        color: #333;
+    }
+
+    .bank-option:hover {
+        transform: scale(1.03);
+        border-color: #007bff;
+        background-color: #eef5ff;
+    }
+
+    .bank-option.selected {
+        border-color: #007bff;
+        background-color: #eef5ff;
+    }
 
     </style>
 </head>
@@ -303,6 +351,40 @@
         <div class="payment-info">
             <h4>Choose Your Payment Method</h4>
             <div class="payment-method">
+
+                <label for="online-banking" class="payment-option">
+                    <img src="img/online_banking.png" alt="Online Banking" class="payment-icon"> Online Banking
+                    <input type="radio" id="online-banking" name="payment" value="online-banking">
+                </label><br>
+
+                <div id="bank-selection">
+                    <h8>Select Your Bank:</h8>
+                    <div class="bank-grid">
+                        <div class="bank-option" data-bank="maybank">
+                            <img src="img/maybank.png" alt="Maybank">
+                            <span>Maybank</span>
+                        </div>
+                        <div class="bank-option" data-bank="cimb">
+                            <img src="img/cimb.png" alt="CIMB Bank">
+                            <span>CIMB Bank</span>
+                        </div>
+                        <div class="bank-option" data-bank="public-bank">
+                            <img src="img/public_bank.png" alt="Public Bank">
+                            <span>Public Bank</span>
+                        </div>
+                        <div class="bank-option" data-bank="rhb">
+                            <img src="img/rhb.png" alt="RHB Bank">
+                            <span>RHB Bank</span>
+                        </div>
+                        <div class="bank-option" data-bank="hongleong">
+                            <img src="img/hongleong.png" alt="Hong Leong Bank">
+                            <span>Hong Leong Bank</span>
+                        </div>
+                    </div>
+                    
+                    <span id="bank-error" class="error-message">*</span>
+                </div>
+
                 <label for="jompay" class="payment-option">
                     <img src="img/jompay.png" alt="JomPAY" class="payment-icon"> JomPAY
                     <input type="radio" id="jompay" name="payment" value="jompay">
@@ -327,31 +409,56 @@
     </div>
 </div>
 
+
+
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-      var tngRadio = document.getElementById("tng");
-      var jompayRadio = document.getElementById("jompay");
-      var phoneNumberField = document.getElementById("phone-number-field");
+ document.addEventListener("DOMContentLoaded", function () {
+    var tngRadio = document.getElementById("tng");
+    var jompayRadio = document.getElementById("jompay");
+    var onlineBankingRadio = document.getElementById("online-banking");
+    var phoneNumberField = document.getElementById("phone-number-field");
+    var bankSelection = document.getElementById("bank-selection");
+    var bankList = document.getElementById("bank-list");
 
-      tngRadio.addEventListener("change", function () {
-          if (tngRadio.checked) {
-              phoneNumberField.style.display = "block";
-          }
-      });
+    tngRadio.addEventListener("change", function () {
+        if (tngRadio.checked) {
+            phoneNumberField.style.display = "block";
+            bankSelection.style.display = "none"; 
+        }
+    });
 
-      jompayRadio.addEventListener("change", function () {
-          if (jompayRadio.checked) {
-              phoneNumberField.style.display = "none";
-          }
-      });
+    jompayRadio.addEventListener("change", function () {
+        if (jompayRadio.checked) {
+            phoneNumberField.style.display = "none";
+            bankSelection.style.display = "none"; 
+        }
+    });
+
+    onlineBankingRadio.addEventListener("change", function () {
+        if (onlineBankingRadio.checked) {
+            phoneNumberField.style.display = "none";
+            bankSelection.style.display = "block"; 
+        }
+    });
+
+    var selectedBank = ""; 
+
+document.querySelectorAll(".bank-option").forEach(function (bank) {
+    bank.addEventListener("click", function () {
+        selectedBank = this.getAttribute("data-bank");
+        document.querySelectorAll(".bank-option").forEach(b => b.classList.remove("selected"));
+        this.classList.add("selected"); 
+    });
+});
+
 
       fetch("checkout.php")
           .then(response => response.json())
           .then(data => {
               const container = document.getElementById("cart-container");
               let totalAmount = 0;
-              let enrollmentFee = 100; // 固定费用
-              container.innerHTML = ""; // 清空
+              let enrollmentFee = 100; 
+              container.innerHTML = ""; 
 
               data.forEach(item => {
                   totalAmount += parseFloat(item.price);
@@ -379,23 +486,37 @@
   });
 
   function validateForm() {
-        var tngSelected = document.getElementById('tng').checked;
-        var jompaySelected = document.getElementById('jompay').checked;
-        var phoneNumber = document.getElementById('phone-number').value;
-        var phoneError = document.getElementById('phone-error');
-        var paymentMethod = tngSelected ? "TNG" : (jompaySelected ? "JomPAY" : "");
+    var tngSelected = document.getElementById('tng').checked;
+    var jompaySelected = document.getElementById('jompay').checked;
+    var onlineBankingSelected = document.getElementById('online-banking').checked;
+    var phoneNumber = document.getElementById('phone-number').value;
+    var phoneError = document.getElementById('phone-error');
+    var bankList = document.getElementById("bank-list");
+    var bankError = document.getElementById("bank-error");
+    var paymentMethod = tngSelected ? "TNG" : (jompaySelected ? "JomPAY" : (onlineBankingSelected ? "Online Banking" : ""));
 
-        if (tngSelected && phoneNumber === '') {
-            phoneError.style.display = 'inline';
-            alert('Please enter your phone number.');
-            return;
-        } else if (tngSelected && !/^\d{9}$/.test(phoneNumber)) {
-            phoneError.style.display = 'inline';
-            alert('Please enter a valid phone number.');
-            return;
-        } else {
-            phoneError.style.display = 'none';
-        }
+    // TNG 必须填写手机号
+    if (tngSelected && phoneNumber === '') {
+        phoneError.style.display = 'inline';
+        alert('Please enter your phone number.');
+        return;
+    } else if (tngSelected && !/^\d{9}$/.test(phoneNumber)) {
+        phoneError.style.display = 'inline';
+        alert('Please enter a valid phone number.');
+        return;
+    } else {
+        phoneError.style.display = 'none';
+    }
+
+    // 选择 Online Banking 必须选择银行
+    if (onlineBankingSelected && !selectedBank) {
+    bankError.style.display = 'inline';
+    alert("Please select a bank.");
+    return;
+} else {
+    bankError.style.display = 'none';
+}
+
 
         var totalAmount = document.getElementById("total-amount").innerText.replace("RM", "").trim();
 
@@ -422,6 +543,7 @@
             teacher_name: teacherName,
             total_amount: totalAmount,
             payment_method: paymentMethod,
+            bank: selectedBank,
             time: courseTime
         };
 
