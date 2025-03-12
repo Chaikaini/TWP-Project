@@ -16,8 +16,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $address = $_POST['address'];
     $phone_number = $_POST['phone_number'];
     $gender = $_POST['gender'];
+    $relationship = $_POST['relationship'];
     $password = $_POST['password'];
-    $confirm_password = $_POST['confirm_password']; // 获取确认密码
+    $confirm_password = $_POST['confirm_password']; 
 
     if ($password !== $confirm_password) {
         echo "Error: Passwords do not match!";
@@ -26,8 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-    $sql = "INSERT INTO users (username, email, address, phone_number, gender, password) 
-            VALUES ('$username', '$email', '$address', '$phone_number', '$gender', '$hashed_password')";
+    $sql = "INSERT INTO users (username, email, address, phone_number, gender, relationship, password) 
+            VALUES ('$username', '$email', '$address', '$phone_number', '$gender', '$relationship', '$hashed_password')";
 
     if ($conn->query($sql) === TRUE) {
         echo "Registration successful!";

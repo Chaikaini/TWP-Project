@@ -85,6 +85,19 @@
             border-radius: 5px;
         }
 
+        .registration-form select:invalid {
+            color: #808080;
+            font-size: 3.8mm;
+            text-align: left;
+            padding-left: 5px; 
+        }
+
+        .registration-form select:valid {
+            font-size: 3.8mm;
+            text-align: left;
+            padding-left: 5px; 
+        }
+
         .registration-form button {
             width: 100%;
             padding: 10px;
@@ -131,6 +144,11 @@
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                     </select>
+                    <select name="relationship" required>
+                        <option value="" disabled selected hidden>Relationship</option>
+                        <option value="Parent">Parent</option>
+                        <option value="Guardian">Guardian</option>
+                    </select>                    
                     <input type="password" id="password" name="password" placeholder="Password" required>
                     <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
                     <button type="submit">Register</button>
@@ -139,33 +157,43 @@
                 
                 <script>
                 document.getElementById("registerForm").addEventListener("submit", function(event) {
-                    event.preventDefault(); // 阻止页面刷新
-                
-                    let formData = new FormData(this); // 获取表单数据
-                    let password = document.getElementById("password").value;
-                    let confirm_password = document.getElementById("confirm_password").value;
-                
-                    if (password !== confirm_password) {
-                        alert("Passwords do not match!");
-                        return;
-                    }
-                
-                    fetch("register.php", {
-                        method: "POST",
-                        body: formData
-                    })
-                    .then(response => response.text()) // 读取 PHP 返回的文本
-                    .then(data => {
-                        alert(data); // 弹出 PHP 返回的信息
-                
-                        if (data.includes("successful")) {
-                            document.getElementById("registerForm").reset(); // **清空表单**
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error:", error);
-                    });
-                });
+    event.preventDefault();
+
+    let form = this;
+    let formData = new FormData(form);
+    let password = document.getElementById("password").value;
+    let confirm_password = document.getElementById("confirm_password").value;
+    let confirmPasswordField = document.getElementById("confirm_password");
+
+    let errorMsg = document.getElementById("passwordError");
+    if (errorMsg) {
+        errorMsg.remove();
+    }
+
+    if (password !== confirm_password) {
+        let errorSpan = document.createElement("span");
+        errorSpan.id = "passwordError";
+        errorSpan.style.color = "red";
+        errorSpan.style.fontSize = "12px";
+        errorSpan.innerText = "Passwords do not match!";
+        confirmPasswordField.parentNode.insertBefore(errorSpan, confirmPasswordField.nextSibling);
+        return;
+    }
+
+    fetch("register.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.text()) 
+    .then(data => {
+        if (data.includes("successful")) {
+            window.location.href = "login.html";
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });
+});
                 </script>
                 
                 
