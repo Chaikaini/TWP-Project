@@ -383,8 +383,8 @@ button.btn.btn-primaryy:hover {
                     <label for="relationship">Relationship</label>
                     <select id="relationship" name="relationship">
                         <option value="" disabled selected>Select Relationship With Children</option>
-                        <option value="parent">Parent</option>
-                        <option value="guardian">Guardian</option>
+                        <option value="Parent">Parent</option>
+                        <option value="Guardian">Guardian</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -523,8 +523,8 @@ button.btn.btn-primaryy:hover {
                 <label for="year">Year</label>
                 <select id="year" name="year">
                     <option value="" disabled selected>Year</option>
-                    <option value="year1">Year 1</option>
-                    <option value="year2">Year 2</option>   
+                    <option value="Year 1">Year 1</option>
+                    <option value="Year 2">Year 2</option>   
                 </select>
             </div>
             <div class="form-group">
@@ -882,7 +882,7 @@ document.querySelector("form").addEventListener("submit", async function (event)
         const result = await response.json();
         alert(result.message);
 
-        // 如果更新成功，则清空密码输入框
+        
         if (result.status === "success") {
             document.getElementById("current-password").value = "";
             document.getElementById("new-password").value = "";
@@ -937,7 +937,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(data => {
             if (data.status === "success" && Array.isArray(data.data)) {
                 const tableBody = document.querySelector("#history-content tbody");
-                tableBody.innerHTML = ""; // 清空旧数据
+                tableBody.innerHTML = ""; 
 
                 data.data.forEach(payment => {
                     const row = document.createElement("tr");
