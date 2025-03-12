@@ -229,7 +229,7 @@
         display: none;
     }
 
-    /* 一行一个银行 */
+   
     .bank-grid {
         display: flex;
         flex-direction: column;
@@ -412,6 +412,8 @@
 
 
 <script>
+var selectedBank = ""; 
+
  document.addEventListener("DOMContentLoaded", function () {
     var tngRadio = document.getElementById("tng");
     var jompayRadio = document.getElementById("jompay");
@@ -441,15 +443,15 @@
         }
     });
 
-    var selectedBank = ""; 
-
-document.querySelectorAll(".bank-option").forEach(function (bank) {
+    
+    document.querySelectorAll(".bank-option").forEach(function (bank) {
     bank.addEventListener("click", function () {
-        selectedBank = this.getAttribute("data-bank");
+        selectedBank = this.getAttribute("data-bank"); 
         document.querySelectorAll(".bank-option").forEach(b => b.classList.remove("selected"));
         this.classList.add("selected"); 
     });
 });
+
 
 
       fetch("checkout.php")
@@ -495,7 +497,7 @@ document.querySelectorAll(".bank-option").forEach(function (bank) {
     var bankError = document.getElementById("bank-error");
     var paymentMethod = tngSelected ? "TNG" : (jompaySelected ? "JomPAY" : (onlineBankingSelected ? "Online Banking" : ""));
 
-    // TNG 必须填写手机号
+    // TNG 
     if (tngSelected && phoneNumber === '') {
         phoneError.style.display = 'inline';
         alert('Please enter your phone number.');
@@ -508,7 +510,7 @@ document.querySelectorAll(".bank-option").forEach(function (bank) {
         phoneError.style.display = 'none';
     }
 
-    // 选择 Online Banking 必须选择银行
+    //  Online Banking 
     if (onlineBankingSelected && !selectedBank) {
     bankError.style.display = 'inline';
     alert("Please select a bank.");
