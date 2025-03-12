@@ -195,6 +195,13 @@
             <button>Search</button>
         </div>
 
+        <!-- Single Notification: Welcome New User -->
+        <div class="notification-item">
+            <div class="title">Welcome, jiaxin!</div>
+            <div class="content">We are happy to have you at The Seeds Learning Centre. Let's get started with your first class!</div>
+            <div class="date">2024-12-29</div>
+        </div>
+
     </div>
 
     <!-- JavaScript -->
@@ -219,7 +226,7 @@
             });
         });
 
-           // 使用 fetch 获取 welcome.php 中的消息
+           // 使用 fetch 获取 notification.php 中的消息
            fetch('notification.php')
             .then(response => response.json())
             .then(data => {
