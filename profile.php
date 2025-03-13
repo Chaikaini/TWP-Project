@@ -503,8 +503,8 @@ button.btn.btn-primaryy:hover {
                 <label for="gender">Gender</label>
                 <select id="gender" name="gender">
                     <option value="" disabled selected>Gender</option>
-                    <option value="boy">Boy</option>
-                    <option value="girl">Girl</option>   
+                    <option value="Boy">Boy</option>
+                    <option value="Girl">Girl</option>   
                 </select>
             </div>
             <div class="form-group">
