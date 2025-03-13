@@ -45,9 +45,9 @@ CREATE TABLE `subjects` (
 INSERT INTO `subjects` (`id`, `name`, `year`, `teacher`, `price`, `rating`, `image`, `page`) VALUES
 (11132, 'Year 1 Math', 'Year 1', 'Mr. David', 510.00, 4.3, 'img/math.jpg', 'Year 1 Math class.html'),
 (11245, 'Year 1 English', 'Year 1', 'Mr. John', 510.00, 4.6, 'img/english.jpg', 'Year 1 English class.html'),
-(11351, 'Year 1 Malay', 'Year 1', 'Ms. Lily', 510.00, 4.5, 'img/malay.jpg', 'Year 1 Malay class.html'),
+(11351, 'Year 1 Melayu', 'Year 1', 'Ms. Lily', 510.00, 4.5, 'img/malay1.jpg', 'Year 1 Malay class.html'),
 (22134, 'Year 2 Math', 'Year 2', 'Mr. David', 510.00, 4.8, 'img/math.jpg', 'Year 2 Math class.html'),
-(22345, 'Year 2 Malay', 'Year 2', 'Ms. Lily', 510.00, 4.2, 'img/malay.jpg', 'Year 2 Malay class.html'),
+(22345, 'Year 2 Melayu', 'Year 2', 'Ms. Lily', 510.00, 4.2, 'img/malay1.jpg', 'Year 2 Malay class.html'),
 (22534, 'Year 2 English', 'Year 2', 'Mr. John', 510.00, 4.5, 'img/english.jpg', 'Year 2 English class.html');
 
 --

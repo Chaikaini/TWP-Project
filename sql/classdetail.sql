@@ -45,14 +45,14 @@ CREATE TABLE `classdetail` (
 INSERT INTO `classdetail` (`id`, `class_name`, `part`, `month`, `time`, `capacity`, `enrolled`, `status`) VALUES
 (1, 'Year 1 English', 'Part A', 'January - June', 'Monday 2.30pm-4.30pm', 30, 20, 'available'),
 (2, 'Year 1 English', 'Part B', 'July - December', 'Monday 2.30pm-4.30pm', 30, 0, 'unavailable'),
-(3, 'Year 1 Malay', 'Part A', 'January - June', 'Tuesday 2.30pm-4.30pm', 30, 20, 'available'),
-(4, 'Year 1 Malay', 'Part B', 'July - December', 'Tuesday 2.30pm-4.30pm', 30, 0, 'unavailable'),
+(3, 'Year 1 Melayu', 'Part A', 'January - June', 'Tuesday 2.30pm-4.30pm', 30, 20, 'available'),
+(4, 'Year 1 Melayu', 'Part B', 'July - December', 'Tuesday 2.30pm-4.30pm', 30, 0, 'unavailable'),
 (5, 'Year 1 Math', 'Part A', 'January - June', 'Wednesday 2.30pm-4.30pm', 30, 20, 'available'),
 (6, 'Year 1 Math', 'Part B', 'July - December', 'Wednesday 2.30pm-4.30pm', 30, 0, 'unavailable'),
 (7, 'Year 2 English', 'Part A', 'January - June', 'Monday 5.00pm-7.00pm', 30, 20, 'available'),
 (8, 'Year 2 English', 'Part B', 'July - December', 'Monday 5.00pm-7.00pm', 30, 0, 'unavailable'),
-(9, 'Year 2 Malay', 'Part A', 'January - June', 'Tuesday 5.00pm-7.00pm', 30, 20, 'available'),
-(10, 'Year 2 Malay', 'Part B', 'July - December', 'Tuesday 5.00pm-7.00pm', 30, 0, 'unavailable'),
+(9, 'Year 2 Melayu', 'Part A', 'January - June', 'Tuesday 5.00pm-7.00pm', 30, 20, 'available'),
+(10, 'Year 2 Melayu', 'Part B', 'July - December', 'Tuesday 5.00pm-7.00pm', 30, 0, 'unavailable'),
 (11, 'Year 2 Math', 'Part A', 'January - June', 'Wednesday 5.00pm-7.00pm', 30, 20, 'available'),
 (12, 'Year 2 Math', 'Part B', 'July - December', 'Wednesday 5.00pm-7.00pm', 30, 0, 'unavailable');
 
