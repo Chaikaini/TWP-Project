@@ -365,7 +365,7 @@ button.btn.btn-primaryy:hover {
                 </div>
                 <div class="form-group">
                     <label for="ic-num">IC Number</label>
-                    <input type="text" id="ic-num">
+                    <input type="text" id="ic-num" placeholder="000000-00-0000">
                 </div>
                 <div class="form-group">
                     <label for="email">Email <span class="required">*</span> <small class="required"></small></label>
@@ -508,13 +508,13 @@ button.btn.btn-primaryy:hover {
                 </select>
             </div>
             <div class="form-group">
-                <label for="kidNumber">My kid number</label>
-                <input type="text" id="kidNumber" name="kidNumber">
-            </div>
-            <div class="form-group">
-                <label for="birthday">Birthday</label>
-                <input type="date" id="birthday" name="birthday">
-            </div>
+            <label for="kidNumber">My Kid Number</label>
+            <input type="text" id="kidNumber" name="kidNumber" placeholder="000000-00-0000">
+        </div>
+        <div class="form-group">
+            <label for="birthday">Birthday</label>
+            <input type="date" id="birthday" name="birthday" readonly>
+        </div>
             <div class="form-group">
                 <label for="school">School</label>
                 <input type="text" id="school" name="school">
@@ -957,7 +957,26 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error("Error fetching payment history:", error.message));
 });
 
+document.getElementById("kidNumber").addEventListener("input", function () {
+            let kidNumber = this.value.trim();
+            let birthdayInput = document.getElementById("birthday");
 
+            if (kidNumber.length >= 6) { // atleast 6 num
+                let yearPrefix = kidNumber.substring(0, 2) >= "50" ? "19" : "20"; 
+                let year = yearPrefix + kidNumber.substring(0, 2);
+                let month = kidNumber.substring(2, 4);
+                let day = kidNumber.substring(4, 6);
+
+                
+                if (month >= "01" && month <= "12" && day >= "01" && day <= "31") {
+                    birthdayInput.value = `${year}-${month}-${day}`;
+                } else {
+                    birthdayInput.value = ""; 
+                }
+            } else {
+                birthdayInput.value = ""; 
+            }
+        });
 
     </script>
 
