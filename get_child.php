@@ -1,11 +1,11 @@
 <?php
 header('Content-Type: application/json');
 
-// 启动会话，获取已登录用户的 email
+// 启动会话并获取当前用户的 email
 session_start();
 $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 
-// 如果没有登录（即没有 email），返回错误
+// 如果没有 email（用户未登录），返回错误信息
 if (empty($email)) {
     echo json_encode(["error" => "User is not logged in"]);
     exit();
