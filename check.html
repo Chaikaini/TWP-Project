@@ -558,7 +558,7 @@ var selectedBank = "";
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert("Payment successful! Order ID: " + data.order_id);
+                alert("Payment successful!" ); // Order ID: " + data.order_id);
                 window.location.href = "subject.html";
             } else {
                 alert("Payment failed: " + data.message);
