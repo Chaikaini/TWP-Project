@@ -472,7 +472,7 @@
                     <span class="popup-label" id="selectedChildren">Children:</span>
                     <span class="popup-value">
                         <select id="childrenSelect">
-                            <option value="">Choose the child</option>
+                            <option value="">Choose </option>
                         </select>
                     </span>
                 </div>
@@ -637,7 +637,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 .then(response => response.json())
                 .then(data => {
                     let select = document.getElementById("childrenSelect");
-                    select.innerHTML = '<option value="">Choose the child</option>'; // 清空现有选项
+                    select.innerHTML = '<option value="">Choose </option>'; // 清空现有选项
 
                     // 如果返回的数组为空，显示一个选项表示没有孩子
                     if (Array.isArray(data) && data.length > 0) {
