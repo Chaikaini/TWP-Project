@@ -14,8 +14,8 @@ if (empty($email)) {
 // 引入数据库连接
 include 'db.php';
 
-// 准备 SQL 查询
-$sql = "SELECT name FROM childreninfo WHERE email = ?";
+// 准备 SQL 查询，选择名字和年级
+$sql = "SELECT name, year FROM childreninfo WHERE email = ?";
 
 // 使用 prepare 语句防止 SQL 注入
 $stmt = $conn->prepare($sql);
@@ -48,13 +48,17 @@ if ($result->num_rows == 0) {
 }
 
 // 处理查询结果
-$childrenNames = [];
+$childrenInfo = [];
 while ($row = $result->fetch_assoc()) {
-    $childrenNames[] = $row['name'];  // 获取孩子的名字
+    // 获取孩子的名字和年级
+    $childrenInfo[] = [
+        'name' => $row['name'],
+        'year' => $row['year']
+    ];
 }
 
-// 返回孩子名字的 JSON 数据
-echo json_encode($childrenNames);  // 返回 JSON 数组
+// 返回孩子名字和年级的 JSON 数据
+echo json_encode($childrenInfo);  // 返回包含名字和年级的 JSON 数组
 
 // 关闭数据库连接
 $stmt->close();
