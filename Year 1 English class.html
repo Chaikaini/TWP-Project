@@ -632,17 +632,26 @@
 
         
 document.addEventListener("DOMContentLoaded", function() {
-    // 获取孩子数据并填充到下拉框
     fetch('get_child.php')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            return response.json();
+            return response.json(); // 解析 JSON 数据
         })
         .then(data => {
             let select = document.getElementById("childrenSelect");
             select.innerHTML = '<option value="">Choose the child</option>'; // 清空现有选项
+
+            // 如果返回数据是错误信息，显示错误信息
+            if (data.error) {
+                console.error('Error:', data.error);
+                let option = document.createElement("option");
+                option.textContent = "Error: " + data.error;
+                option.disabled = true;
+                select.appendChild(option);
+                return;
+            }
 
             // 检查返回的数据是否为空
             if (Array.isArray(data) && data.length > 0) {
@@ -664,7 +673,7 @@ document.addEventListener("DOMContentLoaded", function() {
             console.error('Error fetching children:', error);
         });
 });
-1
+
 
 
 
