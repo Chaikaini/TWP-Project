@@ -46,9 +46,9 @@ CREATE TABLE `admin_subject` (
 INSERT INTO `admin_subject` (`subject_ID`, `subject`, `year`, `price`, `description`, `teacher`, `rating`, `image`, `page`) VALUES
 (11132, 'Year 1 Math', 'Year 1', 510.00, NULL, 'Mr. David', 4.6, 'img/math.jpg', 'Year 1 Math class.html'),
 (11245, 'Year 1 English', 'Year 1', 510.00, NULL, 'Mr. John', 4.5, 'img/english.jpg', 'Year 1 English class.html'),
-(11351, 'Year 1 Malay', 'Year 1', 510.00, NULL, 'Ms. Lily', 4.3, 'img/malay.jpg', 'Year 1 Malay class.html'),
+(11351, 'Year 1 Melayu', 'Year 1', 510.00, NULL, 'Ms. Lily', 4.3, 'img/malay1.jpg', 'Year 1 Malay class.html'),
 (22134, 'Year 2 Math ', 'Year 2', 510.00, NULL, 'Mr. David', 4.5, 'img/math.jpg', 'Year 2 Math class.html'),
-(22345, 'Year 2 Malay', 'Year 2', 510.00, NULL, 'Ms. Lily', 4.2, 'img/malay.jpg', 'Year 2 Malay class.html'),
+(22345, 'Year 2 Melayu', 'Year 2', 510.00, NULL, 'Ms. Lily', 4.2, 'img/malay1.jpg', 'Year 2 Malay class.html'),
 (22534, 'Year 2 English', 'Year 2', 510.00, NULL, 'Mr. John', 4.8, 'img/english.jpg', 'Year 2 English class.html');
 
 --

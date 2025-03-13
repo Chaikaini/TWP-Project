@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 }
 
 // 获取课程数据，根据 class_name 和 part 来过滤
-$class_name = 'Year 1 Malay'; // 你可以根据需要修改这个值
+$class_name = 'Year 1 Melayu'; // 你可以根据需要修改这个值
 $sql = "SELECT * FROM classdetail WHERE class_name = '$class_name'";  // 查询指定课程的 Part A 和 Part B
 $result = $conn->query($sql);
 
