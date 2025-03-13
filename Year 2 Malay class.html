@@ -635,39 +635,22 @@
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-    // 获取孩子数据并填充到下拉框
-    fetch('get_child.php')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
+    fetch('get_child.php') // 直接获取所有孩子
+        .then(response => response.json())
         .then(data => {
             let select = document.getElementById("childrenSelect");
-            select.innerHTML = '<option value="">Choose the child</option>'; // 清空现有选项
+            select.innerHTML = '<option value="">Choose</option>'; // 先清空再填充
 
-            // 检查返回的数据是否为空
-            if (Array.isArray(data) && data.length > 0) {
-                // 遍历返回的孩子名字数组，添加到下拉框
-                data.forEach(name => {
-                    let option = document.createElement("option");
-                    option.value = name;
-                    option.textContent = name;
-                    select.appendChild(option);
-                });
-            } else {
+            // 遍历返回的孩子名字数组，添加到下拉框
+            data.forEach(name => {
                 let option = document.createElement("option");
-                option.textContent = "No children found";
-                option.disabled = true; // 禁用无子项的选项
+                option.value = name; // 这里的 value 也可以改成 name 或其他唯一值
+                option.textContent = name;
                 select.appendChild(option);
-            }
+            });
         })
-        .catch(error => {
-            console.error('Error fetching children:', error);
-        });
+        .catch(error => console.error('Children information fail:', error));
 });
-
 
 
 
