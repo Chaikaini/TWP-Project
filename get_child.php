@@ -1,20 +1,18 @@
 <?php
 header('Content-Type: application/json');
 
-// 引入数据库连接
-include 'db.php';
+// 启动会话，获取已登录用户的 email
+session_start();
+$email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 
-// 获取当前用户的 email 参数
-$email = isset($_GET['email']) ? $_GET['email'] : '';  // 获取 email 参数
-
-// 如果没有提供 email，返回错误
+// 如果没有登录（即没有 email），返回错误
 if (empty($email)) {
-    echo json_encode(["error" => "Email is required"]);
+    echo json_encode(["error" => "User is not logged in"]);
     exit();
 }
 
-// 打印传入的 email 参数，帮助调试
-// echo "Email: " . $email;
+// 引入数据库连接
+include 'db.php';
 
 // 准备 SQL 查询
 $sql = "SELECT name FROM childreninfo WHERE email = ?";
