@@ -633,36 +633,22 @@
         
 document.addEventListener("DOMContentLoaded", function() {
     fetch('get_child.php')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json(); // 解析 JSON 数据
-        })
+        .then(response => response.json())  // 解析 JSON 数据
         .then(data => {
             let select = document.getElementById("childrenSelect");
             select.innerHTML = '<option value="">Choose the child</option>'; // 清空现有选项
 
-            // 如果返回数据是错误信息，显示错误信息
-            if (data.error) {
-                console.error('Error:', data.error);
-                let option = document.createElement("option");
-                option.textContent = "Error: " + data.error;
-                option.disabled = true;
-                select.appendChild(option);
-                return;
-            }
-
-            // 检查返回的数据是否为空
+            // 如果返回的数组为空，显示一个选项表示没有孩子
             if (Array.isArray(data) && data.length > 0) {
-                // 遍历返回的孩子名字数组，添加到下拉框
-                data.forEach(name => {
+                // 遍历返回的孩子数据数组，添加名字和年级
+                data.forEach(child => {
                     let option = document.createElement("option");
-                    option.value = name;
-                    option.textContent = name;
+                    option.value = child.name;  // 孩子的名字作为值
+                    option.textContent = `${child.name} - ${child.year}`;  // 显示名字和年级
                     select.appendChild(option);
                 });
             } else {
+                // 如果没有孩子数据，显示一个"无孩子"选项
                 let option = document.createElement("option");
                 option.textContent = "No children found";
                 option.disabled = true; // 禁用无子项的选项
@@ -673,6 +659,7 @@ document.addEventListener("DOMContentLoaded", function() {
             console.error('Error fetching children:', error);
         });
 });
+
 
 
 
