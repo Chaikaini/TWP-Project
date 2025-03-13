@@ -655,32 +655,37 @@ button.btn.btn-primaryy:hover {
 });
 
 
-// **第二步：根据 email 获取 childreninfo 里的 name**
-function fetchChildren(email) {
-    fetch(`/profile_select.php?email=${encodeURIComponent(email)}`)
+// *第二步：根据 email 获取 childreninfo 里的 name*
+document.addEventListener("DOMContentLoaded", function() {
+    // 获取孩子数据并填充到下拉框
+    fetch('profile_select.php')  // 假设这里是正确的 URL
         .then(response => response.json())
         .then(data => {
-            console.log("Fetched children:", data);
-            const select = document.getElementById("childSelect");
-            select.innerHTML = '<option value="">--Select--</option>'; // 清空
+            let select = document.getElementById("childSelect");
+            select.innerHTML = '<option value="">--Select--</option>'; // 清空现有选项
 
-            if (!data.length) {
-                console.warn("No children found for this email");
-                return;
-            }
+            // 从返回的数据中获取 children 数组
+            const children = data.children;
 
-            data.forEach(child => {
+            if (Array.isArray(children) && children.length > 0) {
+                // 遍历返回的孩子名字数组，添加到下拉框
+                children.forEach(child => {
+                    let option = document.createElement("option");
+                    option.value = child.name;
+                    option.textContent = child.name;
+                    select.appendChild(option);
+                });
+            } else {
                 let option = document.createElement("option");
-                option.value = child.name;
-                option.textContent = child.name;
+                option.textContent = "No children found";
+                option.disabled = true; // 禁用无子项的选项
                 select.appendChild(option);
-            });
-
-            // 绑定 onchange 事件
-            select.addEventListener("change", displayLearningStatus);
+            }
         })
-        .catch(error => console.error("Error fetching children:", error));
-}
+        .catch(error => {
+            console.error('Error fetching children:', error);
+        });
+});
 
 // **第三步：根据选中的 name 获取 learning status**
 function displayLearningStatus() {
