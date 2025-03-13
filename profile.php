@@ -372,11 +372,11 @@ button.btn.btn-primaryy:hover {
                     <input type="email" id="email" value="" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="phone-num-1">Phone Number 1</label>
+                    <label for="phone-num-1">Phone Number </label>
                     <input type="text" id="phone-num-1">
                 </div>
                 <div class="form-group">
-                    <label for="phone-num-2">Phone Number 2</label>
+                    <label for="phone-num-2">Emergency Phone Number </label>
                     <input type="text" id="phone-num-2">
                 </div>
                 <div class="form-group">
