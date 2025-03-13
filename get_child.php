@@ -41,9 +41,9 @@ if ($stmt->error) {
 // 获取查询结果
 $result = $stmt->get_result();
 
-// 如果没有找到孩子数据，返回错误
+// 如果没有找到孩子数据，返回空数组
 if ($result->num_rows == 0) {
-    echo json_encode(["error" => "No children found for the provided email"]);
+    echo json_encode([]); // 返回空数组，表示没有孩子数据
     exit();
 }
 
@@ -54,7 +54,7 @@ while ($row = $result->fetch_assoc()) {
 }
 
 // 返回孩子名字的 JSON 数据
-echo json_encode($childrenNames, JSON_PRETTY_PRINT);
+echo json_encode($childrenNames);  // 返回 JSON 数组
 
 // 关闭数据库连接
 $stmt->close();
