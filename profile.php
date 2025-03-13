@@ -655,20 +655,20 @@ button.btn.btn-primaryy:hover {
 });
 
 
-// *第二步：根据 email 获取 childreninfo 里的 name*
+//  get name from the childreninfo based on email
 document.addEventListener("DOMContentLoaded", function() {
-    // 获取孩子数据并填充到下拉框
-    fetch('profile_select.php')  // 假设这里是正确的 URL
+    
+    fetch('profile_select.php') 
         .then(response => response.json())
         .then(data => {
             let select = document.getElementById("childSelect");
-            select.innerHTML = '<option value="">--Select--</option>'; // 清空现有选项
+            select.innerHTML = '<option value="">--Select--</option>'; 
 
-            // 从返回的数据中获取 children 数组
+            
             const children = data.children;
 
             if (Array.isArray(children) && children.length > 0) {
-                // 遍历返回的孩子名字数组，添加到下拉框
+               
                 children.forEach(child => {
                     let option = document.createElement("option");
                     option.value = child.name;
@@ -678,41 +678,46 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 let option = document.createElement("option");
                 option.textContent = "No children found";
-                option.disabled = true; // 禁用无子项的选项
+                option.disabled = true; 
                 select.appendChild(option);
             }
         })
         .catch(error => {
             console.error('Error fetching children:', error);
         });
+
+
+// based on the selected name display learning status
+select.addEventListener("change", displayLearningStatus);
 });
 
-// **第三步：根据选中的 name 获取 learning status**
 function displayLearningStatus() {
     var select = document.getElementById("childSelect");
-    var selectedChild = select.value;
+    var selectedChild = select.value.trim();
     var statusContent = document.getElementById("statusContent");
     var learningStatus = document.getElementById("learningStatus");
 
     if (!selectedChild) {
-        statusContent.innerHTML = "";
+        console.warn("No child selected");
+        statusContent.innerHTML = "<p class='text-warning'>Please select a child.</p>";
         learningStatus.style.display = "none";
         return;
     }
 
-    fetch(`/profile_learning.php?student_name=${encodeURIComponent(selectedChild)}`)
+    fetch(`http://localhost/TWP-Project/profile_learning.php?student_name=${encodeURIComponent(selectedChild)}`)
+
         .then(response => response.json())
         .then(data => {
-            console.log("Learning status for", selectedChild, ":", data);
+            console.log("Fetching learning status for:", selectedChild);
+            console.log("Received data:", data);
 
-            if (!data.length) {
-                statusContent.innerHTML = "<p>No learning status found.</p>";
+            if (!Array.isArray(data) || data.length === 0) {
+                statusContent.innerHTML = "<p class='text-danger'>No learning classes.</p>";
                 learningStatus.style.display = "block";
                 return;
             }
 
-            // 构建表格
-            var table = "<table class='table table-striped'><thead><tr><th>Course</th><th>Time</th></tr></thead><tbody>";
+            let table = "<table class='table table-striped'><thead><tr><th>Subject</th><th>Time</th></tr></thead><tbody>";
             data.forEach(course => {
                 table += `<tr><td>${course.course_name}</td><td>${course.time}</td></tr>`;
             });
@@ -721,9 +726,12 @@ function displayLearningStatus() {
             statusContent.innerHTML = table;
             learningStatus.style.display = "block";
         })
-        .catch(error => console.error("Error fetching learning status:", error));
+        .catch(error => {
+            console.error("Error fetching learning status:", error);
+            statusContent.innerHTML = "<p class='text-danger'>Failed to fetch learning status. Please try again later.</p>";
+            learningStatus.style.display = "block";
+        });
 }
-
 
 
     function openModal(childName, childGender, kidNumber, childBirthday, childSchool, childYear) {

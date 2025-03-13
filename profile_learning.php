@@ -1,5 +1,6 @@
 <?php
 session_start();
+header('Content-Type: application/json'); 
 
 // 数据库连接信息
 $servername = "localhost"; 
