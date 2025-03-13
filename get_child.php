@@ -48,17 +48,13 @@ if ($result->num_rows == 0) {
 }
 
 // 处理查询结果
-$childrenInfo = [];
+$children = [];
 while ($row = $result->fetch_assoc()) {
-    // 获取孩子的名字和年级
-    $childrenInfo[] = [
-        'name' => $row['name'],
-        'year' => $row['year']
-    ];
+    $children[] = $row;  // 孩子的名字和年级
 }
 
-// 返回孩子名字和年级的 JSON 数据
-echo json_encode($childrenInfo);  // 返回包含名字和年级的 JSON 数组
+// 返回所有孩子数据
+echo json_encode($children);
 
 // 关闭数据库连接
 $stmt->close();
