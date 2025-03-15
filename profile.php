@@ -602,8 +602,10 @@
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Save Changes</button>
+                
             </div>
         </form>
+        
     </div>
 </div>
 
@@ -833,7 +835,7 @@ document.getElementById("childForm").addEventListener("submit", function (event)
     })
     .then(response => response.text())
     .then(data => {
-        alert(data);
+        
         location.reload(); 
     })
     .catch(error => console.error("Error:", error));
@@ -850,7 +852,7 @@ function openEditModal(name, gender, kidNumber, birthday, school, year) {
     
     let genderSelect = document.getElementById("childGender");
     for (let i = 0; i < genderSelect.options.length; i++) {
-        if (genderSelect.options[i].value.toLowerCase() === gender.toLowerCase()) {
+        if (genderSelect.options[i].value.toUpperCase() === gender.toUpperCase()) {
             genderSelect.options[i].selected = true;
             break;
         }
@@ -1034,7 +1036,11 @@ document.getElementById("kidNumber").addEventListener("input", function () {
             }
         });
 
+
+
     </script>
+
+
 
 
     <!-- Footer Start -->

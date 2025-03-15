@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("sssssss", $name, $gender, $kidNumber, $birthday, $school, $year, $email);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Child information added successfully!'); window.location.href='profile.php';</script>";
+        echo "<script> window.location.href='profile.php';</script>";
     } else {
         echo "Error: " . $stmt->error;
     }

@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json'); // 确保返回 JSON
 include 'dbprofile_connection.php'; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -24,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_stmt_bind_param($stmt, "ssssss", $name, $gender, $birthday, $school, $year, $kidNumber);
 
         if (mysqli_stmt_execute($stmt)) {
-            echo "<script>alert('Children information edited successfully!'); window.location.href='profile.php';</script>";
+            echo "<script> window.location.href='profile.php';</script>";
         } else {
             echo "Error updating children information: " . mysqli_error($connect);
         }
