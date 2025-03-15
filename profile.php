@@ -272,6 +272,12 @@ button.btn.btn-primaryy:hover {
     background-color:#14a631;
 }
 
+.error-message {
+        color: red;
+        font-size: 0.875em;
+        margin-left: 10px;
+    }
+
     </style>
 </head>
 
@@ -396,6 +402,7 @@ button.btn.btn-primaryy:hover {
                 <div class="form-group">
                     <label for="current-password">Current Password</label>
                     <input type="password" id="current-password" autocomplete="new-password" placeholder="Enter current password">
+                    <span id="current-password-error" class="error-message"></span>
                 </div>
                 <div class="form-group">
                     <label for="new-password">New Password</label>
@@ -404,6 +411,7 @@ button.btn.btn-primaryy:hover {
                 <div class="form-group">
                     <label for="confirm-password">Confirm Password</label>
                    <input type="password" id="confirm-password" placeholder="Confirm new password">
+                   <span id="new-password-error" class="error-message"></span>
                 </div>
 
                 <div class="form-group">
@@ -712,7 +720,7 @@ function displayLearningStatus() {
             console.log("Received data:", data);
 
             if (!Array.isArray(data) || data.length === 0) {
-                statusContent.innerHTML = "<p class='text-danger'>No learning classes.</p>";
+                statusContent.innerHTML = "<p> No learning classes.</p>";
                 learningStatus.style.display = "block";
                 return;
             }
@@ -864,6 +872,7 @@ document.addEventListener("DOMContentLoaded", function () {
 document.querySelector("form").addEventListener("submit", async function (event) {
     event.preventDefault();
 
+    // get data
     const formData = {
         username: document.getElementById("username").value,
         gender: document.getElementById("gender").value,
@@ -877,10 +886,13 @@ document.querySelector("form").addEventListener("submit", async function (event)
         confirm_password: document.getElementById("confirm-password").value.trim(),
     };
 
-    // check password
+    document.getElementById("current-password-error").textContent = "";
+    document.getElementById("new-password-error").textContent = "";
+
+    // check new and confirm password match or not
     if (formData.new_password || formData.current_password) {
         if (formData.new_password !== formData.confirm_password) {
-            alert("New password and confirm password do not match!");
+            document.getElementById("new-password-error").textContent = "* New and Confirm password do not match";
             return;
         }
     }
@@ -893,9 +905,17 @@ document.querySelector("form").addEventListener("submit", async function (event)
         });
 
         const result = await response.json();
-        alert(result.message);
 
-        
+        if (result.status === "error") {
+            if (result.message === "Current password is incorrect") {
+                document.getElementById("current-password-error").textContent = "* Current password is incorrect ";
+            } else {
+                console.error(result.message);
+            }
+            return;
+        }
+
+        // if successs delete clear line
         if (result.status === "success") {
             document.getElementById("current-password").value = "";
             document.getElementById("new-password").value = "";
@@ -905,6 +925,7 @@ document.querySelector("form").addEventListener("submit", async function (event)
         console.error("Error:", error);
     }
 });
+
 
 document.addEventListener("DOMContentLoaded", function () {
     fetchChildrenInfo();

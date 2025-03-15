@@ -29,7 +29,7 @@ if (!$current_password || !$new_password) {
     exit;
 }
 
-// 查询数据库获取当前用户的密码
+// check from database to get user current password
 $stmt = $conn->prepare("SELECT password FROM users WHERE email = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
@@ -42,16 +42,16 @@ if (!$user) {
     exit;
 }
 
-// 验证当前密码
+// check current password
 if (!password_verify($current_password, $user['password'])) {
     echo json_encode(['status' => 'error', 'message' => 'Current password is incorrect']);
     exit;
 }
 
-// 生成新的加密密码
+// get new password
 $hashed_password = password_hash($new_password, PASSWORD_BCRYPT);
 
-// 更新密码
+// update password
 $stmt = $conn->prepare("UPDATE users SET password = ? WHERE email = ?");
 $stmt->bind_param("ss", $hashed_password, $email);
 
