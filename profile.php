@@ -287,6 +287,60 @@
     font-weight: bold;
 }
 
+.toast-message {
+    position: fixed;
+    top: 10%; 
+    left: 50%;
+    transform: translateX(-50%);
+    background-color:rgb(171, 241, 187); 
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 1000;
+    text-align: center;
+    transition: opacity 0.5s ease-in-out;
+    
+}
+
+.modal-d {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+.modal-dcontent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 300px;
+}
+.btn-d {
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
     </style>
 </head>
 
@@ -454,8 +508,11 @@
 
     <div class="button-container">
         <button class="btn btn-primary" id="addChildBtn">Add Child</button>
+        
     </div>
-
+    <div id="successToast" class="toast-message" style="display: none;">
+    Children Information deleted successfully!
+</div>
     <div class="select-child mt-3">
         <label for="childSelect" class="form-label">Select to display child learning classes:</label>
         <select id="childSelect" class="form-select" onchange="displayLearningStatus()">
@@ -549,6 +606,7 @@
                 <button type="submit" class="btn btn-primary">Save Changes</button>
             </div>
         </form>
+        <div id="successToast" class="toast">Add child information successfully!</div>
     </div>
 </div>
    
@@ -604,13 +662,22 @@
                 <button type="submit" class="btn btn-primary">Save Changes</button>
                 
             </div>
+            <div id="successToast" class="toast">Child information updated successfully!</div>
         </form>
+        
         
     </div>
 </div>
 
-  
-       
+    <!-- Child Delete Modal -->
+<div id="deleteConfirmModal" class="modal-d">
+    <div class="modal-dcontent">
+        <h4>Confirm Deletion</h4>
+        <p>Are you sure you want to delete this child?</p>
+        <button id="confirmDeleteBtn" class="btn btn-danger">Delete</button>
+        <button id="cancelDeleteBtn" class="btn btn-secondary">Cancel</button>
+    </div>
+</div>
 
 
    
@@ -797,35 +864,61 @@ document.getElementById("avatar-upload").addEventListener("change", function(eve
     reader.readAsDataURL(event.target.files[0]);
 });
 
+
+// delete modal
 document.addEventListener("DOMContentLoaded", function () {
+    let selectedKidNumber = null;
+
     document.querySelector("#children-info-content").addEventListener("click", function (event) {
         if (event.target.classList.contains("delete-btn")) {
-            let kidNumber = event.target.getAttribute("data-kidNumber");
+            selectedKidNumber = event.target.getAttribute("data-kidNumber");
+            document.getElementById("deleteConfirmModal").style.display = "flex"; // 显示 Modal
+        }
+    });
 
-            if (confirm("Are you sure you want to delete this child?")) {
-                fetch("profile_deletechild.php", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: "kidNumber=" + encodeURIComponent(kidNumber)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert("Children Information deleted successfully!");
-                        location.reload(); 
-                    } else {
-                        alert("Error: " + data.error);
-                    }
-                })
-                .catch(error => console.error("Error:", error));
-            }
+    document.getElementById("cancelDeleteBtn").addEventListener("click", function () {
+        document.getElementById("deleteConfirmModal").style.display = "none"; // 取消删除
+    });
+
+    document.getElementById("confirmDeleteBtn").addEventListener("click", function () {
+        if (selectedKidNumber) {
+            fetch("profile_deletechild.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: "kidNumber=" + encodeURIComponent(selectedKidNumber)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("deleteConfirmModal").style.display = "none"; // 关闭 Modal
+                if (data.success) {
+                    showToast("Children Information deleted successfully!");
+                    setTimeout(() => { location.reload(); }, 2000);
+                } else {
+                    showToast("Error: " + data.error, true);
+                }
+            })
+            .catch(error => console.error("Error:", error));
         }
     });
 });
 
+// Toast Notification Function
+function showToast(message, isError = false) {
+    let toast = document.getElementById("successToast");
+    toast.innerText = message;
+    toast.style.backgroundColor = isError ? "#dc3545" : "#28a745";
+    toast.style.display = "block";
+    toast.style.opacity = "1";
 
+    setTimeout(() => {
+        toast.style.opacity = "0";
+        setTimeout(() => { toast.style.display = "none"; }, 500);
+    }, 3000);
+}
+
+// edit modal
 document.getElementById("childForm").addEventListener("submit", function (event) {
-    event.preventDefault(); 
+    event.preventDefault();
 
     let formData = new FormData(this);
 
@@ -833,13 +926,32 @@ document.getElementById("childForm").addEventListener("submit", function (event)
         method: "POST",
         body: formData
     })
-    .then(response => response.text())
+    .then(response => response.json()) 
     .then(data => {
-        
-        location.reload(); 
+        if (data.success) {
+            showToast("Child information updated successfully!");
+            setTimeout(() => { location.reload(); }, 2000);
+        } else {
+            showToast("Error: " + data.error, true);
+        }
     })
     .catch(error => console.error("Error:", error));
 });
+
+// Toast Notification Function
+function showToast(message, isError = false) {
+    let toast = document.getElementById("successToast");
+    toast.innerText = message;
+    toast.style.backgroundColor = isError ? "#dc3545" : "#28a745";
+    toast.style.display = "block";
+    toast.style.opacity = "1";
+
+    setTimeout(() => {
+        toast.style.opacity = "0";
+        setTimeout(() => { toast.style.display = "none"; }, 500);
+    }, 3000);
+}
+
 
 function openEditModal(name, gender, kidNumber, birthday, school, year) {
     document.getElementById("childName").value = name;
@@ -860,6 +972,7 @@ function openEditModal(name, gender, kidNumber, birthday, school, year) {
 
     document.getElementById("childFormModal").style.display = "block";
 }
+
 
 document.addEventListener("DOMContentLoaded", function () {
     fetch("profile_myinfo.php")

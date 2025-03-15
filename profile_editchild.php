@@ -1,6 +1,6 @@
 <?php
-header('Content-Type: application/json'); // 确保返回 JSON
-include 'dbprofile_connection.php'; 
+header('Content-Type: application/json'); 
+include 'dbprofile_connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = mysqli_real_escape_string($connect, $_POST['name']);
@@ -17,22 +17,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 birthday = ?, 
                 school = ?, 
                 year = ? 
-            WHERE kidNumber = ?";  
+            WHERE kidNumber = ?";
 
     $stmt = mysqli_prepare($connect, $sql);
     if ($stmt) {
-      
         mysqli_stmt_bind_param($stmt, "ssssss", $name, $gender, $birthday, $school, $year, $kidNumber);
-
+        
         if (mysqli_stmt_execute($stmt)) {
-            echo "<script> window.location.href='profile.php';</script>";
+            echo json_encode(["success" => true]); 
         } else {
-            echo "Error updating children information: " . mysqli_error($connect);
+            echo json_encode(["success" => false, "error" => "Error updating children information: " . mysqli_error($connect)]);
         }
-
+        
         mysqli_stmt_close($stmt);
     } else {
-        echo "SQL statement preparation failed: " . mysqli_error($connect);
+        echo json_encode(["success" => false, "error" => "SQL statement preparation failed: " . mysqli_error($connect)]);
     }
 
     mysqli_close($connect);
