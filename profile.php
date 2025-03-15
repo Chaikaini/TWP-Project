@@ -915,7 +915,7 @@ document.querySelector("form").addEventListener("submit", async function (event)
             return;
         }
 
-        // if successs delete clear line
+        // if successs clear line
         if (result.status === "success") {
             document.getElementById("current-password").value = "";
             document.getElementById("new-password").value = "";
