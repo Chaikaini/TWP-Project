@@ -80,7 +80,7 @@ $stmt->bind_param("ssssssss", $username, $gender, $ic_num, $phone_num_1, $phone_
     }
     $stmt->close();
 
-    // sumit
+    // submit
     $conn->commit();
     echo json_encode(['status' => 'success', 'message' => 'Profile updated successfully']);
 

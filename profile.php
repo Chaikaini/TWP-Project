@@ -268,15 +268,24 @@
     cursor: pointer;
 }
 
-button.btn.btn-primaryy:hover {
+    button.btn.btn-primaryy:hover {
     background-color:#14a631;
 }
 
-.error-message {
+    .error-message {
         color: red;
         font-size: 0.875em;
         margin-left: 10px;
     }
+
+    .success-message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
 
     </style>
 </head>
@@ -355,7 +364,7 @@ button.btn.btn-primaryy:hover {
                 </label>
                 <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
             </div>
-
+            
             <form>
                 <div class="form-group">
                     <label for="username"> Name</label>
@@ -418,6 +427,7 @@ button.btn.btn-primaryy:hover {
                     <button type="submit">Save Changes</button>
                 </div>
             </form>
+            <div id="success-message" class="success-message" style="display: none;"></div>
         </div>
     
     <div class="profile-content" id="children-info-content">
@@ -872,6 +882,9 @@ document.addEventListener("DOMContentLoaded", function () {
 document.querySelector("form").addEventListener("submit", async function (event) {
     event.preventDefault();
 
+    const successMessage = document.getElementById("success-message");
+    successMessage.style.display = "none"; 
+
     // get data
     const formData = {
         username: document.getElementById("username").value,
@@ -889,7 +902,7 @@ document.querySelector("form").addEventListener("submit", async function (event)
     document.getElementById("current-password-error").textContent = "";
     document.getElementById("new-password-error").textContent = "";
 
-    // check new and confirm password match or not
+    // make sure new and confirm password match
     if (formData.new_password || formData.current_password) {
         if (formData.new_password !== formData.confirm_password) {
             document.getElementById("new-password-error").textContent = "* New and Confirm password do not match";
@@ -915,11 +928,20 @@ document.querySelector("form").addEventListener("submit", async function (event)
             return;
         }
 
-        // if successs clear line
+        // if update successful clear the line and alert successful message
         if (result.status === "success") {
             document.getElementById("current-password").value = "";
             document.getElementById("new-password").value = "";
             document.getElementById("confirm-password").value = "";
+
+            successMessage.textContent = "Profile updated successfully!";
+            successMessage.style.display = "block";
+            successMessage.style.color = "green"; // green color successful message
+
+            // after 6 second hide the successful message
+            setTimeout(() => {
+                successMessage.style.display = "none";
+            }, 6000);
         }
     } catch (error) {
         console.error("Error:", error);
