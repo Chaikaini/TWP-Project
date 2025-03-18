@@ -974,6 +974,44 @@ function openEditModal(name, gender, kidNumber, birthday, school, year) {
 }
 
 
+// add child
+document.getElementById("addChildForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    let formData = new FormData(this);
+
+    fetch("profile_addchild.php", {
+        method: "POST",
+        body: formData,
+        credentials: "include"  
+    })
+    .then(response => response.json()) 
+    .then(data => {
+        if (data.success) {
+            showToast("Child information added successfully!");
+            setTimeout(() => { location.reload(); }, 2000);
+        } else {
+            showToast("Error: " + data.error, true);
+        }
+    })
+    .catch(error => console.error("Error:", error));
+});
+
+// Toast Notification 
+function showToast(message, isError = false) {
+    let toast = document.getElementById("successToast");
+    toast.innerText = message;
+    toast.style.backgroundColor = isError ? "#dc3545" : "#28a745";
+    toast.style.display = "block";
+    toast.style.opacity = "1";
+
+    setTimeout(() => {
+        toast.style.opacity = "0";
+        setTimeout(() => { toast.style.display = "none"; }, 500);
+    }, 3000);
+}
+
+
 document.addEventListener("DOMContentLoaded", function () {
     fetch("profile_myinfo.php")
         .then(response => response.json())

@@ -1,6 +1,12 @@
 <?php
-session_start(); 
+session_start();
+header('Content-Type: application/json');
 
+// check session
+if (!isset($_SESSION['email']) || empty($_SESSION['email'])) {
+    echo json_encode(["success" => false, "error" => "Session expired or user not logged in."]);
+    exit;
+}
 
 $servername = "localhost"; 
 $username = "root";        
@@ -9,7 +15,8 @@ $dbname = "profile";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    echo json_encode(["success" => false, "error" => "Connection failed: " . $conn->connect_error]);
+    exit;
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -20,27 +27,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $birthday = $_POST['birthday'] ?? '';
     $school = $_POST['school'] ?? '';
     $year = $_POST['year'] ?? '';  
-    $email = $_SESSION['email'] ?? ''; // get email
+    $email = $_SESSION['email']; // get email
 
-    if (empty($email)) {
-        die("Error: User email not found.");
-    }
-
-  
     $sql = "INSERT INTO childreninfo (name, gender, kidNumber, birthday, school, year, email) 
             VALUES (?, ?, ?, ?, ?, ?, ?)";
-
+    
     $stmt = $conn->prepare($sql);
     if ($stmt === false) {
-        die("Error preparing statement: " . $conn->error);
+        echo json_encode(["success" => false, "error" => "Error preparing statement: " . $conn->error]);
+        exit;
     }
 
     $stmt->bind_param("sssssss", $name, $gender, $kidNumber, $birthday, $school, $year, $email);
 
     if ($stmt->execute()) {
-        echo "<script> window.location.href='profile.php';</script>";
+        echo json_encode(["success" => true, "message" => "Child information added successfully!"]);
     } else {
-        echo "Error: " . $stmt->error;
+        echo json_encode(["success" => false, "error" => "Error: " . $stmt->error]);
     }
 
     $stmt->close();
