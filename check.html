@@ -272,6 +272,67 @@
         background-color: #eef5ff;
     }
 
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 350px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.payment_picture {
+    width: 80px;
+    height: 80px;
+    margin: 10px auto; 
+    display: block;
+}
+
+
+#paymentTitle {
+    color: black;
+    font-size: 22px;
+    margin: 10px 0;
+}
+
+
+#paymentMessage {
+    font-size: 16px;
+    color: #333;
+}
+
+
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+
+
     </style>
 </head>
 
@@ -410,162 +471,138 @@
 </div>
 
 
+<!-- Payment Confirmation Modal -->
+<div id="paymentModal" class="modal">
+    <div class="modal-content">
+        <img id="payment_picture" src="" alt="Payment Status" class="payment_picture">
+        <h2 id="paymentTitle">Payment Successful</h2>
+        <p id="paymentMessage">You can check your payment history in the profile page.</p>
+        <button onclick="closeModal()">OK</button>
+    </div>
+</div>
+
 
 <script>
-var selectedBank = ""; 
+var selectedBank = ""; // 全局变量，存储用户选择的银行
 
- document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     var tngRadio = document.getElementById("tng");
     var jompayRadio = document.getElementById("jompay");
     var onlineBankingRadio = document.getElementById("online-banking");
     var phoneNumberField = document.getElementById("phone-number-field");
     var bankSelection = document.getElementById("bank-selection");
-    var bankList = document.getElementById("bank-list");
 
-    
     tngRadio.addEventListener("change", function () {
-        if (tngRadio.checked) {
-            phoneNumberField.style.display = "block";
-            bankSelection.style.display = "none"; 
-        }
+        phoneNumberField.style.display = tngRadio.checked ? "block" : "none";
+        bankSelection.style.display = "none";
     });
 
     jompayRadio.addEventListener("change", function () {
-        if (jompayRadio.checked) {
-            phoneNumberField.style.display = "none";
-            bankSelection.style.display = "none"; 
-        }
+        phoneNumberField.style.display = "none";
+        bankSelection.style.display = "none";
     });
 
     onlineBankingRadio.addEventListener("change", function () {
-        if (onlineBankingRadio.checked) {
-            phoneNumberField.style.display = "none";
-            bankSelection.style.display = "block"; 
-        }
+        phoneNumberField.style.display = "none";
+        bankSelection.style.display = "block";
     });
 
-    
+    // 选择银行
     document.querySelectorAll(".bank-option").forEach(function (bank) {
-    bank.addEventListener("click", function () {
-        selectedBank = this.getAttribute("data-bank"); 
-        document.querySelectorAll(".bank-option").forEach(b => b.classList.remove("selected"));
-        this.classList.add("selected"); 
+        bank.addEventListener("click", function () {
+            selectedBank = this.getAttribute("data-bank"); 
+            document.querySelectorAll(".bank-option").forEach(b => b.classList.remove("selected"));
+            this.classList.add("selected");
+        });
     });
 });
 
-
-
-      fetch("checkout.php")
-          .then(response => response.json())
-          .then(data => {
-              const container = document.getElementById("cart-container");
-              let totalAmount = 0;
-              let enrollmentFee = 100; 
-              container.innerHTML = ""; 
-
-              data.forEach(item => {
-                  totalAmount += parseFloat(item.price);
-
-                  const courseItem = `
-                      <div class="course-item">
-                          <img src="${item.image}" alt="${item.subject}">
-                          <div>
-                              <p><b>${item.subject}</b></p>
-                              <p><b>Teacher:</b> ${item.teacher}</p>
-                              <p><b>Price:</b> RM${item.price}</p>
-                              <p><b>Time:</b> ${item.time}</p>
-                              <p><b>Student:</b> ${item.child}</p>
-                          </div>
-                      </div>
-                      <hr>
-                  `;
-                  container.innerHTML += courseItem;
-              });
-
-              document.getElementById("subject-fee").innerText = `RM${totalAmount}`;
-              document.getElementById("total-amount").innerText = `RM${totalAmount + enrollmentFee}`;
-          })
-          .catch(error => console.error("Error fetching cart data:", error));
-  });
-
-  function validateForm() {
+function validateForm() {
     var tngSelected = document.getElementById('tng').checked;
     var jompaySelected = document.getElementById('jompay').checked;
     var onlineBankingSelected = document.getElementById('online-banking').checked;
     var phoneNumber = document.getElementById('phone-number').value;
     var phoneError = document.getElementById('phone-error');
-    var bankList = document.getElementById("bank-list");
     var bankError = document.getElementById("bank-error");
+
     var paymentMethod = tngSelected ? "TNG" : (jompaySelected ? "JomPAY" : (onlineBankingSelected ? "Online Banking" : ""));
 
-    // TNG 
-    if (tngSelected && phoneNumber === '') {
-        phoneError.style.display = 'inline';
-        alert('Please enter your phone number.');
-        return;
-    } else if (tngSelected && !/^\d{9}$/.test(phoneNumber)) {
-        phoneError.style.display = 'inline';
-        alert('Please enter a valid phone number.');
-        return;
-    } else {
-        phoneError.style.display = 'none';
+    // 检查 TNG 电话号码
+    if (tngSelected) {
+        if (phoneNumber === '') {
+            phoneError.style.display = 'inline';
+            showErrorPopup('Please enter your phone number.');
+            return;
+        } else if (!/^\d{9}$/.test(phoneNumber)) {
+            phoneError.style.display = 'inline';
+            showErrorPopup('Please enter a valid phone number.');
+            return;
+        } else {
+            phoneError.style.display = 'none';
+        }
     }
 
-    //  Online Banking 
+    // 检查是否选择银行
     if (onlineBankingSelected && !selectedBank) {
-    bankError.style.display = 'inline';
-    alert("Please select a bank.");
-    return;
-} else {
-    bankError.style.display = 'none';
+        bankError.style.display = 'inline';
+        showErrorPopup("Please select a bank.");
+        return;
+    } else {
+        bankError.style.display = 'none';
+    }
+
+    // 订单数据
+    var orderData = {
+        payment_method: paymentMethod,
+        bank: selectedBank
+    };
+
+    // 发送请求
+    fetch("process_payment.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showPaymentModal(true);
+            setTimeout(() => { window.location.href = "subject.html"; }, 4000);
+        } else {
+            showPaymentModal(false);
+        }
+    })
+    .catch(error => showPaymentModal(false));
+}
+
+function showPaymentModal(isSuccess) {
+    let modal = document.getElementById("paymentModal");
+    let paymentIcon = document.getElementById("payment_picture");
+    let paymentTitle = document.getElementById("paymentTitle");
+    let paymentMessage = document.getElementById("paymentMessage");
+
+    if (isSuccess) {
+        paymentIcon.src = "img/payment_s.png"; 
+        paymentTitle.innerText = "Payment Successful";
+        paymentMessage.innerText = "You can check your payment history in the profile page.";
+    } else {
+        paymentIcon.src = "img/payment_ns.png"; 
+        paymentTitle.innerText = "Payment Failed";
+        paymentMessage.innerText = "There was an issue processing your payment.";
+    }
+
+    modal.style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("paymentModal").style.display = "none";
 }
 
 
-        var totalAmount = document.getElementById("total-amount").innerText.replace("RM", "").trim();
+function simulatePayment(isSuccess) {
+    showPaymentModal(isSuccess);
+}
 
-        var studentName = document.querySelector(".course-item p:nth-of-type(5)") ? 
-                          document.querySelector(".course-item p:nth-of-type(5)").innerText.replace("Student: ", "") : "";
-
-        var courseName = document.querySelector(".course-item p b") ? 
-                         document.querySelector(".course-item p b").innerText : "";
-
-        var teacherName = document.querySelector(".course-item p:nth-of-type(2)") ? 
-                          document.querySelector(".course-item p:nth-of-type(2)").innerText.replace("Teacher: ", "") : "";
-
-        var courseTime = document.querySelector(".course-item p:nth-of-type(4)") ? 
-                         document.querySelector(".course-item p:nth-of-type(4)").innerText.replace("Time: ", "") : "";
-
-        if (!studentName || !courseName || !teacherName || !courseTime) {
-            alert("Order details are missing.");
-            return;
-        }
-
-        var orderData = {
-            student_name: studentName,
-            course_name: courseName,
-            teacher_name: teacherName,
-            total_amount: totalAmount,
-            payment_method: paymentMethod,
-            bank: selectedBank,
-            time: courseTime
-        };
-
-        fetch("process_payment.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(orderData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert("Payment successful!" ); // Order ID: " + data.order_id);
-                window.location.href = "subject.html";
-            } else {
-                alert("Payment failed: " + data.message);
-            }
-        })
-        .catch(error => console.error("Error processing payment:", error));
-    }
 
   
 </script>
