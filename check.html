@@ -60,12 +60,12 @@
     background-color: #f8f9fa;
     border-bottom: 1px solid #ccc;
     display: flex;
-    flex-direction: column; /* 让内容垂直排列 */
-    align-items: flex-start; /* 左对齐 */
+    flex-direction: column; 
+    align-items: flex-start; 
 }
 
 .breadcrumb-container h2 {
-    margin-bottom: 10px; /* 增加与面包屑导航的间距 */
+    margin-bottom: 10px; 
 }
 
 .breadcrumb-container .breadcrumb {
@@ -483,163 +483,182 @@ button:hover {
 
 
 <script>
-var selectedBank = ""; // 全局变量，存储用户选择的银行
-
-document.addEventListener("DOMContentLoaded", function () {
-    var tngRadio = document.getElementById("tng");
-    var jompayRadio = document.getElementById("jompay");
-    var onlineBankingRadio = document.getElementById("online-banking");
-    var phoneNumberField = document.getElementById("phone-number-field");
-    var bankSelection = document.getElementById("bank-selection");
-
-    tngRadio.addEventListener("change", function () {
-        phoneNumberField.style.display = tngRadio.checked ? "block" : "none";
-        bankSelection.style.display = "none";
-    });
-
-    jompayRadio.addEventListener("change", function () {
-        phoneNumberField.style.display = "none";
-        bankSelection.style.display = "none";
-    });
-
-    onlineBankingRadio.addEventListener("change", function () {
-        phoneNumberField.style.display = "none";
-        bankSelection.style.display = "block";
-    });
-
-    // 选择银行
-    document.querySelectorAll(".bank-option").forEach(function (bank) {
-        bank.addEventListener("click", function () {
-            selectedBank = this.getAttribute("data-bank"); 
-            document.querySelectorAll(".bank-option").forEach(b => b.classList.remove("selected"));
-            this.classList.add("selected");
+    var selectedBank = ""; 
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        var tngRadio = document.getElementById("tng");
+        var jompayRadio = document.getElementById("jompay");
+        var onlineBankingRadio = document.getElementById("online-banking");
+        var phoneNumberField = document.getElementById("phone-number-field");
+        var bankSelection = document.getElementById("bank-selection");
+    
+        tngRadio.addEventListener("change", function () {
+            phoneNumberField.style.display = tngRadio.checked ? "block" : "none";
+            bankSelection.style.display = "none";
+        });
+    
+        jompayRadio.addEventListener("change", function () {
+            phoneNumberField.style.display = "none";
+            bankSelection.style.display = "none";
+        });
+    
+        onlineBankingRadio.addEventListener("change", function () {
+            phoneNumberField.style.display = "none";
+            bankSelection.style.display = "block";
+        });
+    
+        // 选择银行
+        document.querySelectorAll(".bank-option").forEach(function (bank) {
+            bank.addEventListener("click", function () {
+                selectedBank = this.getAttribute("data-bank"); 
+                document.querySelectorAll(".bank-option").forEach(b => b.classList.remove("selected"));
+                this.classList.add("selected");
+                console.log("Selected Bank:", selectedBank); // 调试输出
+            });
         });
     });
-});
-
-fetch("checkout.php")
-          .then(response => response.json())
-          .then(data => {
-              const container = document.getElementById("cart-container");
-              let totalAmount = 0;
-              let enrollmentFee = 100; // 固定费用
-              container.innerHTML = ""; // 清空
-
-              data.forEach(item => {
-                  totalAmount += parseFloat(item.price);
-
-                  const courseItem = `
-                      <div class="course-item">
-                          <img src="${item.image}" alt="${item.subject}">
-                          <div>
-                              <p><b>${item.subject}</b></p>
-                              <p><b>Teacher:</b> ${item.teacher}</p>
-                              <p><b>Price:</b> RM${item.price}</p>
-                              <p><b>Time:</b> ${item.time}</p>
-                              <p><b>Student:</b> ${item.child}</p>
-                          </div>
-                      </div>
-                      <hr>
-                  `;
-                  container.innerHTML += courseItem;
-              });
-
-              document.getElementById("subject-fee").innerText = `RM${totalAmount}`;
-              document.getElementById("total-amount").innerText = `RM${totalAmount + enrollmentFee}`;
-          })
-          .catch(error => console.error("Error fetching cart data:", error));
-  ;
-
-
-function validateForm() {
-    var tngSelected = document.getElementById('tng').checked;
-    var jompaySelected = document.getElementById('jompay').checked;
-    var onlineBankingSelected = document.getElementById('online-banking').checked;
-    var phoneNumber = document.getElementById('phone-number').value;
-    var phoneError = document.getElementById('phone-error');
-    var bankError = document.getElementById("bank-error");
-
-    var paymentMethod = tngSelected ? "TNG" : (jompaySelected ? "JomPAY" : (onlineBankingSelected ? "Online Banking" : ""));
-
-    // 检查 TNG 电话号码
-    if (tngSelected) {
-        if (phoneNumber === '') {
-            phoneError.style.display = 'inline';
-            showErrorPopup('Please enter your phone number.');
+    
+    // 加载购物车数据
+    fetch("checkout.php")
+        .then(response => response.json())
+        .then(data => {
+            console.log("Cart Data:", data); // 调试输出
+    
+            const container = document.getElementById("cart-container");
+            let totalAmount = 0;
+            let enrollmentFee = 100; 
+            container.innerHTML = ""; 
+    
+            data.forEach(item => {
+                totalAmount += parseFloat(item.price);
+    
+                const courseItem = `
+                    <div class="course-item">
+                        <img src="${item.image}" alt="${item.subject}">
+                        <div>
+                            <p><b>${item.subject}</b></p>
+                            <p><b>Teacher:</b> ${item.teacher}</p>
+                            <p><b>Price:</b> RM${item.price}</p>
+                            <p><b>Time:</b> ${item.time}</p>
+                            <p><b>Student:</b> ${item.child}</p>
+                        </div>
+                    </div>
+                    <hr>
+                `;
+                container.innerHTML += courseItem;
+            });
+    
+            document.getElementById("subject-fee").innerText = `RM${totalAmount}`;
+            document.getElementById("total-amount").innerText = `RM${totalAmount + enrollmentFee}`;
+        })
+        .catch(error => console.error("Error fetching cart data:", error));
+    
+    
+    function validateForm() {
+        var tngSelected = document.getElementById('tng').checked;
+        var jompaySelected = document.getElementById('jompay').checked;
+        var onlineBankingSelected = document.getElementById('online-banking').checked;
+        var phoneNumber = document.getElementById('phone-number').value;
+        var phoneError = document.getElementById('phone-error');
+        var bankError = document.getElementById("bank-error");
+    
+        var paymentMethod = tngSelected ? "TNG" : (jompaySelected ? "JomPAY" : (onlineBankingSelected ? "Online Banking" : ""));
+        
+        // 确保选择了支付方式
+        if (!paymentMethod) {
+            showErrorPopup("Please select a payment method.");
             return;
-        } else if (!/^\d{9}$/.test(phoneNumber)) {
-            phoneError.style.display = 'inline';
-            showErrorPopup('Please enter a valid phone number.');
-            return;
-        } else {
-            phoneError.style.display = 'none';
         }
-    }
-
-    // 检查是否选择银行
-    if (onlineBankingSelected && !selectedBank) {
-        bankError.style.display = 'inline';
-        showErrorPopup("Please select a bank.");
-        return;
-    } else {
-        bankError.style.display = 'none';
-    }
-
-    // 订单数据
-    var orderData = {
-        payment_method: paymentMethod,
-        bank: selectedBank
-    };
-
-    // 发送请求
-    fetch("process_payment.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(orderData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            showPaymentModal(true);
-            setTimeout(() => { window.location.href = "subject.html"; }, 4000);
+    
+        // TNG 需要电话号码
+        if (tngSelected) {
+            if (phoneNumber === '') {
+                phoneError.style.display = 'inline';
+                showErrorPopup('Please enter your phone number.');
+                return;
+            } else if (!/^\d{9}$/.test(phoneNumber)) {
+                phoneError.style.display = 'inline';
+                showErrorPopup('Please enter a valid phone number.');
+                return;
+            } else {
+                phoneError.style.display = 'none';
+            }
+        }
+    
+        // Online Banking 需要选择银行
+        if (onlineBankingSelected && !selectedBank) {
+            bankError.style.display = 'inline';
+            showErrorPopup("Please select a bank.");
+            return;
         } else {
+            bankError.style.display = 'none';
+        }
+    
+        // 订单数据
+        var orderData = {
+            payment_method: paymentMethod,
+            bank: selectedBank,
+            phone: tngSelected ? phoneNumber : null
+        };
+    
+        console.log("Order Data:", orderData); // 调试输出
+    
+        // 发送请求到服务器
+        fetch("process_payment.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(orderData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Payment Response:", data); // 调试输出
+    
+            if (data.success) {
+                showPaymentModal(true);
+                setTimeout(() => { window.location.href = "subject.html"; }, 4000);
+            } else {
+                showPaymentModal(false);
+                showErrorPopup(data.message || "Payment failed.");
+            }
+        })
+        .catch(error => {
+            console.error("Error processing payment:", error);
             showPaymentModal(false);
-        }
-    })
-    .catch(error => showPaymentModal(false));
-}
-
-function showPaymentModal(isSuccess) {
-    let modal = document.getElementById("paymentModal");
-    let paymentIcon = document.getElementById("payment_picture");
-    let paymentTitle = document.getElementById("paymentTitle");
-    let paymentMessage = document.getElementById("paymentMessage");
-
-    if (isSuccess) {
-        paymentIcon.src = "img/payment_s.png"; 
-        paymentTitle.innerText = "Payment Successful";
-        paymentMessage.innerText = "You can check your payment history in the profile page.";
-    } else {
-        paymentIcon.src = "img/payment_ns.png"; 
-        paymentTitle.innerText = "Payment Failed";
-        paymentMessage.innerText = "There was an issue processing your payment.";
+        });
     }
-
-    modal.style.display = "flex";
-}
-
-function closeModal() {
-    document.getElementById("paymentModal").style.display = "none";
-}
-
-
-function simulatePayment(isSuccess) {
-    showPaymentModal(isSuccess);
-}
-
-
-  
-</script>
+    
+    // 显示支付结果的模态框
+    function showPaymentModal(isSuccess) {
+        let modal = document.getElementById("paymentModal");
+        let paymentIcon = document.getElementById("payment_picture");
+        let paymentTitle = document.getElementById("paymentTitle");
+        let paymentMessage = document.getElementById("paymentMessage");
+    
+        if (isSuccess) {
+            paymentIcon.src = "img/payment_s.png"; 
+            paymentTitle.innerText = "Payment Successful";
+            paymentMessage.innerText = "You can check your payment history in the profile page.";
+        } else {
+            paymentIcon.src = "img/payment_ns.png"; 
+            paymentTitle.innerText = "Payment Failed";
+            paymentMessage.innerText = "There was an issue processing your payment.";
+        }
+    
+        modal.style.display = "flex";
+    }
+    
+    // 关闭模态框
+    function closeModal() {
+        document.getElementById("paymentModal").style.display = "none";
+    }
+    
+    // 弹出错误信息
+    function showErrorPopup(message) {
+        alert(message);
+    }
+    
+    </script>
+    
 
 
         
