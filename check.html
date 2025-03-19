@@ -517,6 +517,40 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+fetch("checkout.php")
+          .then(response => response.json())
+          .then(data => {
+              const container = document.getElementById("cart-container");
+              let totalAmount = 0;
+              let enrollmentFee = 100; // 固定费用
+              container.innerHTML = ""; // 清空
+
+              data.forEach(item => {
+                  totalAmount += parseFloat(item.price);
+
+                  const courseItem = `
+                      <div class="course-item">
+                          <img src="${item.image}" alt="${item.subject}">
+                          <div>
+                              <p><b>${item.subject}</b></p>
+                              <p><b>Teacher:</b> ${item.teacher}</p>
+                              <p><b>Price:</b> RM${item.price}</p>
+                              <p><b>Time:</b> ${item.time}</p>
+                              <p><b>Student:</b> ${item.child}</p>
+                          </div>
+                      </div>
+                      <hr>
+                  `;
+                  container.innerHTML += courseItem;
+              });
+
+              document.getElementById("subject-fee").innerText = `RM${totalAmount}`;
+              document.getElementById("total-amount").innerText = `RM${totalAmount + enrollmentFee}`;
+          })
+          .catch(error => console.error("Error fetching cart data:", error));
+  ;
+
+
 function validateForm() {
     var tngSelected = document.getElementById('tng').checked;
     var jompaySelected = document.getElementById('jompay').checked;
