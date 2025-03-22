@@ -16,6 +16,7 @@ if (!$data) {
 // get email
 $email = isset($_SESSION["email"]) ? $conn->real_escape_string($_SESSION["email"]) : "";
 
+
 // get data
 $student_name = $conn->real_escape_string($data["student_name"]);
 $course_name = $conn->real_escape_string($data["course_name"]);

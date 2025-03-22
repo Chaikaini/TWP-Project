@@ -507,22 +507,22 @@ button:hover {
             bankSelection.style.display = "block";
         });
     
-        // 选择银行
+        // bank select
         document.querySelectorAll(".bank-option").forEach(function (bank) {
             bank.addEventListener("click", function () {
                 selectedBank = this.getAttribute("data-bank"); 
                 document.querySelectorAll(".bank-option").forEach(b => b.classList.remove("selected"));
                 this.classList.add("selected");
-                console.log("Selected Bank:", selectedBank); // 调试输出
+                console.log("Selected Bank:", selectedBank); 
             });
         });
     });
     
-    // 加载购物车数据
+    
     fetch("checkout.php")
         .then(response => response.json())
         .then(data => {
-            console.log("Cart Data:", data); // 调试输出
+            console.log("Cart Data:", data); 
     
             const container = document.getElementById("cart-container");
             let totalAmount = 0;
@@ -564,13 +564,13 @@ button:hover {
     
         var paymentMethod = tngSelected ? "TNG" : (jompaySelected ? "JomPAY" : (onlineBankingSelected ? "Online Banking" : ""));
         
-        // 确保选择了支付方式
+        // make sure have choose a payment method
         if (!paymentMethod) {
             showErrorPopup("Please select a payment method.");
             return;
         }
     
-        // TNG 需要电话号码
+        // TNG need phone num
         if (tngSelected) {
             if (phoneNumber === '') {
                 phoneError.style.display = 'inline';
@@ -585,7 +585,7 @@ button:hover {
             }
         }
     
-        // Online Banking 需要选择银行
+        // Online Banking need to choose bank
         if (onlineBankingSelected && !selectedBank) {
             bankError.style.display = 'inline';
             showErrorPopup("Please select a bank.");
@@ -594,16 +594,46 @@ button:hover {
             bankError.style.display = 'none';
         }
     
-        // 订单数据
+        
         var orderData = {
             payment_method: paymentMethod,
             bank: selectedBank,
             phone: tngSelected ? phoneNumber : null
         };
+        
+
+        var totalAmount = document.getElementById("total-amount").innerText.replace("RM", "").trim();
+
+        var studentName = document.querySelector(".course-item p:nth-of-type(5)") ? 
+                  document.querySelector(".course-item p:nth-of-type(5)").innerText.replace("Student: ", "") : "";
+
+        var courseName = document.querySelector(".course-item p b") ? 
+                 document.querySelector(".course-item p b").innerText : "";
+
+        var teacherName = document.querySelector(".course-item p:nth-of-type(2)") ? 
+                  document.querySelector(".course-item p:nth-of-type(2)").innerText.replace("Teacher: ", "") : "";
+
+        var courseTime = document.querySelector(".course-item p:nth-of-type(4)") ? 
+                 document.querySelector(".course-item p:nth-of-type(4)").innerText.replace("Time: ", "") : "";
+
+if (!studentName || !courseName || !teacherName || !courseTime) {
+    alert("Order details are missing.");
+    return;
+}
+
+var orderData = {
+    student_name: studentName,
+    course_name: courseName,
+    teacher_name: teacherName,
+    total_amount: totalAmount,
+    payment_method: paymentMethod,
+    time: courseTime,
+   
+};
+
+        console.log("Order Data:", orderData); 
     
-        console.log("Order Data:", orderData); // 调试输出
-    
-        // 发送请求到服务器
+        
         fetch("process_payment.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -611,7 +641,7 @@ button:hover {
         })
         .then(response => response.json())
         .then(data => {
-            console.log("Payment Response:", data); // 调试输出
+            console.log("Payment Response:", data); 
     
             if (data.success) {
                 showPaymentModal(true);
@@ -627,7 +657,7 @@ button:hover {
         });
     }
     
-    // 显示支付结果的模态框
+    // payment status alert modal
     function showPaymentModal(isSuccess) {
         let modal = document.getElementById("paymentModal");
         let paymentIcon = document.getElementById("payment_picture");
@@ -647,12 +677,12 @@ button:hover {
         modal.style.display = "flex";
     }
     
-    // 关闭模态框
+    // close payment status alert modal
     function closeModal() {
         document.getElementById("paymentModal").style.display = "none";
     }
     
-    // 弹出错误信息
+    
     function showErrorPopup(message) {
         alert(message);
     }
